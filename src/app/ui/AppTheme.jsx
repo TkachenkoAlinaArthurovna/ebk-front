@@ -7,6 +7,21 @@ const AppTheme = ({children}) => {
     palette: {
       primary: {
         main: '#49BEB7',
+        light: '#42a5f5',
+        dark: '#42ADA7',
+        contrastText: '#FFFFFF'
+      },
+      secondary: {
+        main: '#E5E5E5',
+      }
+    },
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            fontSize: '16px',
+          },
+        },
       },
     },
   })
