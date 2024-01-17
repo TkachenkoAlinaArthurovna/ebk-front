@@ -4,6 +4,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import Header from '@/app/ui/home-page/header/Header';
+import Footer from '@/app/ui/home-page/footer/Footer';
 import AppTheme from '@/app/ui/AppTheme';
 import Wrapper from '@/app/ui/Wrapper';
 
@@ -20,7 +21,7 @@ export default function RootLayout({ children }) {
           <Wrapper>
             <Header />
             {children}
-            {/* <Footer /> */}
+            <Footer />
           </Wrapper>
         </body>
       </AppTheme>
