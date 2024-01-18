@@ -13,13 +13,19 @@ const AppTheme = ({children}) => {
       },
       secondary: {
         main: '#E5E5E5',
+        light: '#EEEEEE',
+        dark: '#D0D0D0',
+        contrastText: '#FFFFFF'
       }
     },
     components: {
       MuiButton: {
         styleOverrides: {
           root: {
+            padding: '12px 40px',
+            borderRadius: '100px',
             fontSize: '16px',
+            textTransform: 'capitalize',
           },
         },
       },
