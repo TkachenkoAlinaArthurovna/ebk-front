@@ -15,7 +15,7 @@ const CategoryItem = ({ name, img, url }) => {
           <StyledBox>
             <Stack>
               <StyledImage component="img" alt={name} src={img} />
-              <StyledName variant="subtitle1" gutterBottom>
+              <StyledName variant="subtitle1">
                 {name}
               </StyledName>
             </Stack>

@@ -1,4 +1,4 @@
-export const categoryBlockMockData = [
+export const categoryBlockData = [
   {
     name: "Гірські",
     img: "mtb-e-bike.jpg",
