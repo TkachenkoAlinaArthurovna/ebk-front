@@ -1,36 +1,9 @@
 'use client';
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Slider from '@/app/ui/Slider';
 import { StyledTabs, StyledTab } from '@/app/ui/Tabs/TabsStyled';
-
-function CustomTabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-CustomTabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
+import CustomTabPanel from '@/app/ui/Tabs/CustomTabPanel';
 
 function a11yProps(index) {
   return {
@@ -39,7 +12,7 @@ function a11yProps(index) {
   };
 }
 
-const BasicTabs = () => {
+const Tabs = () => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -69,14 +42,7 @@ const BasicTabs = () => {
           spaceBetween="16px"
           slidesPerView="4"
           pagination={false}
-          products={[
-            { id: 1 },
-            { id: 2 },
-            { id: 3 },
-            { id: 4 },
-            { id: 5 },
-            { id: 6 },
-          ]}
+          products={true}
         />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
@@ -85,14 +51,7 @@ const BasicTabs = () => {
           spaceBetween="16px"
           slidesPerView="4"
           pagination={false}
-          products={[
-            { id: 1 },
-            { id: 2 },
-            { id: 3 },
-            { id: 4 },
-            { id: 5 },
-            { id: 6 },
-          ]}
+          products={true}
         />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
@@ -101,18 +60,11 @@ const BasicTabs = () => {
           spaceBetween="16px"
           slidesPerView="4"
           pagination={false}
-          products={[
-            { id: 1 },
-            { id: 2 },
-            { id: 3 },
-            { id: 4 },
-            { id: 5 },
-            { id: 6 },
-          ]}
+          products={true}
         />
       </CustomTabPanel>
     </Box>
   );
 };
 
-export default BasicTabs;
+export default Tabs;
