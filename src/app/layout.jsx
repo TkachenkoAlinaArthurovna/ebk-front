@@ -3,9 +3,10 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import Header from '@/app/ui/home-page/header/Header';
 import AppTheme from '@/app/ui/AppTheme';
 import Wrapper from '@/app/ui/Wrapper';
-import Content from '@/app/ui/Content';
+
 
 export const metadata = {
   title: 'EBK online store',
@@ -18,10 +19,8 @@ export default function RootLayout({ children }) {
       <AppTheme>
         <body>
           <Wrapper>
-            <Content>
-              {/* <Header /> */}
+            <Header />
               {children}
-            </Content>
             {/* <Footer /> */}
           </Wrapper>
         </body>
