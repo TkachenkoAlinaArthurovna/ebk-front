@@ -1,7 +1,3 @@
 export default function Cabinet() {
-    return (
-        <div>
-            Cabinet
-        </div>
-    )
+  return <div>Cabinet</div>;
 }

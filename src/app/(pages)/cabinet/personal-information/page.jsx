@@ -1,7 +1,3 @@
 export default function PersonalInformation() {
-    return (
-        <div>
-            Personal Information
-        </div>
-    )
+  return <div>Personal Information</div>;
 }
