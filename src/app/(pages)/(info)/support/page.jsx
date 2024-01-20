@@ -1,7 +1,3 @@
 export default function Support() {
-    return (
-        <div>
-            Support
-        </div>
-    )
+  return <div>Support</div>;
 }

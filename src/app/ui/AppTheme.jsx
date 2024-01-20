@@ -15,7 +15,13 @@ const AppTheme = ({children}) => {
         main: '#E5E5E5',
         light: '#EEEEEE',
         dark: '#D0D0D0',
-        contrastText: '#FFFFFF'
+        contrastText: 'black'
+      },
+      white: {
+        main: '#FFFFFF',
+      },
+      lightGrey: {
+        main: '#F3F3F3',
       }
     },
     components: {
@@ -26,6 +32,15 @@ const AppTheme = ({children}) => {
             borderRadius: '100px',
             fontSize: '16px',
             textTransform: 'capitalize',
+          },
+        },
+      },
+      MuiAppBar: {
+        styleOverrides: {
+          root: {
+            boxShadow: "none",
+            padding: '27px 48px',
+            fontSize: '16px',
           },
         },
       },
