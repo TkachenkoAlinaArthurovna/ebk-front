@@ -1,5 +1,6 @@
-import { styled } from '@mui/system';
-import { Box, Typography } from '@mui/material';
+'use client'
+
+import { styled, Box, Typography } from '@mui/material';
 import Link from 'next/link';
 
 export const StyledLink = styled(Link)`

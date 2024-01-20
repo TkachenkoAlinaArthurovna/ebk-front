@@ -4,7 +4,7 @@ import { StyledTitle, StyledBox } from '@/app/ui/PageTitle/PageTitleStyles';
 /**
  * If you want to display text in the center.
  * @example
- * <Title position="center">Text</Title>
+ * <PageTitle position="center">Text</PageTitle>
  */
 
 const PageTitle = ({ children, position }) => {
