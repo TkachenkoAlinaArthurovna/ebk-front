@@ -12,45 +12,53 @@ import {
 
 import 'swiper/css';
 
+const productsArr = [
+  { id: 1 },
+  { id: 2 },
+  { id: 3 },
+  { id: 4 },
+  { id: 5 },
+  { id: 6 },
+];
+
 const Slider = ({
   autoplay,
-  speed = false,
+  speed = 1000,
   spaceBetween,
   slidesPerView,
   pagination,
-  products = [],
-  slides = [],
+  products,
+  // slides = [],
 }) => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   let listProducts;
-  let listSlides;
+  // let listSlides;
 
-  if (products.length > 0) {
-    listProducts = products.map((product) => (
+  // if (slides.length > 0) {
+  //   listSlides = slides.map((slide) => (
+  //     <SwiperSlide key={slide.index}>
+  //       {/* <Image
+  //         src={slide}
+  //         fill
+  //         style={{
+  //           objectFit: 'contain',
+  //         }}
+  //       /> */}
+  //       <img
+  //         src={slide}
+  //         style={{
+  //           width: '100%',
+  //           borderRadius: '28px',
+  //         }}
+  //       ></img>
+  //     </SwiperSlide>
+  //   ));
+  // }
+  if (products) {
+    listProducts = productsArr.map((product) => (
       <SwiperSlide key={product.id}>
         <ProductCard />
-      </SwiperSlide>
-    ));
-  }
-
-  if (slides.length > 0) {
-    listSlides = slides.map((slide) => (
-      <SwiperSlide key={slide.index}>
-        {/* <Image
-          src={slide}
-          fill
-          style={{
-            objectFit: 'contain',
-          }}
-        /> */}
-        <img
-          src={slide}
-          style={{
-            width: '100%',
-            borderRadius: '28px',
-          }}
-        ></img>
       </SwiperSlide>
     ));
   }
@@ -72,27 +80,10 @@ const Slider = ({
           swiper.navigation.update();
         }}
       >
-        {products.length > 0 && listProducts}
-        {slides.length > 0 && listSlides}
+        {products && listProducts}
+        {/*{slides.length > 0 && listSlides} */}
       </Swiper>
-
-      {products.length > 0 && (
-        <>
-          <SwiperPrev
-            ref={prevRef}
-            component="img"
-            alt="prev"
-            src="/images/swiper/prev.png"
-          />
-          <SwiperNext
-            ref={nextRef}
-            component="img"
-            alt="next"
-            src="/images/swiper/next.png"
-          />
-        </>
-      )}
-      {slides.length > 0 && (
+      {/* {slides.length > 0 && (
         <>
           <MainSwiperPrev
             ref={prevRef}
@@ -101,6 +92,23 @@ const Slider = ({
             src="/images/swiper/prev.png"
           />
           <MainSwiperNext
+            ref={nextRef}
+            component="img"
+            alt="next"
+            src="/images/swiper/next.png"
+          />
+        </>
+      )}*/}
+
+      {products && (
+        <>
+          <SwiperPrev
+            ref={prevRef}
+            component="img"
+            alt="prev"
+            src="/images/swiper/prev.png"
+          />
+          <SwiperNext
             ref={nextRef}
             component="img"
             alt="next"
