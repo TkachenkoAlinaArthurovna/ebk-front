@@ -28,33 +28,33 @@ const Slider = ({
   slidesPerView,
   pagination,
   products,
-  // slides = [],
+  slides,
 }) => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   let listProducts;
-  // let listSlides;
+  let listSlides;
 
-  // if (slides.length > 0) {
-  //   listSlides = slides.map((slide) => (
-  //     <SwiperSlide key={slide.index}>
-  //       {/* <Image
-  //         src={slide}
-  //         fill
-  //         style={{
-  //           objectFit: 'contain',
-  //         }}
-  //       /> */}
-  //       <img
-  //         src={slide}
-  //         style={{
-  //           width: '100%',
-  //           borderRadius: '28px',
-  //         }}
-  //       ></img>
-  //     </SwiperSlide>
-  //   ));
-  // }
+  if (slides) {
+    listSlides = slides.map((slide) => (
+      <SwiperSlide key={slide.index}>
+        {/* <Image
+          src={slide}
+          fill
+          style={{
+            objectFit: 'contain',
+          }}
+        /> */}
+        <img
+          src={slide}
+          style={{
+            width: '100%',
+            borderRadius: '28px',
+          }}
+        ></img>
+      </SwiperSlide>
+    ));
+  }
   if (products) {
     listProducts = productsArr.map((product) => (
       <SwiperSlide key={product.id}>
@@ -81,34 +81,38 @@ const Slider = ({
         }}
       >
         {products && listProducts}
-        {/*{slides.length > 0 && listSlides} */}
+        {slides && listSlides}
       </Swiper>
-      {/* {slides.length > 0 && (
-        <>
-          <MainSwiperPrev
-            ref={prevRef}
-            component="img"
-            alt="prev"
-            src="/images/swiper/prev.png"
-          />
-          <MainSwiperNext
-            ref={nextRef}
-            component="img"
-            alt="next"
-            src="/images/swiper/next.png"
-          />
-        </>
-      )}*/}
-
-      {products && (
+      {slides && (
         <>
           <SwiperPrev
+            swipertype="main"
             ref={prevRef}
             component="img"
             alt="prev"
             src="/images/swiper/prev.png"
           />
           <SwiperNext
+            swipertype="main"
+            ref={nextRef}
+            component="img"
+            alt="next"
+            src="/images/swiper/next.png"
+          />
+        </>
+      )}
+
+      {products && (
+        <>
+          <SwiperPrev
+            swipertype="section"
+            ref={prevRef}
+            component="img"
+            alt="prev"
+            src="/images/swiper/prev.png"
+          />
+          <SwiperNext
+            swipertype="section"
             ref={nextRef}
             component="img"
             alt="next"

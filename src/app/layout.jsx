@@ -7,7 +7,6 @@ import Header from '@/app/ui/home-page/header/Header';
 import AppTheme from '@/app/ui/AppTheme';
 import Wrapper from '@/app/ui/Wrapper';
 
-
 export const metadata = {
   title: 'EBK online store',
   description: 'Electronic Bike Kits',
@@ -20,7 +19,7 @@ export default function RootLayout({ children }) {
         <body>
           <Wrapper>
             <Header />
-              {children}
+            {children}
             {/* <Footer /> */}
           </Wrapper>
         </body>

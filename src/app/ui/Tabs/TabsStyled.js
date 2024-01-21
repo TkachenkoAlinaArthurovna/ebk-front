@@ -1,7 +1,11 @@
 'use client';
-import { styled } from '@mui/system';
+import { styled, Box } from '@mui/material';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+
+export const StyledSection = styled(Box)`
+  margin-bottom: 80px;
+`;
 
 export const StyledTabs = styled((props) => (
   <Tabs

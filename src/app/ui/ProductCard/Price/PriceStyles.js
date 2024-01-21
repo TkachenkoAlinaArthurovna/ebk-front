@@ -8,6 +8,7 @@ export const WrapperBoxNew = styled(Box)`
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: center;
+  font-family: 'Roboto';
   font-size: 22px;
   font-weight: 600;
   line-height: 28px;
@@ -18,6 +19,7 @@ export const WrapperBoxOld = styled(Box)`
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: center;
+  font-family: 'Roboto';
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
@@ -30,6 +32,7 @@ export const Discount = styled(Box)`
   left: 16px;
   padding: 8px;
   border-radius: 8px;
+  font-family: 'Roboto';
   font-size: 16px;
   font-weight: 400;
   color: #ffffff;
