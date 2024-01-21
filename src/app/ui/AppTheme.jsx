@@ -23,7 +23,7 @@ const AppTheme = ({ children }) => {
       },
       lightGrey: {
         main: '#F3F3F3',
-      }
+      },
     },
     components: {
       MuiButton: {
@@ -39,7 +39,7 @@ const AppTheme = ({ children }) => {
       MuiAppBar: {
         styleOverrides: {
           root: {
-            boxShadow: "none",
+            boxShadow: 'none',
             padding: '27px 48px',
             fontSize: '16px',
           },

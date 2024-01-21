@@ -7,7 +7,7 @@ export const SearchComponent = () => {
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: 100,
-    padding: '12px 40px',
+    // padding: '12px 40px',
     boxShadow: '0 2px 0 0 rgba(0, 0, 0, 0.08)',
     backgroundColor: alpha(theme.palette.lightGrey.main, 1),
     '&:hover': {
@@ -16,10 +16,10 @@ export const SearchComponent = () => {
     // marginRight: theme.spacing(2),
     // marginLeft: 0,
     width: '100%',
-    // [theme.breakpoints.up('sm')]: {
-    //   // marginLeft: theme.spacing(3),
-    //   width: 'auto',
-    // },
+    [theme.breakpoints.up('sm')]: {
+      // marginLeft: theme.spacing(3),
+      width: '100%',
+    },
   }));
 
   const SearchIconWrapper = styled('div')(({ theme }) => ({
@@ -36,14 +36,16 @@ export const SearchComponent = () => {
 
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
+    padding: '12px 40px',
+    width: '100%',
     '& .MuiInputBase-input': {
       // padding: theme.spacing(1, 1, 1, 0),
       // vertical padding + font size from searchIcon
       // paddingLeft: `calc(1em + ${theme.spacing(1)})`,
-      // transition: theme.transitions.create('width'),
-      // width: '100%',
+      transition: theme.transitions.create('width'),
+      width: '100%',
       [theme.breakpoints.up('md')]: {
-        width: '30ch',
+        width: '100%',
       },
     },
   }));

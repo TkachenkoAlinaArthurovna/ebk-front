@@ -10,6 +10,7 @@ const Content = ({ children }) => {
         height: '100%',
         padding: '0 48px',
         margin: '0 auto',
+        width: '100%',
       }}
     >
       {children}
