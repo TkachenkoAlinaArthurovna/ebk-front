@@ -4,6 +4,7 @@ import PageTitle from '@/app/ui/PageTitle';
 import { categoryBlockData } from '@/app/lib/mockData';
 import GridContainer from '@/app/ui/GridContainer/GridContainer';
 import Content from '@/app/ui/Content';
+import { StyledContainer } from '@/app/ui/Homepage/CategoryBlock/CategoryBlockStyles';
 
 const CategoryBlock = () => {
   const data = categoryBlockData;
@@ -14,12 +15,12 @@ const CategoryBlock = () => {
   });
 
   return (
-    <section>
+    <StyledContainer as="section">
       <Content>
         <PageTitle>Електровелосипеди</PageTitle>
         <GridContainer>{categoryItems}</GridContainer>
       </Content>
-    </section>
+    </StyledContainer>
   );
 };
 
