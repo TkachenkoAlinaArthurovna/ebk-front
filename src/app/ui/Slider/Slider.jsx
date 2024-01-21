@@ -76,7 +76,7 @@ const Slider = ({
         pagination={pagination}
         modules={[Autoplay, Navigation, Pagination]}
         onInit={(swiper) => {
-          if (swiper) {
+          if (slides) {
             swiper.params.navigation.prevEl = prevRef.current;
             swiper.params.navigation.nextEl = nextRef.current;
           }
