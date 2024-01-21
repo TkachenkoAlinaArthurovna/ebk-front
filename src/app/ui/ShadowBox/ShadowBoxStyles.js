@@ -7,7 +7,6 @@ export const StyledBox = styled(Box)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
   padding: 42px;
   box-shadow: 0px 4px 40px 0px rgba(190, 190, 190, 0.25);
   border-radius: 28px;
