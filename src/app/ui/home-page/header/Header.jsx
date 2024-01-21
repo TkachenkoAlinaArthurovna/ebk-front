@@ -9,8 +9,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -21,143 +19,140 @@ import Phones from '@/app/ui/home-page/header/Phones';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import CloseIcon from '@mui/icons-material/Close';
 import Catalog from '@/app/ui/home-page/header/Catalog';
-import {
-  ListItem,
-  ListItemButton,
-  Paper,
-  Popover,
-  Typography,
-  ListItemIcon,
-  ListItemText,
-} from '@mui/material';
-
-const navigation = [
-  { id: 1, title: 'Каталог товарів', path: '/catalog' },
-  { id: 2, title: 'Кошик', path: '/cart' },
-  { id: 3, title: 'Обране', path: '/favorive' },
-  { id: 4, title: 'Компанія', path: '/about' },
-  { id: 5, title: 'Про нас', path: '/about' },
-  { id: 6, title: 'Контакти', path: '/contacts' },
-  { id: 7, title: 'Відгуки', path: '/reviews' },
-  { id: 8, title: 'Допомога', path: '/support' },
-  { id: 9, title: 'Оплата та доставка', path: '/about' },
-  { id: 10, title: 'Повернення товару', path: '/about' },
-  { id: 11, title: 'Підтримка', path: '/about' },
-];
+import SideBar from '@/app/ui/home-page/header/SideBar';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemButton from '@mui/material/ListItemButton';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import { styled, alpha } from '@mui/material/styles';
 
 const Header = () => {
-  const [catalog, setCatalog] = useState(false);
-
-  //   const { pathname } = useRouter();
   const [openDrawer, setOpenDrawer] = useState(false);
   const toggleDrawer = () => {
     setOpenDrawer(!openDrawer);
   };
+  const [openCatalog, setOpen] = React.useState(false);
+  const handleOpenCatalog = () => setOpen(true);
+  const handleCloseCatalog = () => setOpen(false);
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleClickCatalog = (event) => {
-    setCatalog(!catalog);
-    setAnchorEl(event.currentTarget);
+  const [phoneList, setPhoneList] = useState(false);
+  const [anchor, setAnchor] = useState(null);
+  const handleClickPones = (event) => {
+    setPhoneList(!phoneList);
+    setAnchor(event.currentTarget);
   };
 
-  const handleCloseCatalog = () => {
-    setAnchorEl(null);
-    setCatalog(!catalog);
+  const handleClosePhones = () => {
+    setAnchor(null);
+    setPhoneList(!phoneList);
   };
-  const open = Boolean(anchorEl);
 
+  const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
+    color: 'inherit',
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.white.main, 1),
+    },
+  }));
   return (
     <>
-      <AppBar position="static" color="white">
+      <AppBar sx={{ padding: '26px 0' }} position="static" color="white">
         <Content>
-        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <IconButton
-            onClick={toggleDrawer}
-            edge="start"
-            color="inherit"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-            <Drawer anchor="left" open={openDrawer} onClose={toggleDrawer}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  flexDirection: 'column',
-                  margin: '28px 48px',
-                }}
-              >
-                <Box>
-                  <Button
-                    sx={{ width: '180px', marginRight: '8px' }}
-                    variant="contained"
-                  >
-                    Вхід
-                  </Button>
-                  <Button sx={{ width: '180px' }} variant="outlined">
-                    Peєстрація
-                  </Button>
-                </Box>
-                <Typography sx={{ color: 'grey', margin: '12px 0' }}>
-                  Авторизуйтесь для отримання розширених можливостей
-                </Typography>
-              </Box>
-
-              <List>
-                {navigation.map(({ id, title, path }) => (
-                  <ListItem key={title}>
-                    <Link href={path}>
-                      <ListItemText primary={title} />
-                    </Link>
-                  </ListItem>
-                ))}
-              </List>
-            </Drawer>
-          </IconButton>
-          <Link href="/">
-            <Image src={logo} component="button" alt="logo" />
-          </Link>
-
-          <Button
-            onClick={handleClickCatalog}
-            variant="contained"
-            sx={{ margin: '0 32px' }}
-          >
-            Каталог {catalog ? <CloseIcon /> : <ExpandMore />}
-          </Button>
-          <Catalog
-            open={open}
-            anchorEl={anchorEl}
-            handleCloseCatalog={handleCloseCatalog}
-          />
-          <SearchComponent />
-          <Phones />
-          <Box
+          <Toolbar
+            disableGutters
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
-              width: '220px',
-              marginLeft: '32px',
             }}
           >
-            <Link href="/favorite" sx={{}}>
-              <Badge badgeContent={null} color="error">
-                <FavoriteBorderIcon />
-              </Badge>
+            <IconButton
+              onClick={toggleDrawer}
+              color="inherit"
+              edge="start"
+              sx={{ mr: 2 }}
+            >
+              <MenuIcon fontSize="large" />
+              {/* убрать марджини и падинги из Сайтбара */}
+              <SideBar
+                toggleDrawer={toggleDrawer}
+                openDrawer={openDrawer}
+                handleOpenCatalog={handleOpenCatalog}
+              />
+            </IconButton>
+            <Link href="/">
+              <Image src={logo} component="button" alt="logo" />
             </Link>
-            <Link href="/cart">
-              <Badge badgeContent={5} color="error">
-                <ShoppingCartIcon />
-              </Badge>
-            </Link>
-            <Link href="/cabinet">
-              <Badge badgeContent={null} color="error">
-                <PermIdentityIcon />
-              </Badge>
-            </Link>
-          </Box>
-        </Toolbar>
+
+            <Button
+              onClick={handleOpenCatalog}
+              variant="contained"
+              sx={{ margin: '0 32px' }}
+            >
+              Каталог {openCatalog ? <CloseIcon /> : <ExpandMore />}
+            </Button>
+            <Catalog
+              openCatalog={openCatalog}
+              handleCloseCatalog={handleCloseCatalog}
+            />
+            <SearchComponent />
+            <Box
+              sx={{
+                position: 'relative',
+                minWidth: '240px',
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              <StyledListItemButton href="tel:+380 63 32 95 468">
+                <LocalPhoneIcon sx={{ color: 'black', marginRight: 1 }} />
+                <ListItemText primary="+380 63 32 95 468" />
+              </StyledListItemButton>
+              <IconButton onClick={handleClickPones}>
+                {phoneList ? (
+                  <ExpandLess sx={{ color: 'black' }} />
+                ) : (
+                  <ExpandMore sx={{ color: 'black' }} />
+                )}
+              </IconButton>
+              <Phones
+                handleClosePhones={handleClosePhones}
+                anchor={anchor}
+                phoneList={phoneList}
+              />
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                width: '220px',
+                marginLeft: '32px',
+              }}
+            >
+              <Link href="/favorite">
+                <Badge badgeContent={null} color="error">
+                  <FavoriteBorderIcon
+                    // fontSize="large"
+                    sx={{ margin: '0 8px ' }}
+                  />
+                </Badge>
+              </Link>
+              <Link href="/cart">
+                <Badge badgeContent={5} color="error">
+                  <ShoppingCartIcon
+                    // fontSize="large"
+                    sx={{ margin: '0 8px' }}
+                  />
+                </Badge>
+              </Link>
+              <Link href="/cabinet">
+                <Badge badgeContent={null} color="error">
+                  <PermIdentityIcon
+                    // fontSize="large"
+                    sx={{ margin: '0 8px' }}
+                  />
+                </Badge>
+              </Link>
+            </Box>
+          </Toolbar>
         </Content>
       </AppBar>
     </>
