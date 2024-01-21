@@ -32,6 +32,8 @@ const Slider = ({
 }) => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
+  const prevRefProducts = useRef(null);
+  const nextRefProducts = useRef(null);
   let listProducts;
   let listSlides;
 
@@ -74,8 +76,14 @@ const Slider = ({
         pagination={pagination}
         modules={[Autoplay, Navigation, Pagination]}
         onInit={(swiper) => {
-          swiper.params.navigation.prevEl = prevRef.current;
-          swiper.params.navigation.nextEl = nextRef.current;
+          if (swiper) {
+            swiper.params.navigation.prevEl = prevRef.current;
+            swiper.params.navigation.nextEl = nextRef.current;
+          }
+          if (products) {
+            swiper.params.navigation.prevEl = prevRefProducts.current;
+            swiper.params.navigation.nextEl = nextRefProducts.current;
+          }
           swiper.navigation.init();
           swiper.navigation.update();
         }}
@@ -106,14 +114,14 @@ const Slider = ({
         <>
           <SwiperPrev
             swipertype="section"
-            ref={prevRef}
+            ref={prevRefProducts}
             component="img"
             alt="prev"
             src="/images/swiper/prev.png"
           />
           <SwiperNext
             swipertype="section"
-            ref={nextRef}
+            ref={nextRefProducts}
             component="img"
             alt="next"
             src="/images/swiper/next.png"
