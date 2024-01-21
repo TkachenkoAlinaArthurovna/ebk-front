@@ -38,8 +38,8 @@ const Slider = ({
   let listSlides;
 
   if (slides) {
-    listSlides = slides.map((slide) => (
-      <SwiperSlide key={slide.index}>
+    listSlides = slides.map((slide, index) => (
+      <SwiperSlide key={index}>
         {/* <Image
           src={slide}
           fill
