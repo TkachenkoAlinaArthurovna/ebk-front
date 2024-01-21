@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import ProductCard from '@/app/ui/ProductCard';
@@ -11,6 +12,7 @@ import {
 // import Image from 'next/image';
 
 import 'swiper/css';
+import 'swiper/css/pagination';
 
 const productsArr = [
   { id: 1 },
@@ -30,10 +32,7 @@ const Slider = ({
   products,
   slides,
 }) => {
-  const prevRef = useRef(null);
-  const nextRef = useRef(null);
-  const prevRefProducts = useRef(null);
-  const nextRefProducts = useRef(null);
+  const [swiper, setSwiper] = useState();
   let listProducts;
   let listSlides;
 
@@ -68,6 +67,7 @@ const Slider = ({
   return (
     <>
       <Swiper
+        onSwiper={setSwiper}
         autoplay={autoplay}
         speed={speed}
         spaceBetween={spaceBetween}
@@ -75,18 +75,6 @@ const Slider = ({
         loop={true}
         pagination={pagination}
         modules={[Autoplay, Navigation, Pagination]}
-        onInit={(swiper) => {
-          if (slides) {
-            swiper.params.navigation.prevEl = prevRef.current;
-            swiper.params.navigation.nextEl = nextRef.current;
-          }
-          if (products) {
-            swiper.params.navigation.prevEl = prevRefProducts.current;
-            swiper.params.navigation.nextEl = nextRefProducts.current;
-          }
-          swiper.navigation.init();
-          swiper.navigation.update();
-        }}
       >
         {products && listProducts}
         {slides && listSlides}
@@ -94,15 +82,15 @@ const Slider = ({
       {slides && (
         <>
           <SwiperPrev
+            onClick={() => swiper.slidePrev()}
             swipertype="main"
-            ref={prevRef}
             component="img"
             alt="prev"
             src="/images/swiper/prev.png"
           />
           <SwiperNext
+            onClick={() => swiper.slideNext()}
             swipertype="main"
-            ref={nextRef}
             component="img"
             alt="next"
             src="/images/swiper/next.png"
@@ -113,15 +101,15 @@ const Slider = ({
       {products && (
         <>
           <SwiperPrev
+            onClick={() => swiper.slidePrev()}
             swipertype="section"
-            ref={prevRefProducts}
             component="img"
             alt="prev"
             src="/images/swiper/prev.png"
           />
           <SwiperNext
+            onClick={() => swiper.slideNext()}
             swipertype="section"
-            ref={nextRefProducts}
             component="img"
             alt="next"
             src="/images/swiper/next.png"
