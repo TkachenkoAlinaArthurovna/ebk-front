@@ -29,7 +29,7 @@ const AppTheme = ({ children }) => {
       MuiButton: {
         styleOverrides: {
           root: {
-            padding: '12px 40px',
+            padding: '0',
             borderRadius: '100px',
             fontSize: '16px',
             textTransform: 'capitalize',

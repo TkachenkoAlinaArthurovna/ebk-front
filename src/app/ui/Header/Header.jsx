@@ -13,13 +13,13 @@ import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Badge from '@mui/material/Badge';
-import logo from '../../../../../public/images/logo.png';
-import SearchComponent from '@/app/ui/home-page/header/SearchComponent';
-import Phones from '@/app/ui/home-page/header/Phones';
+import logo from '../../../../public/images/logo.png';
+import SearchComponent from '@/app/ui/Header/SearchComponent';
+import Phones from '@/app/ui/Header/Phones';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import CloseIcon from '@mui/icons-material/Close';
-import Catalog from '@/app/ui/home-page/header/Catalog';
-import SideBar from '@/app/ui/home-page/header/SideBar';
+import Catalog from '@/app/ui/Header/Catalog';
+import SideBar from '@/app/ui/Header/SideBar';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
@@ -53,6 +53,7 @@ const Header = () => {
       backgroundColor: alpha(theme.palette.white.main, 1),
     },
   }));
+
   return (
     <>
       <AppBar sx={{ padding: '26px 0' }} position="static" color="white">
@@ -68,26 +69,33 @@ const Header = () => {
               onClick={toggleDrawer}
               color="inherit"
               edge="start"
-              sx={{ mr: 2 }}
+              sx={{ marginRight: '16px' }}
             >
               <MenuIcon fontSize="large" />
-              {/* убрать марджини и падинги из Сайтбара */}
               <SideBar
                 toggleDrawer={toggleDrawer}
                 openDrawer={openDrawer}
                 handleOpenCatalog={handleOpenCatalog}
               />
             </IconButton>
-            <Link href="/">
-              <Image src={logo} component="button" alt="logo" />
-            </Link>
-
+            <Box sx={{ marginRight: '32px' }}>
+              <Link href="/">
+                <Image src={logo} component="button" alt="logo" />
+              </Link>
+            </Box>
             <Button
               onClick={handleOpenCatalog}
               variant="contained"
-              sx={{ margin: '0 32px' }}
+              endIcon={openCatalog ? <CloseIcon /> : <ExpandMore />}
+              sx={{
+                width: '138px',
+                height: '56px',
+                marginRight: '32px',
+                boxSizing: 'border-box',
+                fontSize: '16px',
+              }}
             >
-              Каталог {openCatalog ? <CloseIcon /> : <ExpandMore />}
+              Каталог
             </Button>
             <Catalog
               openCatalog={openCatalog}
@@ -98,6 +106,7 @@ const Header = () => {
               sx={{
                 position: 'relative',
                 minWidth: '240px',
+                marginRight: '32px',
                 display: 'flex',
                 alignItems: 'center',
               }}
@@ -123,33 +132,35 @@ const Header = () => {
               sx={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                width: '220px',
-                marginLeft: '32px',
+                width: '120px',
               }}
             >
-              <Link href="/favorite">
-                <Badge badgeContent={null} color="error">
-                  <FavoriteBorderIcon
-                    // fontSize="large"
-                    sx={{ margin: '0 8px ' }}
-                  />
-                </Badge>
+              <Link href="cabinet/favorites">
+                <IconButton>
+                  <Badge badgeContent={null} color="error">
+                    <FavoriteBorderIcon
+                      sx={{ width: '24px', height: '24px', color: '#252A31' }}
+                    />
+                  </Badge>
+                </IconButton>
               </Link>
               <Link href="/cart">
-                <Badge badgeContent={5} color="error">
-                  <ShoppingCartIcon
-                    // fontSize="large"
-                    sx={{ margin: '0 8px' }}
-                  />
-                </Badge>
+                <IconButton>
+                  <Badge badgeContent={5} color="error">
+                    <ShoppingCartIcon
+                      sx={{ width: '24px', height: '24px', color: '#252A31' }}
+                    />
+                  </Badge>
+                </IconButton>
               </Link>
               <Link href="/cabinet">
-                <Badge badgeContent={null} color="error">
-                  <PermIdentityIcon
-                    // fontSize="large"
-                    sx={{ margin: '0 8px' }}
-                  />
-                </Badge>
+                <IconButton>
+                  <Badge badgeContent={null} color="error">
+                    <PermIdentityIcon
+                      sx={{ width: '24px', height: '24px', color: '#252A31' }}
+                    />
+                  </Badge>
+                </IconButton>
               </Link>
             </Box>
           </Toolbar>
