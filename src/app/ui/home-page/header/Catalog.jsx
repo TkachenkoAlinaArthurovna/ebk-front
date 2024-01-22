@@ -14,10 +14,12 @@ import {
   Typography,
   Box,
 } from '@mui/material';
+import { boxSizing } from '@mui/system';
 
 const stylePaper = {
   display: 'flex',
-
+  width: '90vw',
+  // height: '80vh',
   position: 'absolute',
   top: '50%',
   left: '50%',
@@ -26,19 +28,35 @@ const stylePaper = {
   boxShadow: 24,
   p: 4,
 };
-const flexColumn = {
+const categoryStyles = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   flexDirection: 'column',
 };
-const stylesListItemButton = {
+const boxStyles = {
+  
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
   borderRadius: '100px',
-  width: '310px',
+  // width: '310px',
+  // height: '56px',
+  ':hover': {
+    backgroundColor: "lightgray",
+  }
 };
+const titleStyles = {
+  fontWeight: 500,
+  fontSize: '16px',
+};
+const categoryItemStyles = {
+  fontWeight: 400,
+  fontSize: '16px',
+  paddingBottom: '20px',
+  whiteSpace: 'nowrap',
+};
+
 const Catalog = ({ openCatalog, handleCloseCatalog }) => (
   <>
     <Modal
@@ -54,50 +72,50 @@ const Catalog = ({ openCatalog, handleCloseCatalog }) => (
     >
       <Fade in={openCatalog}>
         <Paper sx={stylePaper}>
-          <List sx={flexColumn} disablePadding>
-            <ListItemButton sx={stylesListItemButton}>
-              <ListItemText primary="Електро-велосипеди" />
+          <ul sx={categoryStyles} >
+            <ListItem sx={boxStyles}>
+              <ListItemText>Електро-велосипеди</ListItemText>
               <ListItemIcon>
-                <ArrowForwardIosIcon fontSize="small" sx={{ ml: 3 }} />
+                <ArrowForwardIosIcon fontSize="small" />
               </ListItemIcon>
-            </ListItemButton>
-            <ListItemButton sx={stylesListItemButton}>
+            </ListItem>
+            <ListItem sx={boxStyles}>
               <ListItemText primary="Електро-велокомплекти" />
               <ListItemIcon>
-                <ArrowForwardIosIcon fontSize="small" sx={{ ml: 3 }} />
+                <ArrowForwardIosIcon fontSize="small" />
               </ListItemIcon>
-            </ListItemButton>
-            <ListItemButton sx={stylesListItemButton}>
+            </ListItem>
+            <ListItem sx={boxStyles}>
               <ListItemText primary="Мотор та мотор-колеса" />
               <ListItemIcon>
-                <ArrowForwardIosIcon fontSize="small" sx={{ ml: 3 }} />
+                <ArrowForwardIosIcon fontSize="small" />
               </ListItemIcon>
-            </ListItemButton>
-            <ListItemButton sx={stylesListItemButton}>
+            </ListItem>
+            <ListItem sx={boxStyles}>
               <ListItemText primary="Електро-велосипеди" />
               <ListItemIcon>
-                <ArrowForwardIosIcon fontSize="small" sx={{ ml: 3 }} />
+                <ArrowForwardIosIcon fontSize="small" />
               </ListItemIcon>
-            </ListItemButton>
-            <ListItemButton sx={stylesListItemButton}>
+            </ListItem>
+            <ListItem sx={boxStyles}>
               <ListItemText primary="Електро-велосипеди" />
               <ListItemIcon>
-                <ArrowForwardIosIcon fontSize="small" sx={{ ml: 3 }} />
+                <ArrowForwardIosIcon fontSize="small" />
               </ListItemIcon>
-            </ListItemButton>
-            <ListItemButton sx={stylesListItemButton}>
+            </ListItem>
+            <ListItem sx={boxStyles}>
               <ListItemText primary="Електро-велосипеди" />
               <ListItemIcon>
-                <ArrowForwardIosIcon fontSize="small" sx={{ ml: 3 }} />
+                <ArrowForwardIosIcon fontSize="small" />
               </ListItemIcon>
-            </ListItemButton>
-            <ListItemButton sx={stylesListItemButton}>
+            </ListItem>
+            <ListItem sx={boxStyles}>
               <ListItemText primary="Електро-велосипеди" />
               <ListItemIcon>
-                <ArrowForwardIosIcon fontSize="small" sx={{ ml: 3 }} />
+                <ArrowForwardIosIcon fontSize="small" />
               </ListItemIcon>
-            </ListItemButton>
-          </List>
+            </ListItem>
+          </ul>
           {/* сделать модалку + поповер */}
           <Grid
             container
@@ -108,7 +126,7 @@ const Catalog = ({ openCatalog, handleCloseCatalog }) => (
               gap: '20px',
             }}
           >
-            <ListItem
+            <Box
               sx={{
                 display: 'flex',
                 alignItems: 'start',
@@ -116,29 +134,30 @@ const Catalog = ({ openCatalog, handleCloseCatalog }) => (
                 flexDirection: 'column',
               }}
             >
-              <Typography color="primary">Велосипеди</Typography>
+              <Typography sx={titleStyles} color="primary">
+                Гірські
+              </Typography>
               <List>
-                <ListItemText sx={{ whiteSpace: 'nowrap' }}>
-                  Електро-велосипеди
+                <ListItemText sx={categoryItemStyles}>
+                  Велосипеди для крос-кантрі
                 </ListItemText>
-                <ListItemText sx={{ whiteSpace: 'nowrap' }}>
-                  Електро-велосипеди
+                <ListItemText sx={categoryItemStyles}>
+                  Жіночі гірські велосипеди
                 </ListItemText>
-                <ListItemText sx={{ whiteSpace: 'nowrap' }}>
-                  Електро-велосипеди
+                <ListItemText sx={categoryItemStyles}>
+                  Прогулянкові велосипеди
                 </ListItemText>
-                <ListItemText sx={{ whiteSpace: 'nowrap' }}>
-                  Електро-велосипеди
+                <ListItemText sx={categoryItemStyles}>
+                  Трейлові велосипеди
                 </ListItemText>
-                <ListItemText sx={{ whiteSpace: 'nowrap' }}>
-                  Електро-велосипеди
+                <ListItemText sx={categoryItemStyles}>
+                  Велосипеди для екстриму
                 </ListItemText>
-                <ListItemText sx={{ whiteSpace: 'nowrap' }}>
-                  Електро-велосипеди
-                </ListItemText>
+                <ListItemText sx={categoryItemStyles}>Найнери</ListItemText>
+                <ListItemText sx={categoryItemStyles}>Двопідвіси</ListItemText>
               </List>
-            </ListItem>
-            <ListItem
+            </Box>
+            <Box
               sx={{
                 display: 'flex',
                 alignItems: 'start',
@@ -146,88 +165,30 @@ const Catalog = ({ openCatalog, handleCloseCatalog }) => (
                 flexDirection: 'column',
               }}
             >
-              <Typography color="primary">Велосипеди</Typography>
+              <Typography sx={titleStyles} color="primary">
+                Гірські
+              </Typography>
               <List>
-                <ListItemText sx={{ whiteSpace: 'nowrap' }}>
-                  Електро-велосипеди
+                <ListItemText sx={categoryItemStyles}>
+                  Велосипеди для крос-кантрі
                 </ListItemText>
-                <ListItemText sx={{ whiteSpace: 'nowrap' }}>
-                  Електро-велосипеди
+                <ListItemText sx={categoryItemStyles}>
+                  Жіночі гірські велосипеди
                 </ListItemText>
-                <ListItemText sx={{ whiteSpace: 'nowrap' }}>
-                  Електро-велосипеди
+                <ListItemText sx={categoryItemStyles}>
+                  Прогулянкові велосипеди
                 </ListItemText>
-                <ListItemText sx={{ whiteSpace: 'nowrap' }}>
-                  Електро-велосипеди
+                <ListItemText sx={categoryItemStyles}>
+                  Трейлові велосипеди
                 </ListItemText>
-                <ListItemText sx={{ whiteSpace: 'nowrap' }}>
-                  Електро-велосипеди
+                <ListItemText sx={categoryItemStyles}>
+                  Велосипеди для екстриму
                 </ListItemText>
-                <ListItemText sx={{ whiteSpace: 'nowrap' }}>
-                  Електро-велосипеди
-                </ListItemText>
+                <ListItemText sx={categoryItemStyles}>Найнери</ListItemText>
+                <ListItemText sx={categoryItemStyles}>Двопідвіси</ListItemText>
               </List>
-            </ListItem>
-            <ListItem
-              sx={{
-                display: 'flex',
-                alignItems: 'start',
-                justifyContent: 'flex-start',
-                flexDirection: 'column',
-              }}
-            >
-              <Typography color="primary">Велосипеди</Typography>
-              <List>
-                <ListItemText sx={{ whiteSpace: 'nowrap' }}>
-                  Електро-велосипеди
-                </ListItemText>
-                <ListItemText sx={{ whiteSpace: 'nowrap' }}>
-                  Електро-велосипеди
-                </ListItemText>
-                <ListItemText sx={{ whiteSpace: 'nowrap' }}>
-                  Електро-велосипеди
-                </ListItemText>
-                <ListItemText sx={{ whiteSpace: 'nowrap' }}>
-                  Електро-велосипеди
-                </ListItemText>
-                <ListItemText sx={{ whiteSpace: 'nowrap' }}>
-                  Електро-велосипеди
-                </ListItemText>
-                <ListItemText sx={{ whiteSpace: 'nowrap' }}>
-                  Електро-велосипеди
-                </ListItemText>
-              </List>
-            </ListItem>
-            <ListItem
-              sx={{
-                display: 'flex',
-                alignItems: 'start',
-                justifyContent: 'flex-start',
-                flexDirection: 'column',
-              }}
-            >
-              <Typography color="primary">Велосипеди</Typography>
-              <List>
-                <ListItemText sx={{ whiteSpace: 'nowrap' }}>
-                  Електро-велосипеди
-                </ListItemText>
-                <ListItemText sx={{ whiteSpace: 'nowrap' }}>
-                  Електро-велосипеди
-                </ListItemText>
-                <ListItemText sx={{ whiteSpace: 'nowrap' }}>
-                  Електро-велосипеди
-                </ListItemText>
-                <ListItemText sx={{ whiteSpace: 'nowrap' }}>
-                  Електро-велосипеди
-                </ListItemText>
-                <ListItemText sx={{ whiteSpace: 'nowrap' }}>
-                  Електро-велосипеди
-                </ListItemText>
-                <ListItemText sx={{ whiteSpace: 'nowrap' }}>
-                  Електро-велосипеди
-                </ListItemText>
-              </List>
-            </ListItem>
+            </Box>
+            
           </Grid>
         </Paper>
       </Fade>
@@ -236,3 +197,4 @@ const Catalog = ({ openCatalog, handleCloseCatalog }) => (
 );
 
 export default Catalog;
+ 

@@ -71,7 +71,6 @@ const Header = () => {
               sx={{ mr: 2 }}
             >
               <MenuIcon fontSize="large" />
-              {/* убрать марджини и падинги из Сайтбара */}
               <SideBar
                 toggleDrawer={toggleDrawer}
                 openDrawer={openDrawer}
