@@ -13,41 +13,45 @@ const CustomerReview = ({ date, firstName, lastName, text }) => {
   const customerInitials = createInitials(firstName, lastName);
 
   return (
-    <ShadowBox>
-      <Stack direction="column" sx={{ width: '100%' }}>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          sx={{ width: '100%', marginBottom: '16px' }}
-        >
-          <Stack direction="row" alignItems="center">
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: '60px',
-                height: '60px',
-                bgcolor: '#F3F3F3',
-                borderRadius: '50%',
-                textAlign: 'center',
-              }}
-            >
-              <StyledCustomerInitials>
-                {customerInitials}
-              </StyledCustomerInitials>
+    <Box
+      sx={{padding: '0'}}
+    >
+      <ShadowBox>
+        <Stack direction="column" sx={{ width: '100%' }}>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            sx={{ width: '100%', marginBottom: '16px' }}
+          >
+            <Stack direction="row" alignItems="center">
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: '60px',
+                  height: '60px',
+                  bgcolor: '#F3F3F3',
+                  borderRadius: '50%',
+                  textAlign: 'center',
+                }}
+              >
+                <StyledCustomerInitials>
+                  {customerInitials}
+                </StyledCustomerInitials>
+              </Box>
+              <StyledName variant="subtitle1">
+                {firstName} {lastName}
+              </StyledName>
+            </Stack>
+            <Box>
+              <StyledDate variant="subtitle2">{date}</StyledDate>
             </Box>
-            <StyledName variant="subtitle1">
-              {firstName} {lastName}
-            </StyledName>
           </Stack>
-          <Box>
-            <StyledDate variant="subtitle2">{date}</StyledDate>
-          </Box>
+          <StyledText variant="body1">{text}</StyledText>
         </Stack>
-        <StyledText variant="body1">{text}</StyledText>
-      </Stack>
-    </ShadowBox>
+      </ShadowBox>
+    </Box>
   );
 };
 

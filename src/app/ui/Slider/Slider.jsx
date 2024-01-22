@@ -96,6 +96,9 @@ const Slider = ({
         loop={true}
         pagination={pagination}
         modules={[Autoplay, Navigation, Pagination]}
+        style={{
+          height: '100%'
+        }}
       >
         {products && listProducts}
         {slides && listSlides}
