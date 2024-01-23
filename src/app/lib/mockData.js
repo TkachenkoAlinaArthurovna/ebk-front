@@ -38,4 +38,20 @@ export const infoBlockData = [
     title: 'Безшумність',
     text: 'Електромотор дуже тихий, а найголовніше це екологічно і не забруднює повітря.'
   }
-]
+];
+
+export const navigation = [
+  { id: 1, title: 'Каталог товарів', path: 'catalog' },
+  { id: 2, title: 'Кошик', path: 'cart' },
+  { id: 3, title: 'Обране', path: 'favorite' },
+  { id: 4, title: 'Компанія', path: 'about' },
+  { id: 5, title: 'Про нас', path: 'about' },
+  { id: 6, title: 'Контакти', path: 'contacts' },
+  { id: 7, title: 'Відгуки', path: 'reviews' },
+  { id: 8, title: 'Допомога', path: 'support' },
+  { id: 9, title: 'Оплата та доставка', path: 'about' },
+  { id: 10, title: 'Повернення товару', path: 'about' },
+  { id: 11, title: 'Підтримка', path: 'about' },
+  { id: 12, title: 'Особистий кабінет', path: 'cabinet' },
+  { id: 13, title: 'Замовлення', path: 'orders' },
+];

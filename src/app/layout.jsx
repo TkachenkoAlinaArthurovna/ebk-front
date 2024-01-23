@@ -6,6 +6,7 @@ import '@fontsource/roboto/700.css';
 import Header from '@/app/ui/home-page/header/Header';
 import AppTheme from '@/app/ui/AppTheme';
 import Wrapper from '@/app/ui/Wrapper';
+import BreadCrumbs from './ui/BreadCrumbs/BreadCrumbs';
 
 export const metadata = {
   title: 'EBK online store',
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
         <body>
           <Wrapper>
             <Header />
+            <BreadCrumbs />
             {children}
             {/* <Footer /> */}
           </Wrapper>
