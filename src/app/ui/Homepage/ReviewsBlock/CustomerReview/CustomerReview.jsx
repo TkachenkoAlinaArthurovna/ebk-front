@@ -7,15 +7,14 @@ import {
   StyledDate,
   StyledText,
   StyledCustomerInitials,
+  StyledMainContainer,
 } from '@/app/ui/Homepage/ReviewsBlock/CustomerReview/CustomerReviewStyles';
 
 const CustomerReview = ({ date, firstName, lastName, text }) => {
   const customerInitials = createInitials(firstName, lastName);
 
   return (
-    <Box
-      sx={{padding: '0'}}
-    >
+    <StyledMainContainer>
       <ShadowBox>
         <Stack direction="column" sx={{ width: '100%' }}>
           <Stack
@@ -48,10 +47,10 @@ const CustomerReview = ({ date, firstName, lastName, text }) => {
               <StyledDate variant="subtitle2">{date}</StyledDate>
             </Box>
           </Stack>
-          <StyledText variant="body1">{text}</StyledText>
+          <StyledText variant="body1">{text}543543</StyledText>
         </Stack>
       </ShadowBox>
-    </Box>
+    </StyledMainContainer>
   );
 };
 

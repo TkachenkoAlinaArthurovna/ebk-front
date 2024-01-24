@@ -2,8 +2,8 @@ import React from 'react';
 import PageTitle from '@/app/ui/PageTitle';
 import InfoBlockItem from '@/app/ui/Homepage/InfoBlock/InfoBlockItem';
 import GridContainer from '@/app/ui/GridContainer/GridContainer';
-import { infoBlockData } from '@/app/lib/mockData';
 import Content from '@/app/ui/Content';
+import { infoBlockData } from '@/app/lib/mockData';
 import { StyledContainer } from '@/app/ui/Homepage/InfoBlock/InfoBlockStyles';
 
 const InfoBlock = () => {
@@ -16,7 +16,9 @@ const InfoBlock = () => {
     <StyledContainer as="section">
       <Content>
         <PageTitle position="center">Чому саме електровелосипед?</PageTitle>
-        <GridContainer>{infoBlockItems}</GridContainer>
+        <GridContainer $columns_on_small_screen="1">
+          {infoBlockItems}
+        </GridContainer>
       </Content>
     </StyledContainer>
   );

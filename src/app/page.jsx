@@ -12,7 +12,7 @@ export default function Home() {
       <CategoryBlock />
       <InfoBlock />
       <Tabs />
-      <ReviewsBlock/>
+      <ReviewsBlock />
     </main>
   );
 }
