@@ -12,6 +12,10 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import {
+  StyledButtonSideBar,
+  StyledSideBarContainer,
+} from '@/app/ui/Header/HeaderStyles';
 
 const navigation = [
   { id: 2, title: 'Кошик', path: '/cart' },
@@ -31,13 +35,7 @@ const navigation2 = [
 
 const SideBar = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => (
   <Drawer anchor="left" open={openDrawer} onClose={toggleDrawer}>
-    <Box
-      sx={{
-        width: '436px',
-        boxSizing: 'border-box',
-        padding: '60px 24px 28px 48px',
-      }}
-    >
+    <StyledSideBarContainer>
       <IconButton
         onClick={toggleDrawer}
         sx={{ position: 'absolute', top: '16px', right: '16px' }}
@@ -55,16 +53,16 @@ const SideBar = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => (
         <Box
           sx={{
             display: 'flex',
-            justifyContent: 'space-between',
+            justifyContent: 'center',
             marginBottom: '12px',
           }}
         >
-          <Button sx={{ width: '48%', padding: '10px 0' }} variant="contained">
+          <StyledButtonSideBar sx={{ marginRight: '7px' }} variant="contained">
             Вхід
-          </Button>
-          <Button sx={{ width: '48%', padding: '10px 0' }} variant="outlined">
+          </StyledButtonSideBar>
+          <StyledButtonSideBar variant="outlined">
             Peєстрація
-          </Button>
+          </StyledButtonSideBar>
         </Box>
         <Typography sx={{ fontSize: '14px', color: 'grey' }}>
           Авторизуйтесь для отримання розширених можливостей
@@ -77,7 +75,9 @@ const SideBar = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => (
             disableGutters
             onClick={handleOpenCatalog}
           >
-            <MenuIcon sx={{ paddingRight: '12px' }} />
+            <MenuIcon
+              sx={{ width: '20px', height: '20px', marginRight: '12px' }}
+            />
             <ListItemText primary="Каталог товарів" />
           </ListItemButton>
         </ListItem>
@@ -88,17 +88,21 @@ const SideBar = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => (
               disableGutters
               href={path}
             >
-              {path === '/catalog' ? (
-                <MenuIcon sx={{ paddingRight: '12px' }} />
-              ) : null}
               {path === '/cart' ? (
-                <ShoppingCartIcon sx={{ paddingRight: '12px' }} />
+                <ShoppingCartIcon
+                  sx={{ width: '20px', height: '20px', marginRight: '12px' }}
+                />
               ) : null}
               {path === 'cabinet/favorites' ? (
-                <FavoriteBorderIcon sx={{ paddingRight: '12px' }} />
+                <FavoriteBorderIcon
+                  sx={{ width: '20px', height: '20px', marginRight: '12px' }}
+                />
               ) : null}
-
               <ListItemText primary={title} />
+              {path === '/cart' ? <Typography>{id}</Typography> : null}
+              {path === 'cabinet/favorites' ? (
+                <Typography>{id}</Typography>
+              ) : null}
             </ListItemButton>
           </ListItem>
         ))}
@@ -140,7 +144,7 @@ const SideBar = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => (
         ))}
       </Box>
       <Divider />
-    </Box>
+    </StyledSideBarContainer>
   </Drawer>
 );
 
