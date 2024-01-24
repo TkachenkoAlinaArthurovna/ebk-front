@@ -1,46 +1,41 @@
 import React from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { InputBase } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 export const SearchComponent = () => {
-  const Search = styled('div')(({ theme }) => ({
-    flexGrow: '1',
-    height: '56px',
-    marginRight: '32px',
-    position: 'relative',
-    borderRadius: 100,
-    boxShadow: '0 2px 0 0 rgba(0, 0, 0, 0.08)',
-    backgroundColor: alpha(theme.palette.lightGrey.main, 1),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.lightGrey.main, 0.55),
-    },
-    [theme.breakpoints.up('sm')]: {},
-  }));
+  const Search = styled('div')`
+    flex-grow: 1;
+    height: 56px;
+    margin-right: 32px;
+    position: relative;
+    border-radius: 100px;
+    boxshadow: 0 2px 0 0 rgba(0, 0, 0, 0.08);
+    background-color: #f3f3f3;
+    @media (max-width: 1250px) {
+      height: 48px;
+    }
+  `;
 
-  const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    right: 0,
-    top: 0,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }));
+  const SearchIconWrapper = styled('div')`
+    padding: 15px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `;
 
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    padding: '12px 40px',
-    width: '100%',
-    '& .MuiInputBase-input': {
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('md')]: {
-        width: '100%',
-      },
-    },
-  }));
+  const StyledInputBase = styled(InputBase)`
+    color: inherit;
+    padding: 12px 40px;
+    width: 100%;
+    @media (min-width: 400px) {
+      padding: 12px 30px;
+    }
+  `;
 
   return (
     <Search>

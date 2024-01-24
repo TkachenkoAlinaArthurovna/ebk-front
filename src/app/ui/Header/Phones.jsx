@@ -6,7 +6,7 @@ const Phones = ({ handleClosePhones, anchor }) => {
 
   return (
     <Popover
-      sx={{ position: 'absolute', left: -200 }}
+      sx={{ position: 'absolute', left: -200}}
       open={openPhones}
       anchorEl={anchor}
       onClose={handleClosePhones}
@@ -15,7 +15,7 @@ const Phones = ({ handleClosePhones, anchor }) => {
         horizontal: 'right',
       }}
     >
-      <Paper>
+      <Paper sx={{width: "170px"}}>
         <ListItemButton href="tel:+380 72 58 58 445">
           <ListItemText primary="+380 72 58 58 445" />
         </ListItemButton>
