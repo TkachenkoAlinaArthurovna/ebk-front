@@ -5,21 +5,17 @@ import SearchIcon from '@mui/icons-material/Search';
 
 export const SearchComponent = () => {
   const Search = styled('div')(({ theme }) => ({
+    flexGrow: '1',
+    height: '56px',
+    marginRight: '32px',
     position: 'relative',
     borderRadius: 100,
-    // padding: '12px 40px',
     boxShadow: '0 2px 0 0 rgba(0, 0, 0, 0.08)',
     backgroundColor: alpha(theme.palette.lightGrey.main, 1),
     '&:hover': {
       backgroundColor: alpha(theme.palette.lightGrey.main, 0.55),
     },
-    // marginRight: theme.spacing(2),
-    // marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      // marginLeft: theme.spacing(3),
-      width: '100%',
-    },
+    [theme.breakpoints.up('sm')]: {},
   }));
 
   const SearchIconWrapper = styled('div')(({ theme }) => ({
@@ -28,7 +24,6 @@ export const SearchComponent = () => {
     position: 'absolute',
     right: 0,
     top: 0,
-    // pointerEvents: 'none',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -39,9 +34,6 @@ export const SearchComponent = () => {
     padding: '12px 40px',
     width: '100%',
     '& .MuiInputBase-input': {
-      // padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      // paddingLeft: `calc(1em + ${theme.spacing(1)})`,
       transition: theme.transitions.create('width'),
       width: '100%',
       [theme.breakpoints.up('md')]: {

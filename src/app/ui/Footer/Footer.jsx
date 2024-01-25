@@ -8,7 +8,7 @@ import {
     StyledList,
     StyledListItem,
     WrapperItemBox
-} from '@/app/ui/home-page/footer/FooterStyles';
+} from '@/app/ui/Footer/FooterStyles';
 import Link from 'next/link';
 import {Box, Typography} from '@mui/material';
 import Image from 'next/image';
