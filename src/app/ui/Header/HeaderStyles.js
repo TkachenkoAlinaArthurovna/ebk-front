@@ -1,7 +1,16 @@
 'use client';
 
 import { styled } from '@mui/system';
-import { Paper, Box, Tabs, Tab, IconButton, Typography } from '@mui/material';
+
+import {
+  Paper,
+  Box,
+  Tabs,
+  Tab,
+  IconButton,
+  Typography,
+  Button,
+} from '@mui/material';
 
 export const StyledPaper = styled(Paper)`
   display: flex;
@@ -40,7 +49,7 @@ export const StyledTitle = styled(Typography)`
   font-size: 26px;
   font-weight: 500;
 `;
-export const StyledIconButton = styled(Box)`
+export const StyledIconButton = styled(IconButton)`
   cursor: pointer;
   position: ${({ closetype }) => {
     switch (closetype) {
@@ -101,4 +110,53 @@ export const StyledBox = styled(Box)`
   flex-grow: 1;
   display: flex;
   align-items: start;
+`;
+export const StyledButtonCatalog = styled(Button)`
+  width: 138px;
+  height: 56px;
+  margin-right: 32px;
+  box-sizing: border-box;
+  font-size: 16px;
+  @media (max-width: 1250px) {
+    width: 138px;
+    height: 48px;
+    fontsize: 16px;
+  }
+  @media (max-width: 900px) {
+    width: 140px;
+    height: 44px;
+    fontsize: 12px;
+    padding: 10px 10px;
+  }
+`;
+
+export const StyledButtonSideBar = styled(Button)`
+  width: 48%;
+  padding: 10px 0;
+  @media (max-width: 1250px) {
+    height: 44px;
+  }
+  @media (max-width: 900px) {
+    width: 140px;
+  }
+  @media (max-width: 700px) {
+    height: 34px;
+    width: 89px;
+    font-size: 12px;
+  }
+`;
+
+export const StyledSideBarContainer = styled(Box)`
+  width: 436px;
+  box-sizing: border-box;
+  padding: 60px 24px 28px 48px;
+  @media (max-width: 1250px) {
+  }
+  @media (max-width: 1100px) {
+    width: 348px;
+    padding: 60px 24px 28px 28px;
+  }
+  @media (max-width: 700px) {
+    width: 278px;
+  }
 `;

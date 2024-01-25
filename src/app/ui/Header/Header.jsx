@@ -25,6 +25,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import { styled, alpha } from '@mui/material/styles';
+import { StyledButtonCatalog } from '@/app/ui/Header/HeaderStyles';
 
 const Header = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -83,7 +84,7 @@ const Header = () => {
                 <Image src={logo} component="button" alt="logo" />
               </Link>
             </Box>
-            <Button
+            <StyledButtonCatalog
               onClick={handleOpenCatalog}
               variant="contained"
               endIcon={openCatalog ? <CloseIcon /> : <ExpandMore />}
@@ -95,7 +96,7 @@ const Header = () => {
               }}
             >
               Каталог
-            </Button>
+            </StyledButtonCatalog>
             <Catalog
               openCatalog={openCatalog}
               handleCloseCatalog={handleCloseCatalog}
