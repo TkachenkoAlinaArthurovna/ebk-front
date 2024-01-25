@@ -8,9 +8,9 @@ export const StyledBox = styled(Box)`
   align-items: center;
   justify-content: center;
   padding: ${({ padding }) => (padding ? `${padding}` : '10%')};
-  box-shadow: 0 4px 40px 0 rgba(190, 190, 190, 0.25);
+  box-shadow: 0 0 16px 0 rgba(190, 190, 190, 0.25);
   box-sizing: border-box;
-  border-radius: 10%;
+  border-radius: 28px;
   border: 1px solid transparent;
   height: 100%;
 

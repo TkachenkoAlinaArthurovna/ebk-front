@@ -29,11 +29,7 @@ const Tabs = () => {
             onChange={handleChange}
             aria-label="basic tabs example"
           >
-            <StyledTab
-              sx={{ textTransform: 'capitalize' }}
-              label="Новинки"
-              {...a11yProps(0)}
-            />
+            <StyledTab label="Новинки" {...a11yProps(0)} />
             <StyledTab label="Хіти продажів" {...a11yProps(1)} />
             <StyledTab label="Ексклюзив" {...a11yProps(2)} />
           </StyledTabs>

@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
       <AppTheme>
         <body>
           <Wrapper>
-            <Header />
+            {/* <Header /> */}
             {children}
             {/* <Footer /> */}
           </Wrapper>

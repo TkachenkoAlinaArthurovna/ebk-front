@@ -45,7 +45,7 @@ const Price = ({ price, oldprice }) => {
           </svg>
         </WrapperBoxOld>
         <WrapperBoxNew sx={{ color: '#DC362E' }}>
-          <Box sx={{ marginRight: '10px' }}>{price}</Box>
+          <Box sx={{ marginRight: '10px' }}>{price} </Box>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 384 512"

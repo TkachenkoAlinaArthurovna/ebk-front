@@ -10,14 +10,17 @@ export const StyledComponentWrapper = styled(Stack)`
 
 export const StyledNameAndInitialsContainer = styled(Stack)`
   display: flex;
-  flex-direction: row;
+  flex-direction: column-reverse;
   justify-content: space-between;
   width: 100%;
   margin-bottom: 16px;
 `;
 
 export const StyledMainContainer = styled(Box)`
-  padding: 28px 24px;
+  padding: 24px;
+  @media (max-width: 1200px) {
+    padding: 20px 16px;
+  }
 `;
 
 export const StyledWrapper = styled(Stack)`
@@ -44,11 +47,8 @@ export const StyledName = styled(Typography)`
 `;
 
 export const StyledDateWrapper = styled(Box)`
-  display: inline-block;
-
-  @media (max-width: 334px) {
-    display: none;
-  }
+  display: flex;
+  justify-content: end;
 `;
 
 export const StyledDate = styled(Typography)`
@@ -81,7 +81,6 @@ export const StyledText = styled(Typography)`
 `;
 
 export const StyledCustomerInitials = styled(Typography)`
-  //margin-right: 120px;
   font-size: 18px;
   line-height: 28px;
   font-weight: bold;

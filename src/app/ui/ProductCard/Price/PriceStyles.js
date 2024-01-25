@@ -37,4 +37,8 @@ export const Discount = styled(Box)`
   font-weight: 400;
   color: #ffffff;
   background: #dc362e;
+  @media (max-width: 910px) {
+    font-size: 12px;
+    font-weight: 500;
+  }
 `;

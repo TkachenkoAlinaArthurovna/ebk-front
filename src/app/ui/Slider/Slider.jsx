@@ -5,18 +5,11 @@ import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import ProductCard from '@/app/ui/ProductCard';
-import {
-  SwiperPrev,
-  SwiperNext,
-  MainSwiperPrev,
-  MainSwiperNext,
-} from '@/app/ui/Slider/SliderStyles';
-// import Image from 'next/image';
+import { SwiperPrev, SwiperNext } from '@/app/ui/Slider/SliderStyles';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { reviewsBlockData as reviewsData } from '@/app/lib/mockData';
-// import CustomerReview from '@/app/ui/Homepage/ReviewsBlock/CustomerReview';
 import CustomerReview from '@/app/ui/Homepage/ReviewsBlock/CustomerReview';
 
 const productsArr = [
@@ -46,13 +39,6 @@ const Slider = ({
   if (slides) {
     listSlides = slides.map((slide, index) => (
       <SwiperSlide key={index}>
-        {/* <Image
-          src={slide}
-          fill
-          style={{
-            objectFit: 'contain',
-          }}
-        /> */}
         <img
           src={slide}
           style={{
@@ -85,6 +71,42 @@ const Slider = ({
     ));
   }
 
+  let swiperConfig;
+
+  if (products) {
+    swiperConfig = {
+      slidesPerView: 4,
+      breakpoints: {
+        300: {
+          slidesPerView: 2,
+        },
+        650: {
+          slidesPerView: 3,
+        },
+        1024: {
+          slidesPerView: 4,
+        },
+      },
+    };
+  }
+
+  if (reviews) {
+    swiperConfig = {
+      slidesPerView: 3,
+      breakpoints: {
+        300: {
+          slidesPerView: 1,
+        },
+        650: {
+          slidesPerView: 2,
+        },
+        1024: {
+          slidesPerView: 3,
+        },
+      },
+    };
+  }
+
   return (
     <>
       <Swiper
@@ -92,13 +114,13 @@ const Slider = ({
         autoplay={autoplay}
         speed={speed}
         spaceBetween={spaceBetween}
-        slidesPerView={slidesPerView}
         loop={true}
         pagination={pagination}
         modules={[Autoplay, Navigation, Pagination]}
         style={{
-          height: '100%'
+          height: '100%',
         }}
+        {...swiperConfig}
       >
         {products && listProducts}
         {slides && listSlides}

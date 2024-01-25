@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -10,6 +9,7 @@ import {
   StyledIconButton,
   StyledIconFavoriteButton,
   Title,
+  StyledCardContent,
 } from '@/app/ui/ProductCard/ProductCardStyles';
 
 const ProductCard = ({ id, img, name, colors, price, oldprice }) => {
@@ -26,7 +26,7 @@ const ProductCard = ({ id, img, name, colors, price, oldprice }) => {
           Міський електровелосипед Paola 500W 10 A/h
         </Title>
       </Link>
-      <CardContent>
+      <StyledCardContent>
         <Colors colors={colors} />
         <Price price={920} oldprice={828} />
         <StyledIconButton>
@@ -35,7 +35,7 @@ const ProductCard = ({ id, img, name, colors, price, oldprice }) => {
         <StyledIconFavoriteButton>
           <FavoriteIcon sx={{ width: '24px', height: '24px' }} />
         </StyledIconFavoriteButton>
-      </CardContent>
+      </StyledCardContent>
     </Card>
   );
 };

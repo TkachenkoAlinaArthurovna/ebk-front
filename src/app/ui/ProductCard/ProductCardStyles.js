@@ -3,6 +3,7 @@
 import { styled } from '@mui/system';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
 
 export const StyledIconButton = styled(IconButton)`
   position: absolute;
@@ -23,8 +24,21 @@ export const StyledIconFavoriteButton = styled(IconButton)`
 `;
 
 export const Title = styled(Typography)`
-  margin: 0 16px;
-  font-size: 20px;
-  font-weight: 400;
+  margin: 0 14px;
+  font-size: 18px;
+  font-weight: 500;
   line-height: 28px;
+  @media (max-width: 1200px) {
+    font-size: 16px;
+  }
+  @media (max-width: 650px) {
+    font-size: 18px;
+  }
+`;
+
+export const StyledCardContent = styled(CardContent)`
+  padding: 14px;
+  @media (max-width: 780px) {
+    padding: 12px;
+  }
 `;
