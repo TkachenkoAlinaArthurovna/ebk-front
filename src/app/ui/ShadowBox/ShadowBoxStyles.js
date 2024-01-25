@@ -7,8 +7,14 @@ export const StyledBox = styled(Box)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 42px;
-  box-shadow: 0px 4px 40px 0px rgba(190, 190, 190, 0.25);
-  border-radius: 28px;
+  padding: ${({ padding }) => (padding ? `${padding}` : '10%')};
+  box-shadow: 0 4px 40px 0 rgba(190, 190, 190, 0.25);
+  box-sizing: border-box;
+  border-radius: 10%;
   border: 1px solid transparent;
+  height: 100%;
+
+  @media (max-width: 1304px) {
+    border-radius: 28px;
+  }
 `;

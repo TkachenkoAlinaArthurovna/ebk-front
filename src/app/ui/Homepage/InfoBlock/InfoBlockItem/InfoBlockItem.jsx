@@ -3,7 +3,7 @@ import ShadowBox from '@/app/ui/ShadowBox/ShadowBox';
 import {
   StyledTitle,
   StyledText,
-  StyledWrapper
+  StyledWrapper,
 } from '@/app/ui/Homepage/InfoBlock/InfoBlockItem/InfoBlockItemStyles';
 
 const InfoBlockItem = ({ title, text }) => {

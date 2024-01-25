@@ -1,3 +1,5 @@
+'use client';
+
 import { useRef } from 'react';
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -13,6 +15,9 @@ import {
 
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { reviewsBlockData as reviewsData } from '@/app/lib/mockData';
+// import CustomerReview from '@/app/ui/Homepage/ReviewsBlock/CustomerReview';
+import CustomerReview from '@/app/ui/Homepage/ReviewsBlock/CustomerReview';
 
 const productsArr = [
   { id: 1 },
@@ -31,10 +36,12 @@ const Slider = ({
   pagination,
   products,
   slides,
+  reviews,
 }) => {
   const [swiper, setSwiper] = useState();
   let listProducts;
   let listSlides;
+  let listReviews;
 
   if (slides) {
     listSlides = slides.map((slide, index) => (
@@ -63,6 +70,20 @@ const Slider = ({
       </SwiperSlide>
     ));
   }
+  if (reviews) {
+    listReviews = reviewsData.map(({ id, date, firstName, lastName, text }) => (
+      <SwiperSlide key={id}>
+        <>
+          <CustomerReview
+            date={date}
+            firstName={firstName}
+            lastName={lastName}
+            text={text}
+          />
+        </>
+      </SwiperSlide>
+    ));
+  }
 
   return (
     <>
@@ -75,9 +96,13 @@ const Slider = ({
         loop={true}
         pagination={pagination}
         modules={[Autoplay, Navigation, Pagination]}
+        style={{
+          height: '100%'
+        }}
       >
         {products && listProducts}
         {slides && listSlides}
+        {reviews && listReviews}
       </Swiper>
       {slides && (
         <>
@@ -98,24 +123,25 @@ const Slider = ({
         </>
       )}
 
-      {products && (
-        <>
-          <SwiperPrev
-            onClick={() => swiper.slidePrev()}
-            swipertype="section"
-            component="img"
-            alt="prev"
-            src="/images/swiper/prev.png"
-          />
-          <SwiperNext
-            onClick={() => swiper.slideNext()}
-            swipertype="section"
-            component="img"
-            alt="next"
-            src="/images/swiper/next.png"
-          />
-        </>
-      )}
+      {products ||
+        (reviews && (
+          <>
+            <SwiperPrev
+              onClick={() => swiper.slidePrev()}
+              swipertype="section"
+              component="img"
+              alt="prev"
+              src="/images/swiper/prev.png"
+            />
+            <SwiperNext
+              onClick={() => swiper.slideNext()}
+              swipertype="section"
+              component="img"
+              alt="next"
+              src="/images/swiper/next.png"
+            />
+          </>
+        ))}
     </>
   );
 };
