@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -53,14 +52,12 @@ const SideBar = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => (
         <Box
           sx={{
             display: 'flex',
-            justifyContent: 'center',
+            justifyContent: 'space-between',
             marginBottom: '12px',
           }}
         >
-          <StyledButtonSideBar sx={{ marginRight: '7px' }} variant="contained">
-            Вхід
-          </StyledButtonSideBar>
-          <StyledButtonSideBar variant="outlined">
+          <StyledButtonSideBar variant="contained">Вхід</StyledButtonSideBar>
+          <StyledButtonSideBar variant="outlined" typebutton="registration">
             Peєстрація
           </StyledButtonSideBar>
         </Box>

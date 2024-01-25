@@ -74,6 +74,20 @@ a {
   background-color: #49beb7 !important;
 }
 
+@media (max-width: 788px) {
+  .swiper-pagination-bullet {
+    width: 10px !important;
+    height: 10px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .swiper-pagination-bullet {
+    width: 6px !important;
+    height: 6px !important;
+  }
+}
+
 /* Catalog */
 
 .sub-category {

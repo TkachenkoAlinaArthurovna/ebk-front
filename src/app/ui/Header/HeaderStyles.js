@@ -40,7 +40,9 @@ export const StyledTitle = styled(Typography)`
   font-size: 26px;
   font-weight: 500;
 `;
-export const StyledIconButton = styled(Box)`
+export const StyledIconButton = styled(IconButton)`
+  width: 40px;
+  height: 40px;
   cursor: pointer;
   position: ${({ closetype }) => {
     switch (closetype) {
@@ -102,6 +104,7 @@ export const StyledBox = styled(Box)`
   display: flex;
   align-items: start;
 `;
+
 export const StyledButtonCatalog = styled(Button)`
   width: 138px;
   height: 56px;
@@ -123,6 +126,12 @@ export const StyledButtonCatalog = styled(Button)`
 `;
 
 export const StyledButtonSideBar = styled(Button)`
+  background-color: ${({ typebutton }) => {
+    switch (typebutton) {
+      case 'registration':
+        return '#ffff !important';
+    }
+  }};
   width: 48%;
   padding: 10px 0;
   @media (max-width: 1250px) {

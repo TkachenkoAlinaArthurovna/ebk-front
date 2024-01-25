@@ -25,10 +25,60 @@ export const SwiperPrev = styled(Box)`
   left: ${({ swipertype }) => {
     switch (swipertype) {
       case 'main':
-        return '24px';
+        return '72px';
+    }
+  }};
+  transform: ${({ swipertype }) => {
+    switch (swipertype) {
+      case 'main':
+        return 'translate(0, -50%)';
     }
   }};
   cursor: pointer;
+  @media (max-width: 1024px) {
+    left: ${({ swipertype }) => {
+      switch (swipertype) {
+        case 'section':
+          return '0px';
+        case 'main':
+          return '60px';
+      }
+    }};
+  }
+  @media (max-width: 788px) {
+    width: 30px;
+    height: 30px;
+    left: ${({ swipertype }) => {
+      switch (swipertype) {
+        case 'section':
+          return '0px';
+        case 'main':
+          return '40px';
+      }
+    }};
+  }
+  @media (max-width: 560px) {
+    width: 20px;
+    height: 20px;
+    left: ${({ swipertype }) => {
+      switch (swipertype) {
+        case 'section':
+          return '0px';
+        case 'main':
+          return '30px';
+      }
+    }};
+  }
+  @media (max-width: 414px) {
+    left: ${({ swipertype }) => {
+      switch (swipertype) {
+        case 'section':
+          return '0px';
+        case 'main':
+          return '30px';
+      }
+    }};
+  }
 `;
 
 export const SwiperNext = styled(Box)`
@@ -49,8 +99,58 @@ export const SwiperNext = styled(Box)`
       case 'section':
         return '0px';
       case 'main':
-        return '24px';
+        return '72px';
+    }
+  }};
+  transform: ${({ swipertype }) => {
+    switch (swipertype) {
+      case 'main':
+        return 'translate(0, -50%)';
     }
   }};
   cursor: pointer;
+  @media (max-width: 1024px) {
+    right: ${({ swipertype }) => {
+      switch (swipertype) {
+        case 'section':
+          return '0px';
+        case 'main':
+          return '60px';
+      }
+    }};
+  }
+  @media (max-width: 788px) {
+    width: 30px;
+    height: 30px;
+    right: ${({ swipertype }) => {
+      switch (swipertype) {
+        case 'section':
+          return '0px';
+        case 'main':
+          return '40px';
+      }
+    }};
+  }
+  @media (max-width: 560px) {
+    width: 20px;
+    height: 20px;
+    right: ${({ swipertype }) => {
+      switch (swipertype) {
+        case 'section':
+          return '0px';
+        case 'main':
+          return '30px';
+      }
+    }};
+  }
+  @media (max-width: 414px) {
+    right: ${({ swipertype }) => {
+      switch (swipertype) {
+        case 'section':
+          return '0px';
+        case 'main':
+          return '30px';
+      }
+    }};
+  }
 `;
