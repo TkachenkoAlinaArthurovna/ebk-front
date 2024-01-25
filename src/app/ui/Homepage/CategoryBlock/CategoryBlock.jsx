@@ -2,8 +2,14 @@ import React from 'react';
 import GridContainer from '@/app/ui/GridContainer/GridContainer';
 import CategoryItem from '@/app/ui/Homepage/CategoryBlock/CategoryItem';
 import PageTitle from '@/app/ui/PageTitle';
+<<<<<<< HEAD
 import Content from '@/app/ui/Content';
 import { categoryBlockData } from '@/app/lib/mockData';
+=======
+import { categoryBlockData } from '@/app/lib/mockData';
+import GridContainer from '@/app/ui/GridContainer/GridContainer';
+import Content from '@/app/ui/Content/Content';
+>>>>>>> 97a56b7 (catalog)
 import { StyledContainer } from '@/app/ui/Homepage/CategoryBlock/CategoryBlockStyles';
 
 const CategoryBlock = () => {

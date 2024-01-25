@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Content from '@/app/ui/Content';
+import Content from '@/app/ui/Content/Content';
 import Image from 'next/image';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -92,7 +92,6 @@ const Header = () => {
                 height: '56px',
                 marginRight: '32px',
                 boxSizing: 'border-box',
-                fontSize: '16px',
               }}
             >
               Каталог

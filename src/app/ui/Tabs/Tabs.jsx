@@ -1,17 +1,11 @@
 'use client';
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Content from '@/app/ui/Content';
+import Content from '@/app/ui/Content/Content';
 import Slider from '@/app/ui/Slider';
 import { StyledTabs, StyledTab, StyledSection } from '@/app/ui/Tabs/TabsStyled';
 import CustomTabPanel from '@/app/ui/Tabs/CustomTabPanel';
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
+import { a11yProps } from '@/app/lib/helpers';
 
 const Tabs = () => {
   const [value, setValue] = React.useState(0);

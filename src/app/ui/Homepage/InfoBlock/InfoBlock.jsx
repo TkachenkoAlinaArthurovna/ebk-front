@@ -2,8 +2,13 @@ import React from 'react';
 import PageTitle from '@/app/ui/PageTitle';
 import InfoBlockItem from '@/app/ui/Homepage/InfoBlock/InfoBlockItem';
 import GridContainer from '@/app/ui/GridContainer/GridContainer';
+<<<<<<< HEAD
 import Content from '@/app/ui/Content';
 import { infoBlockData } from '@/app/lib/mockData';
+=======
+import { infoBlockData } from '@/app/lib/mockData';
+import Content from '@/app/ui/Content/Content';
+>>>>>>> 97a56b7 (catalog)
 import { StyledContainer } from '@/app/ui/Homepage/InfoBlock/InfoBlockStyles';
 
 const InfoBlock = () => {

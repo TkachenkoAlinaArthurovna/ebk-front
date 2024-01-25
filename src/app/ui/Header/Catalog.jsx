@@ -1,30 +1,23 @@
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { Modal, Fade, Backdrop, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import {
-  List,
-  Link,
-  Popover,
-  ListItemButton,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Grid,
-  Modal,
-  Fade,
-  Backdrop,
-  Button,
-  Typography,
-  Box,
-} from '@mui/material';
-
-import { StyledPaper, StyledList } from '@/app/ui/Header/HeaderStyles';
+  StyledPaper,
+  StyledWrapper,
+  StyledTitle,
+  StyledIconButton,
+} from '@/app/ui/Header/HeaderStyles';
+import MobMenu from '@/app/ui/Header/MobMenu';
+import Menu from '@/app/ui/Header/Menu';
 import { catalog } from '@/app/lib/mockData';
-
-const categories = catalog.filter((item) => !item.parentId);
+import { useResize } from '@/app/lib/helpers';
 
 const Catalog = ({ openCatalog, handleCloseCatalog }) => {
+  const [width] = useResize();
+
   return (
     <>
       <Modal
+        sx={{ maxWidth: '1344px', margin: '0 auto' }}
         open={openCatalog}
         onClose={handleCloseCatalog}
         closeAfterTransition
@@ -36,20 +29,20 @@ const Catalog = ({ openCatalog, handleCloseCatalog }) => {
         }}
       >
         <Fade in={openCatalog}>
-          <StyledPaper>
-            <StyledList disablePadding>
-              {categories.map((item) => (
-                <ListItemButton
-                  key={item.id}
-                  sx={{ width: '100%', fontSize: '16px' }}
-                >
-                  <ListItemText primary={item.name} />
-                  <ListItemIcon>
-                    <ArrowForwardIosIcon fontSize="small" sx={{ ml: 3 }} />
-                  </ListItemIcon>
-                </ListItemButton>
-              ))}
-            </StyledList>
+          <StyledPaper papertype={width <= 1025 ? 'mob' : 'desktop'}>
+            <StyledWrapper>
+              <StyledTitle>Каталог товарів</StyledTitle>
+              <StyledIconButton
+                closetype={width <= 1025 ? 'mob' : 'desktop'}
+                onClick={handleCloseCatalog}
+              >
+                <CloseIcon />
+              </StyledIconButton>
+            </StyledWrapper>
+            {width <= 1025 && (
+              <MobMenu handleCloseCatalog={handleCloseCatalog} />
+            )}
+            {width > 1025 && <Menu handleCloseCatalog={handleCloseCatalog} />}
           </StyledPaper>
         </Fade>
       </Modal>
