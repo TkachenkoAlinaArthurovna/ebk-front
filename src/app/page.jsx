@@ -8,9 +8,9 @@ export default function Home() {
   return (
     <main>
       <MainSlider />
-      {/* <CategoryBlock />
+      <CategoryBlock />
       <InfoBlock />
-      <Tabs /> */}
+      <Tabs />
     </main>
   );
 }

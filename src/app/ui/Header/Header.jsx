@@ -24,8 +24,11 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import ExpandLess from '@mui/icons-material/ExpandLess';
-import { styled, alpha } from '@mui/material/styles';
-import { StyledButtonCatalog } from '@/app/ui/Header/HeaderStyles';
+import { styled } from '@mui/material/styles';
+import {
+  StyledButtonCatalog,
+  StyledPhoneBox,
+} from '@/app/ui/Header/HeaderStyles';
 
 const Header = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -48,12 +51,11 @@ const Header = () => {
     setPhoneList(!phoneList);
   };
 
-  const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
-    color: 'inherit',
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.white.main, 1),
-    },
-  }));
+  const StyledListItemText = styled(ListItemText)`
+    @media (max-width: 1100px) {
+      display: none;
+    }
+  `;
 
   return (
     <>
@@ -88,12 +90,6 @@ const Header = () => {
               onClick={handleOpenCatalog}
               variant="contained"
               endIcon={openCatalog ? <CloseIcon /> : <ExpandMore />}
-              sx={{
-                width: '138px',
-                height: '56px',
-                marginRight: '32px',
-                boxSizing: 'border-box',
-              }}
             >
               Каталог
             </StyledButtonCatalog>
@@ -102,19 +98,11 @@ const Header = () => {
               handleCloseCatalog={handleCloseCatalog}
             />
             <SearchComponent />
-            <Box
-              sx={{
-                position: 'relative',
-                minWidth: '240px',
-                marginRight: '32px',
-                display: 'flex',
-                alignItems: 'center',
-              }}
-            >
-              <StyledListItemButton href="tel:+380 63 32 95 468">
+            <StyledPhoneBox>
+              <ListItemButton href="tel:+380 63 32 95 468">
                 <LocalPhoneIcon sx={{ color: 'black', marginRight: 1 }} />
-                <ListItemText primary="+380 63 32 95 468" />
-              </StyledListItemButton>
+                <StyledListItemText primary="+380 63 32 95 468" />
+              </ListItemButton>
               <IconButton onClick={handleClickPones}>
                 {phoneList ? (
                   <ExpandLess sx={{ color: 'black' }} />
@@ -127,7 +115,8 @@ const Header = () => {
                 anchor={anchor}
                 phoneList={phoneList}
               />
-            </Box>
+            </StyledPhoneBox>
+
             <Box
               sx={{
                 display: 'flex',
