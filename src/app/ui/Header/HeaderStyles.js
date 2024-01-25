@@ -23,20 +23,15 @@ export const StyledList = styled(List)`
 export const StyledButtonCatalog = styled(Button)`
   width: 138px;
   height: 56px;
-  marginright: 32px;
+  margin-right: 32px;
   boxsizing: border-box;
   fontsize: 16px;
   @media (max-width: 1250px) {
-    
     width: 138px;
-    height: 48px;
-    fontsize: 16px;
+    font-size: 16px;
   }
   @media (max-width: 900px) {
-    width: 140px;
-    height: 44px;
-    fontsize: 12px;
-    padding: 10px 10px;
+    display: none;
   }
 `;
 
@@ -68,5 +63,22 @@ export const StyledSideBarContainer = styled(Box)`
   }
   @media (max-width: 700px) {
     width: 278px;
+  }
+`;
+
+export const StyledPhoneBox = styled(Box)`
+  position: relative;
+  min-width: 240px;
+  margin-right: 32px;
+  display: flex;
+  align-items: center;
+  @media (max-width: 1250px) {
+  }
+  @media (max-width: 1100px) {
+  min-width: 10px;
+  margin-right: 10px;
+  }
+  @media (max-width: 700px) {
+    display: none;
   }
 `;

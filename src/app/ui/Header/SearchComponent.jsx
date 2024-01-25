@@ -1,24 +1,24 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
-import { InputBase } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+
+const options = ['Велик', 'Електровелик', 'горний велик', 'руль', 'шини'];
 
 export const SearchComponent = () => {
   const Search = styled('div')`
     flex-grow: 1;
-    height: 56px;
-    margin-right: 32px;
     position: relative;
+    margin-right: 32px;
     border-radius: 100px;
-    boxshadow: 0 2px 0 0 rgba(0, 0, 0, 0.08);
-    background-color: #f3f3f3;
-    @media (max-width: 1250px) {
-      height: 48px;
+    @media (max-width: 900px) {
+      height: '40px';
     }
   `;
 
   const SearchIconWrapper = styled('div')`
-    padding: 15px;
+    padding-right: 15px;
     height: 100%;
     position: absolute;
     right: 0;
@@ -28,21 +28,36 @@ export const SearchComponent = () => {
     justify-content: center;
   `;
 
-  const StyledInputBase = styled(InputBase)`
-    color: inherit;
-    padding: 12px 40px;
-    width: 100%;
-    @media (min-width: 400px) {
-      padding: 12px 30px;
-    }
-  `;
+  const StyledTextField = styled(TextField)(({ theme }) => ({
+    width: '100%',
+    [theme.breakpoints.down('lg')]: {
+      // height: '40px',
+      padding: 0,
+    },
+    color: theme.palette.secondary.main,
+    borderRadius: '100px',
+    '& .MuiOutlinedInput-root': {
+      borderRadius: '100px',
+      border: 'none',
+    },
+  }));
 
   return (
     <Search>
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>
-      <StyledInputBase placeholder="Я шукаю…" />
+      <Autocomplete
+        disablePortal
+        freeSolo
+        disableClearable
+        id="combo-box-demo"
+        options={options}
+        sx={{ width: '100%', borderRadius: '100px' }}
+        renderInput={(params) => (
+          <StyledTextField {...params} label="Я шукаю..." />
+        )}
+      />
     </Search>
   );
 };
