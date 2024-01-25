@@ -77,7 +77,9 @@ const SideBar = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => (
             disableGutters
             onClick={handleOpenCatalog}
           >
-            <MenuIcon sx={{ paddingRight: '12px' }} />
+            <MenuIcon
+              sx={{ width: '20px', height: '20px', marginRight: '12px' }}
+            />
             <ListItemText primary="Каталог товарів" />
           </ListItemButton>
         </ListItem>
@@ -88,16 +90,16 @@ const SideBar = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => (
               disableGutters
               href={path}
             >
-              {path === '/catalog' ? (
-                <MenuIcon sx={{ paddingRight: '12px' }} />
-              ) : null}
               {path === '/cart' ? (
-                <ShoppingCartIcon sx={{ paddingRight: '12px' }} />
+                <ShoppingCartIcon
+                  sx={{ width: '20px', height: '20px', marginRight: '12px' }}
+                />
               ) : null}
               {path === 'cabinet/favorites' ? (
-                <FavoriteBorderIcon sx={{ paddingRight: '12px' }} />
+                <FavoriteBorderIcon
+                  sx={{ width: '20px', height: '20px', marginRight: '12px' }}
+                />
               ) : null}
-
               <ListItemText primary={title} />
             </ListItemButton>
           </ListItem>

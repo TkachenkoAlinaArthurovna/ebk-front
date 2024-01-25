@@ -1,22 +1,104 @@
 'use client';
 
 import { styled } from '@mui/system';
-import { Paper, List } from '@mui/material';
+import { Paper, Box, Tabs, Tab, IconButton, Typography } from '@mui/material';
 
 export const StyledPaper = styled(Paper)`
   display: flex;
+  flex-direction: column;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  padding: 32px;
-  transform: translate(-50%, -50%);
+  top: 116px;
+  left: 48px;
+  padding: 42px;
   border-radius: 24px;
-  box-shadow: 24;
+  right: ${({ papertype }) => {
+    switch (papertype) {
+      case 'mob':
+        return '48px';
+      case 'desktop':
+        return 'none';
+    }
+  }};
+  @media (max-width: 910px) {
+    padding: 42px 20px;
+  }
+  @media (max-width: 810px) {
+    padding: 42px 10px;
+  }
 `;
 
-export const StyledList = styled(List)`
+export const StyledWrapper = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+export const StyledTitle = styled(Typography)`
+  padding: 16px 12px;
+  font-size: 26px;
+  font-weight: 500;
+`;
+export const StyledIconButton = styled(Box)`
+  cursor: pointer;
+  position: ${({ closetype }) => {
+    switch (closetype) {
+      case 'mob':
+        return 'absolute';
+    }
+  }};
+  top: ${({ closetype }) => {
+    switch (closetype) {
+      case 'mob':
+        return '30px';
+    }
+  }};
+  right: ${({ closetype }) => {
+    switch (closetype) {
+      case 'mob':
+        return '30px';
+    }
+  }};
+`;
+
+export const SubCategoryLink = styled(Box)`
+  padding: 12px 12px 12px 32px !important;
+  font-family: 'Roboto';
+  font-size: 16px;
+  font-weight: 500;
+  color: #4d4d4d;
+  &:hover {
+    color: #49beb7;
+    text-decoration: underline;
+  }
+  @media (max-width: 860px) {
+    font-size: 14px;
+  }
+`;
+
+export const StyledTab = styled(Tab)`
+  padding: 12px 32px 12px 12px;
+  align-items: start !important;
+  text-transform: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: #4d4d4d;
+  @media (max-width: 860px) {
+    font-size: 14px;
+  }
+`;
+
+export const StyledTabs = styled(Tabs)`
+  height: 100%;
+  align-items: start;
+  @media (max-width: 910px) {
+    min-width: 320px;
+  }
+`;
+
+export const StyledBox = styled(Box)`
+  flex-grow: 1;
   display: flex;
   align-items: start;
-  justify-content: start;
-  flex-direction: column;
 `;

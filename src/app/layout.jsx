@@ -10,6 +10,7 @@ import Wrapper from '@/app/ui/Wrapper';
 export const metadata = {
   title: 'EBK online store',
   description: 'Electronic Bike Kits',
+  link: ' href="./output.css" rel="stylesheet"',
 };
 
 export default function RootLayout({ children }) {

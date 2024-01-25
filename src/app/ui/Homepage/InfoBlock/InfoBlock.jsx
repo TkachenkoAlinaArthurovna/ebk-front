@@ -3,7 +3,7 @@ import PageTitle from '@/app/ui/PageTitle';
 import InfoBlockItem from '@/app/ui/Homepage/InfoBlock/InfoBlockItem';
 import GridContainer from '@/app/ui/GridContainer/GridContainer';
 import { infoBlockData } from '@/app/lib/mockData';
-import Content from '@/app/ui/Content';
+import Content from '@/app/ui/Content/Content';
 import { StyledContainer } from '@/app/ui/Homepage/InfoBlock/InfoBlockStyles';
 
 const InfoBlock = () => {

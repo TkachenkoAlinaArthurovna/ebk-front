@@ -3,7 +3,7 @@ import CategoryItem from '@/app/ui/Homepage/CategoryBlock/CategoryItem';
 import PageTitle from '@/app/ui/PageTitle';
 import { categoryBlockData } from '@/app/lib/mockData';
 import GridContainer from '@/app/ui/GridContainer/GridContainer';
-import Content from '@/app/ui/Content';
+import Content from '@/app/ui/Content/Content';
 import { StyledContainer } from '@/app/ui/Homepage/CategoryBlock/CategoryBlockStyles';
 
 const CategoryBlock = () => {
