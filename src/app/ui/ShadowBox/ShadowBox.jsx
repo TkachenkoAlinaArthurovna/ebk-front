@@ -1,8 +1,15 @@
 import React from 'react';
-import {StyledBox} from '@/app/ui/ShadowBox/ShadowBoxStyles'
+import { StyledBox } from '@/app/ui/ShadowBox/ShadowBoxStyles';
 
-const ShadowBox = ({ children }) => {
-  return <StyledBox>{children}</StyledBox>;
+/**
+ * If you want change custom padding size you can use props (example: 10px or 5% ).
+ * Default padding is 10%
+ * @example
+ * <ShadowBox $padding="20px">{your component}</ShadowBox>
+ */
+
+const ShadowBox = ({ $padding, children }) => {
+  return <StyledBox padding={$padding}>{children}</StyledBox>;
 };
 
 export default ShadowBox;

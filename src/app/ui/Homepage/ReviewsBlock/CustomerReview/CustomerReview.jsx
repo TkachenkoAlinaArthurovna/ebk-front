@@ -1,13 +1,17 @@
 import React from 'react';
 import ShadowBox from '@/app/ui/ShadowBox';
-import { Box, Stack } from '@mui/system';
 import { createInitials } from '@/app/lib/helpers';
+import { Stack } from '@mui/system';
 import {
   StyledName,
   StyledDate,
   StyledText,
   StyledCustomerInitials,
   StyledMainContainer,
+  StyledWrapper,
+  StyledDateWrapper,
+  StyledComponentWrapper,
+  StyledNameAndInitialsContainer,
 } from '@/app/ui/Homepage/ReviewsBlock/CustomerReview/CustomerReviewStyles';
 
 const CustomerReview = ({ date, firstName, lastName, text }) => {
@@ -15,40 +19,25 @@ const CustomerReview = ({ date, firstName, lastName, text }) => {
 
   return (
     <StyledMainContainer>
-      <ShadowBox>
-        <Stack direction="column" sx={{ width: '100%' }}>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            sx={{ width: '100%', marginBottom: '16px' }}
-          >
-            <Stack direction="row" alignItems="center">
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  width: '60px',
-                  height: '60px',
-                  bgcolor: '#F3F3F3',
-                  borderRadius: '50%',
-                  textAlign: 'center',
-                }}
-              >
+      <ShadowBox $padding="8%">
+        <StyledComponentWrapper>
+          <StyledNameAndInitialsContainer>
+            <Stack direction="row" alignItems="center" flexShrink="0">
+              <StyledWrapper>
                 <StyledCustomerInitials>
                   {customerInitials}
                 </StyledCustomerInitials>
-              </Box>
+              </StyledWrapper>
               <StyledName variant="subtitle1">
                 {firstName} {lastName}
               </StyledName>
             </Stack>
-            <Box>
+            <StyledDateWrapper>
               <StyledDate variant="subtitle2">{date}</StyledDate>
-            </Box>
-          </Stack>
-          <StyledText variant="body1">{text}543543</StyledText>
-        </Stack>
+            </StyledDateWrapper>
+          </StyledNameAndInitialsContainer>
+          <StyledText variant="body1">{text}</StyledText>
+        </StyledComponentWrapper>
       </ShadowBox>
     </StyledMainContainer>
   );

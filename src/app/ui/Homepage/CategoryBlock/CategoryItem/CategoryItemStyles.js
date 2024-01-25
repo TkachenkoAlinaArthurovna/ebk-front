@@ -25,8 +25,8 @@ export const StyledLink = styled(Link)`
 export const StyledContainer = styled(Stack)`
   display: flex;
   flex-direction: column;
-  height: 100%;
   justify-content: space-between;
+  height: 100%;
 `;
 
 export const StyledWrapper = styled(Box)`
