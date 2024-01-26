@@ -8,7 +8,7 @@ import {
 
 const InfoBlockItem = ({ title, text }) => {
   return (
-    <ShadowBox>
+    <ShadowBox $padding={'6%'}>
       <StyledWrapper>
         <StyledTitle variant="subtitle1">{title}</StyledTitle>
         <StyledText>{text}</StyledText>

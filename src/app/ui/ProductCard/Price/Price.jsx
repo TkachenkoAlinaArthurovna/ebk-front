@@ -33,10 +33,11 @@ const Price = ({ price, oldprice }) => {
           <Box sx={{ marginRight: '10px', textDecoration: 'line-through' }}>
             {oldprice}
           </Box>
+
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 384 512"
-            height={'16px'}
+            height={'14px'}
           >
             <path
               fill="#6A6A6A"
@@ -49,7 +50,7 @@ const Price = ({ price, oldprice }) => {
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 384 512"
-            height={'20px'}
+            height={'16px'}
           >
             <path
               fill="#DC362E"

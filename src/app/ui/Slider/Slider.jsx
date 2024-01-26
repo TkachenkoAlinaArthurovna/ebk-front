@@ -80,7 +80,7 @@ const Slider = ({
         300: {
           slidesPerView: 2,
         },
-        650: {
+        685: {
           slidesPerView: 3,
         },
         1024: {
@@ -145,25 +145,26 @@ const Slider = ({
         </>
       )}
 
-      {products ||
-        (reviews && (
-          <>
-            <SwiperPrev
-              onClick={() => swiper.slidePrev()}
-              swipertype="section"
-              component="img"
-              alt="prev"
-              src="/images/swiper/prev.png"
-            />
-            <SwiperNext
-              onClick={() => swiper.slideNext()}
-              swipertype="section"
-              component="img"
-              alt="next"
-              src="/images/swiper/next.png"
-            />
-          </>
-        ))}
+      {(products || reviews) && (
+        <>
+          <SwiperPrev
+            onClick={() => swiper.slidePrev()}
+            swipertype="section"
+            prevtype={products ? 'products' : 'reviews'}
+            component="img"
+            alt="prev"
+            src="/images/swiper/prev.png"
+          />
+          <SwiperNext
+            onClick={() => swiper.slideNext()}
+            swipertype="section"
+            nexttype={products ? 'products' : 'reviews'}
+            component="img"
+            alt="next"
+            src="/images/swiper/next.png"
+          />
+        </>
+      )}
     </>
   );
 };
