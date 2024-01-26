@@ -10,6 +10,9 @@ export const StyledTitle = styled(Typography)`
   @media (max-width: 900px) {
     font-size: 26px;
   }
+  @media (max-width: 900px) {
+    font-size: 26px;
+  }
 
   @media (max-width: 650px) {
     font-size: 24px;
