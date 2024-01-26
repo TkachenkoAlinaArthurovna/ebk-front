@@ -1,17 +1,20 @@
 'use client';
 
-import { styled, List, ListItem } from '@mui/material';
+import { styled, List, ListItemButton } from '@mui/material';
 
 export const StyledList = styled(List)`
-    color: #4D4D4D;
-    width: 340px;
+  color: #4d4d4d;
+  width: 340px;
 `;
 
-export const StyledListItem = styled(ListItem)`
-    padding: 16px;
-    border-radius: 100px;
+export const StyledListItemButton = styled(ListItemButton)`
+  && {
+    border-radius: 10px;
+    background-color: ${(props) =>
+      props.selected ? '#f5f5f5' : 'transparent'};
 
     &:hover {
-        background-color: #F7F7F7;
+      background-color: #f5f5f5;
     }
+  }
 `;
