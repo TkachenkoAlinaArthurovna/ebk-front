@@ -3,7 +3,7 @@
 import { styled, Box, Typography } from '@mui/material';
 
 export const StyledTitle = styled(Typography)`
-  font-size: 36px;
+  font-size: 28px;
   font-style: normal;
   font-weight: 500;
 

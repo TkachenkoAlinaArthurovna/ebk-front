@@ -1,28 +1,35 @@
+'use client';
+
 import Link from 'next/link';
-import { StyledList, StyledListItem } from '@/app/ui/InfoPagesMenu/InfoPagesMenuStyles';
+import {
+  StyledList,
+  StyledListItemButton,
+} from '@/app/ui/InfoPagesMenu/InfoPagesMenuStyles';
+import { usePathname } from 'next/navigation';
+import { ListItemText } from '@mui/material';
 
 const InfoPagesMenu = () => {
+  const path = usePathname();
+
+  const links = [
+    { href: '/about', label: 'Про нас' },
+    { href: '/support', label: 'Підтримка' },
+    { href: '/about', label: 'Запитання та відповіді' },
+    { href: '/contacts', label: 'Контакти' },
+    { href: '/about', label: 'Відгуки' },
+  ];
+
   return (
     <StyledList component="nav">
-      <StyledListItem>
-        <Link href="/about">Про нас</Link>
-      </StyledListItem>
-      <StyledListItem>
-        <Link href="/support">Підтримка</Link>
-      </StyledListItem>
-      <StyledListItem>
-        {/* To fix */}
-        <Link href="/about">Запитання та відповіді</Link>
-      </StyledListItem>
-      <StyledListItem>
-        <Link href="/contacts">Контакти</Link>
-      </StyledListItem>
-      <StyledListItem>
-        {/* To fix */}
-        <Link href="about">Відгуки</Link>
-      </StyledListItem>
+      {links.map((link) => (
+        <Link key={link.label} href={link.href} passHref>
+          <StyledListItemButton selected={path === link.href}>
+            <ListItemText primary={link.label} selected={path === link.href} />
+          </StyledListItemButton>
+        </Link>
+      ))}
     </StyledList>
-  )
-}
+  );
+};
 
 export default InfoPagesMenu;
