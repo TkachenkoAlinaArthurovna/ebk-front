@@ -8,11 +8,11 @@ import {
     StyledList,
     StyledListItem,
     WrapperItemBox
-} from '@/app/ui/home-page/footer/FooterStyles';
+} from '@/app/ui/Footer/FooterStyles';
 import Link from 'next/link';
 import {Box, Typography} from '@mui/material';
 import Image from 'next/image';
-import logo from '../../../../../public/images/logo-inverted.png';
+import logo from '../../../../public/images/logo-inverted.png';
 import { useTheme } from '@mui/material/styles';
 
 const Footer = () => {

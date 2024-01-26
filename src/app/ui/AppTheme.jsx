@@ -13,7 +13,7 @@ const AppTheme = ({ children }) => {
         contrastText: '#FFFFFF',
       },
       secondary: {
-        main: '#E5E5E5',
+        main: 'E5E5E5',
         light: '#EEEEEE',
         dark: '#D0D0D0',
         contrastText: '#FFFFFF',
@@ -23,23 +23,24 @@ const AppTheme = ({ children }) => {
       },
       lightGrey: {
         main: '#F3F3F3',
-      }
+      },
     },
     components: {
       MuiButton: {
         styleOverrides: {
           root: {
-            padding: '12px 40px',
+            padding: '0',
             borderRadius: '100px',
             fontSize: '16px',
             textTransform: 'capitalize',
+            backgroundColor: '#49BEB7 !important',
           },
         },
       },
       MuiAppBar: {
         styleOverrides: {
           root: {
-            boxShadow: "none",
+            boxShadow: 'none',
             padding: '27px 48px',
             fontSize: '16px',
           },
