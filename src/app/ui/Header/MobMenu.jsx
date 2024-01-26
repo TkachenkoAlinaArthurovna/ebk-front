@@ -7,6 +7,7 @@ import {
   StyledTab,
   StyledBox,
 } from '@/app/ui/Header/HeaderStyles';
+import { Box } from '@mui/material';
 import CustomTabPanel from '@/app/ui/Tabs/CustomTabPanel';
 import { a11yProps } from '@/app/lib/helpers';
 import { catalog } from '@/app/lib/mockData';
@@ -41,7 +42,11 @@ const MobMenu = ({ handleCloseCatalog }) => {
             return (
               <StyledTab
                 key={category.id}
-                label={capitalizeFirstLetter(category.name)}
+                label={
+                  <Box sx={{ textAlign: 'start' }}>
+                    {capitalizeFirstLetter(category.name)}
+                  </Box>
+                }
                 {...a11yProps(index)}
               ></StyledTab>
             );
@@ -52,7 +57,11 @@ const MobMenu = ({ handleCloseCatalog }) => {
                 component={Link}
                 href="/cart"
                 onClick={handleCloseCatalog}
-                label={capitalizeFirstLetter(category.name)}
+                label={
+                  <Box sx={{ textAlign: 'start' }}>
+                    {capitalizeFirstLetter(category.name)}
+                  </Box>
+                }
                 {...a11yProps(index)}
               ></StyledTab>
             );

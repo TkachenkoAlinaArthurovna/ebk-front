@@ -1,7 +1,15 @@
 'use client';
 
 import { styled } from '@mui/system';
-import { Paper, Box, Tabs, Tab, Typography, Button, IconButton } from '@mui/material';
+import {
+  Paper,
+  Box,
+  Tabs,
+  Tab,
+  Button,
+  IconButton,
+  Typography,
+} from '@mui/material';
 
 export const StyledPaper = styled(Paper)`
   display: flex;
@@ -25,6 +33,15 @@ export const StyledPaper = styled(Paper)`
   @media (max-width: 810px) {
     padding: 42px 10px;
   }
+  @media (max-width: 788px) {
+    left: 20px;
+    right: 20px;
+    padding: 42px 0px;
+  }
+  @media (max-width: 414px) {
+    left: 14px;
+    right: 14px;
+  }
 `;
 
 export const StyledWrapper = styled(Box)`
@@ -33,14 +50,27 @@ export const StyledWrapper = styled(Box)`
   flex-wrap: nowrap;
   justify-content: space-between;
   width: 100%;
+  margin-bottom: 12px;
 `;
 
 export const StyledTitle = styled(Typography)`
-  padding: 16px 12px;
-  font-size: 26px;
+  padding: 12px;
+  font-size: 28px;
   font-weight: 500;
+
+  @media (max-width: 900px) {
+    font-size: 26px;
+  }
+
+  @media (max-width: 650px) {
+    font-size: 24px;
+  }
 `;
+
 export const StyledIconButton = styled(IconButton)`
+  position: absolute;
+  top: 20px;
+  right: 20px;
   width: 40px;
   height: 40px;
   cursor: pointer;
@@ -65,7 +95,7 @@ export const StyledIconButton = styled(IconButton)`
 `;
 
 export const SubCategoryLink = styled(Box)`
-  padding: 12px 12px 12px 32px !important;
+  padding: 12px 12px 12px 32px;
   font-family: 'Roboto';
   font-size: 16px;
   font-weight: 500;
@@ -76,6 +106,9 @@ export const SubCategoryLink = styled(Box)`
   }
   @media (max-width: 860px) {
     font-size: 14px;
+  }
+  @media (max-width: 760px) {
+    padding: 12px;
   }
 `;
 
@@ -89,13 +122,16 @@ export const StyledTab = styled(Tab)`
   @media (max-width: 860px) {
     font-size: 14px;
   }
+  @media (max-width: 760px) {
+    padding: 12px;
+  }
 `;
 
 export const StyledTabs = styled(Tabs)`
   height: 100%;
   align-items: start;
-  @media (max-width: 910px) {
-    min-width: 320px;
+  @media (max-width: 600px) {
+    min-width: 50%;
   }
 `;
 
@@ -166,8 +202,8 @@ export const StyledPhoneBox = styled(Box)`
   @media (max-width: 1250px) {
   }
   @media (max-width: 1100px) {
-  min-width: 10px;
-  margin-right: 10px;
+    min-width: 10px;
+    margin-right: 10px;
   }
   @media (max-width: 700px) {
     display: none;

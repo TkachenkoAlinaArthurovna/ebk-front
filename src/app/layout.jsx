@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
           <Wrapper>
             <Header />
             {children}
-            <Footer />
+            {/* <Footer /> */}
           </Wrapper>
         </body>
       </AppTheme>
