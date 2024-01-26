@@ -14,6 +14,9 @@ export const StyledTitle = styled(Typography)`
   @media (max-width: 650px) {
     font-size: 24px;
   }
+  @media (max-width: 440px) {
+    font-size: 22px;
+  }
 `;
 
 export const StyledBox = styled(Box)`

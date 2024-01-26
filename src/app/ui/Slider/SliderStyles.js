@@ -19,7 +19,7 @@ export const SwiperPrev = styled(Box)`
   right: ${({ swipertype }) => {
     switch (swipertype) {
       case 'section':
-        return '62px';
+        return '110px';
     }
   }};
   left: ${({ swipertype }) => {
@@ -38,8 +38,6 @@ export const SwiperPrev = styled(Box)`
   @media (max-width: 1024px) {
     left: ${({ swipertype }) => {
       switch (swipertype) {
-        case 'section':
-          return '0px';
         case 'main':
           return '60px';
       }
@@ -48,32 +46,50 @@ export const SwiperPrev = styled(Box)`
   @media (max-width: 788px) {
     width: 30px;
     height: 30px;
-    left: ${({ swipertype }) => {
+    top: ${({ swipertype }) => {
       switch (swipertype) {
         case 'section':
-          return '0px';
+          return '8px';
+      }
+    }};
+    left: ${({ swipertype }) => {
+      switch (swipertype) {
         case 'main':
           return '40px';
       }
     }};
   }
-  @media (max-width: 560px) {
-    width: 20px;
-    height: 20px;
+  @media (max-width: 650px) {
+    display: ${({ prevtype }) => {
+      switch (prevtype) {
+        case 'products':
+          return 'none';
+      }
+    }};
     left: ${({ swipertype }) => {
       switch (swipertype) {
         case 'section':
+          return '38px';
+      }
+    }};
+    top: ${({ swipertype }) => {
+      switch (swipertype) {
+        case 'section':
           return '0px';
+      }
+    }};
+  }
+  @media (max-width: 560px) {
+    display: ${({ swipertype }) => {
+      switch (swipertype) {
         case 'main':
-          return '30px';
+          return 'none';
       }
     }};
   }
   @media (max-width: 414px) {
     left: ${({ swipertype }) => {
       switch (swipertype) {
-        case 'section':
-          return '0px';
         case 'main':
           return '30px';
       }
@@ -97,7 +113,7 @@ export const SwiperNext = styled(Box)`
   right: ${({ swipertype }) => {
     switch (swipertype) {
       case 'section':
-        return '0px';
+        return '48px';
       case 'main':
         return '72px';
     }
@@ -112,8 +128,6 @@ export const SwiperNext = styled(Box)`
   @media (max-width: 1024px) {
     right: ${({ swipertype }) => {
       switch (swipertype) {
-        case 'section':
-          return '0px';
         case 'main':
           return '60px';
       }
@@ -122,32 +136,50 @@ export const SwiperNext = styled(Box)`
   @media (max-width: 788px) {
     width: 30px;
     height: 30px;
-    right: ${({ swipertype }) => {
+    top: ${({ swipertype }) => {
       switch (swipertype) {
         case 'section':
-          return '0px';
+          return '8px';
+      }
+    }};
+    right: ${({ swipertype }) => {
+      switch (swipertype) {
         case 'main':
           return '40px';
       }
     }};
   }
-  @media (max-width: 560px) {
-    width: 20px;
-    height: 20px;
+  @media (max-width: 650px) {
+    display: ${({ nexttype }) => {
+      switch (nexttype) {
+        case 'products':
+          return 'none';
+      }
+    }};
     right: ${({ swipertype }) => {
       switch (swipertype) {
         case 'section':
+          return '38px';
+      }
+    }};
+    top: ${({ swipertype }) => {
+      switch (swipertype) {
+        case 'section':
           return '0px';
+      }
+    }};
+  }
+  @media (max-width: 560px) {
+    display: ${({ swipertype }) => {
+      switch (swipertype) {
         case 'main':
-          return '30px';
+          return 'none';
       }
     }};
   }
   @media (max-width: 414px) {
     right: ${({ swipertype }) => {
       switch (swipertype) {
-        case 'section':
-          return '0px';
         case 'main':
           return '30px';
       }

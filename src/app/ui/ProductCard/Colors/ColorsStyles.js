@@ -8,6 +8,9 @@ export const WrapperBox = styled(Box)`
   flex-direction: row;
   flex-wrap: nowrap;
   margin-bottom: 22px;
+  @media (max-width: 480px) {
+    margin-bottom: 16px;
+  }
 `;
 
 export const Color = styled(Box)`
