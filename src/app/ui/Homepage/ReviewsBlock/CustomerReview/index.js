@@ -1,2 +1,2 @@
-import CustomerReview from "@/app/ui/Homepage/ReviewsBlock/CustomerReview/customerReview";
+import CustomerReview from '@/app/ui/Homepage/ReviewsBlock/CustomerReview/CustomerReview';
 export default CustomerReview;
