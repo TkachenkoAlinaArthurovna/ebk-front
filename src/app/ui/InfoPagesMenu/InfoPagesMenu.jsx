@@ -8,15 +8,15 @@ import {
 import { usePathname } from 'next/navigation';
 import { ListItemText } from '@mui/material';
 
+// todo: array as props to make it reusable
 const InfoPagesMenu = () => {
   const path = usePathname();
 
   const links = [
     { href: '/about', label: 'Про нас' },
     { href: '/support', label: 'Підтримка' },
-    { href: '/about', label: 'Запитання та відповіді' },
     { href: '/contacts', label: 'Контакти' },
-    { href: '/about', label: 'Відгуки' },
+    { href: '/reviews', label: 'Відгуки' },
   ];
 
   return (
