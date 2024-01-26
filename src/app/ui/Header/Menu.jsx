@@ -27,9 +27,15 @@ function capitalizeFirstLetter(str) {
 const Menu = ({ handleCloseCatalog }) => {
   return (
     <>
-      <List sx={{ display: 'flex', flexDirection: 'column' }}>
+      <List
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          padding: '0',
+        }}
+      >
         {categories.map((category) => (
-          <ListItem key={category.id}>
+          <ListItem key={category.id} sx={{ padding: '0' }}>
             <Box className="hack">
               <HoverCard key={category.id}>
                 <HoverCardTrigger href="/cart" onClick={handleCloseCatalog}>
@@ -46,14 +52,26 @@ const Menu = ({ handleCloseCatalog }) => {
                 </HoverCardTrigger>
                 {category.children.length > 0 && (
                   <HoverCardContent>
-                    {category.children.map((item) => (
-                      <ListItemButton
-                        key={item.id}
-                        sx={{ borderRadius: '100px' }}
-                      >
-                        <Link href="/">{capitalizeFirstLetter(item.name)}</Link>
-                      </ListItemButton>
-                    ))}
+                    <Box
+                      sx={{
+                        overflow: 'auto',
+                        '&::-webkit-scrollbar': {
+                          width: '0 !important',
+                        },
+                        scrollbarWidth: 'none',
+                      }}
+                    >
+                      {category.children.map((item) => (
+                        <ListItemButton
+                          key={item.id}
+                          sx={{ borderRadius: '100px' }}
+                        >
+                          <Link href="/">
+                            {capitalizeFirstLetter(item.name)}
+                          </Link>
+                        </ListItemButton>
+                      ))}
+                    </Box>
                   </HoverCardContent>
                 )}
               </HoverCard>

@@ -3,9 +3,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import {
   StyledPaper,
   StyledWrapper,
-  StyledTitle,
   StyledIconButton,
+  StyledTitle,
 } from '@/app/ui/Header/HeaderStyles';
+import PageTitle from '@/app/ui/PageTitle';
 import MobMenu from '@/app/ui/Header/MobMenu';
 import Menu from '@/app/ui/Header/Menu';
 import { catalog } from '@/app/lib/mockData';
@@ -17,7 +18,16 @@ const Catalog = ({ openCatalog, handleCloseCatalog }) => {
   return (
     <>
       <Modal
-        sx={{ maxWidth: '1344px', margin: '0 auto' }}
+        sx={{
+          maxWidth: '1344px',
+          height: '100%',
+          margin: '0 auto',
+          overflow: 'auto',
+          '&::-webkit-scrollbar': {
+            width: '0 !important',
+          },
+          scrollbarWidth: 'none',
+        }}
         open={openCatalog}
         onClose={handleCloseCatalog}
         closeAfterTransition
