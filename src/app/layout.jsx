@@ -22,7 +22,6 @@ export default function RootLayout({ children }) {
         <body>
           <Wrapper>
             <Header />
-            <BreadCrumbs />
             {children}
             {/* <Footer /> */}
           </Wrapper>
