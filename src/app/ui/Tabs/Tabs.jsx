@@ -17,7 +17,9 @@ const Tabs = () => {
   return (
     <StyledSection as="section">
       <Content>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Box
+          sx={{ marginBottom: '24px', borderBottom: 1, borderColor: 'divider' }}
+        >
           <StyledTabs
             value={value}
             onChange={handleChange}
