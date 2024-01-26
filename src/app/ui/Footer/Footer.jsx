@@ -12,7 +12,7 @@ import {
 import Link from 'next/link';
 import {Box, Typography} from '@mui/material';
 import Image from 'next/image';
-import logo from '../../../../../public/images/logo-inverted.png';
+import logo from '../../../../public/images/logo-inverted.png';
 import { useTheme } from '@mui/material/styles';
 
 const Footer = () => {

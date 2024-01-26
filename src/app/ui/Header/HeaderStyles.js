@@ -1,7 +1,7 @@
 'use client';
 
 import { styled } from '@mui/system';
-import { Paper, Box, Tabs, Tab, Typography, Button } from '@mui/material';
+import { Paper, Box, Tabs, Tab, Typography, Button, IconButton } from '@mui/material';
 
 export const StyledPaper = styled(Paper)`
   display: flex;

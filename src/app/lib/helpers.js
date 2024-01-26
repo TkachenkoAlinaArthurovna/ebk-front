@@ -1,9 +1,9 @@
-<<<<<<< HEAD
+import { useState, useEffect } from 'react';
+
 export const createInitials = (firstName, lastName) => {
   const getInitial = (string) => string.charAt(0).toUpperCase();
   return getInitial(firstName) + getInitial(lastName);
-=======
-import { useState, useEffect } from 'react';
+}
 
 export const a11yProps = (index) => {
   return {
@@ -47,5 +47,4 @@ export const useResize = () => {
   }, [isBrowser]);
 
   return size;
->>>>>>> 97a56b7 (catalog)
 };
