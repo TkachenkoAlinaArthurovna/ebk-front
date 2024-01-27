@@ -13,7 +13,7 @@ const AppTheme = ({ children }) => {
         contrastText: '#FFFFFF',
       },
       secondary: {
-        main: 'E5E5E5',
+        main: '#E5E5E5',
         light: '#EEEEEE',
         dark: '#D0D0D0',
         contrastText: '#FFFFFF',

@@ -9,6 +9,8 @@ import {
   Button,
   IconButton,
   Typography,
+  List,
+  AccordionSummary,
 } from '@mui/material';
 
 export const StyledPaper = styled(Paper)`
@@ -16,27 +18,17 @@ export const StyledPaper = styled(Paper)`
   flex-direction: column;
   position: absolute;
   top: 116px;
-  left: 48px;
+  left: 40px;
+  height: 80vh;
   padding: 42px;
   border-radius: 24px;
-  right: ${({ papertype }) => {
-    switch (papertype) {
-      case 'mob':
-        return '48px';
-      case 'desktop':
-        return 'none';
-    }
-  }};
   @media (max-width: 910px) {
     padding: 42px 20px;
-  }
-  @media (max-width: 810px) {
-    padding: 42px 10px;
   }
   @media (max-width: 788px) {
     left: 20px;
     right: 20px;
-    padding: 42px 0px;
+    padding: 20px;
   }
   @media (max-width: 414px) {
     left: 14px;
@@ -57,41 +49,18 @@ export const StyledTitle = styled(Typography)`
   padding: 12px;
   font-size: 28px;
   font-weight: 500;
-
-  @media (max-width: 900px) {
-    font-size: 26px;
-  }
-
-  @media (max-width: 650px) {
-    font-size: 24px;
+  @media (max-width: 664px) {
+    color: #49beb7;
   }
 `;
 
 export const StyledIconButton = styled(IconButton)`
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 15px;
+  right: 15px;
   width: 40px;
   height: 40px;
   cursor: pointer;
-  position: ${({ closetype }) => {
-    switch (closetype) {
-      case 'mob':
-        return 'absolute';
-    }
-  }};
-  top: ${({ closetype }) => {
-    switch (closetype) {
-      case 'mob':
-        return '30px';
-    }
-  }};
-  right: ${({ closetype }) => {
-    switch (closetype) {
-      case 'mob':
-        return '30px';
-    }
-  }};
 `;
 
 export const SubCategoryLink = styled(Box)`
@@ -107,7 +76,7 @@ export const SubCategoryLink = styled(Box)`
   @media (max-width: 860px) {
     font-size: 14px;
   }
-  @media (max-width: 760px) {
+  @media (max-width: 710px) {
     padding: 12px;
   }
 `;
@@ -118,11 +87,10 @@ export const StyledTab = styled(Tab)`
   text-transform: none;
   font-size: 16px;
   font-weight: 500;
-  color: #4d4d4d;
   @media (max-width: 860px) {
     font-size: 14px;
   }
-  @media (max-width: 760px) {
+  @media (max-width: 710px) {
     padding: 12px;
   }
 `;
@@ -130,9 +98,6 @@ export const StyledTab = styled(Tab)`
 export const StyledTabs = styled(Tabs)`
   height: 100%;
   align-items: start;
-  @media (max-width: 600px) {
-    min-width: 50%;
-  }
 `;
 
 export const StyledBox = styled(Box)`
@@ -208,4 +173,63 @@ export const StyledPhoneBox = styled(Box)`
   @media (max-width: 700px) {
     display: none;
   }
+`;
+
+export const SubCategoriesWrapper = styled(Box)`
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: -378px;
+  height: 80vh;
+  transition: opacity 0.3s ease-out;
+`;
+
+export const SubCategoriesList = styled(Box)`
+  width: 420px;
+  padding: 120px 42px 42px 20px;
+  border-radius: 24px;
+  background-color: #ffff;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 0 !important;
+  }
+  scrollbar-width: none;
+`;
+
+export const StyledItem = styled(Box)`
+  min-width: 400px;
+  border-radius: 28px;
+  &:hover {
+    background-color: #eeeeee;
+  }
+`;
+
+export const StyledButton = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px !important;
+  &:hover {
+    color: ${({ typebutton }) => {
+      switch (typebutton) {
+        case 'subcategory':
+          return '#49BEB7';
+      }
+    }};
+  }
+`;
+
+export const StyledButtonMob = styled(Box)`
+  padding: 12px 16px;
+  font-family: 'Roboto';
+  font-size: 16px;
+  font-weight: 500;
+`;
+
+export const StyledAccordionSummary = styled(AccordionSummary)`
+  font-family: 'Roboto';
+  font-size: 16px;
+  font-weight: 500;
 `;

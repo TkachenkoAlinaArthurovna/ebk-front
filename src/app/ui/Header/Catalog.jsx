@@ -1,4 +1,4 @@
-import { Modal, Fade, Backdrop, IconButton } from '@mui/material';
+import { Modal, Fade, Backdrop, Box } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import {
   StyledPaper,
@@ -6,14 +6,19 @@ import {
   StyledIconButton,
   StyledTitle,
 } from '@/app/ui/Header/HeaderStyles';
-import PageTitle from '@/app/ui/PageTitle';
-import MobMenu from '@/app/ui/Header/MobMenu';
-import Menu from '@/app/ui/Header/Menu';
+import MenuDesktop from '@/app/ui/Header/MenuDesktop';
+import MenuTouchpad from '@/app/ui/Header/MenuTouchpad';
+import MenuMob from '@/app/ui/Header/MenuMob';
 import { catalog } from '@/app/lib/mockData';
 import { useResize } from '@/app/lib/helpers';
 
 const Catalog = ({ openCatalog, handleCloseCatalog }) => {
   const [width] = useResize();
+  const updatedCatalog = catalog.map((item) => ({
+    ...item,
+    children: catalog.filter((subItem) => subItem.parentId === item.id),
+  }));
+  const categories = updatedCatalog.filter((item) => !item.parentId);
 
   return (
     <>
@@ -22,11 +27,6 @@ const Catalog = ({ openCatalog, handleCloseCatalog }) => {
           maxWidth: '1344px',
           height: '100%',
           margin: '0 auto',
-          overflow: 'auto',
-          '&::-webkit-scrollbar': {
-            width: '0 !important',
-          },
-          scrollbarWidth: 'none',
         }}
         open={openCatalog}
         onClose={handleCloseCatalog}
@@ -40,19 +40,43 @@ const Catalog = ({ openCatalog, handleCloseCatalog }) => {
       >
         <Fade in={openCatalog}>
           <StyledPaper papertype={width <= 1025 ? 'mob' : 'desktop'}>
-            <StyledWrapper>
-              <StyledTitle>Каталог товарів</StyledTitle>
-              <StyledIconButton
-                closetype={width <= 1025 ? 'mob' : 'desktop'}
-                onClick={handleCloseCatalog}
-              >
-                <CloseIcon />
-              </StyledIconButton>
-            </StyledWrapper>
-            {width <= 1025 && (
-              <MobMenu handleCloseCatalog={handleCloseCatalog} />
-            )}
-            {width > 1025 && <Menu handleCloseCatalog={handleCloseCatalog} />}
+            <Box
+              sx={{
+                overflow: 'auto',
+                '&::-webkit-scrollbar': {
+                  width: '0 !important',
+                },
+                scrollbarWidth: 'none',
+              }}
+            >
+              <StyledWrapper>
+                <StyledTitle>Каталог товарів</StyledTitle>
+                <StyledIconButton
+                  closetype={width <= 1025 ? 'mob' : 'desktop'}
+                  onClick={handleCloseCatalog}
+                >
+                  <CloseIcon />
+                </StyledIconButton>
+              </StyledWrapper>
+              {width < 665 && (
+                <MenuMob
+                  handleCloseCatalog={handleCloseCatalog}
+                  categories={categories}
+                />
+              )}
+              {width <= 1025 && width >= 665 && (
+                <MenuTouchpad
+                  handleCloseCatalog={handleCloseCatalog}
+                  categories={categories}
+                />
+              )}
+              {width > 1025 && (
+                <MenuDesktop
+                  handleCloseCatalog={handleCloseCatalog}
+                  categories={categories}
+                />
+              )}
+            </Box>
           </StyledPaper>
         </Fade>
       </Modal>

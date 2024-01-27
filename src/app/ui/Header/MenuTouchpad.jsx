@@ -10,19 +10,9 @@ import {
 import { Box } from '@mui/material';
 import CustomTabPanel from '@/app/ui/Tabs/CustomTabPanel';
 import { a11yProps } from '@/app/lib/helpers';
-import { catalog } from '@/app/lib/mockData';
+import { capitalizeFirstLetter } from '@/app/lib/helpers';
 
-const updatedCatalog = catalog.map((item) => ({
-  ...item,
-  children: catalog.filter((subItem) => subItem.parentId === item.id),
-}));
-const categories = updatedCatalog.filter((item) => !item.parentId);
-
-function capitalizeFirstLetter(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-}
-
-const MobMenu = ({ handleCloseCatalog }) => {
+const MenuTouchpad = ({ handleCloseCatalog, categories }) => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -83,4 +73,4 @@ const MobMenu = ({ handleCloseCatalog }) => {
   );
 };
 
-export default MobMenu;
+export default MenuTouchpad;

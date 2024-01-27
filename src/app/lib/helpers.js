@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 export const createInitials = (firstName, lastName) => {
   const getInitial = (string) => string.charAt(0).toUpperCase();
   return getInitial(firstName) + getInitial(lastName);
-}
+};
 
 export const a11yProps = (index) => {
   return {
@@ -28,7 +28,7 @@ export const useDebounce = (func, milliseconds) => {
 export const useResize = () => {
   const isBrowser = typeof window !== 'undefined';
   const [size, setSize] = useState(
-    isBrowser ? [window.innerWidth, window.innerHeight] : [0, 0]
+    isBrowser ? [window.innerWidth, window.innerHeight] : [0, 0],
   );
 
   useEffect(() => {
@@ -47,4 +47,8 @@ export const useResize = () => {
   }, [isBrowser]);
 
   return size;
+};
+
+export const capitalizeFirstLetter = (str) => {
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };
