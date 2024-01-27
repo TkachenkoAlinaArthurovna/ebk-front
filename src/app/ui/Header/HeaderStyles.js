@@ -195,15 +195,13 @@ export const StyledSideBarContainer = styled(Box)`
 
 export const StyledPhoneBox = styled(Box)`
   position: relative;
-  min-width: 240px;
+  width: 215px;
   margin-right: 32px;
   display: flex;
   align-items: center;
-  @media (max-width: 1250px) {
-  }
   @media (max-width: 1100px) {
-    min-width: 10px;
-    margin-right: 10px;
+  margin-right: 10px;
+  width: 65px;
   }
   @media (max-width: 700px) {
     display: none;

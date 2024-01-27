@@ -7,13 +7,14 @@ import Autocomplete from '@mui/material/Autocomplete';
 const options = ['Велик', 'Електровелик', 'горний велик', 'руль', 'шини'];
 
 export const SearchComponent = () => {
+
   const Search = styled('div')`
     flex-grow: 1;
     position: relative;
     margin-right: 32px;
     border-radius: 100px;
-    @media (max-width: 900px) {
-      height: '40px';
+    @media (max-width: 1150px) {
+     width: 200px;
     }
   `;
 
@@ -30,16 +31,13 @@ export const SearchComponent = () => {
 
   const StyledTextField = styled(TextField)(({ theme }) => ({
     width: '100%',
-    [theme.breakpoints.down('lg')]: {
-      // height: '40px',
-      padding: 0,
-    },
     color: theme.palette.secondary.main,
     borderRadius: '100px',
     '& .MuiOutlinedInput-root': {
       borderRadius: '100px',
       border: 'none',
-    },
+      height: '100%',
+    }
   }));
 
   return (

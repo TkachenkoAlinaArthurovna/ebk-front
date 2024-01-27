@@ -49,6 +49,7 @@ const Header = () => {
   };
 
   const StyledListItemText = styled(ListItemText)`
+  width: 149px;
   @media (max-width: 1100px) {
     display: none;
   }
@@ -97,13 +98,13 @@ const Header = () => {
             />
             <SearchComponent />
             <StyledPhoneBox>
-              <ListItemButton href="tel:+380 63 32 95 468">
+              <ListItemButton disableGutters href="tel:+380 63 32 95 468">
                 <LocalPhoneIcon sx={{ color: 'black', marginRight: 1 }} />
                 <StyledListItemText primary="+380 63 32 95 468" />
               </ListItemButton>
-              <IconButton onClick={handleClickPones}>
+              <IconButton  onClick={handleClickPones}>
                 {phoneList ? (
-                  <ExpandLess sx={{ color: 'black' }} />
+                  <ExpandLess sx={{ color: 'black', padding: 0 }} />
                 ) : (
                   <ExpandMore sx={{ color: 'black' }} />
                 )}
