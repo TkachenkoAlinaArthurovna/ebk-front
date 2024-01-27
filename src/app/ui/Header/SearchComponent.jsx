@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
@@ -13,9 +14,14 @@ export const SearchComponent = () => {
     position: relative;
     margin-right: 32px;
     border-radius: 100px;
+    height: 100%;
     @media (max-width: 1150px) {
      width: 200px;
     }
+    @media (max-width: 560px) {
+      margin-right: 5px;
+     }
+
   `;
 
   const SearchIconWrapper = styled('div')`
@@ -33,6 +39,15 @@ export const SearchComponent = () => {
     width: '100%',
     color: theme.palette.secondary.main,
     borderRadius: '100px',
+    height: '100%',
+    [theme.breakpoints.down('lg')]: {
+      height: '43px ',
+      '& .MuiInputLabel-root': {
+        position: 'absolute',
+        top: '-5px',
+        left: '5px', 
+      },
+    },
     '& .MuiOutlinedInput-root': {
       borderRadius: '100px',
       border: 'none',

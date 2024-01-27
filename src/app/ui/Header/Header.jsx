@@ -25,7 +25,10 @@ import ListItemButton from '@mui/material/ListItemButton';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import { styled } from '@mui/material/styles';
-import { StyledButtonCatalog, StyledPhoneBox } from '@/app/ui/Header/HeaderStyles';
+import {
+  StyledButtonCatalog,
+  StyledPhoneBox,
+} from '@/app/ui/Header/HeaderStyles';
 
 const Header = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -40,51 +43,90 @@ const Header = () => {
   const [anchor, setAnchor] = useState(null);
   const handleClickPones = (event) => {
     setPhoneList(!phoneList);
-    setAnchor(event.currentTarget);
+    setAnchor(event.currentTarget.type);
   };
-
   const handleClosePhones = () => {
     setAnchor(null);
     setPhoneList(!phoneList);
   };
 
   const StyledListItemText = styled(ListItemText)`
-  width: 149px;
-  @media (max-width: 1100px) {
-    display: none;
+    width: 149px;
+    @media (max-width: 1100px) {
+      display: none;
+    }
+  `;
+  const StyledToolbar = styled(Toolbar)`
+    display: flex;
+    justifycontent: space-between;
+  `;
+  const StyledLink = styled(Link)`
+    @media (max-width: 560px) {
+      display: none;
+    }
+  `;
+  const StyledBoxIcons = styled(Box)`
+    @media (max-width: 560px) {
+      width: 41px;
+    }
+  `;
+  const StyledIconButton = styled(IconButton)`
+    margin-right: 16px;
+    @media (max-width: 560px) {
+      margin-right: 0px;
+    }
+  `;
+  const StyledMenuIcon = styled(MenuIcon)`
+    @media (max-width: 560px) {
+      // font-size: 24px;
+      font-size: 16px;
+      margin-right: 0;
+    }
+  `;
+  const StyledLogoBox = styled(Box)`
+    margin-right: 32px;
+    @media (max-width: 560px) {
+      margin-right: 12px;
+    }
+  `;
+  const StyledShoppingCartIcon = styled(ShoppingCartIcon)`
+    // width: 24px;
+    // height: 24px;
+    color: #252a31;
+    @media (max-width: 560px) {
+      // font-size: 24px;
+      font-size: 16px; 
+    }
+  `;
+  const StyledBadge = styled(Badge)`
+  @media (max-width: 560px) {
+    
   }
   `
-
 
   return (
     <>
       <AppBar sx={{ padding: '26px 0' }} position="static" color="white">
         <Content>
-          <Toolbar
-            disableGutters
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-            }}
-          >
-            <IconButton
+          <StyledToolbar disableGutters>
+            <StyledIconButton
               onClick={toggleDrawer}
               color="inherit"
               edge="start"
               sx={{ marginRight: '16px' }}
             >
-              <MenuIcon fontSize="large" />
+              <StyledMenuIcon fontSize="large" />
               <SideBar
                 toggleDrawer={toggleDrawer}
                 openDrawer={openDrawer}
                 handleOpenCatalog={handleOpenCatalog}
               />
-            </IconButton>
-            <Box sx={{ marginRight: '32px' }}>
+            </StyledIconButton>
+            <StyledLogoBox>
               <Link href="/">
-                <Image src={logo} component="button" alt="logo" />
+                <Image priority={true} src={logo} alt="logo" />
               </Link>
-            </Box>
+            </StyledLogoBox>
             <StyledButtonCatalog
               onClick={handleOpenCatalog}
               variant="contained"
@@ -102,7 +144,7 @@ const Header = () => {
                 <LocalPhoneIcon sx={{ color: 'black', marginRight: 1 }} />
                 <StyledListItemText primary="+380 63 32 95 468" />
               </ListItemButton>
-              <IconButton  onClick={handleClickPones}>
+              <IconButton onClick={handleClickPones}>
                 {phoneList ? (
                   <ExpandLess sx={{ color: 'black', padding: 0 }} />
                 ) : (
@@ -116,14 +158,14 @@ const Header = () => {
               />
             </StyledPhoneBox>
 
-            <Box
+            <StyledBoxIcons
               sx={{
                 display: 'flex',
                 justifyContent: 'space-between',
                 width: '120px',
               }}
             >
-              <Link href="cabinet/favorites">
+              <StyledLink href="cabinet/favorites">
                 <IconButton>
                   <Badge badgeContent={null} color="error">
                     <FavoriteBorderIcon
@@ -131,17 +173,16 @@ const Header = () => {
                     />
                   </Badge>
                 </IconButton>
-              </Link>
+              </StyledLink>
               <Link href="/cart">
                 <IconButton>
-                  <Badge badgeContent={5} color="error">
-                    <ShoppingCartIcon
-                      sx={{ width: '24px', height: '24px', color: '#252A31' }}
+                  <StyledBadge badgeContent={null} color="error">
+                    <StyledShoppingCartIcon
                     />
-                  </Badge>
+                  </StyledBadge>
                 </IconButton>
               </Link>
-              <Link href="/cabinet">
+              <StyledLink href="/cabinet">
                 <IconButton>
                   <Badge badgeContent={null} color="error">
                     <PermIdentityIcon
@@ -149,9 +190,9 @@ const Header = () => {
                     />
                   </Badge>
                 </IconButton>
-              </Link>
-            </Box>
-          </Toolbar>
+              </StyledLink>
+            </StyledBoxIcons>
+          </StyledToolbar>
         </Content>
       </AppBar>
     </>

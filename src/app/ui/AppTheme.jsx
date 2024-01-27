@@ -42,7 +42,7 @@ const AppTheme = ({ children }) => {
           root: {
             boxShadow: 'none',
             padding: '27px 48px',
-            fontSize: '16px',
+            fontSize: '16px'
           },
         },
       },

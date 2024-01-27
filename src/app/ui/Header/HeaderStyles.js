@@ -147,9 +147,9 @@ export const StyledButtonCatalog = styled(Button)`
   margin-right: 32px;
   box-sizing: border-box;
   font-size: 16px;
-  @media (max-width: 1250px) {
-    width: 138px;
+  @media (max-width: 1200px) {
     font-size: 16px;
+    height: 43px;
   }
   @media (max-width: 900px) {
     display: none;
@@ -164,8 +164,9 @@ export const StyledButtonSideBar = styled(Button)`
     }
   }};
   width: 48%;
+  margin: 24px 8px 0 0;
   padding: 10px 0;
-  @media (max-width: 1250px) {
+  @media (max-width: 1200px) {
     height: 44px;
   }
   @media (max-width: 900px) {
@@ -181,12 +182,12 @@ export const StyledButtonSideBar = styled(Button)`
 export const StyledSideBarContainer = styled(Box)`
   width: 436px;
   box-sizing: border-box;
-  padding: 60px 24px 28px 48px;
+  padding: 20px 24px 28px 48px;
   @media (max-width: 1250px) {
   }
   @media (max-width: 1100px) {
     width: 348px;
-    padding: 60px 24px 28px 28px;
+    // padding: 60px 24px 28px 28px;
   }
   @media (max-width: 700px) {
     width: 278px;
@@ -200,8 +201,9 @@ export const StyledPhoneBox = styled(Box)`
   display: flex;
   align-items: center;
   @media (max-width: 1100px) {
-  margin-right: 10px;
-  width: 65px;
+    position: relative;
+    margin-right: 10px;
+    width: 65px;
   }
   @media (max-width: 700px) {
     display: none;
