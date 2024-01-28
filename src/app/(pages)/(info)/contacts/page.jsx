@@ -69,7 +69,7 @@ export default function Contacts() {
             <PageTitle>Напишіть нам</PageTitle>
           </Box>
 
-          <Grid spacing={2}>
+          <Grid>
             <TextField
               sx={{ mb: 3 }}
               label="Ім'я"

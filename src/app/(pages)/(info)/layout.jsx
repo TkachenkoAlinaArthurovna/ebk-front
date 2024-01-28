@@ -5,7 +5,7 @@ import { Box } from '@mui/material';
 export default function InfoPagesLayout({ children }) {
   return (
     <Content>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between'}}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 4 }}>
         <InfoPagesMenu />
         {children}
       </Box>

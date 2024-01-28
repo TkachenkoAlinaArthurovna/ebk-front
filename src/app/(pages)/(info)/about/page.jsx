@@ -11,7 +11,7 @@ import ShadowBox from '@/app/ui/ShadowBox';
 
 export default function About() {
   return (
-    <Box sx={{ height: '100%', maxWidth: '888px' }}>
+    <Box sx={{ maxWidth: '888px' }}>
       <Box sx={{ mb: 3 }}>
         <PageTitle>Про нас</PageTitle>
       </Box>
