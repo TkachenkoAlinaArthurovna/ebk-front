@@ -15,7 +15,6 @@ import Catalog from '@/app/ui/Header/Catalog';
 import SideBar from '@/app/ui/Header/SideBar';
 import ListItemButton from '@mui/material/ListItemButton';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ListItemText from '@mui/material/ListItemText';

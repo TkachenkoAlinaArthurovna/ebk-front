@@ -53,7 +53,7 @@ const MenuMob = ({ handleCloseCatalog, categories }) => {
         }
         if (category.children.length == 0) {
           return (
-            <StyledButtonMob>
+            <StyledButtonMob key={category.id}>
               <ListItemText sx={{ margin: '0' }}>
                 <Link href="/" onClick={handleCloseCatalog}>
                   <Box component="span" sx={{ fontWeight: '500' }}>

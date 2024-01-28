@@ -37,7 +37,9 @@ const navigation2 = [
 const SideBar = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => (
   <Drawer anchor="left" open={openDrawer} onClose={toggleDrawer}>
     <StyledSideBarContainer>
-      <Image src={logo} priority={true} alt="logo"></Image>
+      <Box sx={{ width: '60%' }}>
+        <Image src={logo} priority={true} alt="logo"></Image>
+      </Box>
       <IconButton
         onClick={toggleDrawer}
         sx={{ position: 'absolute', top: '16px', right: '16px' }}

@@ -16,9 +16,122 @@ import {
   ListItemText,
   Toolbar,
   Accordion,
+  TextField,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
+// Header
+
+export const StyledListItemText = styled(ListItemText)`
+  width: 149px;
+`;
+
+export const StyledBoxIcons = styled(Box)`
+  display: flex;
+  justify-content: space-between;
+  width: 120px;
+`;
+
+export const StyledMenuIcon = styled(MenuIcon)``;
+
+export const StyledLogoBox = styled(Box)`
+  margin-right: 32px;
+  @media (max-width: 700px) {
+    position: absolute;
+    left: 51px;
+  }
+`;
+
+export const StyledShoppingCartIcon = styled(ShoppingCartIcon)`
+  color: #252a31;
+  @media (max-width: 900px) {
+    font-size: 24px;
+  }
+`;
+
+export const StyledLinkCart = styled(Link)`
+  @media (max-width: 400px) {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(0, -50%);
+  }
+`;
+
+export const StyledLinkCabinet = styled(Link)`
+  @media (max-width: 400px) {
+    display: none;
+  }
+`;
+
+export const StyledLinkFavorite = styled(Link)`
+  @media (max-width: 400px) {
+    display: none;
+  }
+`;
+
+export const StyledToolbar = styled(Toolbar)`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const StyledAppBar = styled(AppBar)`
+  padding: 26px 0;
+  @media (max-width: 900px) {
+    height: 170px;
+  }
+  @media (max-width: 700px) {
+    height: 216px;
+  }
+`;
+
+export const StyledButtonCatalog = styled(Button)`
+  width: 138px;
+  height: 56px;
+  margin-right: 32px;
+  box-sizing: border-box;
+  font-size: 16px;
+  @media (max-width: 1200px) {
+    font-size: 16px;
+    height: 43px;
+  }
+  @media (max-width: 900px) {
+    position: absolute;
+    top: 74px;
+    width: 100%;
+    margin-right: 0px;
+  }
+  @media (max-width: 700px) {
+    top: 120px;
+  }
+`;
+
+export const StyledAccordion = styled(Accordion)(({ theme }) => ({
+  position: 'absolute',
+  top: '-35px',
+  right: 8,
+  zIndex: 10,
+  marging: 0,
+  padding: 0,
+  boxShadow: 'none',
+  [theme.breakpoints.down('lg')]: {
+    display: 'none',
+  },
+}));
+
+export const StyledBoxPhones = styled(Box)(({ theme }) => ({
+  width: '230px',
+  position: 'relative',
+  padding: 0,
+  margin: 0,
+  height: '100%',
+  [theme.breakpoints.down('lg')]: {
+    display: 'none',
+  },
+}));
+
+// Catalog
 
 export const StyledPaper = styled(Paper)`
   display: flex;
@@ -29,13 +142,19 @@ export const StyledPaper = styled(Paper)`
   height: 80vh;
   padding: 42px;
   border-radius: 24px;
-  @media (max-width: 910px) {
+  @media (max-width: 900px) {
+    top: 152px;
+    left: 48px;
+    right: 48px;
     padding: 42px 20px;
   }
   @media (max-width: 788px) {
     left: 20px;
     right: 20px;
     padding: 20px;
+  }
+  @media (max-width: 700px) {
+    top: 195px;
   }
   @media (max-width: 414px) {
     left: 14px;
@@ -52,14 +171,21 @@ export const StyledWrapper = styled(Box)`
   margin-bottom: 12px;
 `;
 
+export const StyledIconButtonMenu = styled(IconButton)`
+  margin-right: 16px;
+`;
+
 export const StyledTitle = styled(Typography)`
   padding: 12px;
   font-size: 28px;
   font-weight: 500;
   @media (max-width: 664px) {
+    font-size: 24px;
     color: #49beb7;
   }
 `;
+
+// MenuDesktop
 
 export const StyledIconButton = styled(IconButton)`
   position: absolute;
@@ -69,6 +195,69 @@ export const StyledIconButton = styled(IconButton)`
   height: 40px;
   cursor: pointer;
 `;
+
+export const StyledItem = styled(Box)`
+  min-width: 400px;
+  border-radius: 28px;
+  &:hover {
+    background-color: #eeeeee;
+  }
+`;
+
+export const SubCategoriesWrapper = styled(Box)`
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: -378px;
+  height: 80vh;
+  transition: opacity 0.3s ease-out;
+`;
+
+export const SubCategoriesList = styled(Box)`
+  width: 420px;
+  padding: 120px 42px 42px 20px;
+  border-radius: 24px;
+  background-color: #ffff;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 0 !important;
+  }
+  scrollbar-width: none;
+`;
+
+// MenuMob
+
+export const StyledButton = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px !important;
+  &:hover {
+    color: ${({ typebutton }) => {
+      switch (typebutton) {
+        case 'subcategory':
+          return '#49BEB7';
+      }
+    }};
+  }
+`;
+
+export const StyledButtonMob = styled(Box)`
+  padding: 12px 16px;
+  font-family: 'Roboto';
+  font-size: 16px;
+  font-weight: 500;
+`;
+
+export const StyledAccordionSummary = styled(AccordionSummary)`
+  font-family: 'Roboto';
+  font-size: 16px;
+  font-weight: 500;
+`;
+
+// MenuTouchpad
 
 export const SubCategoryLink = styled(Box)`
   padding: 12px 12px 12px 32px;
@@ -88,6 +277,11 @@ export const SubCategoryLink = styled(Box)`
   }
 `;
 
+export const StyledTabs = styled(Tabs)`
+  height: 100%;
+  align-items: start;
+`;
+
 export const StyledTab = styled(Tab)`
   padding: 12px 32px 12px 12px;
   align-items: start !important;
@@ -102,35 +296,13 @@ export const StyledTab = styled(Tab)`
   }
 `;
 
-export const StyledTabs = styled(Tabs)`
-  height: 100%;
-  align-items: start;
-`;
-
 export const StyledBox = styled(Box)`
   flex-grow: 1;
   display: flex;
   align-items: start;
 `;
 
-export const StyledButtonCatalog = styled(Button)`
-  width: 138px;
-  height: 56px;
-  margin-right: 32px;
-  box-sizing: border-box;
-  font-size: 16px;
-  @media (max-width: 1200px) {
-    font-size: 16px;
-    height: 43px;
-  }
-  @media (max-width: 900px) {
-    // display: none;
-    position: absolute;
-    top: 115px;
-    width: 100%;
-    margin-right: 0px;
-  }
-`;
+// SideBar
 
 export const StyledButtonSideBar = styled(Button)`
   background-color: ${({ typebutton }) => {
@@ -163,166 +335,64 @@ export const StyledSideBarContainer = styled(Box)`
   }
   @media (max-width: 1100px) {
     width: 348px;
-    // padding: 60px 24px 28px 28px;
   }
   @media (max-width: 900px) {
     width: 278px;
   }
 `;
 
-export const StyledListItemText = styled(ListItemText)`
-  width: 149px;
-  // @media (max-width: 1200px) {
-  //   display: none;
-  // }
-`;
+// Search
 
-export const StyledToolbar = styled(Toolbar)`
-  display: flex;
-  justifycontent: space-between;
-`;
-
-export const StyledLinkFavorite = styled(Link)`
-  @media (max-width: 900px) {
-    display: none;
-  }
-`;
-
-export const SubCategoriesWrapper = styled(Box)`
-  display: flex;
-  position: absolute;
-  top: 0;
-  right: -378px;
-  height: 80vh;
-  transition: opacity 0.3s ease-out;
-`;
-
-export const SubCategoriesList = styled(Box)`
-  width: 420px;
-  padding: 120px 42px 42px 20px;
-  border-radius: 24px;
-  background-color: #ffff;
-  overflow: auto;
-  &::-webkit-scrollbar {
-    width: 0 !important;
-  }
-  scrollbar-width: none;
-`;
-
-export const StyledItem = styled(Box)`
-  min-width: 400px;
-  border-radius: 28px;
-  &:hover {
-    background-color: #eeeeee;
-  }
-`;
-
-export const StyledButton = styled(Box)`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px !important;
-  &:hover {
-    color: ${({ typebutton }) => {
-      switch (typebutton) {
-        case 'subcategory':
-          return '#49BEB7';
-      }
-    }};
-  }
-`;
-
-export const StyledButtonMob = styled(Box)`
-  padding: 12px 16px;
-  font-family: 'Roboto';
-  font-size: 16px;
-  font-weight: 500;
-`;
-
-export const StyledAccordionSummary = styled(AccordionSummary)`
-  font-family: 'Roboto';
-  font-size: 16px;
-  font-weight: 500;
-`;
-export const StyledBoxIcons = styled(Box)`
-  display: flex;
-  justify-content: space-between;
-  width: 120px;
-  @media (max-width: 900px) {
-    width: 41px;
-  }
-`;
-export const StyledIconButtonMenu = styled(IconButton)`
-  margin-right: 16px;
-  @media (max-width: 900px) {
-    margin-right: 0px;
-  }
-`;
-
-export const StyledMenuIcon = styled(MenuIcon)`
-  @media (max-width: 900px) {
-    font-size: 24px;
-    // font-size: 16px;
-    margin-right: 0;
-  }
-`;
-
-export const StyledLogoBox = styled(Box)`
+export const Search = styled(Box)`
+  flex-grow: 1;
+  position: relative;
   margin-right: 32px;
-  @media (max-width: 900px) {
-    margin-right: 12px;
+  border-radius: 100px;
+  height: 100%;
+  @media (max-width: 700px) {
+    position: absolute;
+    top: 65px;
+    width: 100%;
+    height: 43px;
   }
 `;
 
-export const StyledShoppingCartIcon = styled(ShoppingCartIcon)`
-  color: #252a31;
-  @media (max-width: 900px) {
-    font-size: 24px;
-  }
-`;
-
-export const StyledLinkCart = styled(Link)`
+export const SearchIconWrapper = styled(Box)`
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   @media (max-width: 900px) {
     position: absolute;
-    top: 18%;
-    right: 5px;
-  }
-`;
-export const StyledLinkCabinet = styled(Link)`
-  @media (max-width: 900px) {
-    display: none;
+    right: 0;
+    top: 50%;
   }
 `;
 
-export const StyledAppBar = styled(AppBar)`
-  padding: 26px 0;
-  @media (max-width: 900px) {
-    height: 210px;
-  }
-`;
-
-export const StyledAccordion = styled(Accordion)(({ theme }) => ({
-  position: 'absolute',
-  top: '-35px',
-  right: 8,
-  zIndex: 10,
-  marging: 0,
-  padding: 0,
-  boxShadow: 'none',
-  [theme.breakpoints.down('lg')]: {
-    display: 'none',
-  },
-}));
-
-export const StyledBoxPhones = styled(Box)(({ theme }) => ({
-  width: '230px',
-  position: 'relative',
-  padding: 0,
-  margin: 0,
+export const StyledTextField = styled(TextField)(({ theme }) => ({
+  width: '100%',
+  color: theme.palette.secondary.main,
+  borderRadius: '100px',
   height: '100%',
   [theme.breakpoints.down('lg')]: {
-    display: 'none',
+    height: '43px ',
+    fontSize: '12px',
+    '& .MuiInputLabel-root': {
+      position: 'absolute',
+      top: '-5px',
+      left: '5px',
+    },
+    '& .MuiInputBase-input': {
+      position: 'relative',
+      top: '-7px',
+    },
+  },
+  '& .MuiOutlinedInput-root': {
+    borderRadius: '100px',
+    border: 'none',
+    height: '100%',
   },
 }));
