@@ -3,14 +3,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Content from '@/app/ui/Content/Content';
 import Image from 'next/image';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Badge from '@mui/material/Badge';
 import logo from '../../../../public/images/logo.png';
@@ -20,14 +14,32 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import CloseIcon from '@mui/icons-material/Close';
 import Catalog from '@/app/ui/Header/Catalog';
 import SideBar from '@/app/ui/Header/SideBar';
-import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import ExpandLess from '@mui/icons-material/ExpandLess';
-import { styled } from '@mui/material/styles';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import Paper from '@mui/material/Paper';
+import ListItemText from '@mui/material/ListItemText';
+import { Popover } from '@mui/material';
 import {
   StyledButtonCatalog,
   StyledPhoneBox,
+  StyledAppBar,
+  StyledToolbar,
+  StyledIconButtonMenu,
+  StyledMenuIcon,
+  StyledLogoBox,
+  StyledListItemText,
+  StyledBoxIcons,
+  StyledLinkFavorite,
+  StyledLinkCabinet,
+  StyledLinkCart,
+  StyledShoppingCartIcon,
 } from '@/app/ui/Header/HeaderStyles';
 
 const Header = () => {
@@ -43,73 +55,22 @@ const Header = () => {
   const [anchor, setAnchor] = useState(null);
   const handleClickPones = (event) => {
     setPhoneList(!phoneList);
-    setAnchor(event.currentTarget.type);
+    setAnchor(event.currentTarget);
   };
   const handleClosePhones = () => {
     setAnchor(null);
     setPhoneList(!phoneList);
   };
 
-  const StyledListItemText = styled(ListItemText)`
-    width: 149px;
-    @media (max-width: 1100px) {
-      display: none;
-    }
-  `;
-  const StyledToolbar = styled(Toolbar)`
-    display: flex;
-    justifycontent: space-between;
-  `;
-  const StyledLink = styled(Link)`
-    @media (max-width: 560px) {
-      display: none;
-    }
-  `;
-  const StyledBoxIcons = styled(Box)`
-    @media (max-width: 560px) {
-      width: 41px;
-    }
-  `;
-  const StyledIconButton = styled(IconButton)`
-    margin-right: 16px;
-    @media (max-width: 560px) {
-      margin-right: 0px;
-    }
-  `;
-  const StyledMenuIcon = styled(MenuIcon)`
-    @media (max-width: 560px) {
-      // font-size: 24px;
-      font-size: 16px;
-      margin-right: 0;
-    }
-  `;
-  const StyledLogoBox = styled(Box)`
-    margin-right: 32px;
-    @media (max-width: 560px) {
-      margin-right: 12px;
-    }
-  `;
-  const StyledShoppingCartIcon = styled(ShoppingCartIcon)`
-    // width: 24px;
-    // height: 24px;
-    color: #252a31;
-    @media (max-width: 560px) {
-      // font-size: 24px;
-      font-size: 16px; 
-    }
-  `;
-  const StyledBadge = styled(Badge)`
-  @media (max-width: 560px) {
-    
-  }
-  `
+  const openPhones = Boolean(anchor);
+  const id = openPhones ? 'simple-popover' : undefined;
 
   return (
     <>
-      <AppBar sx={{ padding: '26px 0' }} position="static" color="white">
+      <StyledAppBar position="static" color="white">
         <Content>
           <StyledToolbar disableGutters>
-            <StyledIconButton
+            <StyledIconButtonMenu
               onClick={toggleDrawer}
               color="inherit"
               edge="start"
@@ -121,7 +82,7 @@ const Header = () => {
                 openDrawer={openDrawer}
                 handleOpenCatalog={handleOpenCatalog}
               />
-            </StyledIconButton>
+            </StyledIconButtonMenu>
             <StyledLogoBox>
               <Link href="/">
                 <Image priority={true} src={logo} alt="logo" />
@@ -151,21 +112,40 @@ const Header = () => {
                   <ExpandMore sx={{ color: 'black' }} />
                 )}
               </IconButton>
-              <Phones
+              <Popover
+                id={id}
+                open={openPhones}
+                onClose={handleClosePhones}
+                anchorOrigin={{
+                  vertical: 80,
+                  horizontal: 1030,
+                }}
+                // transformOrigin={{
+                //   vertical: 'top',
+                //   horizontal: 'center',
+                // }}
+              >
+                <Paper sx={{ width: '170px' }}>
+                  <ListItemButton href="tel:+380 72 58 58 445">
+                    <ListItemText primary="+380 72 58 58 445" />
+                  </ListItemButton>
+                  <ListItemButton href="tel:+380 72 58 58 445">
+                    <ListItemText primary="+380 72 58 58 445" />
+                  </ListItemButton>
+                  <ListItemButton href="tel:+380 72 58 58 445">
+                    <ListItemText primary="+380 72 58 58 445" />
+                  </ListItemButton>
+                </Paper>
+              </Popover>
+
+              {/* <Phones
                 handleClosePhones={handleClosePhones}
                 anchor={anchor}
                 phoneList={phoneList}
-              />
+              /> */}
             </StyledPhoneBox>
-
-            <StyledBoxIcons
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                width: '120px',
-              }}
-            >
-              <StyledLink href="cabinet/favorites">
+            <StyledBoxIcons>
+              <StyledLinkFavorite href="cabinet/favorites">
                 <IconButton>
                   <Badge badgeContent={null} color="error">
                     <FavoriteBorderIcon
@@ -173,16 +153,15 @@ const Header = () => {
                     />
                   </Badge>
                 </IconButton>
-              </StyledLink>
-              <Link href="/cart">
+              </StyledLinkFavorite>
+              <StyledLinkCart href="/cart">
                 <IconButton>
-                  <StyledBadge badgeContent={null} color="error">
-                    <StyledShoppingCartIcon
-                    />
-                  </StyledBadge>
+                  <Badge badgeContent={5} color="error">
+                    <StyledShoppingCartIcon />
+                  </Badge>
                 </IconButton>
-              </Link>
-              <StyledLink href="/cabinet">
+              </StyledLinkCart>
+              <StyledLinkCabinet href="/cabinet">
                 <IconButton>
                   <Badge badgeContent={null} color="error">
                     <PermIdentityIcon
@@ -190,11 +169,11 @@ const Header = () => {
                     />
                   </Badge>
                 </IconButton>
-              </StyledLink>
+              </StyledLinkCabinet>
             </StyledBoxIcons>
           </StyledToolbar>
         </Content>
-      </AppBar>
+      </StyledAppBar>
     </>
   );
 };

@@ -9,12 +9,16 @@ const Phones = ({ handleClosePhones, anchor }) => {
     <Popover
       id={id}
       open={openPhones}
-      anchorEl={anchor}
       onClose={handleClosePhones}
+      // anchorReference="anchorEl"
       anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'left',
+        vertical: 80,
+        horizontal: 1030,
       }}
+      // transformOrigin={{
+      //   vertical: 'top',
+      //   horizontal: 'center',
+      // }}
     >
       <Paper sx={{ width: '170px' }}>
         <ListItemButton href="tel:+380 72 58 58 445">

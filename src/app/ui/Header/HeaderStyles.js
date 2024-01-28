@@ -1,6 +1,7 @@
 'use client';
 
 import { styled } from '@mui/system';
+import Link from 'next/link';
 import {
   Paper,
   Box,
@@ -9,7 +10,12 @@ import {
   Button,
   IconButton,
   Typography,
+  AppBar,
+  ListItemText,
+  Toolbar,
 } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 export const StyledPaper = styled(Paper)`
   display: flex;
@@ -62,7 +68,7 @@ export const StyledTitle = styled(Typography)`
     font-size: 26px;
   }
 
-  @media (max-width: 650px) {
+  @media (max-width: 600px) {
     font-size: 24px;
   }
 `;
@@ -152,7 +158,12 @@ export const StyledButtonCatalog = styled(Button)`
     height: 43px;
   }
   @media (max-width: 900px) {
-    display: none;
+    // display: none;
+    position: absolute;
+    top: 115px;
+    width: 100%;
+    margin-right: 0px;
+    }
   }
 `;
 
@@ -172,7 +183,7 @@ export const StyledButtonSideBar = styled(Button)`
   @media (max-width: 900px) {
     width: 140px;
   }
-  @media (max-width: 700px) {
+  @media (max-width: 900px) {
     height: 34px;
     width: 89px;
     font-size: 12px;
@@ -189,7 +200,7 @@ export const StyledSideBarContainer = styled(Box)`
     width: 348px;
     // padding: 60px 24px 28px 28px;
   }
-  @media (max-width: 700px) {
+  @media (max-width: 900px) {
     width: 278px;
   }
 `;
@@ -205,7 +216,73 @@ export const StyledPhoneBox = styled(Box)`
     margin-right: 10px;
     width: 65px;
   }
-  @media (max-width: 700px) {
+  @media (max-width: 900px) {
     display: none;
+  }
+`;
+export const StyledListItemText = styled(ListItemText)`
+  width: 149px;
+  @media (max-width: 1100px) {
+    display: none;
+  }
+`;
+export const StyledToolbar = styled(Toolbar)`
+  display: flex;
+  justifycontent: space-between;
+`;
+export const StyledLinkFavorite = styled(Link)`
+  @media (max-width: 900px) {
+    display: none;
+  }
+`;
+export const StyledBoxIcons = styled(Box)`
+  display: flex;
+  justifycontent: space-between;
+  width: 120px;
+  @media (max-width: 900px) {
+    width: 41px;
+  }
+`;
+export const StyledIconButtonMenu = styled(IconButton)`
+  margin-right: 16px;
+  @media (max-width: 900px) {
+    margin-right: 0px;
+  }
+`;
+export const StyledMenuIcon = styled(MenuIcon)`
+  @media (max-width: 900px) {
+    font-size: 24px;
+    // font-size: 16px;
+    margin-right: 0;
+  }
+`;
+export const StyledLogoBox = styled(Box)`
+  margin-right: 32px;
+  @media (max-width: 900px) {
+    margin-right: 12px;
+  }
+`;
+export const StyledShoppingCartIcon = styled(ShoppingCartIcon)`
+  color: #252a31;
+  @media (max-width: 900px) {
+    font-size: 24px;
+  }
+`;
+export const StyledLinkCart = styled(Link)`
+  @media (max-width: 900px) {
+    position: absolute;
+    top: 18%;
+    right: 5px;
+  }
+`;
+export const StyledLinkCabinet = styled(Link)`
+  @media (max-width: 900px) {
+    display: none;
+  }
+`;
+export const StyledAppBar = styled(AppBar)`
+  padding: 26px 0;
+  @media (max-width: 900px) {
+    height: 210px;
   }
 `;
