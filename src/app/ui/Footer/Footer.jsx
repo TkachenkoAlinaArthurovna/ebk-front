@@ -19,7 +19,7 @@ import { useResize } from '@/app/lib/helpers';
 const Footer = () => {
   const theme = useTheme();
   const mdBreakpoint = theme.breakpoints.values.md;
-  const [windowWidth] = useResize();
+  const windowWidth = useResize();
 
   return (
     <>
