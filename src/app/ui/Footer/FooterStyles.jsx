@@ -1,6 +1,7 @@
 'use client';
 
 import { Box, List, ListItem, styled } from '@mui/material';
+import Link from 'next/link';
 
 export const StyledContainer = styled(Box)`
   background-color: #4d4d4d;
@@ -18,6 +19,25 @@ export const FooterItemBox = styled(Box)`
     align-items: start;
   }
 `;
+
+export const LogoContainer = styled(FooterItemBox)(({ theme }) => ({
+  gridArea: 'logo',
+  display: 'none',
+
+  [theme.breakpoints.up('md')]: {
+    display: 'flex',
+  },
+}));
+
+export const LogoContainerBottom = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+
+  [theme.breakpoints.up('md')]: {
+    display: 'none',
+  },
+}));
 
 export const StyledListItem = styled(ListItem)`
   padding: 0;

@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
 import Content from '@/app/ui/Content';
 import {
   FooterItemBox,
+  LogoContainer,
+  LogoContainerBottom,
   StyledContainer,
   StyledList,
   StyledListItem,
@@ -14,25 +15,18 @@ import { Box, Typography } from '@mui/material';
 import Image from 'next/image';
 import logo from '../../../../public/images/logo-inverted.png';
 import { useTheme } from '@mui/material/styles';
-import { useResize } from '@/app/lib/helpers';
 
 const Footer = () => {
-  const theme = useTheme();
-  const mdBreakpoint = theme.breakpoints.values.md;
-  const windowWidth = useResize();
-
   return (
     <>
       <StyledContainer as="footer">
         <Content>
           <WrapperItemBox>
-            {windowWidth > mdBreakpoint && (
-              <FooterItemBox area_name="logo">
-                <Link href="/">
-                  <Image src={logo} component="button" alt="logo" />
-                </Link>
-              </FooterItemBox>
-            )}
+            <LogoContainer area_name="logo">
+              <Link href="/">
+                <Image src={logo} component="button" alt="logo" />
+              </Link>
+            </LogoContainer>
             <FooterItemBox area_name="company">
               <Typography variant="h6" fontWeight="400">
                 Компанія
@@ -104,20 +98,11 @@ const Footer = () => {
           >
             © text 2023, All Rights Reserved
           </Box>
-
-          {windowWidth < mdBreakpoint && (
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <Link href="/">
-                <Image src={logo} component="button" alt="logo" />
-              </Link>
-            </Box>
-          )}
+          <LogoContainerBottom>
+            <Link href="/">
+              <Image src={logo} component="button" alt="logo" />
+            </Link>
+          </LogoContainerBottom>
         </Content>
       </StyledContainer>
     </>
