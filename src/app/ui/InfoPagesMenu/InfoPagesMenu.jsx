@@ -4,6 +4,7 @@ import Link from 'next/link';
 import {
   StyledList,
   StyledListItemButton,
+  StyledListWrapper,
 } from '@/app/ui/InfoPagesMenu/InfoPagesMenuStyles';
 import { usePathname } from 'next/navigation';
 import { ListItemText, Box } from '@mui/material';
@@ -16,11 +17,11 @@ const InfoPagesMenu = () => {
     { href: '/about', label: 'Про нас' },
     { href: '/support', label: 'Підтримка' },
     { href: '/contacts', label: 'Контакти' },
-    { href: '/reviews', label: 'Відгуки' },
+    { href: '/payment-delivery', label: 'Запитання та відповіді' },
   ];
 
   return (
-    <Box sx={{ width: '100%', maxWidth: '400px' }}>
+    <StyledListWrapper>
       <StyledList component="nav">
         {links.map((link) => (
           <Link key={link.label} href={link.href} passHref>
@@ -33,7 +34,7 @@ const InfoPagesMenu = () => {
           </Link>
         ))}
       </StyledList>
-    </Box>
+    </StyledListWrapper>
   );
 };
 

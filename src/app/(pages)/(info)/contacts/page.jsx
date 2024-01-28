@@ -13,10 +13,34 @@ export default function Contacts() {
     gap: 16px;
   `;
 
+  const StyledGridContainer = styled(Grid)`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+
+    ${({ theme }) => theme.breakpoints.up('sm')} {
+      align-items: start;
+    }
+
+    ${({ theme }) => theme.breakpoints.up('md')} {
+      flex-direction: row;
+      gap: 0;
+    }
+  `;
+
+  const StyledGridItem = styled(Grid)`
+    max-width: 90%;
+
+    ${({ theme }) => theme.breakpoints.up('sm')} {
+      max-width: 100%;
+    }
+  `;
+
   return (
     <>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={4}>
+      <StyledGridContainer container spacing={2}>
+        <StyledGridItem item md={12} lg={4}>
           <Box sx={{ marginBottom: '32px' }}>
             <PageTitle>Контакти</PageTitle>
           </Box>
@@ -63,8 +87,8 @@ export default function Contacts() {
               </StyledContact>
             </Grid>
           </Grid>
-        </Grid>
-        <Grid item xs={12} md={8}>
+        </StyledGridItem>
+        <StyledGridItem item md={12} lg={8}>
           <Box sx={{ marginBottom: '32px' }}>
             <PageTitle>Напишіть нам</PageTitle>
           </Box>
@@ -99,8 +123,8 @@ export default function Contacts() {
               Відправити
             </Button>
           </Grid>
-        </Grid>
-      </Grid>
+        </StyledGridItem>
+      </StyledGridContainer>
     </>
   );
 }

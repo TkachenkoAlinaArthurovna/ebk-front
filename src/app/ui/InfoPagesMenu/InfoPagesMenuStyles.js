@@ -1,10 +1,14 @@
 'use client';
 
-import { styled, List, ListItemButton } from '@mui/material';
+import { styled, List, ListItemButton, Box } from '@mui/material';
 
 export const StyledList = styled(List)`
   color: #4d4d4d;
-  width: 340px;
+  max-width: 100%;
+
+  ${({ theme }) => theme.breakpoints.up('sm')} {
+    max-width: 90%;
+  }
 `;
 
 export const StyledListItemButton = styled(ListItemButton)`
@@ -16,5 +20,13 @@ export const StyledListItemButton = styled(ListItemButton)`
     &:hover {
       background-color: #f5f5f5;
     }
+  }
+`;
+
+export const StyledListWrapper = styled(Box)`
+  width: 100%;
+
+  ${({ theme }) => theme.breakpoints.up('md')} {
+    max-width: 400px;
   }
 `;
