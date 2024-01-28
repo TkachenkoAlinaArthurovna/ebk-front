@@ -41,8 +41,10 @@ const AppTheme = ({ children }) => {
         styleOverrides: {
           root: {
             boxShadow: 'none',
+            borderBottom: '1px solid #E9E9E9',
             padding: '27px 48px',
             fontSize: '16px',
+            marginBottom: '8px',
           },
         },
       },

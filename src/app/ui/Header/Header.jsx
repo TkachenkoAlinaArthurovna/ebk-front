@@ -86,19 +86,43 @@ const Header = () => {
                   aria-controls="panel1-content"
                   id="panel1-header"
                 >
-                  <ListItemButton disableGutters href="tel:+380 63 32 95 468">
-                    <LocalPhoneIcon sx={{ color: 'black', marginRight: 1 }} />
+                  <ListItemButton
+                    sx={{ borderRadius: '100px' }}
+                    disableGutters
+                    href="tel:+380 63 32 95 468"
+                  >
+                    <LocalPhoneIcon
+                      sx={{ color: 'black', margin: '0 8px 0 8px' }}
+                    />
                     <StyledListItemText primary="+380 63 32 95 468" />
                   </ListItemButton>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <ListItemButton href="tel:+380 72 58 58 445">
+                  <ListItemButton
+                    sx={{ borderRadius: '100px' }}
+                    href="tel:+380 72 58 58 445"
+                  >
+                    <LocalPhoneIcon
+                      sx={{ color: 'black', margin: '0 4px 0 0' }}
+                    />
                     <ListItemText primary="+380 72 58 58 445" />
                   </ListItemButton>
-                  <ListItemButton href="tel:+380 72 58 58 445">
+                  <ListItemButton
+                    sx={{ borderRadius: '100px' }}
+                    href="tel:+380 72 58 58 445"
+                  >
+                    <LocalPhoneIcon
+                      sx={{ color: 'black', margin: '0 4px 0 0' }}
+                    />
                     <ListItemText primary="+380 72 58 58 445" />
                   </ListItemButton>
-                  <ListItemButton href="tel:+380 72 58 58 445">
+                  <ListItemButton
+                    sx={{ borderRadius: '100px' }}
+                    href="tel:+380 72 58 58 445"
+                  >
+                    <LocalPhoneIcon
+                      sx={{ color: 'black', margin: '0 4px 0 0' }}
+                    />
                     <ListItemText primary="+380 72 58 58 445" />
                   </ListItemButton>
                 </AccordionDetails>
