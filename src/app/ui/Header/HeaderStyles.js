@@ -253,7 +253,7 @@ export const StyledLinkCart = styled(Link)`
     position: absolute;
     top: 18%;
     right: 40px;
-    @media (max-width: 600px){
+    @media (max-width: 600px) {
       right: 5px;
     }
   }
@@ -264,7 +264,7 @@ export const StyledLinkCabinet = styled(Link)`
     position: absolute;
     top: 18%;
     right: 5px;
-    @media (max-width: 600px){
+    @media (max-width: 600px) {
       display: none;
     }
   }
@@ -275,7 +275,7 @@ export const StyledLinkFavorite = styled(Link)`
     position: absolute;
     top: 18%;
     right: 75px;
-    @media (max-width: 600px){
+    @media (max-width: 600px) {
       display: none;
     }
   }
@@ -283,7 +283,7 @@ export const StyledLinkFavorite = styled(Link)`
 export const StyledAppBar = styled(AppBar)`
   padding: 26px 0;
   @media (max-width: 900px) {
-    height: 210px;
+    height: 200px;
   }
 `;
 export const StyledAccordion = styled(Accordion)(({ theme }) => ({
