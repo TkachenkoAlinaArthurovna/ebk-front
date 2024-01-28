@@ -215,11 +215,6 @@ export const StyledToolbar = styled(Toolbar)`
   display: flex;
   justifycontent: space-between;
 `;
-export const StyledLinkFavorite = styled(Link)`
-  @media (max-width: 900px) {
-    display: none;
-  }
-`;
 export const StyledBoxIcons = styled(Box)`
   display: flex;
   justifycontent: space-between;
@@ -257,12 +252,32 @@ export const StyledLinkCart = styled(Link)`
   @media (max-width: 900px) {
     position: absolute;
     top: 18%;
-    right: 5px;
+    right: 40px;
+    @media (max-width: 600px){
+      right: 5px;
+    }
   }
 `;
 export const StyledLinkCabinet = styled(Link)`
   @media (max-width: 900px) {
-    display: none;
+    // display: none;
+    position: absolute;
+    top: 18%;
+    right: 5px;
+    @media (max-width: 600px){
+      display: none;
+    }
+  }
+`;
+export const StyledLinkFavorite = styled(Link)`
+  @media (max-width: 900px) {
+    // display: none;
+    position: absolute;
+    top: 18%;
+    right: 75px;
+    @media (max-width: 600px){
+      display: none;
+    }
   }
 `;
 export const StyledAppBar = styled(AppBar)`
