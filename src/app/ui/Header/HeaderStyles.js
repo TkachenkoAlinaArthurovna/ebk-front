@@ -1,6 +1,7 @@
 'use client';
 
 import { styled } from '@mui/system';
+import Link from 'next/link';
 import {
   Paper,
   Box,
@@ -11,7 +12,13 @@ import {
   Typography,
   List,
   AccordionSummary,
+  AppBar,
+  ListItemText,
+  Toolbar,
+  Accordion,
 } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 export const StyledPaper = styled(Paper)`
   display: flex;
@@ -112,12 +119,16 @@ export const StyledButtonCatalog = styled(Button)`
   margin-right: 32px;
   box-sizing: border-box;
   font-size: 16px;
-  @media (max-width: 1250px) {
-    width: 138px;
+  @media (max-width: 1200px) {
     font-size: 16px;
+    height: 43px;
   }
   @media (max-width: 900px) {
-    display: none;
+    // display: none;
+    position: absolute;
+    top: 115px;
+    width: 100%;
+    margin-right: 0px;
   }
 `;
 
@@ -129,14 +140,15 @@ export const StyledButtonSideBar = styled(Button)`
     }
   }};
   width: 48%;
+  margin: 24px 8px 0 0;
   padding: 10px 0;
-  @media (max-width: 1250px) {
+  @media (max-width: 1200px) {
     height: 44px;
   }
   @media (max-width: 900px) {
     width: 140px;
   }
-  @media (max-width: 700px) {
+  @media (max-width: 900px) {
     height: 34px;
     width: 89px;
     font-size: 12px;
@@ -146,31 +158,32 @@ export const StyledButtonSideBar = styled(Button)`
 export const StyledSideBarContainer = styled(Box)`
   width: 436px;
   box-sizing: border-box;
-  padding: 60px 24px 28px 48px;
+  padding: 20px 24px 28px 48px;
   @media (max-width: 1250px) {
   }
   @media (max-width: 1100px) {
     width: 348px;
-    padding: 60px 24px 28px 28px;
+    // padding: 60px 24px 28px 28px;
   }
-  @media (max-width: 700px) {
+  @media (max-width: 900px) {
     width: 278px;
   }
 `;
 
-export const StyledPhoneBox = styled(Box)`
-  position: relative;
-  min-width: 240px;
-  margin-right: 32px;
+export const StyledListItemText = styled(ListItemText)`
+  width: 149px;
+  // @media (max-width: 1200px) {
+  //   display: none;
+  // }
+`;
+
+export const StyledToolbar = styled(Toolbar)`
   display: flex;
-  align-items: center;
-  @media (max-width: 1250px) {
-  }
-  @media (max-width: 1100px) {
-    min-width: 10px;
-    margin-right: 10px;
-  }
-  @media (max-width: 700px) {
+  justifycontent: space-between;
+`;
+
+export const StyledLinkFavorite = styled(Link)`
+  @media (max-width: 900px) {
     display: none;
   }
 `;
@@ -233,3 +246,83 @@ export const StyledAccordionSummary = styled(AccordionSummary)`
   font-size: 16px;
   font-weight: 500;
 `;
+export const StyledBoxIcons = styled(Box)`
+  display: flex;
+  justify-content: space-between;
+  width: 120px;
+  @media (max-width: 900px) {
+    width: 41px;
+  }
+`;
+export const StyledIconButtonMenu = styled(IconButton)`
+  margin-right: 16px;
+  @media (max-width: 900px) {
+    margin-right: 0px;
+  }
+`;
+
+export const StyledMenuIcon = styled(MenuIcon)`
+  @media (max-width: 900px) {
+    font-size: 24px;
+    // font-size: 16px;
+    margin-right: 0;
+  }
+`;
+
+export const StyledLogoBox = styled(Box)`
+  margin-right: 32px;
+  @media (max-width: 900px) {
+    margin-right: 12px;
+  }
+`;
+
+export const StyledShoppingCartIcon = styled(ShoppingCartIcon)`
+  color: #252a31;
+  @media (max-width: 900px) {
+    font-size: 24px;
+  }
+`;
+
+export const StyledLinkCart = styled(Link)`
+  @media (max-width: 900px) {
+    position: absolute;
+    top: 18%;
+    right: 5px;
+  }
+`;
+export const StyledLinkCabinet = styled(Link)`
+  @media (max-width: 900px) {
+    display: none;
+  }
+`;
+
+export const StyledAppBar = styled(AppBar)`
+  padding: 26px 0;
+  @media (max-width: 900px) {
+    height: 210px;
+  }
+`;
+
+export const StyledAccordion = styled(Accordion)(({ theme }) => ({
+  position: 'absolute',
+  top: '-35px',
+  right: 8,
+  zIndex: 10,
+  marging: 0,
+  padding: 0,
+  boxShadow: 'none',
+  [theme.breakpoints.down('lg')]: {
+    display: 'none',
+  },
+}));
+
+export const StyledBoxPhones = styled(Box)(({ theme }) => ({
+  width: '230px',
+  position: 'relative',
+  padding: 0,
+  margin: 0,
+  height: '100%',
+  [theme.breakpoints.down('lg')]: {
+    display: 'none',
+  },
+}));

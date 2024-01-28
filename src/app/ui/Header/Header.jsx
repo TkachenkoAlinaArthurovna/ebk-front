@@ -3,29 +3,38 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Content from '@/app/ui/Content/Content';
 import Image from 'next/image';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Badge from '@mui/material/Badge';
 import logo from '../../../../public/images/logo.png';
 import SearchComponent from '@/app/ui/Header/SearchComponent';
-import Phones from '@/app/ui/Header/Phones';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import CloseIcon from '@mui/icons-material/Close';
 import Catalog from '@/app/ui/Header/Catalog';
 import SideBar from '@/app/ui/Header/SideBar';
-import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import { styled } from '@mui/material/styles';
-import { StyledButtonCatalog, StyledPhoneBox } from '@/app/ui/Header/HeaderStyles';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ListItemText from '@mui/material/ListItemText';
+import {
+  StyledAccordion,
+  StyledBoxPhones,
+  StyledButtonCatalog,
+  StyledAppBar,
+  StyledToolbar,
+  StyledIconButtonMenu,
+  StyledMenuIcon,
+  StyledLogoBox,
+  StyledListItemText,
+  StyledBoxIcons,
+  StyledLinkFavorite,
+  StyledLinkCabinet,
+  StyledLinkCart,
+  StyledShoppingCartIcon,
+} from '@/app/ui/Header/HeaderStyles';
 
 const Header = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -36,54 +45,29 @@ const Header = () => {
   const handleOpenCatalog = () => setOpen(true);
   const handleCloseCatalog = () => setOpen(false);
 
-  const [phoneList, setPhoneList] = useState(false);
-  const [anchor, setAnchor] = useState(null);
-  const handleClickPones = (event) => {
-    setPhoneList(!phoneList);
-    setAnchor(event.currentTarget);
-  };
-
-  const handleClosePhones = () => {
-    setAnchor(null);
-    setPhoneList(!phoneList);
-  };
-
-  const StyledListItemText = styled(ListItemText)`
-  @media (max-width: 1100px) {
-    display: none;
-  }
-  `
-
-
   return (
     <>
-      <AppBar sx={{ padding: '26px 0' }} position="static" color="white">
+      <StyledAppBar position="static" color="white">
         <Content>
-          <Toolbar
-            disableGutters
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-            }}
-          >
-            <IconButton
+          <StyledToolbar disableGutters>
+            <StyledIconButtonMenu
               onClick={toggleDrawer}
               color="inherit"
               edge="start"
               sx={{ marginRight: '16px' }}
             >
-              <MenuIcon fontSize="large" />
+              <StyledMenuIcon fontSize="large" />
               <SideBar
                 toggleDrawer={toggleDrawer}
                 openDrawer={openDrawer}
                 handleOpenCatalog={handleOpenCatalog}
               />
-            </IconButton>
-            <Box sx={{ marginRight: '32px' }}>
+            </StyledIconButtonMenu>
+            <StyledLogoBox>
               <Link href="/">
-                <Image src={logo} component="button" alt="logo" />
+                <Image priority={true} src={logo} alt="logo" />
               </Link>
-            </Box>
+            </StyledLogoBox>
             <StyledButtonCatalog
               onClick={handleOpenCatalog}
               variant="contained"
@@ -96,33 +80,33 @@ const Header = () => {
               handleCloseCatalog={handleCloseCatalog}
             />
             <SearchComponent />
-            <StyledPhoneBox>
-              <ListItemButton href="tel:+380 63 32 95 468">
-                <LocalPhoneIcon sx={{ color: 'black', marginRight: 1 }} />
-                <StyledListItemText primary="+380 63 32 95 468" />
-              </ListItemButton>
-              <IconButton onClick={handleClickPones}>
-                {phoneList ? (
-                  <ExpandLess sx={{ color: 'black' }} />
-                ) : (
-                  <ExpandMore sx={{ color: 'black' }} />
-                )}
-              </IconButton>
-              <Phones
-                handleClosePhones={handleClosePhones}
-                anchor={anchor}
-                phoneList={phoneList}
-              />
-            </StyledPhoneBox>
-
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                width: '120px',
-              }}
-            >
-              <Link href="cabinet/favorites">
+            <StyledBoxPhones component={'div'}>
+              <StyledAccordion disableGutters>
+                <AccordionSummary
+                  expandIcon={<ExpandMore />}
+                  aria-controls="panel1-content"
+                  id="panel1-header"
+                >
+                  <ListItemButton disableGutters href="tel:+380 63 32 95 468">
+                    <LocalPhoneIcon sx={{ color: 'black', marginRight: 1 }} />
+                    <StyledListItemText primary="+380 63 32 95 468" />
+                  </ListItemButton>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <ListItemButton href="tel:+380 72 58 58 445">
+                    <ListItemText primary="+380 72 58 58 445" />
+                  </ListItemButton>
+                  <ListItemButton href="tel:+380 72 58 58 445">
+                    <ListItemText primary="+380 72 58 58 445" />
+                  </ListItemButton>
+                  <ListItemButton href="tel:+380 72 58 58 445">
+                    <ListItemText primary="+380 72 58 58 445" />
+                  </ListItemButton>
+                </AccordionDetails>
+              </StyledAccordion>
+            </StyledBoxPhones>
+            <StyledBoxIcons>
+              <StyledLinkFavorite href="cabinet/favorites">
                 <IconButton>
                   <Badge badgeContent={null} color="error">
                     <FavoriteBorderIcon
@@ -130,17 +114,15 @@ const Header = () => {
                     />
                   </Badge>
                 </IconButton>
-              </Link>
-              <Link href="/cart">
+              </StyledLinkFavorite>
+              <StyledLinkCart href="/cart">
                 <IconButton>
                   <Badge badgeContent={5} color="error">
-                    <ShoppingCartIcon
-                      sx={{ width: '24px', height: '24px', color: '#252A31' }}
-                    />
+                    <StyledShoppingCartIcon />
                   </Badge>
                 </IconButton>
-              </Link>
-              <Link href="/cabinet">
+              </StyledLinkCart>
+              <StyledLinkCabinet href="/cabinet">
                 <IconButton>
                   <Badge badgeContent={null} color="error">
                     <PermIdentityIcon
@@ -148,11 +130,11 @@ const Header = () => {
                     />
                   </Badge>
                 </IconButton>
-              </Link>
-            </Box>
-          </Toolbar>
+              </StyledLinkCabinet>
+            </StyledBoxIcons>
+          </StyledToolbar>
         </Content>
-      </AppBar>
+      </StyledAppBar>
     </>
   );
 };
