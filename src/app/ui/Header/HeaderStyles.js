@@ -13,6 +13,7 @@ import {
   AppBar,
   ListItemText,
   Toolbar,
+  Accordion,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -204,27 +205,11 @@ export const StyledSideBarContainer = styled(Box)`
     width: 278px;
   }
 `;
-
-export const StyledPhoneBox = styled(Box)`
-  position: relative;
-  width: 215px;
-  margin-right: 32px;
-  display: flex;
-  align-items: center;
-  @media (max-width: 1100px) {
-    position: relative;
-    margin-right: 10px;
-    width: 65px;
-  }
-  @media (max-width: 900px) {
-    display: none;
-  }
-`;
 export const StyledListItemText = styled(ListItemText)`
   width: 149px;
-  @media (max-width: 1100px) {
-    display: none;
-  }
+  // @media (max-width: 1200px) {
+  //   display: none;
+  // }
 `;
 export const StyledToolbar = styled(Toolbar)`
   display: flex;
@@ -286,3 +271,25 @@ export const StyledAppBar = styled(AppBar)`
     height: 210px;
   }
 `;
+export const StyledAccordion = styled(Accordion)(({ theme }) => ({
+  position: 'absolute',
+  top: '-35px',
+  right: 8,
+  zIndex: 10,
+  marging: 0,
+  padding: 0,
+  boxShadow: 'none',
+  [theme.breakpoints.down('lg')]: {
+    display: 'none',
+  },
+}));
+export const StyledBoxPhones = styled(Box)(({ theme }) => ({
+  width: '230px',
+  position: 'relative',
+  padding: 0,
+  margin: 0,
+  height: '100%',
+  [theme.breakpoints.down('lg')]: {
+    display: 'none',
+  },
+}));
