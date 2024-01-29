@@ -7,7 +7,6 @@ import IconButton from '@mui/material/IconButton';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Badge from '@mui/material/Badge';
-import logo from '../../../../public/images/logo.png';
 import SearchComponent from '@/app/ui/Header/SearchComponent';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import CloseIcon from '@mui/icons-material/Close';
@@ -18,6 +17,7 @@ import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ListItemText from '@mui/material/ListItemText';
+import { Box } from '@mui/material';
 import {
   StyledAccordion,
   StyledBoxPhones,
@@ -64,7 +64,13 @@ const Header = () => {
             </StyledIconButtonMenu>
             <StyledLogoBox>
               <Link href="/">
-                <Image priority={true} src={logo} alt="logo" />
+                <Box
+                  component={'img'}
+                  src={'/images/logo.png'}
+                  style={{
+                    width: '100%',
+                  }}
+                ></Box>
               </Link>
             </StyledLogoBox>
             <StyledButtonCatalog

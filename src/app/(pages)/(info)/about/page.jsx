@@ -14,7 +14,14 @@ import {
 
 export default function About() {
   return (
-    <Box sx={{ maxWidth: '888px' }}>
+    <Box
+      sx={{
+        width: '70%',
+        '@media (max-width: 700px)': {
+          width: '100%',
+        },
+      }}
+    >
       <Box sx={{ mb: 3 }}>
         <PageTitle>Про нас</PageTitle>
       </Box>
@@ -29,6 +36,8 @@ export default function About() {
           src={'/images/about-us-img.png'}
           alt={'about-us-img'}
           fill={true}
+          sizes="70vw"
+          priority={true}
           style={{ borderRadius: '28px', objectFit: 'cover' }}
         />
       </WrapperImg>

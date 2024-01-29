@@ -14,6 +14,11 @@ export const StyledGridContainer = styled(Grid)`
   flex-direction: column;
   align-items: center;
   gap: 32px;
+  width: 70%;
+
+  @media (max-width: 700px) {
+    width: 100%;
+  }
 
   ${({ theme }) => theme.breakpoints.up('sm')} {
     align-items: start;

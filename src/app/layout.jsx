@@ -7,7 +7,7 @@ import Header from '@/app/ui/Header';
 import Footer from '@/app/ui/Footer/Footer';
 import AppTheme from '@/app/ui/AppTheme';
 import Wrapper from '@/app/ui/Wrapper';
-import BreadCrumbs from './ui/BreadCrumbs/BreadCrumbs';
+import { Box } from '@mui/material';
 
 export const metadata = {
   title: 'EBK online store',
@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
         <body>
           <Wrapper>
             <Header />
-            {children}
+            <Box sx={{ flex: '1 1 auto' }}>{children}</Box>
             <Footer />
           </Wrapper>
         </body>
