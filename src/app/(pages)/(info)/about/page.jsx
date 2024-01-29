@@ -1,5 +1,4 @@
 import { Box } from '@mui/material';
-import Grid from '@mui/material/Grid';
 import PageTitle from '@/app/ui/PageTitle';
 import Image from 'next/image';
 import GroupsIcon from '@mui/icons-material/Groups';
@@ -8,6 +7,10 @@ import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import SpeedIcon from '@mui/icons-material/Speed';
 import PageText from '@/app/ui/PageText';
 import ShadowBox from '@/app/ui/ShadowBox';
+import {
+  WrapperImg,
+  WrapperGrid,
+} from '@/app/(pages)/(info)/about/AboutStyles';
 
 export default function About() {
   return (
@@ -21,20 +24,19 @@ export default function About() {
         максимально сумісні та та якісні комплектуючі з якими не буде жодних
         проблем.
       </PageText>
-      <Box sx={{ position: 'relative', height: '500px', my: 3 }}>
+      <WrapperImg>
         <Image
           src={'/images/about-us-img.png'}
           alt={'about-us-img'}
           fill={true}
-          style={{ borderRadius: '35px' }}
+          style={{ borderRadius: '28px', objectFit: 'cover' }}
         />
-      </Box>
+      </WrapperImg>
       <PageTitle>Наші переваги</PageTitle>
-      <Grid container spacing={3} justifyContent="space-between" mt={4}>
+      <WrapperGrid>
         <ShadowBox $padding="30px">
           <Box
             sx={{
-              maxWidth: '360px',
               borderRadius: '28px',
               display: 'flex',
               flexDirection: 'column',
@@ -64,7 +66,6 @@ export default function About() {
         <ShadowBox $padding="30px">
           <Box
             sx={{
-              maxWidth: '360px',
               borderRadius: '28px',
               display: 'flex',
               flexDirection: 'column',
@@ -98,7 +99,6 @@ export default function About() {
         <ShadowBox $padding="30px">
           <Box
             sx={{
-              maxWidth: '360px',
               borderRadius: '28px',
               display: 'flex',
               flexDirection: 'column',
@@ -132,7 +132,6 @@ export default function About() {
         <ShadowBox $padding="30px">
           <Box
             sx={{
-              maxWidth: '360px',
               borderRadius: '28px',
               display: 'flex',
               flexDirection: 'column',
@@ -160,7 +159,7 @@ export default function About() {
             </PageText>
           </Box>
         </ShadowBox>
-      </Grid>
+      </WrapperGrid>
     </Box>
   );
 }

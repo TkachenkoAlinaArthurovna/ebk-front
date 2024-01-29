@@ -3,40 +3,16 @@
 import PageTitle from '@/app/ui/PageTitle';
 import { Calendar, Home, Mail, PhoneIcon } from 'lucide-react';
 import PageText from '@/app/ui/PageText';
-import { Box, Grid, styled, Button } from '@mui/material';
+import { Box, Grid, Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
+import {
+  StyledContact,
+  StyledGridContainer,
+  StyledGridItem,
+  StyledButton,
+} from '@/app/(pages)/(info)/contacts/ContactsStyles';
 
 export default function Contacts() {
-  const StyledContact = styled(Box)`
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  `;
-
-  const StyledGridContainer = styled(Grid)`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 32px;
-
-    ${({ theme }) => theme.breakpoints.up('sm')} {
-      align-items: start;
-    }
-
-    ${({ theme }) => theme.breakpoints.up('md')} {
-      flex-direction: row;
-      gap: 0;
-    }
-  `;
-
-  const StyledGridItem = styled(Grid)`
-    max-width: 90%;
-
-    ${({ theme }) => theme.breakpoints.up('sm')} {
-      max-width: 100%;
-    }
-  `;
-
   return (
     <>
       <StyledGridContainer container spacing={2}>
@@ -119,9 +95,9 @@ export default function Contacts() {
               fullWidth
             />
 
-            <Button variant="contained" fullWidth sx={{ padding: '16px' }}>
+            <StyledButton variant="contained" fullWidth>
               Відправити
-            </Button>
+            </StyledButton>
           </Grid>
         </StyledGridItem>
       </StyledGridContainer>

@@ -78,6 +78,7 @@ export const StyledToolbar = styled(Toolbar)`
 
 export const StyledAppBar = styled(AppBar)`
   padding: 26px 0;
+  margin-bottom: 26px;
   @media (max-width: 900px) {
     height: 170px;
   }
