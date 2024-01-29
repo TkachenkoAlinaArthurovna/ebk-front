@@ -3,11 +3,12 @@ import {
   WrapperConditions,
   WrapperIcon,
   ShadowBox,
-} from '@/app/ui/Support/SupportStyles';
+} from '@/app/ui/SupportPage/SupportStyles';
 import PageTitle from '@/app/ui/PageTitle';
-import { Box, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
-const Support = () => {
+const SupportPage = () => {
   return (
     <WrapperSupport>
       <Box sx={{ marginBottom: '32px' }}>
@@ -45,7 +46,8 @@ const Support = () => {
               }}
             >
               <WrapperIcon>
-                <img
+                <Box
+                  component={'img'}
                   src="/images/support/img1.png"
                   style={{ height: '100%' }}
                 />
@@ -66,7 +68,8 @@ const Support = () => {
               }}
             >
               <WrapperIcon>
-                <img
+                <Box
+                  component={'img'}
                   src="/images/support/img2.png"
                   style={{ height: '100%' }}
                 />
@@ -88,7 +91,8 @@ const Support = () => {
               }}
             >
               <WrapperIcon>
-                <img
+                <Box
+                  component={'img'}
                   src="/images/support/img3.png"
                   style={{ height: '100%' }}
                 />
@@ -140,4 +144,4 @@ const Support = () => {
   );
 };
 
-export default Support;
+export default SupportPage;

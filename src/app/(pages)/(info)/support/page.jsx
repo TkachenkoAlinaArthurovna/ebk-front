@@ -1,5 +1,5 @@
-import Support from '@/app/ui/Support';
+import SupportPage from '@/app/ui/SupportPage';
 
-export default function SupportPage() {
-  return <Support />;
+export default function Support() {
+  return <SupportPage />;
 }
