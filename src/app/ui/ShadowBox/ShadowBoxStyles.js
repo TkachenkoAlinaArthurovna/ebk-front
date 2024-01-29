@@ -6,7 +6,8 @@ export const StyledBox = styled(Box)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: ${({ justifyContent }) =>
+    justifyContent ? `${justifyContent}` : 'center'};
   padding: ${({ padding }) => (padding ? `${padding}` : '10%')};
   box-shadow: 0 0 16px 0 rgba(190, 190, 190, 0.25);
   box-sizing: border-box;

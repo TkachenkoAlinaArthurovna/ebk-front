@@ -13,6 +13,7 @@ export const StyledList = styled(List)`
 
 export const StyledListItemButton = styled(ListItemButton)`
   && {
+    margin-bottom: 2px;
     border-radius: 100px;
     background-color: ${(props) =>
       props.selected ? '#f5f5f5' : 'transparent'};
@@ -24,9 +25,9 @@ export const StyledListItemButton = styled(ListItemButton)`
 `;
 
 export const StyledListWrapper = styled(Box)`
-  width: 100%;
+  width: 30%;
 
-  ${({ theme }) => theme.breakpoints.up('md')} {
-    max-width: 400px;
+  @media (max-width: 700px) {
+    width: 100%;
   }
 `;

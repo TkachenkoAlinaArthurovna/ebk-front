@@ -8,8 +8,12 @@ import { StyledBox } from '@/app/ui/ShadowBox/ShadowBoxStyles';
  * <ShadowBox $padding="20px">{your component}</ShadowBox>
  */
 
-const ShadowBox = ({ $padding, children }) => {
-  return <StyledBox padding={$padding}>{children}</StyledBox>;
+const ShadowBox = ({ $padding, $justifyContent, children }) => {
+  return (
+    <StyledBox padding={$padding} justifyContent={$justifyContent}>
+      {children}
+    </StyledBox>
+  );
 };
 
 export default ShadowBox;
