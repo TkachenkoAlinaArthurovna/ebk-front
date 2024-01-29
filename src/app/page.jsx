@@ -7,7 +7,7 @@ import ReviewsBlock from '@/app/ui/Homepage/ReviewsBlock/';
 
 export default function Home() {
   return (
-    <main>
+    <main sx={{ flex: '1 1 auto' }}>
       <MainSlider />
       <CategoryBlock />
       <InfoBlock />

@@ -4,16 +4,16 @@ import { styled, List, ListItemButton, Box } from '@mui/material';
 
 export const StyledList = styled(List)`
   color: #4d4d4d;
-  max-width: 100%;
-
-  ${({ theme }) => theme.breakpoints.up('sm')} {
-    max-width: 90%;
+  width: 90%;
+  @media (max-width: 700px) {
+    width: 100%;
+    margin-bottom: 24px;
   }
 `;
 
 export const StyledListItemButton = styled(ListItemButton)`
   && {
-    border-radius: 10px;
+    border-radius: 100px;
     background-color: ${(props) =>
       props.selected ? '#f5f5f5' : 'transparent'};
 

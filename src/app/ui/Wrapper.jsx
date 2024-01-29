@@ -4,7 +4,9 @@ const Wrapper = ({ children }) => {
   return (
     <Box
       sx={{
-        height: '100%',
+        minHeight: '100%',
+        display: 'flex',
+        flexDirection: 'column',
       }}
     >
       {children}

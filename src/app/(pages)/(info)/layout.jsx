@@ -6,14 +6,11 @@ import { Box, styled } from '@mui/material';
 
 const StyledPagesLayout = styled(Box)`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   margin-bottom: 32px;
-  gap: 32px;
-
-  ${({ theme }) => theme.breakpoints.up('sm')} {
-    flex-direction: row;
-    gap: 0;
+  @media (max-width: 700px) {
+    flex-direction: column;
   }
 `;
 

@@ -17,7 +17,6 @@ const InfoPagesMenu = () => {
     { href: '/about', label: 'Про нас' },
     { href: '/support', label: 'Підтримка' },
     { href: '/contacts', label: 'Контакти' },
-    { href: '/payment-delivery', label: 'Запитання та відповіді' },
   ];
 
   return (
