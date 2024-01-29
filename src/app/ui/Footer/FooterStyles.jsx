@@ -15,7 +15,7 @@ export const FooterItemBox = styled(Box)`
   gap: 16px;
   grid-area: ${({ area_name }) => area_name};
   align-items: center;
-  ${({ theme }) => theme.breakpoints.up('sm')} {
+  ${({ theme }) => theme.breakpoints.up('md')} {
     align-items: start;
   }
 `;
@@ -43,7 +43,7 @@ export const StyledListItem = styled(ListItem)`
   padding: 0;
   display: flex;
   justify-content: center;
-  ${({ theme }) => theme.breakpoints.up('sm')} {
+  ${({ theme }) => theme.breakpoints.up('md')} {
     justify-content: start;
   }
 `;
