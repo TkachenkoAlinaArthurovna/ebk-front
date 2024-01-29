@@ -1,10 +1,5 @@
-import Link from 'next/link';
+import NotFoundInfo from "@/app/ui/NotFoundInfo";
 
 export default function NotFound() {
-  return (
-    <div>
-      <h2>Not Found</h2>
-      <Link href="/">Return Home</Link>
-    </div>
-  );
+  return <NotFoundInfo/>;
 }

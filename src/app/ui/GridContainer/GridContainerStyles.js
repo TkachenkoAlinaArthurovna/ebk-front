@@ -10,7 +10,7 @@ export const StyledGridContainer = styled(Box)`
 
   @media (max-width: 1155px) {
     grid-template-columns: ${({ columns_on_small_screen }) =>
-      columns_on_small_screen === '1' ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)'};
+    columns_on_small_screen === '1' ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)'};
   }
 
   @media (max-width: 900px) {
@@ -19,7 +19,7 @@ export const StyledGridContainer = styled(Box)`
 
   @media (max-width: 650px) {
     grid-template-columns: ${({ columns_on_small_screen }) =>
-      columns_on_small_screen === '1' ? '1fr' : 'repeat(2, 1fr)'};
+    columns_on_small_screen === '1' ? '1fr' : 'repeat(2, 1fr)'};
     gap: 26px;
   }
 `;
