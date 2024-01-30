@@ -28,7 +28,7 @@ const navigation1 = [
 ];
 
 const navigation2 = [
-  { id: 9, title: 'Оплата та доставка', path: '/payment-delivery' },
+  { id: 9, title: 'Доставка і оплата', path: '/payment-delivery' },
   { id: 11, title: 'Підтримка', path: '/support' },
 ];
 
