@@ -53,9 +53,6 @@ const Footer = () => {
                   <Link href="/payment-delivery">Оплата та доставка</Link>
                 </StyledListItem>
                 <StyledListItem>
-                  <Link href="/support">Повернення товару</Link>
-                </StyledListItem>
-                <StyledListItem>
                   <Link href="/support">Підтримка</Link>
                 </StyledListItem>
               </StyledList>
@@ -91,12 +88,16 @@ const Footer = () => {
           <Box
             sx={{
               display: 'flex',
+              flexDirection: 'column',
               justifyContent: 'center',
               alignItems: 'center',
               mb: '16px',
             }}
           >
-            © text 2023, All Rights Reserved
+            <Box sx={{ marginBottom: '16px' }}>
+              <Link href="/privacy-policy">Політика конфеденційності</Link>
+            </Box>
+            <Box>© text 2023, All Rights Reserved</Box>
           </Box>
           <LogoContainerBottom>
             <Link href="/">

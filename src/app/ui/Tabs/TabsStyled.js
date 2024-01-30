@@ -31,7 +31,7 @@ export const StyledTabs = styled((props) => (
 export const StyledTab = styled((props) => <Tab {...props} />)(({ theme }) => ({
   width: '16%',
   fontSize: '16px',
-  color: theme.palette.primary.main,
+  color: '#212121',
   textTransform: 'none',
   '&.Mui-selected': {
     color: theme.palette.primary.main,
