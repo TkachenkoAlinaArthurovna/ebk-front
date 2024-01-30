@@ -367,7 +367,7 @@ export const SearchIconWrapper = styled(Box)`
   justify-content: center;
   @media (max-width: 900px) {
     position: absolute;
-    right: 0;
+    left: 0;
     top: 50%;
   }
 `;
