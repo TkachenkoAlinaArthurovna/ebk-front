@@ -15,6 +15,7 @@ export const StyledGridContainer = styled(Grid)`
   align-items: center;
   gap: 32px;
   width: 70%;
+  margin-bottom: 32px;
 
   @media (max-width: 700px) {
     width: 100%;
