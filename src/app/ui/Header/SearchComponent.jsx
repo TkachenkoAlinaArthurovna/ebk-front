@@ -383,8 +383,9 @@ export const SearchComponent = () => {
   const [id, setId] = useState(null);
   const router = useRouter()
 
-  const handleOptionChange = (event, newValue) => {
-    setId(newValue);
+  const handleOptionChange = (event, {id}) => {
+    setId(id);
+
     router.push(`/category/${id}`);
   };
   console.log(id);
