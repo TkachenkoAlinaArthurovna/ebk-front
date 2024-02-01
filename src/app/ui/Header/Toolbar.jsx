@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addLinks } from '@/redux/slices/CategoriesSlice';
@@ -31,20 +32,14 @@ import {
   StyledLinkCart,
   StyledShoppingCartIcon,
 } from '@/app/ui/Header/HeaderStyles';
-import CyrillicToTranslit from 'cyrillic-to-translit-js';
+import { createLinks } from '@/app/lib/helpers';
 
 const Toolbar = ({ catalog }) => {
-  const cyrillicToTranslit = new CyrillicToTranslit({ preset: 'uk' });
-  const catalogLinks = catalog.map((item) => {
-    const itemLink = cyrillicToTranslit
-      .transform(`${item.name}`, '_')
-      .toLowerCase();
-    return { ...item, link: itemLink };
-  });
   const dispatch = useDispatch();
   const categoriesLinks = useSelector(
     (state) => state.categories.categoriesLinks,
   );
+  const catalogLinks = createLinks(catalog);
   useEffect(() => {
     dispatch(addLinks(catalogLinks));
   }, []);
