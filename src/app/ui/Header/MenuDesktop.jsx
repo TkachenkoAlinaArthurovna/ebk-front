@@ -9,7 +9,7 @@ import {
 } from '@/app/ui/Header/HeaderStyles';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { capitalizeFirstLetter } from '@/app/lib/helpers';
 
 const MenuDesktop = ({ handleCloseCatalog, categories }) => {
@@ -40,7 +40,10 @@ const MenuDesktop = ({ handleCloseCatalog, categories }) => {
         >
           <StyledButton>
             <ListItemText sx={{ margin: '0' }}>
-              <Link href="/" onClick={handleCloseCatalog}>
+              <Link
+                href={`/category_${category.link}`}
+                onClick={handleCloseCatalog}
+              >
                 {capitalizeFirstLetter(category.name)}
               </Link>
             </ListItemText>
@@ -69,7 +72,10 @@ const MenuDesktop = ({ handleCloseCatalog, categories }) => {
                         margin: '0',
                       }}
                     >
-                      <Link href="/" onClick={handleCloseCatalog}>
+                      <Link
+                        href={`/category_${item.link}`}
+                        onClick={handleCloseCatalog}
+                      >
                         {capitalizeFirstLetter(item.name)}
                       </Link>
                     </ListItemText>
