@@ -1,7 +1,13 @@
+'use client';
 import { notFound } from 'next/navigation';
+import { useSelector } from 'react-redux';
 
 export default function DynamicPage({ params }) {
-  if (params.category.includes('category_')) {
+  const categoriesLinks = useSelector(
+    (state) => state.categories.categoriesLinks,
+  );
+  console.log(categoriesLinks);
+  if (params.category.includes('category')) {
     return (
       <div>
         DynamicPage - Category

@@ -9,10 +9,9 @@ import {
 import MenuDesktop from '@/app/ui/Header/MenuDesktop';
 import MenuTouchpad from '@/app/ui/Header/MenuTouchpad';
 import MenuMob from '@/app/ui/Header/MenuMob';
-import { catalog } from '@/app/lib/mockData';
 import { useResize } from '@/app/lib/helpers';
 
-const Catalog = ({ openCatalog, handleCloseCatalog }) => {
+const Catalog = ({ openCatalog, handleCloseCatalog, catalog }) => {
   const [width] = useResize();
   const updatedCatalog = catalog.map((item) => ({
     ...item,
