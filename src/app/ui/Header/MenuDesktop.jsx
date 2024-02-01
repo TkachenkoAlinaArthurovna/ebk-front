@@ -38,21 +38,21 @@ const MenuDesktop = ({ handleCloseCatalog, categories }) => {
           onMouseEnter={() => handleMouseEnter(category.id)}
           onMouseLeave={handleMouseLeave}
         >
-          <StyledButton>
-            <ListItemText sx={{ margin: '0' }}>
-              <Link
-                href={`/category_${category.link}`}
-                onClick={handleCloseCatalog}
-              >
+          <Link
+            href={`/category_${category.link}`}
+            onClick={handleCloseCatalog}
+          >
+            <StyledButton>
+              <ListItemText sx={{ margin: '0' }}>
                 {capitalizeFirstLetter(category.name)}
-              </Link>
-            </ListItemText>
-            {category.children.length > 0 && (
-              <ArrowForwardIosIcon
-                sx={{ marginLeft: '40px', fontSize: '16px' }}
-              />
-            )}
-          </StyledButton>
+              </ListItemText>
+              {category.children.length > 0 && (
+                <ArrowForwardIosIcon
+                  sx={{ marginLeft: '40px', fontSize: '16px' }}
+                />
+              )}
+            </StyledButton>
+          </Link>
           {category.children.length > 0 && (
             <SubCategoriesWrapper
               style={{
@@ -66,20 +66,20 @@ const MenuDesktop = ({ handleCloseCatalog, categories }) => {
               </StyledIconButton>
               <SubCategoriesList>
                 {category.children.map((item) => (
-                  <StyledButton key={item.id} typebutton="subcategory">
-                    <ListItemText
-                      sx={{
-                        margin: '0',
-                      }}
-                    >
-                      <Link
-                        href={`/category_${item.link}`}
-                        onClick={handleCloseCatalog}
+                  <Link
+                    href={`/category_${item.link}`}
+                    onClick={handleCloseCatalog}
+                  >
+                    <StyledButton key={item.id} typebutton="subcategory">
+                      <ListItemText
+                        sx={{
+                          margin: '0',
+                        }}
                       >
                         {capitalizeFirstLetter(item.name)}
-                      </Link>
-                    </ListItemText>
-                  </StyledButton>
+                      </ListItemText>
+                    </StyledButton>
+                  </Link>
                 ))}
               </SubCategoriesList>
             </SubCategoriesWrapper>
