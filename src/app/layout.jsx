@@ -8,6 +8,7 @@ import Footer from '@/app/ui/Footer/Footer';
 import AppTheme from '@/app/ui/AppTheme';
 import Wrapper from '@/app/ui/Wrapper';
 import Providers from '@/redux/Provider';
+import { Box } from '@mui/material';
 
 export const metadata = {
   title: 'EBK online store',
@@ -23,7 +24,7 @@ export default function RootLayout({ children }) {
           <Providers>
             <Wrapper>
               <Header />
-              {children}
+              <Box sx={{ flex: '1 1 auto' }}>{children}</Box>
               <Footer />
             </Wrapper>
           </Providers>
