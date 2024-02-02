@@ -41,7 +41,10 @@ const MenuMob = ({ handleCloseCatalog, categories }) => {
                 {category.children.map((item) => (
                   <StyledButton key={item.id} typebutton="subcategory">
                     <ListItemText sx={{ margin: '0' }}>
-                      <Link href="/" onClick={handleCloseCatalog}>
+                      <Link
+                        href={`/category-${item.link}`}
+                        onClick={handleCloseCatalog}
+                      >
                         {capitalizeFirstLetter(item.name)}
                       </Link>
                     </ListItemText>

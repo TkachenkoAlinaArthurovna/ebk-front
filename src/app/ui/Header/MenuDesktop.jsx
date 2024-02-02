@@ -38,10 +38,7 @@ const MenuDesktop = ({ handleCloseCatalog, categories }) => {
           onMouseEnter={() => handleMouseEnter(category.id)}
           onMouseLeave={handleMouseLeave}
         >
-          <Link
-            href={`/category_${category.link}`}
-            onClick={handleCloseCatalog}
-          >
+          <Link href={`/${category.link}`} onClick={handleCloseCatalog}>
             <StyledButton>
               <ListItemText sx={{ margin: '0' }}>
                 {capitalizeFirstLetter(category.name)}
@@ -67,10 +64,11 @@ const MenuDesktop = ({ handleCloseCatalog, categories }) => {
               <SubCategoriesList>
                 {category.children.map((item) => (
                   <Link
-                    href={`/category_${item.link}`}
+                    key={item.id}
+                    href={`/${item.link}`}
                     onClick={handleCloseCatalog}
                   >
-                    <StyledButton key={item.id} typebutton="subcategory">
+                    <StyledButton typebutton="subcategory">
                       <ListItemText
                         sx={{
                           margin: '0',

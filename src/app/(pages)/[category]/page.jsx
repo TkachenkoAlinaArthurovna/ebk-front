@@ -1,25 +1,23 @@
-// 'use client';
-// import { notFound } from 'next/navigation';
-// import { useSelector } from 'react-redux';
-import CategoryPage from "@/app/ui/CategoryPage";
+import CategoryPage from '@/app/ui/CategoryPage';
+import { catalog } from '@/app/lib/mockData';
+import { createLinks } from '@/app/lib/createLinks';
 
-export default function Category() {
-  return <CategoryPage/>;
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  const catalogLinks = createLinks(catalog);
+  return catalogLinks.map((category) => ({ category: category.link }));
 }
 
-// export default function DynamicPage({ params }) {
-//   const categoriesLinks = useSelector(
-//     (state) => state.categories.categoriesLinks,
-//   );
-//   console.log(categoriesLinks);
-//   if (params.category.includes('category')) {
-//     return (
-//       <div>
-//         DynamicPage - Category
-//         <div>Params:{JSON.stringify(params)}</div>
-//       </div>
-//     );
-//   } else {
-//     notFound();
-//   }
-// }
+const getCategory = (params) => {
+  const catalogLinks = createLinks(catalog);
+  return catalogLinks.find((category) => category.link === params);
+};
+
+const Category = ({ params }) => {
+  const { category } = params;
+  const categoryItem = getCategory(category);
+  return <CategoryPage />;
+};
+
+export default Category;
