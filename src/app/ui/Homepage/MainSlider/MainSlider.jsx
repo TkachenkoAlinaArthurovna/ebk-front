@@ -8,6 +8,7 @@ const MainSlider = () => {
     '/images/main-slider.png',
     '/images/main-slider.png',
     '/images/main-slider.png',
+    '/images/main-slider.png',
   ];
   return (
     <StyledSection as="section">

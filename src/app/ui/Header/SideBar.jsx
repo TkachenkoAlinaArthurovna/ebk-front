@@ -77,7 +77,7 @@ const SideBar = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => (
       <Box>
         <ListItem disablePadding>
           <ListItemButton
-            sx={{ padding: '16px', borderRadius: '28px' }}
+            sx={{ padding: '10px 24px 10px 16px', borderRadius: '28px' }}
             disableGutters
             onClick={handleOpenCatalog}
           >
@@ -90,7 +90,7 @@ const SideBar = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => (
         {navigation.map(({ id, title, path }) => (
           <ListItem key={id} disablePadding>
             <ListItemButton
-              sx={{ padding: '16px 24px 16px 16px', borderRadius: '28px' }}
+              sx={{ padding: '10px 24px 10px 16px', borderRadius: '28px' }}
               disableGutters
               href={path}
             >
@@ -114,7 +114,7 @@ const SideBar = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => (
         ))}
         <Divider sx={{ marginTop: '4px' }} />
         <Typography
-          sx={{ padding: '16px 24px 16px 16px', fontWeight: '500' }}
+          sx={{ padding: '10px 24px 10px 16px', fontWeight: '500' }}
           component="div"
         >
           Компанія
@@ -122,7 +122,7 @@ const SideBar = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => (
         {navigation1.map(({ id, title, path }) => (
           <ListItem key={id} disablePadding>
             <ListItemButton
-              sx={{ padding: '16px 24px 16px 16px', borderRadius: '28px' }}
+              sx={{ padding: '10px 24px 10px 16px', borderRadius: '28px' }}
               disableGutters
               href={path}
             >
@@ -132,7 +132,7 @@ const SideBar = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => (
         ))}
         <Divider sx={{ marginTop: '4px' }} />
         <Typography
-          sx={{ padding: '16px 24px 16px 16px', fontWeight: '500' }}
+          sx={{ padding: '10px 24px 10px 16px', fontWeight: '500' }}
           component="div"
         >
           Допомога
@@ -140,7 +140,7 @@ const SideBar = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => (
         {navigation2.map(({ id, title, path }) => (
           <ListItem key={id} disablePadding>
             <ListItemButton
-              sx={{ padding: '16px 24px 16px 16px', borderRadius: '28px' }}
+              sx={{ padding: '10px 24px 10px 16px', borderRadius: '28px' }}
               disableGutters
               href={path}
             >
