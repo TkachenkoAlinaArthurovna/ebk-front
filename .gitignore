@@ -43,3 +43,6 @@ next-env.d.ts
 
 # WebStorm
 .idea/
+
+# History plugin
+.history

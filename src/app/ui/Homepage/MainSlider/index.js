@@ -1,2 +1,2 @@
-import MainSlider from '@/app/ui/home-page/MainSlider/MainSlider';
+import MainSlider from "@/app/ui/Homepage/MainSlider/MainSlider";
 export default MainSlider;
