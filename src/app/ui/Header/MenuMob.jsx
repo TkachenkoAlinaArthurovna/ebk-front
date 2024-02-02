@@ -41,10 +41,7 @@ const MenuMob = ({ handleCloseCatalog, categories }) => {
                 {category.children.map((item) => (
                   <StyledButton key={item.id} typebutton="subcategory">
                     <ListItemText sx={{ margin: '0' }}>
-                      <Link
-                        href={`/category-${item.link}`}
-                        onClick={handleCloseCatalog}
-                      >
+                      <Link href={`/${item.link}`} onClick={handleCloseCatalog}>
                         {capitalizeFirstLetter(item.name)}
                       </Link>
                     </ListItemText>
@@ -58,7 +55,7 @@ const MenuMob = ({ handleCloseCatalog, categories }) => {
           return (
             <StyledButtonMob key={category.id}>
               <ListItemText sx={{ margin: '0' }}>
-                <Link href="/" onClick={handleCloseCatalog}>
+                <Link href={`/${category.link}`} onClick={handleCloseCatalog}>
                   <Box component="span" sx={{ fontWeight: '500' }}>
                     {capitalizeFirstLetter(category.name)}
                   </Box>

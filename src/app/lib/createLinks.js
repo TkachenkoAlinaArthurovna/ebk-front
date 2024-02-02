@@ -6,7 +6,8 @@ export const createLinks = (catalog) => {
   const catalogLinks = catalog.map((item) => {
     const itemLink = cyrillicToTranslit
       .transform(`${item.name}`, '-')
-      .toLowerCase();
+      .toLowerCase()
+      .replace(/,/g, '');
     return { ...item, link: itemLink };
   });
   return catalogLinks;

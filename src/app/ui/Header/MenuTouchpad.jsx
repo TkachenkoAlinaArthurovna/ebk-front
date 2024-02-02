@@ -45,7 +45,7 @@ const MenuTouchpad = ({ handleCloseCatalog, categories }) => {
               <StyledTab
                 key={category.id}
                 component={Link}
-                href="/cart"
+                href={`/${category.link}`}
                 onClick={handleCloseCatalog}
                 label={
                   <Box sx={{ textAlign: 'start' }}>
@@ -62,10 +62,7 @@ const MenuTouchpad = ({ handleCloseCatalog, categories }) => {
         <CustomTabPanel key={category.id} value={value} index={index}>
           {category.children.map((item) => (
             <SubCategoryLink key={item.id}>
-              <Link
-                href={`/category-${item.link}`}
-                onClick={handleCloseCatalog}
-              >
+              <Link href={`/${item.link}`} onClick={handleCloseCatalog}>
                 {capitalizeFirstLetter(item.name)}
               </Link>
             </SubCategoryLink>

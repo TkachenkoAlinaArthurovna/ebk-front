@@ -9,7 +9,7 @@ import {
 } from '@/app/ui/Header/HeaderStyles';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { capitalizeFirstLetter } from '@/app/lib/helpers';
 
 const MenuDesktop = ({ handleCloseCatalog, categories }) => {
