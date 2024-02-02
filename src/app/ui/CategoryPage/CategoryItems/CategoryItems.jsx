@@ -1,11 +1,13 @@
 import React from 'react';
 import { StyledWrapper } from '@/app/ui/CategoryPage/CategoryItems/CategoryItemsStyles';
+import ProductsList from '@/app/ui/CategoryPage/CategoryItems/ProductsList';
+import Pagination from '@/app/ui/CategoryPage/CategoryItems/Pagination';
 
 const CategoryItems = () => {
   return (
     <StyledWrapper>
-      <h3>Products</h3>
-      <h3>Pagination</h3>
+      <ProductsList />
+      <Pagination />
     </StyledWrapper>
   );
 };
