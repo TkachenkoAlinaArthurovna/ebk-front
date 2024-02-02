@@ -8,14 +8,18 @@ import {
   StyledAccordionTitle,
 } from '@/app/ui/CategoryPage/ProductFilter/FilterParam/FilterParamStyles';
 
-const FilterParam = ({ paramName }) => {
+const FilterParam = ({ paramName, paramValues }) => {
+  const paramValue = paramValues.map((paramValue, index) => {
+    return <ParamValue key={index} paramValue={paramValue} />;
+  });
+
   return (
     <StyledAccordionBox>
       <StyledAccordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <StyledAccordionTitle>{paramName}</StyledAccordionTitle>
         </AccordionSummary>
-        <ParamValue paramValue="140-150" />
+        {paramValue}
       </StyledAccordion>
     </StyledAccordionBox>
   );
