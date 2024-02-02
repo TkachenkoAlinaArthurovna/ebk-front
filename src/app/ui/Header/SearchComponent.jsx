@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 
 import SearchIcon from '@mui/icons-material/Search';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -381,15 +381,14 @@ const options = [
 
 export const SearchComponent = () => {
   const [id, setId] = useState(null);
-  const router = useRouter()
+  const router = useRouter();
 
   const handleOptionChange = (event, newValue) => {
     setId(newValue);
-    const {id} = newValue;
+    const { id } = newValue;
 
     router.push(`/category/${id}`);
   };
-  console.log(id);
 
   return (
     <Search>

@@ -1,20 +1,23 @@
-'use client';
-import { notFound } from 'next/navigation';
-import { useSelector } from 'react-redux';
+import { catalog } from '@/app/lib/mockData';
+import { createLinks } from '@/app/lib/createLinks';
 
-export default function DynamicPage({ params }) {
-  const categoriesLinks = useSelector(
-    (state) => state.categories.categoriesLinks,
-  );
-  console.log(categoriesLinks);
-  if (params.category.includes('category')) {
-    return (
-      <div>
-        DynamicPage - Category
-        <div>Params:{JSON.stringify(params)}</div>
-      </div>
-    );
-  } else {
-    notFound();
-  }
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  const catalogLinks = createLinks(catalog);
+  return catalogLinks.map((category) => ({ category: category.link }));
 }
+
+const getCategory = (params) => {
+  const catalogLinks = createLinks(catalog);
+  return catalogLinks.find((category) => category.link === params);
+};
+
+const Category = ({ params }) => {
+  const { category } = params;
+  const categoryItem = getCategory(category);
+
+  return <div>{category}</div>;
+};
+
+export default Category;

@@ -32,7 +32,7 @@ import {
   StyledLinkCart,
   StyledShoppingCartIcon,
 } from '@/app/ui/Header/HeaderStyles';
-import { createLinks } from '@/app/lib/helpers';
+import { createLinks } from '@/app/lib/createLinks';
 
 const Toolbar = ({ catalog }) => {
   const dispatch = useDispatch();
