@@ -62,7 +62,10 @@ const MenuTouchpad = ({ handleCloseCatalog, categories }) => {
         <CustomTabPanel key={category.id} value={value} index={index}>
           {category.children.map((item) => (
             <SubCategoryLink key={item.id}>
-              <Link href="/" onClick={handleCloseCatalog}>
+              <Link
+                href={`/category-${item.link}`}
+                onClick={handleCloseCatalog}
+              >
                 {capitalizeFirstLetter(item.name)}
               </Link>
             </SubCategoryLink>

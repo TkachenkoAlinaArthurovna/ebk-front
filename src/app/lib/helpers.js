@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import CyrillicToTranslit from 'cyrillic-to-translit-js';
 
 export const createInitials = (firstName, lastName) => {
   const getInitial = (string) => string.charAt(0).toUpperCase();
@@ -52,15 +51,4 @@ export const useResize = () => {
 
 export const capitalizeFirstLetter = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-};
-
-const cyrillicToTranslit = new CyrillicToTranslit({ preset: 'uk' });
-export const createLinks = (catalog) => {
-  const catalogLinks = catalog.map((item) => {
-    const itemLink = cyrillicToTranslit
-      .transform(`${item.name}`, '-')
-      .toLowerCase();
-    return { ...item, link: itemLink };
-  });
-  return catalogLinks;
 };
