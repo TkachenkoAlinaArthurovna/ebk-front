@@ -17,7 +17,6 @@ const getCategory = (params) => {
 const Category = ({ params }) => {
   const { category } = params;
   const categoryItem = getCategory(category);
-
   return <CategoryPage />;
 };
 
