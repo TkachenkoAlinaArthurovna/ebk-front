@@ -28,7 +28,7 @@ const ProductCard = ({ id, img, name, colors, price, oldprice }) => {
       </Link>
       <StyledCardContent>
         <Colors colors={colors} />
-        <Price price={920} oldprice={828} />
+        <Price price={920} oldprice={828} fontSize={22} />
         <StyledIconButton>
           <ShoppingCartIcon sx={{ width: '24px', height: '24px' }} />
         </StyledIconButton>

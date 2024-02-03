@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import ProductCard from '@/app/ui/ProductCard';
 import { SwiperPrev, SwiperNext } from '@/app/ui/Slider/SliderStyles';
+import { Box } from '@mui/material';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -30,12 +31,45 @@ const Slider = ({
   products,
   slides,
   reviews,
+  slidesProductPage,
 }) => {
   const [swiper, setSwiper] = useState();
   let listProducts;
   let listSlides;
   let listReviews;
+  let listSlidesProductPage;
 
+  if (slidesProductPage) {
+    listSlidesProductPage = slidesProductPage.map((slide, index) => (
+      <SwiperSlide
+        key={index}
+        style={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Box
+          component="img"
+          src={slide}
+          sx={{
+            maxHeight: '500px',
+            borderRadius: '28px',
+            '@media (max-width: 1024px)': {
+              maxHeight: '380px',
+            },
+            '@media (max-width: 500px)': {
+              maxHeight: '300px',
+            },
+            '@media (max-width: 400px)': {
+              maxHeight: '260px',
+            },
+          }}
+        ></Box>
+      </SwiperSlide>
+    ));
+  }
   if (slides) {
     listSlides = slides.map((slide, index) => (
       <SwiperSlide key={index}>
@@ -117,6 +151,7 @@ const Slider = ({
         loop={true}
         pagination={pagination}
         modules={[Autoplay, Navigation, Pagination]}
+        navigation
         style={{
           height: '100%',
         }}
@@ -125,6 +160,25 @@ const Slider = ({
         {products && listProducts}
         {slides && listSlides}
         {reviews && listReviews}
+        {slidesProductPage && listSlidesProductPage}
+        {slidesProductPage && (
+          <>
+            <SwiperPrev
+              onClick={() => swiper.slidePrev()}
+              swipertype="productPage"
+              component="img"
+              alt="prev"
+              src="/images/swiper/prev.png"
+            />
+            <SwiperNext
+              onClick={() => swiper.slideNext()}
+              swipertype="productPage"
+              component="img"
+              alt="next"
+              src="/images/swiper/next.png"
+            />
+          </>
+        )}
       </Swiper>
       {slides && (
         <>
