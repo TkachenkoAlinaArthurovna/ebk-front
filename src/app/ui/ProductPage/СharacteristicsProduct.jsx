@@ -14,17 +14,16 @@ import PageTitle from '@/app/ui/PageTitle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { styled } from '@mui/system';
-
-const StyledImg = styled('img')`
-  width: inherit;
-  // height: 348px;
-  border-radius: 28px;
-  // @media (max-width: 1250px) {
-  //   width: 384px;
-  //   height: 332px;
-  //   border-radius: 28px;
-  // }
-`;
+import {
+  StyledImg,
+  StyledGridOrder,
+  StyledTypography,
+  StyledListItem,
+  StyleTypographyName,
+  StyleTypographyOldPrice,
+  StyledTypographyNewPrice,
+  StyledDiscountBox,
+} from '@/app/ui/ProductPage/CaracteristicsProductStyles';
 
 // obj === props
 const obj = {
@@ -83,29 +82,23 @@ const discount = 0.2;
 
 const СharacteristicsProduct = () => {
   return (
-    <Box sx={{marginBottom: '80px'}}>
+    <Box sx={{ marginBottom: '80px' }}>
       <Box>
-        <Grid container>
-          <Grid item lg={7} md={7} sm={12} xs={12} sx={{ paddingRight: '24px' }}>
-            <PageTitle>Характеристики</PageTitle>
-            {obj.params.map((item) => (
-              <List key={item.$.name} disablePadding>
-                <ListItem
-                  sx={{ display: 'flex', justifyContent: 'space-between' }}
-                >
-                  <Typography >{item.$.name}</Typography>
-                  <Typography sx={{ color: '#6A6A6A', whiteSpace:'discard-before' }}>{item._}</Typography>
-                </ListItem>
-              </List>
-            ))}
-          </Grid>
+        <Grid container spacing={4}>
+          <StyledGridOrder item lg={7} md={7} sm={12} xs={12}>
+            <StyledTypography variant="h2">Характеристики</StyledTypography>
+            <List disablePadding>
+              {obj.params.map((item) => (
+                <StyledListItem key={item.$.name}>
+                  <Typography>{item.$.name}</Typography>
+                  <Typography sx={{ color: '#6A6A6A' }}>{item._}</Typography>
+                </StyledListItem>
+              ))}
+            </List>
+          </StyledGridOrder>
           <Grid item lg={5} md={5} sm={12} xs={12}>
             <Box sx={{ marginBottom: '16px' }}>
-              <Typography
-                sx={{ fontWeight: 400, fontSize: '28px', marginBottom: '8px' }}
-              >
-                {obj.name}
-              </Typography>
+              <StyleTypographyName>{obj.name}</StyleTypographyName>
               <Typography sx={{ color: '#6A6A6A' }}>
                 Код: {obj.vendorCode}
               </Typography>
@@ -114,16 +107,9 @@ const СharacteristicsProduct = () => {
               <StyledImg src={obj.picture[0]} />
             </Box>
             <Box>
-              <Typography
-                component={'s'}
-                sx={{
-                  fontSize: '16px',
-                  fontWeight: 400,
-                  color: '#6A6A6A',
-                }}
-              >
+              <StyleTypographyOldPrice component={'s'}>
                 {obj.price}₴
-              </Typography>
+              </StyleTypographyOldPrice>
               <Box
                 sx={{
                   display: 'flex',
@@ -131,26 +117,13 @@ const СharacteristicsProduct = () => {
                   marginBottom: '18px',
                 }}
               >
-                <Typography
-                  sx={{
-                    marginRight: '20px',
-                    fontSize: '28px',
-                    fontWeight: 500,
-                    color: '#DC362E',
-                  }}
-                >
+                <StyledTypographyNewPrice>
                   {obj.price * discount}₴
-                </Typography>
-                <Box
-                  sx={{
-                    backgroundColor: '#FCEBEA',
-                    padding: '6px',
-                    borderRadius: '12px',
-                    color: '#DC362E',
-                  }}
+                </StyledTypographyNewPrice>
+                <StyledDiscountBox
                 >
                   -{discount * 100}%
-                </Box>
+                </StyledDiscountBox>
               </Box>
 
               <Box>
