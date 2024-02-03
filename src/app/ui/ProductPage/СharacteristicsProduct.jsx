@@ -1,19 +1,6 @@
-import {
-  Box,
-  List,
-  ListItem,
-  Typography,
-  Grid,
-  Card,
-  CardMedia,
-  Button,
-  Stack,
-  IconButton,
-} from '@mui/material';
-import PageTitle from '@/app/ui/PageTitle';
+import { Box, List, Typography, Grid, Button, Stack } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { styled } from '@mui/system';
+import FavoriteIcon from '@mui/icons-material/FavoriteBorder';
 import {
   StyledImg,
   StyledGridOrder,
@@ -24,6 +11,7 @@ import {
   StyledTypographyNewPrice,
   StyledDiscountBox,
 } from '@/app/ui/ProductPage/CaracteristicsProductStyles';
+import { StyledIconFavoriteButton } from '@/app/ui/ProductPage/ProductPageStyles';
 
 // obj === props
 const obj = {
@@ -78,7 +66,8 @@ const obj = {
   price: '717',
   currencyId: 'UAH',
 };
-const discount = 0.2;
+
+const discount = 0.1;
 
 const СharacteristicsProduct = () => {
   return (
@@ -118,12 +107,9 @@ const СharacteristicsProduct = () => {
                 }}
               >
                 <StyledTypographyNewPrice>
-                  {obj.price * discount}₴
+                  {obj.price - obj.price * discount}₴
                 </StyledTypographyNewPrice>
-                <StyledDiscountBox
-                >
-                  -{discount * 100}%
-                </StyledDiscountBox>
+                <StyledDiscountBox>-{discount * 100}%</StyledDiscountBox>
               </Box>
 
               <Box>
@@ -135,9 +121,9 @@ const СharacteristicsProduct = () => {
                   >
                     Купити
                   </Button>
-                  <IconButton sx={{ padding: '10px' }}>
-                    <FavoriteBorderIcon />
-                  </IconButton>
+                  <StyledIconFavoriteButton>
+                    <FavoriteIcon sx={{ width: '24px', height: '24px' }} />
+                  </StyledIconFavoriteButton>
                 </Stack>
               </Box>
             </Box>

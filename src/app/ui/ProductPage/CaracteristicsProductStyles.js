@@ -29,7 +29,7 @@ export const StyledTypography = styled(Typography)`
 export const StyledListItem = styled(ListItem)`
   display: flex;
   justify-content: space-between;
-  padding: 12px 0 12px 0;
+  padding: 8px 0 8px 0;
 `;
 
 export const StyleTypographyName = styled(Typography)`
