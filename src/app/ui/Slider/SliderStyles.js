@@ -14,6 +14,8 @@ export const SwiperPrev = styled(Box)`
         return '4px';
       case 'main':
         return '50%';
+      case 'productPage':
+        return '50%';
     }
   }};
   right: ${({ swipertype }) => {
@@ -26,6 +28,8 @@ export const SwiperPrev = styled(Box)`
     switch (swipertype) {
       case 'main':
         return '72px';
+      case 'productPage':
+        return '24px';
     }
   }};
   transform: ${({ swipertype }) => {
@@ -35,11 +39,27 @@ export const SwiperPrev = styled(Box)`
     }
   }};
   cursor: pointer;
+  @media (max-width: 1124px) {
+    left: ${({ swipertype }) => {
+      switch (swipertype) {
+        case 'productPage':
+          return '2px';
+      }
+    }};
+  }
   @media (max-width: 1024px) {
     left: ${({ swipertype }) => {
       switch (swipertype) {
         case 'main':
           return '60px';
+      }
+    }};
+  }
+  @media (max-width: 840px) {
+    left: ${({ swipertype }) => {
+      switch (swipertype) {
+        case 'productPage':
+          return '10px';
       }
     }};
   }
@@ -59,7 +79,15 @@ export const SwiperPrev = styled(Box)`
       }
     }};
   }
-  @media (max-width: 650px) {
+  @media (max-width: 700px) {
+    left: ${({ swipertype }) => {
+      switch (swipertype) {
+        case 'productPage':
+          return '24px';
+      }
+    }};
+  }
+  @media (max-width: 670px) {
     display: ${({ prevtype }) => {
       switch (prevtype) {
         case 'products':
@@ -70,6 +98,8 @@ export const SwiperPrev = styled(Box)`
       switch (swipertype) {
         case 'section':
           return '38px';
+        case 'productPage':
+          return '2px';
       }
     }};
     top: ${({ swipertype }) => {
@@ -108,6 +138,8 @@ export const SwiperNext = styled(Box)`
         return '4px';
       case 'main':
         return '50%';
+      case 'productPage':
+        return '50%';
     }
   }};
   right: ${({ swipertype }) => {
@@ -116,6 +148,8 @@ export const SwiperNext = styled(Box)`
         return '48px';
       case 'main':
         return '72px';
+      case 'productPage':
+        return '24px';
     }
   }};
   transform: ${({ swipertype }) => {
@@ -125,11 +159,27 @@ export const SwiperNext = styled(Box)`
     }
   }};
   cursor: pointer;
+  @media (max-width: 1124px) {
+    right: ${({ swipertype }) => {
+      switch (swipertype) {
+        case 'productPage':
+          return '2px';
+      }
+    }};
+  }
   @media (max-width: 1024px) {
     right: ${({ swipertype }) => {
       switch (swipertype) {
         case 'main':
           return '60px';
+      }
+    }};
+  }
+  @media (max-width: 840px) {
+    right: ${({ swipertype }) => {
+      switch (swipertype) {
+        case 'productPage':
+          return '10px';
       }
     }};
   }
@@ -149,7 +199,15 @@ export const SwiperNext = styled(Box)`
       }
     }};
   }
-  @media (max-width: 650px) {
+  @media (max-width: 700px) {
+    right: ${({ swipertype }) => {
+      switch (swipertype) {
+        case 'productPage':
+          return '24px';
+      }
+    }};
+  }
+  @media (max-width: 670px) {
     display: ${({ nexttype }) => {
       switch (nexttype) {
         case 'products':
@@ -160,6 +218,8 @@ export const SwiperNext = styled(Box)`
       switch (swipertype) {
         case 'section':
           return '38px';
+        case 'productPage':
+          return '2px';
       }
     }};
     top: ${({ swipertype }) => {

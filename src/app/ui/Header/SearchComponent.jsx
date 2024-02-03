@@ -384,9 +384,8 @@ export const SearchComponent = () => {
   const router = useRouter();
 
   const handleOptionChange = (event, newValue) => {
-    setId(newValue);
     const { id } = newValue;
-
+    setId(id);
     router.push(`/category/${id}`);
   };
 
@@ -401,7 +400,7 @@ export const SearchComponent = () => {
         id="combo-box-demo"
         options={options}
         // по каким параметрам будем искать и принимает options
-        getOptionLabel={(options) => options.name}
+        getOptionLabel={(option) => option.name}
         value={id}
         onChange={handleOptionChange}
         renderInput={(params) => (
