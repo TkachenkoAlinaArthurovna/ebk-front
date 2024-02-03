@@ -62,3 +62,18 @@ export const Discount = styled(Box)`
     font-size: 10px;
   }
 `;
+
+export const DiscountProductPage = styled(Box)`
+  width: 60px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 16px;
+  border-radius: 8px;
+  font-family: 'Roboto';
+  font-size: 16px;
+  font-weight: 400;
+  color: #dc362e;
+  background-color: #fcebea;
+`;

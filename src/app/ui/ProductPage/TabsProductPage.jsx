@@ -7,6 +7,7 @@ import { a11yProps } from '@/app/lib/helpers';
 import AboutProduct from '@/app/ui/ProductPage/AboutProduct';
 import СharacteristicsProduct from '@/app/ui/ProductPage/СharacteristicsProduct';
 import DescriptionPage from '@/app/ui/ProductPage/DescriptionPage';
+import { StyledSection } from '@/app/ui/ProductPage/ProductPageStyles';
 
 const TabsProductPage = () => {
   const [value, setValue] = React.useState(0);
@@ -15,7 +16,7 @@ const TabsProductPage = () => {
     setValue(newValue);
   };
   return (
-    <>
+    <StyledSection as="section">
       <Box
         sx={{ marginBottom: '24px', borderBottom: 1, borderColor: 'divider' }}
       >
@@ -38,7 +39,7 @@ const TabsProductPage = () => {
       <CustomTabPanel value={value} index={2}>
         <DescriptionPage />
       </CustomTabPanel>
-    </>
+    </StyledSection>
   );
 };
 export default TabsProductPage;
