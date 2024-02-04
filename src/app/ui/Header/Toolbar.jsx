@@ -33,6 +33,7 @@ import {
   StyledShoppingCartIcon,
 } from '@/app/ui/Header/HeaderStyles';
 import { createLinks } from '@/app/lib/createLinks';
+import Phones from '@/app/ui/Header/Phones';
 
 const Toolbar = ({ catalog }) => {
   const dispatch = useDispatch();
@@ -76,7 +77,7 @@ const Toolbar = ({ catalog }) => {
         catalog={catalogLinks}
       />
       <SearchComponent />
-      <StyledBoxPhones component={'div'}>
+      {/* <StyledBoxPhones component={'div'}>
         <StyledAccordion disableGutters>
           <AccordionSummary
             expandIcon={<ExpandMore />}
@@ -116,7 +117,8 @@ const Toolbar = ({ catalog }) => {
             </ListItemButton>
           </AccordionDetails>
         </StyledAccordion>
-      </StyledBoxPhones>
+      </StyledBoxPhones> */}
+      <Phones/>
       <StyledBoxIcons>
         <StyledLinkFavorite href="cabinet/favorites">
           <IconButton>
