@@ -12,7 +12,7 @@ import Slider from '@/app/ui/Slider';
 import PageTitle from '@/app/ui/PageTitle';
 import Price from '@/app/ui/ProductCard/Price';
 import ButtonMain from '@/app/ui/ButtonMain';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteIcon from '@mui/icons-material/FavoriteBorder';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Delivery from '@/app/ui/ProductPage/Delivery';
 import Pay from '@/app/ui/ProductPage/Pay';
