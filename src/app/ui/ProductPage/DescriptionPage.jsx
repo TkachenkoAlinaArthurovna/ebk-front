@@ -1,5 +1,16 @@
-'use client'
-import { Box, Typography } from '@mui/material';
+'use client';
+import { Box, Typography, Grid } from '@mui/material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import FavoriteIcon from '@mui/icons-material/FavoriteBorder';
+import {
+  StyledImg,
+  StyledGridOrder,
+  StyleTypographyName,
+  StyledTypography,
+} from '@/app/ui/ProductPage/CaracteristicsProductStyles';
+import { StyledIconFavoriteButton } from '@/app/ui/ProductPage/ProductPageStyles';
+import Price from '@/app/ui/ProductCard/Price';
+import ButtonMain from '@/app/ui/ButtonMain';
 
 // obj === props
 const obj = {
@@ -57,20 +68,47 @@ const obj = {
 
 const DescriptionPage = () => {
   return (
-    <Box mb='28px'>
-      <Typography
-        sx={{
-          fontWeight: 500,
-          fontSize: '28px',
-        }}
-      >
-        Опис
-      </Typography>
-      <Typography sx={{
-          fontWeight: 500,
-          fontSize: '16px',
-        }}>{obj.name}</Typography>
-      <Typography>{obj.description}</Typography>
+    <Box>
+      <Grid container spacing={4}>
+        <StyledGridOrder item lg={7} md={7} sm={12} xs={12}>
+          <StyledTypography>Опис</StyledTypography>
+          <Typography>{obj.description}</Typography>
+        </StyledGridOrder>
+        <Grid item lg={5} md={5} sm={12} xs={12}>
+          <Box sx={{ marginBottom: '16px' }}>
+            <StyleTypographyName>{obj.name}</StyleTypographyName>
+            <Typography sx={{ color: '#6A6A6A' }}>
+              Код: {obj.vendorCode}
+            </Typography>
+          </Box>
+          <Box sx={{ marginBottom: '24px' }}>
+            <StyledImg src={obj.picture[0]} />
+          </Box>
+          <Box sx={{ marginBottom: '32px' }}>
+            <Price
+              price={920}
+              oldprice={828}
+              fontSize={28}
+              productPage={true}
+            />
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              flexWrap: 'nowrap',
+              marginBottom: '32px',
+            }}
+          >
+            <ButtonMain width={'100%'} startIcon={<ShoppingCartIcon />}>
+              Купити
+            </ButtonMain>
+            <StyledIconFavoriteButton>
+              <FavoriteIcon sx={{ width: '24px', height: '24px' }} />
+            </StyledIconFavoriteButton>
+          </Box>
+        </Grid>
+      </Grid>
     </Box>
   );
 };

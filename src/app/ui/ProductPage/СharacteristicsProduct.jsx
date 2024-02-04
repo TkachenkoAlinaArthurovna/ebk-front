@@ -1,4 +1,4 @@
-import { Box, List, Typography, Grid, Button, Stack } from '@mui/material';
+import { Box, List, Typography, Grid } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/FavoriteBorder';
 import {
@@ -7,11 +7,10 @@ import {
   StyledTypography,
   StyledListItem,
   StyleTypographyName,
-  StyleTypographyOldPrice,
-  StyledTypographyNewPrice,
-  StyledDiscountBox,
 } from '@/app/ui/ProductPage/CaracteristicsProductStyles';
 import { StyledIconFavoriteButton } from '@/app/ui/ProductPage/ProductPageStyles';
+import Price from '@/app/ui/ProductCard/Price';
+import ButtonMain from '@/app/ui/ButtonMain';
 
 // obj === props
 const obj = {
@@ -71,65 +70,58 @@ const discount = 0.1;
 
 const СharacteristicsProduct = () => {
   return (
-    <Box sx={{ marginBottom: '80px' }}>
-      <Box>
-        <Grid container spacing={4}>
-          <StyledGridOrder item lg={7} md={7} sm={12} xs={12}>
-            <StyledTypography variant="h2">Характеристики</StyledTypography>
-            <List disablePadding>
-              {obj.params.map((item) => (
-                <StyledListItem key={item.$.name}>
-                  <Typography>{item.$.name}</Typography>
-                  <Typography sx={{ color: '#6A6A6A' }}>{item._}</Typography>
-                </StyledListItem>
-              ))}
-            </List>
-          </StyledGridOrder>
-          <Grid item lg={5} md={5} sm={12} xs={12}>
-            <Box sx={{ marginBottom: '16px' }}>
-              <StyleTypographyName>{obj.name}</StyleTypographyName>
-              <Typography sx={{ color: '#6A6A6A' }}>
-                Код: {obj.vendorCode}
-              </Typography>
-            </Box>
-            <Box sx={{ marginBottom: '24px' }}>
-              <StyledImg src={obj.picture[0]} />
-            </Box>
-            <Box>
-              <StyleTypographyOldPrice component={'s'}>
-                {obj.price}₴
-              </StyleTypographyOldPrice>
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  marginBottom: '18px',
-                }}
-              >
-                <StyledTypographyNewPrice>
-                  {obj.price - obj.price * discount}₴
-                </StyledTypographyNewPrice>
-                <StyledDiscountBox>-{discount * 100}%</StyledDiscountBox>
-              </Box>
-
-              <Box>
-                <Stack direction="row" spacing={2}>
-                  <Button
-                    sx={{ width: '100%', padding: '8px' }}
-                    variant="contained"
-                    startIcon={<ShoppingCartIcon />}
-                  >
-                    Купити
-                  </Button>
-                  <StyledIconFavoriteButton>
-                    <FavoriteIcon sx={{ width: '24px', height: '24px' }} />
-                  </StyledIconFavoriteButton>
-                </Stack>
-              </Box>
-            </Box>
-          </Grid>
+    <Box>
+      <Grid container spacing={4}>
+        <StyledGridOrder item lg={7} md={7} sm={12} xs={12}>
+          <StyledTypography>Характеристики</StyledTypography>
+          <List disablePadding>
+            {obj.params.map((item) => (
+              <StyledListItem key={item.$.name}>
+                <Typography sx={{ width: '50%' }}>{item.$.name}</Typography>
+                <Typography
+                  sx={{ width: '50%', textAlign: 'end', color: '#6A6A6A' }}
+                >
+                  {item._}
+                </Typography>
+              </StyledListItem>
+            ))}
+          </List>
+        </StyledGridOrder>
+        <Grid item lg={5} md={5} sm={12} xs={12}>
+          <Box sx={{ marginBottom: '16px' }}>
+            <StyleTypographyName>{obj.name}</StyleTypographyName>
+            <Typography sx={{ color: '#6A6A6A' }}>
+              Код: {obj.vendorCode}
+            </Typography>
+          </Box>
+          <Box sx={{ marginBottom: '24px' }}>
+            <StyledImg src={obj.picture[0]} />
+          </Box>
+          <Box sx={{ marginBottom: '32px' }}>
+            <Price
+              price={920}
+              oldprice={828}
+              fontSize={28}
+              productPage={true}
+            />
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              flexWrap: 'nowrap',
+              marginBottom: '32px',
+            }}
+          >
+            <ButtonMain width={'100%'} startIcon={<ShoppingCartIcon />}>
+              Купити
+            </ButtonMain>
+            <StyledIconFavoriteButton>
+              <FavoriteIcon sx={{ width: '24px', height: '24px' }} />
+            </StyledIconFavoriteButton>
+          </Box>
         </Grid>
-      </Box>
+      </Grid>
     </Box>
   );
 };
