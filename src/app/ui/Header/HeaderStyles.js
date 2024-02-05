@@ -18,6 +18,7 @@ import {
   Accordion,
   TextField,
 } from '@mui/material';
+import Autocomplete from '@mui/material/Autocomplete';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
@@ -394,3 +395,18 @@ export const StyledTextField = styled(TextField)(({ theme }) => ({
     height: '100%',
   },
 }));
+
+export const StyledAutocomplete = styled(Autocomplete)`
+  width: 100%;
+  border-radius: 28px;
+  border: none !important;
+
+  & .MuiInputBase-root {
+    border: none !important;
+    outline: none !important;
+  }
+
+  & .MuiOutlinedInput-notchedOutline {
+    border: none !important;
+  }
+`;

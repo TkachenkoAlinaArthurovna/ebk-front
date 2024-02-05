@@ -122,31 +122,10 @@ a {
 
 /* Search  */
 
-.css-b375js {
-  border: none !important;
+.MuiAutocomplete-endAdornment {
+  display: none !important;
 }
 
-.css-ktong7-MuiFormControl-root-MuiTextField-root {
-  border: none !important;
-}
-
-.css-1d3z3hw-MuiOutlinedInput-notchedOutline {
-  border: none !important;
-}
-
-.css-17h036z-MuiAutocomplete-root
-  .MuiOutlinedInput-root
-  .MuiAutocomplete-endAdornment {
-  display: none;
-}
-
-.MuiAutocomplete-hasPopupIcon.css-17h036z-MuiAutocomplete-root
-  .MuiOutlinedInput-root {
-  padding-left: 0 !important;
-}
-
-.css-17h036z-MuiAutocomplete-root
-  .MuiOutlinedInput-root
-  .MuiAutocomplete-input {
+.MuiAutocomplete-input {
   padding-left: 20px !important;
 }

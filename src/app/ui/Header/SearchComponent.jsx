@@ -3,11 +3,11 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import SearchIcon from '@mui/icons-material/Search';
-import Autocomplete from '@mui/material/Autocomplete';
 import {
   Search,
   SearchIconWrapper,
   StyledTextField,
+  StyledAutocomplete,
 } from '@/app/ui/Header/HeaderStyles';
 
 const options = [
@@ -392,8 +392,7 @@ export const SearchComponent = () => {
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>
-      <Autocomplete
-        sx={{ width: '100%', borderRadius: '28px', border: 'none !important' }}
+      <StyledAutocomplete
         disablePortal
         id="combo-box-demo"
         options={options}
