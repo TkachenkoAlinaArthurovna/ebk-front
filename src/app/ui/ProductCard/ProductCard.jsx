@@ -1,11 +1,11 @@
 import Link from 'next/link';
-import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Colors from '@/app/ui/ProductCard/Colors';
 import Price from '@/app/ui/ProductCard/Price';
 import {
+  StyledCard,
   StyledIconButton,
   StyledIconFavoriteButton,
   Title,
@@ -14,7 +14,7 @@ import {
 
 const ProductCard = ({ id, img, name, colors, price, oldprice }) => {
   return (
-    <Card sx={{ maxWidth: 300, border: 'none', boxShadow: 'none' }}>
+    <StyledCard>
       <Link href="/category/product_id">
         <CardMedia
           component="img"
@@ -36,7 +36,7 @@ const ProductCard = ({ id, img, name, colors, price, oldprice }) => {
           <FavoriteIcon sx={{ width: '24px', height: '24px' }} />
         </StyledIconFavoriteButton>
       </StyledCardContent>
-    </Card>
+    </StyledCard>
   );
 };
 

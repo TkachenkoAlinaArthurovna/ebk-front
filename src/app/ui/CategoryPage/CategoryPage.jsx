@@ -1,5 +1,3 @@
-// 'use client';
-
 import React from 'react';
 import Content from '@/app/ui/Content';
 import PageTitle from '@/app/ui/PageTitle';
