@@ -1,9 +1,20 @@
 'use client';
 
 import { styled } from '@mui/system';
+import Card from '@mui/material/Card';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
+
+export const StyledCard = styled(Card)`
+  position: relative;
+  max-width: 300;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: none;
+  box-shadow: none;
+`;
 
 export const StyledIconButton = styled(IconButton)`
   position: absolute;
