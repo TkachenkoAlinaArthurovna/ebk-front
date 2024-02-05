@@ -360,17 +360,13 @@ export const Search = styled(Box)`
 
 export const SearchIconWrapper = styled(Box)`
   position: absolute;
+  z-index: 100;
   right: 0;
   top: 50%;
   transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
-  @media (max-width: 900px) {
-    position: absolute;
-    left: 0;
-    top: 50%;
-  }
 `;
 
 export const StyledTextField = styled(TextField)(({ theme }) => ({
@@ -378,6 +374,7 @@ export const StyledTextField = styled(TextField)(({ theme }) => ({
   color: theme.palette.secondary.main,
   borderRadius: '100px',
   height: '100%',
+  backgroundColor: '#f3f3f3',
   [theme.breakpoints.down('lg')]: {
     height: '43px ',
     fontSize: '12px',

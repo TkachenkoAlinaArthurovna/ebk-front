@@ -9,8 +9,6 @@ import {
   SearchIconWrapper,
   StyledTextField,
 } from '@/app/ui/Header/HeaderStyles';
-import { X } from 'lucide-react';
-import { list } from 'postcss';
 
 const options = [
   {
@@ -392,11 +390,11 @@ export const SearchComponent = () => {
 
   return (
     <Search>
-      {/* <SearchIconWrapper>
+      <SearchIconWrapper>
         <SearchIcon />
-      </SearchIconWrapper> */}
+      </SearchIconWrapper>
       <Autocomplete
-        sx={{ width: '100%', borderRadius: '100px' }}
+        sx={{ width: '100%', borderRadius: '28px', border: 'none !important' }}
         disablePortal
         id="combo-box-demo"
         options={options}
@@ -405,7 +403,7 @@ export const SearchComponent = () => {
         value={id}
         onChange={handleOptionChange}
         renderInput={(params) => (
-          <StyledTextField {...params} label="Я шукаю..." />
+          <StyledTextField {...params} placeholder="Я шукаю..." />
         )}
       />
     </Search>
