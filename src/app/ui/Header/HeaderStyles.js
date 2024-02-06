@@ -313,18 +313,13 @@ export const StyledButtonSideBar = styled(Button)`
         return '#ffff !important';
     }
   }};
-  width: 48%;
-  margin: 24px 8px 0 0;
+  width: 100%;
   padding: 10px 0;
   @media (max-width: 1200px) {
     height: 44px;
   }
   @media (max-width: 900px) {
-    width: 140px;
-  }
-  @media (max-width: 900px) {
     height: 34px;
-    width: 89px;
     font-size: 12px;
   }
 `;

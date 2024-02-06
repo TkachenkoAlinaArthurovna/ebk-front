@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
@@ -21,20 +20,17 @@ const navigation = [
   { id: 3, title: 'Обране', path: 'cabinet/favorites' },
 ];
 
-const navigation1 = [
+const navigationMain = [
   { id: 5, title: 'Про нас', path: '/about' },
+  { id: 11, title: 'Підтримка', path: '/support' },
+  { id: 9, title: 'Доставка і оплата', path: '/payment-delivery' },
   { id: 6, title: 'Контакти', path: '/contacts' },
   { id: 7, title: 'Відгуки', path: '/reviews' },
 ];
 
-const navigation2 = [
-  { id: 9, title: 'Доставка і оплата', path: '/payment-delivery' },
-  { id: 11, title: 'Підтримка', path: '/support' },
-];
-
 const SideBar = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => (
   <Drawer anchor="left" open={openDrawer} onClose={toggleDrawer}>
-    <StyledSideBarContainer>
+    <StyledSideBarContainer onClick={(e) => e.stopPropagation()}>
       <Box sx={{ position: 'relative', width: '156px', height: '56px' }}>
         <Box
           component={'img'}
@@ -61,14 +57,10 @@ const SideBar = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => (
         <Box
           sx={{
             display: 'flex',
-            justifyContent: 'space-between',
-            marginBottom: '12px',
+            margin: '12px 0',
           }}
         >
           <StyledButtonSideBar variant="contained">Вхід</StyledButtonSideBar>
-          <StyledButtonSideBar variant="outlined" typebutton="registration">
-            Peєстрація
-          </StyledButtonSideBar>
         </Box>
         <Typography sx={{ fontSize: '14px', color: 'grey' }}>
           Авторизуйтесь для отримання розширених можливостей
@@ -79,7 +71,10 @@ const SideBar = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => (
           <ListItemButton
             sx={{ padding: '10px 24px 10px 16px', borderRadius: '28px' }}
             disableGutters
-            onClick={handleOpenCatalog}
+            onClick={() => {
+              handleOpenCatalog();
+              toggleDrawer();
+            }}
           >
             <MenuIcon
               sx={{ width: '20px', height: '20px', marginRight: '12px' }}
@@ -112,32 +107,7 @@ const SideBar = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => (
             </ListItemButton>
           </ListItem>
         ))}
-        <Divider sx={{ marginTop: '4px' }} />
-        <Typography
-          sx={{ padding: '10px 24px 10px 16px', fontWeight: '500' }}
-          component="div"
-        >
-          Компанія
-        </Typography>
-        {navigation1.map(({ id, title, path }) => (
-          <ListItem key={id} disablePadding>
-            <ListItemButton
-              sx={{ padding: '10px 24px 10px 16px', borderRadius: '28px' }}
-              disableGutters
-              href={path}
-            >
-              <ListItemText primary={title} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-        <Divider sx={{ marginTop: '4px' }} />
-        <Typography
-          sx={{ padding: '10px 24px 10px 16px', fontWeight: '500' }}
-          component="div"
-        >
-          Допомога
-        </Typography>
-        {navigation2.map(({ id, title, path }) => (
+        {navigationMain.map(({ id, title, path }) => (
           <ListItem key={id} disablePadding>
             <ListItemButton
               sx={{ padding: '10px 24px 10px 16px', borderRadius: '28px' }}

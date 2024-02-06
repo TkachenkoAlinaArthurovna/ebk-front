@@ -37,9 +37,6 @@ import Phones from '@/app/ui/Header/Phones';
 
 const Toolbar = ({ catalog }) => {
   const dispatch = useDispatch();
-  const categoriesLinks = useSelector(
-    (state) => state.categories.categoriesLinks,
-  );
   const catalogLinks = createLinks(catalog);
   useEffect(() => {
     dispatch(addLinks(catalogLinks));
