@@ -3,11 +3,13 @@ import PageTitle from '@/app/ui/PageTitle';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Content from '@/app/ui/Content';
+import BreadCrumbs from '@/app/ui/BreadCrumbs/BreadCrumbs';
 
 const PrivacyPolicyPage = () => {
   return (
     <WrapperPrivacyPolicy>
       <Content>
+        <BreadCrumbs />
         <Box sx={{ marginBottom: '32px' }}>
           <PageTitle>Угода про конфіденційність</PageTitle>
           <Typography variant="body1" sx={{ margin: '16px 0' }}>

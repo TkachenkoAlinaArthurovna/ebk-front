@@ -3,6 +3,7 @@
 import InfoPagesMenu from '@/app/ui/InfoPagesMenu';
 import Content from '@/app/ui/Content';
 import { Box, styled } from '@mui/material';
+import BreadCrumbs from '@/app/ui/BreadCrumbs/BreadCrumbs';
 
 const StyledPagesLayout = styled(Box)`
   display: flex;
@@ -17,6 +18,7 @@ const StyledPagesLayout = styled(Box)`
 export default function InfoPagesLayout({ children }) {
   return (
     <Content>
+      <BreadCrumbs />
       <StyledPagesLayout>
         <InfoPagesMenu />
         {children}
