@@ -12,7 +12,8 @@ import {
   StyledContentWrapper,
 } from '@/app/ui/CategoryPage/CategoryPageStyles';
 
-const CategoryPage = () => {
+const CategoryPage = ({ categoryName }) => {
+
   return (
     <>
       <Content>
@@ -20,7 +21,7 @@ const CategoryPage = () => {
           <p>Bread Crumbs</p>
 
           <StyledTitleBox>
-            <PageTitle>Category name</PageTitle>
+            <PageTitle>{categoryName}</PageTitle>
           </StyledTitleBox>
 
           <StyledSelectedFiltersWrapper>

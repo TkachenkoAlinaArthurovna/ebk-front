@@ -1,23 +1,41 @@
+'use client';
+
 import React from 'react';
-import AccordionDetails from '@mui/material/AccordionDetails';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  addProductToFilter,
+  removeProductFromFilter,
+} from '@/redux/slices/ProductFilterSlice';
 import {
   StyledWrapper,
   StyledParamValue,
   StyledCheckbox,
+  StyledAccordionDetails,
 } from '@/app/ui/CategoryPage/ProductFilter/FilterParam/ParamValue/ParamValueStyles';
 
 const ParamValue = ({ paramValue }) => {
-  // const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+  const dispatch = useDispatch();
+  const selectedFilters = useSelector(
+    (state) => state.productFilter.selectedFilters,
+  );
+
+  const handleFilterClick = () => {
+    if (selectedFilters.includes(paramValue)) {
+      dispatch(removeProductFromFilter(paramValue));
+    } else {
+      dispatch(addProductToFilter(paramValue));
+    }
+  };
 
   return (
-    <AccordionDetails>
+    <StyledAccordionDetails onClick={handleFilterClick}>
+      {' '}
+      {/* Додано обробник подій на StyledAccordionDetails */}
       <StyledWrapper>
         <StyledParamValue>{paramValue}</StyledParamValue>
-        <StyledCheckbox
-        //  {...label}
-        />
+        <StyledCheckbox checked={selectedFilters.includes(paramValue)} />
       </StyledWrapper>
-    </AccordionDetails>
+    </StyledAccordionDetails>
   );
 };
 

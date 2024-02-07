@@ -1,37 +1,43 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Box } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import {
+  removeProductFromFilter,
+  resetFilters,
+} from '@/redux/slices/ProductFilterSlice';
+import {
   StyledWrapper,
-  StyledListItem,
   StyledChip,
   StyledSelectedFilterText,
   StyledSelectedFilterParamsBox,
 } from '@/app/ui/CategoryPage/SelectedFilters/SelectedFiltersStyles';
 
 const SelectedFilters = () => {
+  const selectedFilters = useSelector(
+    (state) => state.productFilter.selectedFilters,
+  );
+  const dispatch = useDispatch();
+
+  const handleRemoveFilter = (filterToRemove) => {
+    dispatch(removeProductFromFilter(filterToRemove));
+  };
+
+  const handleResetFilters = () => {
+    dispatch(resetFilters());
+  };
+
   const ChipsArray = () => {
-    const [chipData, setChipData] = useState([
-      { key: 0, label: 'Новинка' },
-      { key: 1, label: 'Унісекс' },
-      { key: 2, label: 'Гірські' },
-    ]);
-
-    const handleDelete = (chipToDelete) => () => {
-      setChipData((chips) =>
-        chips.filter((chip) => chip.key !== chipToDelete.key),
-      );
-    };
-
-    const selectedFilterParams = chipData.map((data) => (
-      <StyledListItem key={data.key}>
+    const selectedFilterParams = selectedFilters.map((data, index) => (
+      <Box key={index}>
         <StyledChip
-          label={data.label}
-          onDelete={handleDelete(data)}
+          label={data}
+          onDelete={() => handleRemoveFilter(data)}
           deleteIcon={<CloseIcon />}
         />
-      </StyledListItem>
+      </Box>
     ));
 
     return (
@@ -43,9 +49,11 @@ const SelectedFilters = () => {
 
   return (
     <StyledWrapper>
-      <StyledSelectedFilterText variant="body1">
-        Обрані фільтри:
-      </StyledSelectedFilterText>
+      {selectedFilters.length > 0 && (
+        <StyledSelectedFilterText variant="body1" onClick={handleResetFilters}>
+          Скинути фільтри
+        </StyledSelectedFilterText>
+      )}
       <ChipsArray />
     </StyledWrapper>
   );
