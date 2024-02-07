@@ -8,13 +8,6 @@ export const StyledWrapper = styled(Box)`
   align-items: center;
 `;
 
-export const StyledListItem = styled(Box)`
-  margin-right: 8px;
-
-  &:last-child {
-    margin: 0;
-  }
-`;
 
 export const StyledChip = styled(Chip)`
   background-color: #f7f7f7;
@@ -29,6 +22,11 @@ export const StyledSelectedFilterText = styled(Typography)`
   font-size: 16px;
   letter-spacing: 0.5px;
   font-weight: 400;
+  cursor: pointer;
+
+  &:hover {
+    color: ${({ theme }) => theme.palette.primary.main};
+  }
 `;
 
 export const StyledSelectedFilterParamsBox = styled(Box)`
@@ -36,4 +34,5 @@ export const StyledSelectedFilterParamsBox = styled(Box)`
   justify-content: start;
   flex-wrap: wrap;
   margin-left: 16px;
+  gap: 6px;
 `;

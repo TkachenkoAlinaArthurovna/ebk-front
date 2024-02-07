@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { styled, Box } from '@mui/material';
+import React, { useState } from 'react';
+import { styled } from '@mui/material';
 import MuiPagination from '@mui/material/Pagination';
 
 const StyledPagination = styled(MuiPagination)`
@@ -10,7 +10,20 @@ const StyledPagination = styled(MuiPagination)`
 `;
 
 const Pagination = () => {
-  return <StyledPagination count={20} size="large" color="primary" />;
+  const [page, setPage] = useState(1);
+  const handleChange = (event, value) => {
+    console.log(value);
+    setPage(value);
+  };
+
+  return (
+    <StyledPagination
+      count={20}
+      size="large"
+      color="primary"
+      onChange={handleChange}
+    />
+  );
 };
 
 export default Pagination;

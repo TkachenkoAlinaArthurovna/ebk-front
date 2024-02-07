@@ -18,8 +18,8 @@ const FilterByPrice = () => {
           <StyledAccordionTitle>Ціна</StyledAccordionTitle>
         </AccordionSummary>
         <AccordionDetails>
+          <PriceSlider />  
           <MinMaxInputs />
-          <PriceSlider />
         </AccordionDetails>
       </StyledAccordion>
     </StyledAccordionBox>

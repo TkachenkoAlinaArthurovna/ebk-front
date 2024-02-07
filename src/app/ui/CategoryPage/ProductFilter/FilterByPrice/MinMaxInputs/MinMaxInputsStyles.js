@@ -1,6 +1,6 @@
 'use client';
 
-import { styled, Box, OutlinedInput, FormControl } from '@mui/material';
+import { styled, Box, OutlinedInput, FormControl, Button } from '@mui/material';
 
 export const StyledWrapper = styled(Box)`
   position: relative;
@@ -35,4 +35,13 @@ export const StyledInput = styled(OutlinedInput)`
   & .MuiOutlinedInput-notchedOutline {
     border-color: #999999;
   }
+`;
+
+export const StyledButton = styled(Button)`
+  width: 100%;
+  margin-top: 16px;
+  padding: 8px 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
 `;

@@ -17,7 +17,9 @@ const getCategory = (params) => {
 const Category = ({ params }) => {
   const { category } = params;
   const categoryItem = getCategory(category);
-  return <CategoryPage />;
+  const {name} = categoryItem;
+  const categoryName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+  return <CategoryPage categoryName={categoryName} />;
 };
 
 export default Category;
