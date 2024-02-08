@@ -14,14 +14,17 @@ const ProductFilterSlice = createSlice({
       state.selectedPrice = action.payload;
     },
     removeProductFromFilter: (state, action) => {
-      state.selectedFilters = state.selectedFilters.filter(filter => filter !== action.payload);
+      state.selectedFilters = state.selectedFilters.filter(
+        (filter) => filter !== action.payload,
+      );
     },
-    resetFilters: state => {
+    resetFilters: (state) => {
       state.selectedFilters = [];
       state.selectedPrice = null;
     },
   },
 });
 
-export const { addProductToFilter, removeProductFromFilter, resetFilters } = ProductFilterSlice.actions;
+export const { addProductToFilter, removeProductFromFilter, resetFilters } =
+  ProductFilterSlice.actions;
 export default ProductFilterSlice.reducer;
