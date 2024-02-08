@@ -26,6 +26,7 @@ export const StyledFormControl = styled(FormControl)`
   border: 0;
   @media (max-width: 1023px) {
     display: none;
+  }
 `;
 
 const Phones = () => {
@@ -51,9 +52,15 @@ const Phones = () => {
         label="View"
         onChange={handleChange}
       >
-        <MenuItem value="popular">+380 97 373 2122</MenuItem>
-        <MenuItem value="price-low">+380 97 373 2122</MenuItem>
-        <MenuItem value="price-high">+380 97 373 2122</MenuItem>
+        <MenuItem value="popular">
+          <a href="tel:+380973732122">+380 97 373 2122</a>
+        </MenuItem>
+        <MenuItem value="price-low">
+          <a href="tel:+380973732122">+380 97 373 2122</a>
+        </MenuItem>
+        <MenuItem value="price-high">
+          <a href="tel:+380973732122">+380 97 373 2122</a>
+        </MenuItem>
       </StyledSelect>
     </StyledFormControl>
   );

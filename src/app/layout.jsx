@@ -11,8 +11,9 @@ import Providers from '@/redux/Provider';
 import { Box } from '@mui/material';
 
 export const metadata = {
-  title: 'EBK online store',
-  description: 'Electronic Bike Kits',
+  title: 'Електровелосипеди Eco-bike Інтернет магазин електровелосипедів',
+  description:
+    'Електровелосипеди, запчастини для електровелосипедів, запчастини для велосипедів, комплекти для електровелосипедів, акумулятори, мотори, мотор-колеса',
   link: ' href="./output.css" rel="stylesheet"',
 };
 
