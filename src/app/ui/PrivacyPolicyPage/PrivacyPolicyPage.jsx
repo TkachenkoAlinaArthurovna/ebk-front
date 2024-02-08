@@ -11,7 +11,7 @@ const PrivacyPolicyPage = () => {
       <Content>
         <BreadCrumbs />
         <Box sx={{ marginBottom: '32px' }}>
-          <PageTitle>Угода про конфіденційність</PageTitle>
+          <PageTitle>Політика конфіденційності</PageTitle>
           <Typography variant="body1" sx={{ margin: '16px 0' }}>
             Дана угода про конфіденційність розроблена відповідно до вимог
             Закону України «Про захист персональних даних» та інших нормативних
