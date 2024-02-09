@@ -9,6 +9,7 @@ import AppTheme from '@/app/ui/AppTheme';
 import Wrapper from '@/app/ui/Wrapper';
 import Providers from '@/redux/Provider';
 import { Box } from '@mui/material';
+import ModalCart from '@/app/ui/ModalCart';
 
 export const metadata = {
   title: 'Електровелосипеди Eco-bike Інтернет магазин електровелосипедів',
@@ -25,7 +26,9 @@ export default function RootLayout({ children }) {
           <Providers>
             <Wrapper>
               <Header />
-              <Box sx={{ flex: '1 1 auto' }}>{children}</Box>
+              <Box sx={{ flex: '1 1 auto' }}>
+                {children} <ModalCart />
+              </Box>
               <Footer />
             </Wrapper>
           </Providers>

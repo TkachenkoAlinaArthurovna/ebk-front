@@ -7,7 +7,7 @@ import { a11yProps } from '@/app/lib/helpers';
 import Content from '@/app/ui/Content';
 import AboutProduct from '@/app/ui/ProductPage/AboutProduct';
 import СharacteristicsProduct from '@/app/ui/ProductPage/СharacteristicsProduct';
-import DescriptionPage from '@/app/ui/ProductPage/DescriptionPage';
+import DescriptionProduct from '@/app/ui/ProductPage/DescriptionProduct';
 import { StyledSection } from '@/app/ui/ProductPage/ProductPageStyles';
 
 const TabsProductPage = () => {
@@ -39,7 +39,7 @@ const TabsProductPage = () => {
           <СharacteristicsProduct />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-          <DescriptionPage />
+          <DescriptionProduct />
         </CustomTabPanel>
       </Content>
     </StyledSection>

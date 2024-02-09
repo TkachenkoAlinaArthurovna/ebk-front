@@ -1,3 +1,5 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleMenuModal } from '@/redux/slices/MenuModalSlice';
 import { Modal, Fade, Backdrop, Box } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import {
@@ -11,7 +13,13 @@ import MenuTouchpad from '@/app/ui/Header/MenuTouchpad';
 import MenuMob from '@/app/ui/Header/MenuMob';
 import { useResize } from '@/app/lib/helpers';
 
-const Catalog = ({ openCatalog, handleCloseCatalog, catalog }) => {
+const Catalog = ({ catalog }) => {
+  const isOpenModalMenu = useSelector(
+    (state) => state.menuModal.isOpenModalMenu,
+  );
+  const dispatch = useDispatch();
+  const toggleCatalog = () => dispatch(toggleMenuModal());
+
   const [width] = useResize();
   const updatedCatalog = catalog.map((item) => ({
     ...item,
@@ -27,8 +35,8 @@ const Catalog = ({ openCatalog, handleCloseCatalog, catalog }) => {
           height: '100%',
           margin: '0 auto',
         }}
-        open={openCatalog}
-        onClose={handleCloseCatalog}
+        open={isOpenModalMenu}
+        onClose={toggleCatalog}
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
         slotProps={{
@@ -37,7 +45,7 @@ const Catalog = ({ openCatalog, handleCloseCatalog, catalog }) => {
           },
         }}
       >
-        <Fade in={openCatalog}>
+        <Fade in={isOpenModalMenu}>
           <StyledPaper papertype={width <= 1025 ? 'mob' : 'desktop'}>
             <Box
               sx={{
@@ -52,26 +60,26 @@ const Catalog = ({ openCatalog, handleCloseCatalog, catalog }) => {
                 <StyledTitle>Каталог товарів</StyledTitle>
                 <StyledIconButton
                   closetype={width <= 1025 ? 'mob' : 'desktop'}
-                  onClick={handleCloseCatalog}
+                  onClick={toggleCatalog}
                 >
                   <CloseIcon />
                 </StyledIconButton>
               </StyledWrapper>
               {width < 665 && (
                 <MenuMob
-                  handleCloseCatalog={handleCloseCatalog}
+                  handleCloseCatalog={toggleCatalog}
                   categories={categories}
                 />
               )}
               {width <= 1025 && width >= 665 && (
                 <MenuTouchpad
-                  handleCloseCatalog={handleCloseCatalog}
+                  handleCloseCatalog={toggleCatalog}
                   categories={categories}
                 />
               )}
               {width > 1025 && (
                 <MenuDesktop
-                  handleCloseCatalog={handleCloseCatalog}
+                  handleCloseCatalog={toggleCatalog}
                   categories={categories}
                 />
               )}

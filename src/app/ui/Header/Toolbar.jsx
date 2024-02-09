@@ -1,7 +1,7 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { addLinks } from '@/redux/slices/CategoriesSlice';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleMenuModal } from '@/redux/slices/MenuModalSlice';
 import Link from 'next/link';
 import IconButtonMenu from '@/app/ui/Header/IconButtonMenu';
 import Image from 'next/image';
@@ -14,18 +14,10 @@ import SearchComponent from '@/app/ui/Header/SearchComponent';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import CloseIcon from '@mui/icons-material/Close';
 import Catalog from '@/app/ui/Header/Catalog';
-import ListItemButton from '@mui/material/ListItemButton';
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ListItemText from '@mui/material/ListItemText';
 import {
-  StyledAccordion,
-  StyledBoxPhones,
   StyledButtonCatalog,
   StyledToolbar,
   StyledLogoBox,
-  StyledListItemText,
   StyledBoxIcons,
   StyledLinkFavorite,
   StyledLinkCabinet,
@@ -36,25 +28,25 @@ import { createLinks } from '@/app/lib/createLinks';
 import Phones from '@/app/ui/Header/Phones';
 
 const Toolbar = ({ catalog }) => {
-  const dispatch = useDispatch();
   const catalogLinks = createLinks(catalog);
-  useEffect(() => {
-    dispatch(addLinks(catalogLinks));
-  }, []);
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const toggleDrawer = () => {
     setOpenDrawer(!openDrawer);
   };
-  const [openCatalog, setOpen] = React.useState(false);
-  const handleOpenCatalog = () => setOpen(true);
-  const handleCloseCatalog = () => setOpen(false);
+
+  const isOpenModalMenu = useSelector(
+    (state) => state.menuModal.isOpenModalMenu,
+  );
+  const dispatch = useDispatch();
+  const toggleOpenCatalog = () => dispatch(toggleMenuModal());
+
   return (
     <StyledToolbar disableGutters>
       <IconButtonMenu
         toggleDrawer={toggleDrawer}
         openDrawer={openDrawer}
-        handleOpenCatalog={handleOpenCatalog}
+        handleOpenCatalog={toggleOpenCatalog}
       />
       <StyledLogoBox>
         <Link href="/">
@@ -62,60 +54,15 @@ const Toolbar = ({ catalog }) => {
         </Link>
       </StyledLogoBox>
       <StyledButtonCatalog
-        onClick={handleOpenCatalog}
+        onClick={toggleOpenCatalog}
         variant="contained"
-        endIcon={openCatalog ? <CloseIcon /> : <ExpandMore />}
+        endIcon={isOpenModalMenu ? <CloseIcon /> : <ExpandMore />}
       >
         Каталог
       </StyledButtonCatalog>
-      <Catalog
-        openCatalog={openCatalog}
-        handleCloseCatalog={handleCloseCatalog}
-        catalog={catalogLinks}
-      />
+      <Catalog catalog={catalogLinks} />
       <SearchComponent />
-      {/* <StyledBoxPhones component={'div'}>
-        <StyledAccordion disableGutters>
-          <AccordionSummary
-            expandIcon={<ExpandMore />}
-            aria-controls="panel1-content"
-            id="panel1-header"
-          >
-            <ListItemButton
-              sx={{ borderRadius: '100px' }}
-              disableGutters
-              href="tel:+380 63 32 95 468"
-            >
-              <LocalPhoneIcon sx={{ color: 'black', margin: '0 8px 0 8px' }} />
-              <StyledListItemText primary="+380 63 32 95 468" />
-            </ListItemButton>
-          </AccordionSummary>
-          <AccordionDetails>
-            <ListItemButton
-              sx={{ borderRadius: '100px' }}
-              href="tel:+380 72 58 58 445"
-            >
-              <LocalPhoneIcon sx={{ color: 'black', margin: '0 4px 0 0' }} />
-              <ListItemText primary="+380 72 58 58 445" />
-            </ListItemButton>
-            <ListItemButton
-              sx={{ borderRadius: '100px' }}
-              href="tel:+380 72 58 58 445"
-            >
-              <LocalPhoneIcon sx={{ color: 'black', margin: '0 4px 0 0' }} />
-              <ListItemText primary="+380 72 58 58 445" />
-            </ListItemButton>
-            <ListItemButton
-              sx={{ borderRadius: '100px' }}
-              href="tel:+380 72 58 58 445"
-            >
-              <LocalPhoneIcon sx={{ color: 'black', margin: '0 4px 0 0' }} />
-              <ListItemText primary="+380 72 58 58 445" />
-            </ListItemButton>
-          </AccordionDetails>
-        </StyledAccordion>
-      </StyledBoxPhones> */}
-      <Phones/>
+      <Phones />
       <StyledBoxIcons>
         <StyledLinkFavorite href="cabinet/favorites">
           <IconButton>
