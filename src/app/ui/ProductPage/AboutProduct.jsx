@@ -1,5 +1,6 @@
-import { Box } from '@mui/material';
-import { Typography } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { toggleCartModal } from '@/redux/slices/CartModalSlice';
+import { Box, Typography } from '@mui/material';
 import {
   WrapperAboutProduct,
   WrapperSlider,
@@ -18,6 +19,8 @@ import Delivery from '@/app/ui/ProductPage/Delivery';
 import Pay from '@/app/ui/ProductPage/Pay';
 
 const AboutProduct = () => {
+  const dispatch = useDispatch();
+  const toggleCart = () => dispatch(toggleCartModal());
   const slides = [
     'https://images.prom.ua/4402122690_elektro-velosiped-elite-26.jpg',
     'https://images.prom.ua/4402123724_elektro-velosiped-elite-26.jpg',
@@ -72,7 +75,11 @@ const AboutProduct = () => {
             marginBottom: '32px',
           }}
         >
-          <ButtonMain width={'100%'} startIcon={<ShoppingCartIcon />}>
+          <ButtonMain
+            width={'100%'}
+            startIcon={<ShoppingCartIcon />}
+            onClick={toggleCart}
+          >
             Купити
           </ButtonMain>
           <StyledIconFavoriteButton>

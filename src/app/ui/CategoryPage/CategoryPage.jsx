@@ -13,7 +13,6 @@ import {
 } from '@/app/ui/CategoryPage/CategoryPageStyles';
 
 const CategoryPage = ({ categoryName }) => {
-
   return (
     <>
       <Content>

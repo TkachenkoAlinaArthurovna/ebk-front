@@ -9,6 +9,7 @@ export const StyledButton = styled(Button)`
   box-sizing: border-box;
   font-size: 16px;
   color: #ffff;
+  text-transform: none;
   @media (max-width: 1200px) {
     height: 43px;
   }

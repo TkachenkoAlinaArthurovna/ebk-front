@@ -1,3 +1,5 @@
+import { useDispatch } from 'react-redux';
+import { toggleCartModal } from '@/redux/slices/CartModalSlice';
 import { Box, List, Typography, Grid } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/FavoriteBorder';
@@ -69,6 +71,8 @@ const obj = {
 const discount = 0.1;
 
 const СharacteristicsProduct = () => {
+  const dispatch = useDispatch();
+  const toggleCart = () => dispatch(toggleCartModal());
   return (
     <Box>
       <Grid container spacing={4}>
@@ -113,7 +117,11 @@ const СharacteristicsProduct = () => {
               marginBottom: '32px',
             }}
           >
-            <ButtonMain width={'100%'} startIcon={<ShoppingCartIcon />}>
+            <ButtonMain
+              width={'100%'}
+              startIcon={<ShoppingCartIcon />}
+              onClick={toggleCart}
+            >
               Купити
             </ButtonMain>
             <StyledIconFavoriteButton>

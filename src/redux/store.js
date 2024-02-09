@@ -11,12 +11,14 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import CategoriesSlice from '@/redux/slices/CategoriesSlice';
+import MenuModalSlice from '@/redux/slices/MenuModalSlice';
+import CartModalSlice from '@/redux/slices/CartModalSlice';
 import ProductFilterSlice from '@/redux/slices/ProductFilterSlice';
 import MinMaxFilterPriceSlice from '@/redux/slices/MinMaxFilterPriceSlice';
 
 const rootReducer = combineReducers({
-  categories: CategoriesSlice,
+  menuModal: MenuModalSlice,
+  cartModal: CartModalSlice,
   productFilter: ProductFilterSlice,
   minMaxFilterPrice: MinMaxFilterPriceSlice,
 });
