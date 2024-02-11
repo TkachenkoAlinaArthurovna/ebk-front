@@ -18,6 +18,7 @@ import {
 } from '@/app/ui/CategoryPage/ProductFilter/ProductsFilterStyles';
 import CloseIcon from '@mui/icons-material/Close';
 import { Drawer, IconButton, Typography } from '@mui/material';
+import ButtonMain from '@/app/ui/ButtonMain';
 
 const ProductFilter = ({ toggleDrawer, openDrawer }) => {
   const dispatch = useDispatch();
