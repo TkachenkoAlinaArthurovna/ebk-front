@@ -33,7 +33,7 @@ const AppTheme = ({ children }) => {
             borderRadius: '100px',
             fontSize: '16px',
             textTransform: 'capitalize',
-            backgroundColor: '#49BEB7 !important',
+            backgroundColor: '#49BEB7',
           },
         },
       },

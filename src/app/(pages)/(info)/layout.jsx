@@ -8,7 +8,7 @@ import BreadCrumbs from '@/app/ui/BreadCrumbs/BreadCrumbs';
 const StyledPagesLayout = styled(Box)`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-bottom: 32px;
   @media (max-width: 700px) {
     flex-direction: column;
