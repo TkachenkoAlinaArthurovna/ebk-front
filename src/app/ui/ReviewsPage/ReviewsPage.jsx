@@ -8,6 +8,7 @@ import {
   StyledBoxReviews,
   StyledButtonFirstReview,
   StyledButtonReviews,
+  StyledTypographyReview
 } from '@/app/ui/ReviewsPage/ReviewsPageStyles';
 import ReviewsModalBtn from '@/app/ui/ReviewsPage/ReviewsModalBtn';
 
@@ -48,9 +49,9 @@ const ReviewsPage = () => {
   return (
     <StyledBoxReviewContainer>
       <StyledBox>
-        <Typography sx={{ paddingLeft: '24px', fontSize: '28px' }}>
+        <StyledTypographyReview>
           Відгуки
-        </Typography>
+        </StyledTypographyReview>
         <ReviewsModalBtn
           open={open}
           handleClose={handleClose}
