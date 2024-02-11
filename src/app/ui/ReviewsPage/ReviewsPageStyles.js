@@ -2,16 +2,21 @@ import { Box, Button, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 
 export const StyledButtonReviews = styled(Button)(({ theme }) => ({
-  padding: '20px 24px',
-  marginRight: '24px  ',
+  padding: '0 32px',
+  whiteSpace: 'nowrap',
+  height: '56px',
+  marginRight: '24px',
   backgroundColor: 'transparent',
   border: '1px solid #E5E5E5',
   [theme.breakpoints.down('lg')]: {
     fontSize: '16px',
     height: '43px',
+    padding: '0 32px',
+    marginRight: 0,
   },
-  [theme.breakpoints.down('sm')]: {
-    padding: '12px 16px',
+  '@media (max-width: 670px)': {
+    marginTop: '12px',
+    width: '160px',
   },
 }));
 export const StyledTypographyReview = styled(Typography)(({ theme }) => ({
@@ -28,18 +33,22 @@ export const StyledTypographyTitle = styled(Typography)(({ theme }) => ({
   },
 }));
 export const StyledButtonFirstReview = styled(Button)(({ theme }) => ({
-  padding: '20px 24px',
+  height: '56px',
+  padding: '0 24px',
   marginRight: '24px  ',
   [theme.breakpoints.down('lg')]: {
     fontSize: '16px',
     height: '43px',
   },
 }));
-export const StyledBox = styled(Box)(({ theme }) => ({
+export const StyledBox = styled('div')(({ theme }) => ({
   width: '100%',
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
+  '@media (max-width: 670px)': {
+    flexDirection: 'column',
+  },
 }));
 export const StyledBoxReviews = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -53,10 +62,13 @@ export const StyledBoxReviews = styled(Box)(({ theme }) => ({
   borderRadius: '32px',
 }));
 export const StyledBoxReviewContainer = styled(Box)(({ theme }) => ({
+  width: '70%',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-start',
-  width: '100%',
+  '@media (max-width: 700px)': {
+    width: '100%',
+  },
 }));
 
 export const StyledBoxModal = styled(Box)(({ theme }) => ({

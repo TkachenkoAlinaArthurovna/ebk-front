@@ -13,6 +13,7 @@ import {
 } from '@/app/ui/ReviewsPage/ReviewsPageStyles';
 import { Button, TextField, IconButton } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
+import PageTitle from '@/app/ui/PageTitle';
 
 export default function ReviewsModalBtn({ open, handleClose }) {
   return (

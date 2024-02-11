@@ -8,9 +8,10 @@ import {
   StyledBoxReviews,
   StyledButtonFirstReview,
   StyledButtonReviews,
-  StyledTypographyReview
+  StyledTypographyReview,
 } from '@/app/ui/ReviewsPage/ReviewsPageStyles';
 import ReviewsModalBtn from '@/app/ui/ReviewsPage/ReviewsModalBtn';
+import PageTitle from '@/app/ui/PageTitle';
 
 const reviews = [
   {
@@ -49,18 +50,17 @@ const ReviewsPage = () => {
   return (
     <StyledBoxReviewContainer>
       <StyledBox>
-        <StyledTypographyReview>
-          Відгуки
-        </StyledTypographyReview>
+        <PageTitle>Відгуки</PageTitle>{' '}
         <ReviewsModalBtn
           open={open}
           handleClose={handleClose}
           handleOpen={handleOpen}
         />
         <StyledButtonReviews onClick={handleOpen} variant="outlened">
-          Написати відгук
+          Написати Відгук
         </StyledButtonReviews>
       </StyledBox>
+
       {!reviews ? (
         <StyledBoxReviews>
           <Typography mb="16px">Немає жодного відгуку</Typography>
