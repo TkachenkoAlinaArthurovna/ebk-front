@@ -44,7 +44,7 @@ const CartItem = () => {
           </Box>
         </Box>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: '45px' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: '35px' }}>
           <StyledButtonGroup>
             <StyledButton
               variant="text"
