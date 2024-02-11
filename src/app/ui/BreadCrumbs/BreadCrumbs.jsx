@@ -15,7 +15,7 @@ const BreadCrumbs = () => {
   const pathnames = pathname.split('/').filter((path) => path);
 
   return (
-    <Box sx={{ marginBottom: '36px' }}>
+    <Box>
       <Breadcrumbs
         aria-label="breadcrumb"
         separator={<NavigateNextIcon fontSize="medium" />}
