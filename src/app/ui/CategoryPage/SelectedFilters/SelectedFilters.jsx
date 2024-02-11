@@ -19,6 +19,7 @@ const SelectedFilters = () => {
   const selectedFilters = useSelector(
     (state) => state.productFilter.selectedFilters,
   );
+
   const dispatch = useDispatch();
 
   const handleRemoveFilter = (filterToRemove) => {

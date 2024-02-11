@@ -2,28 +2,17 @@
 import React from 'react';
 import { InputAdornment, FormControl } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  addProductToFilter,
-  removeProductFromFilter,
-} from '@/redux/slices/ProductFilterSlice';
-import {
-  setMinPrice,
-  setMaxPrice,
-} from '@/redux/slices/MinMaxFilterPriceSlice';
+import { setMinPrice, setMaxPrice } from '@/redux/slices/ProductFilterSlice';
 import {
   StyledWrapper,
   StyledMinPrice,
   StyledInput,
-  StyledButton,
 } from '@/app/ui/CategoryPage/ProductFilter/FilterByPrice/MinMaxInputs/MinMaxInputsStyles';
 
 const MinMaxInputs = () => {
+  const minPrice = useSelector((state) => state.productFilter.minPrice);
+  const maxPrice = useSelector((state) => state.productFilter.maxPrice);
   const dispatch = useDispatch();
-  const minPrice = useSelector((state) => state.minMaxFilterPrice.minPrice);
-  const maxPrice = useSelector((state) => state.minMaxFilterPrice.maxPrice);
-  const selectedPrice = useSelector(
-    (state) => state.productFilter.selectedPrice,
-  );
 
   const handleMinPriceChange = (event) => {
     dispatch(setMinPrice(parseInt(event.target.value) || 0));
@@ -31,16 +20,6 @@ const MinMaxInputs = () => {
 
   const handleMaxPriceChange = (event) => {
     dispatch(setMaxPrice(parseInt(event.target.value) || 0));
-  };
-
-  const handleFilterClick = () => {
-    const newSelectedPrice = `${minPrice}-${maxPrice}`;
-    if (selectedPrice !== newSelectedPrice) {
-      if (selectedPrice) {
-        dispatch(removeProductFromFilter(selectedPrice));
-      }
-      dispatch(addProductToFilter(newSelectedPrice));
-    }
   };
 
   return (
@@ -73,7 +52,6 @@ const MinMaxInputs = () => {
           />
         </FormControl>
       </StyledWrapper>
-      <StyledButton onClick={handleFilterClick}>OK</StyledButton>
     </>
   );
 };

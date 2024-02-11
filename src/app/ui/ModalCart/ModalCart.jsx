@@ -1,6 +1,7 @@
 'use client';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleCartModal } from '@/redux/slices/CartModalSlice';
+import { toggleCart } from '@/redux/slices/CartSlice';
 import { Modal } from '@mui/material';
 import {
   StyledWrapper,
@@ -14,24 +15,32 @@ import CloseIcon from '@mui/icons-material/Close';
 import ButtonMain from '@/app/ui/ButtonMain';
 
 const ModalCart = () => {
+  const currentCard = { id: 'product1' };
   const isOpenModalCart = useSelector(
     (state) => state.cartModal.isOpenModalCart,
   );
+  const cart = useSelector((state) => state.cart.cartProducts);
   const dispatch = useDispatch();
-  const toggleCart = () => dispatch(toggleCartModal());
+  const toggleModal = () => dispatch(toggleCartModal());
+  const toggleCartProduct = () => {
+    dispatch(toggleCart({ currentCard: currentCard, action: 'plus' }));
+    dispatch(toggleCartModal());
+  };
   return (
-    <Modal open={isOpenModalCart} onClose={toggleCart}>
+    <Modal open={isOpenModalCart} onClose={toggleModal}>
       <StyledPaper>
         <StyledWrapper>
           <StyledTitle>Кошик</StyledTitle>
-          <StyledIconButton onClick={toggleCart}>
+          <StyledIconButton onClick={toggleModal}>
             <CloseIcon />
           </StyledIconButton>
         </StyledWrapper>
         <StyledWrapperForProduct></StyledWrapperForProduct>
         <StyledWrapper>
           <StyledButton>Продовжити покупки</StyledButton>
-          <ButtonMain width={'276px'}>Оформити замовлення</ButtonMain>
+          <ButtonMain width={'276px'} onClick={toggleCartProduct}>
+            Оформити замовлення
+          </ButtonMain>
         </StyledWrapper>
       </StyledPaper>
     </Modal>

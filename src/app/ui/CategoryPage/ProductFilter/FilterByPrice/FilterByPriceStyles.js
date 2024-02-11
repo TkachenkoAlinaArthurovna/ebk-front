@@ -12,6 +12,6 @@ export const StyledAccordionBox = styled(Box)`
 
 export const StyledAccordionTitle = styled(Typography)`
   font-weight: 500;
-  font-size: 18px;
+  font-size: 16px;
   letter-spacing: 0.15px;
 `;
