@@ -145,11 +145,15 @@ export const catalog = [
 
 export const navigation = [
   { id: 1, title: 'Кошик', path: 'cart' },
-  { id: 2, title: 'Особистий кабінет', path: 'cabinet' },
+  { id: 2, title: 'Кабінет', path: 'cabinet' },
   { id: 3, title: 'Про нас', path: 'about' },
   { id: 4, title: 'Підтримка', path: 'support' },
   { id: 5, title: 'Доставка і оплата', path: 'payment-delivery' },
   { id: 6, title: 'Контакти', path: 'contacts' },
   { id: 7, title: 'Відгуки', path: 'reviews' },
   { id: 8, title: 'Політика конфеденційності', path: 'privacy-policy' },
+  { id: 9, title: 'Особиста інформація', path: 'personal-information' },
+  { id: 10, title: 'Мої замовлення', path: 'orders' },
+  { id: 11, title: 'Обране', path: 'favorites' },
+  { id: 11, title: 'Мої відгуки', path: 'reviews' },
 ];

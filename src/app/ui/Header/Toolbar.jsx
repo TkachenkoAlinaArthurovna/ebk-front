@@ -80,7 +80,7 @@ const Toolbar = ({ catalog }) => {
             </Badge>
           </IconButton>
         </StyledLinkCart>
-        <StyledLinkCabinet href="/cabinet">
+        <StyledLinkCabinet href="/cabinet/personal-information">
           <IconButton>
             <Badge badgeContent={null} color="error">
               <PermIdentityIcon

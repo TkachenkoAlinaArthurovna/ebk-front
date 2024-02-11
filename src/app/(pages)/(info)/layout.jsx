@@ -1,19 +1,7 @@
-'use client';
-
 import InfoPagesMenu from '@/app/ui/InfoPagesMenu';
 import Content from '@/app/ui/Content';
-import { Box, styled } from '@mui/material';
 import BreadCrumbs from '@/app/ui/BreadCrumbs/BreadCrumbs';
-
-const StyledPagesLayout = styled(Box)`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  margin-bottom: 32px;
-  @media (max-width: 700px) {
-    flex-direction: column;
-  }
-`;
+import { StyledPagesLayout } from '@/app/(pages)/(info)/layoutStyles';
 
 export default function InfoPagesLayout({ children }) {
   return (
