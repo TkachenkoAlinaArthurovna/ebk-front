@@ -25,7 +25,7 @@ const Price = ({ price, oldprice, fontSize, productPage }) => {
   }
   if (oldprice) {
     const getDiscount = (price, oldprice) => {
-      return 100 - (oldprice * 100) / price;
+      return Math.round(100 - (price * 100) / oldprice);
     };
     const discount = getDiscount(price, oldprice);
 

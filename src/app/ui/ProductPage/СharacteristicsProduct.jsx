@@ -103,8 +103,8 @@ const СharacteristicsProduct = () => {
           </Box>
           <Box sx={{ marginBottom: '32px' }}>
             <Price
-              price={920}
-              oldprice={828}
+              price={828}
+              oldprice={920}
               fontSize={28}
               productPage={true}
             />

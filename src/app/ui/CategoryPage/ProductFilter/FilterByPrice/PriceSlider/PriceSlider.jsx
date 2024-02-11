@@ -1,27 +1,28 @@
 'use client';
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { Slider } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  setMinPrice,
-  setMaxPrice,
-} from '@/redux/slices/MinMaxFilterPriceSlice';
+import { setMinPrice, setMaxPrice } from '@/redux/slices/ProductFilterSlice';
 
 const PriceSlider = () => {
   const dispatch = useDispatch();
-  const minPrice = useSelector((state) => state.minMaxFilterPrice.minPrice);
-  const maxPrice = useSelector((state) => state.minMaxFilterPrice.maxPrice);
-
+  const minPrice = useSelector((state) => state.productFilter.minPrice);
+  const maxPrice = useSelector((state) => state.productFilter.maxPrice);
+  const selectedPrice = useSelector(
+    (state) => state.productFilter.selectedPrice,
+  );
   const categoryProductsPrice = [
-    7850, 15678, 11344, 24890, 18234, 9234, 20456, 27765, 13890, 22789,
+    7850, 15678, 11344, 24890, 18234, 9234, 20456, 27765, 13890, 122789,
   ];
 
   useEffect(() => {
     const min = Math.min(...categoryProductsPrice);
     const max = Math.max(...categoryProductsPrice);
-    dispatch(setMinPrice(min));
-    dispatch(setMaxPrice(max));
-  }, [dispatch]);
+    if (selectedPrice == '') {
+      dispatch(setMinPrice(min));
+      dispatch(setMaxPrice(max));
+    }
+  }, [selectedPrice]);
 
   const handleSliderChange = (event, newValue) => {
     dispatch(setMinPrice(newValue[0]));

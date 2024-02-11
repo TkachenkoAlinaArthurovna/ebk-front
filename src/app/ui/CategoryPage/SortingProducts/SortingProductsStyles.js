@@ -16,4 +16,7 @@ export const StyledSelect = styled(Select)`
   & .MuiOutlinedInput-notchedOutline {
     border: none !important;
   }
+  @media (max-width: 400px) {
+    font-size: 14px;
+  }
 `;

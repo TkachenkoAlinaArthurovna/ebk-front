@@ -14,13 +14,15 @@ import storage from 'redux-persist/lib/storage';
 import MenuModalSlice from '@/redux/slices/MenuModalSlice';
 import CartModalSlice from '@/redux/slices/CartModalSlice';
 import ProductFilterSlice from '@/redux/slices/ProductFilterSlice';
-import MinMaxFilterPriceSlice from '@/redux/slices/MinMaxFilterPriceSlice';
+import FavoritesSlice from '@/redux/slices/FavoritesSlice';
+import CartSlice from '@/redux/slices/CartSlice';
 
 const rootReducer = combineReducers({
   menuModal: MenuModalSlice,
   cartModal: CartModalSlice,
   productFilter: ProductFilterSlice,
-  minMaxFilterPrice: MinMaxFilterPriceSlice,
+  favorites: FavoritesSlice,
+  cart: CartSlice,
 });
 
 const persistConfig = {
