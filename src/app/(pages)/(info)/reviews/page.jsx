@@ -1,3 +1,5 @@
+import ReviewsPage from '@/app/ui/ReviewsPage/ReviewsPage';
+
 export default function Reviews() {
-  return <div>Reviews</div>;
+  return <ReviewsPage />;
 }

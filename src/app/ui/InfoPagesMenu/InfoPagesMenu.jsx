@@ -16,6 +16,7 @@ const InfoPagesMenu = ({ cabinet }) => {
     { href: '/about', label: 'Про нас' },
     { href: '/support', label: 'Підтримка' },
     { href: '/contacts', label: 'Контакти' },
+    { href: '/reviews', label: 'Відгуки' }
   ];
 
   const linksForCabinet = [
