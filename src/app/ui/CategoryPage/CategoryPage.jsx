@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
 import Content from '@/app/ui/Content';
 import PageTitle from '@/app/ui/PageTitle';
 import SelectedFilters from '@/app/ui/CategoryPage/SelectedFilters';
@@ -10,9 +11,17 @@ import {
   StyledTitleBox,
   StyledSelectedFiltersWrapper,
   StyledContentWrapper,
+  StyledIconButton,
+  StyledRightWrapper,
 } from '@/app/ui/CategoryPage/CategoryPageStyles';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import FilterListOffIcon from '@mui/icons-material/FilterListOff';
 
 const CategoryPage = ({ categoryName }) => {
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const toggleDrawer = () => {
+    setOpenDrawer(!openDrawer);
+  };
   return (
     <>
       <Content>
@@ -25,11 +34,19 @@ const CategoryPage = ({ categoryName }) => {
 
           <StyledSelectedFiltersWrapper>
             <SelectedFilters />
-            <SortingProducts />
+            <StyledRightWrapper>
+              <SortingProducts />
+              <StyledIconButton onClick={toggleDrawer}>
+                {openDrawer ? <FilterListOffIcon /> : <FilterListIcon />}
+              </StyledIconButton>
+            </StyledRightWrapper>
           </StyledSelectedFiltersWrapper>
 
           <StyledContentWrapper>
-            <ProductFilter />
+            <ProductFilter
+              toggleDrawer={toggleDrawer}
+              openDrawer={openDrawer}
+            />
             <CategoryItems />
           </StyledContentWrapper>
         </StyledWrapper>

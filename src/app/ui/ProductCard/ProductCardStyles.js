@@ -31,10 +31,10 @@ export const StyledIconButton = styled(IconButton)`
 export const StyledIconFavoriteButton = styled(IconButton)`
   position: absolute;
   right: 14px;
-  bottom: 88px;
+  bottom: 70px;
   width: 40px;
   height: 40px;
-  border: 1px solid #e5e5e5;
+  border: none;
   @media (max-width: 780px) {
     right: 12px;
   }

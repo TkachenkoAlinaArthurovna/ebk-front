@@ -24,7 +24,6 @@ export const StyledMinPrice = styled(FormControl)`
 export const StyledInput = styled(OutlinedInput)`
   border-radius: 8px;
   font-size: 16px;
-  letter-spacing: 0.5px;
   color: #212121;
   border-color: red;
 

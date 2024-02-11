@@ -2,10 +2,7 @@
 
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  addProductToFilter,
-  removeProductFromFilter,
-} from '@/redux/slices/ProductFilterSlice';
+import { toggleCheckedFilters } from '@/redux/slices/ProductFilterSlice';
 import {
   StyledWrapper,
   StyledParamValue,
@@ -15,25 +12,18 @@ import {
 
 const ParamValue = ({ paramValue }) => {
   const dispatch = useDispatch();
-  const selectedFilters = useSelector(
-    (state) => state.productFilter.selectedFilters,
+  const checkedFilters = useSelector(
+    (state) => state.productFilter.checkedFilters,
   );
-
   const handleFilterClick = () => {
-    if (selectedFilters.includes(paramValue)) {
-      dispatch(removeProductFromFilter(paramValue));
-    } else {
-      dispatch(addProductToFilter(paramValue));
-    }
+    dispatch(toggleCheckedFilters(paramValue));
   };
 
   return (
     <StyledAccordionDetails onClick={handleFilterClick}>
-      {' '}
-      {/* Додано обробник подій на StyledAccordionDetails */}
       <StyledWrapper>
         <StyledParamValue>{paramValue}</StyledParamValue>
-        <StyledCheckbox checked={selectedFilters.includes(paramValue)} />
+        <StyledCheckbox checked={checkedFilters.includes(paramValue)} />
       </StyledWrapper>
     </StyledAccordionDetails>
   );

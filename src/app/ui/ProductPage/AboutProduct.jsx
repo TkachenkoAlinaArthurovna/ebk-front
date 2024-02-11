@@ -65,7 +65,7 @@ const AboutProduct = () => {
           </Box>
         </WrapperColor>
         <Box sx={{ marginBottom: '32px' }}>
-          <Price price={920} oldprice={828} fontSize={28} productPage={true} />
+          <Price price={828} oldprice={920} fontSize={28} productPage={true} />
         </Box>
         <Box
           sx={{
