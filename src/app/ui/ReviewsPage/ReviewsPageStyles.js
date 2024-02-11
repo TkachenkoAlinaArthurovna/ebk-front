@@ -8,6 +8,7 @@ export const StyledButtonReviews = styled(Button)(({ theme }) => ({
   marginRight: '24px',
   backgroundColor: 'transparent',
   border: '1px solid #E5E5E5',
+  textTransform: 'none',
   [theme.breakpoints.down('lg')]: {
     fontSize: '16px',
     height: '43px',
@@ -16,7 +17,7 @@ export const StyledButtonReviews = styled(Button)(({ theme }) => ({
   },
   '@media (max-width: 670px)': {
     marginTop: '12px',
-    width: '160px',
+    width: '100%',
   },
 }));
 export const StyledTypographyReview = styled(Typography)(({ theme }) => ({

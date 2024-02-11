@@ -57,7 +57,7 @@ const ReviewsPage = () => {
           handleOpen={handleOpen}
         />
         <StyledButtonReviews onClick={handleOpen} variant="outlened">
-          Написати Відгук
+          Написати відгук
         </StyledButtonReviews>
       </StyledBox>
 
