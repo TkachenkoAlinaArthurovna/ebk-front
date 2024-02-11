@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { Breadcrumbs, Box } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import {
@@ -7,7 +8,6 @@ import {
   StyledBreadcrumbTypography,
 } from '@/app/ui/BreadCrumbs/BreadCrumbsStyles';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import Content from '../Content';
 import { navigation } from '@/app/lib/mockData';
 
 const BreadCrumbs = () => {
@@ -24,16 +24,29 @@ const BreadCrumbs = () => {
         {pathnames.map((path, index) => {
           const last = index === pathnames.length - 1;
           const to = `/${pathnames.slice(0, index + 1).join('/')}`;
-          const title = navigation.find((item) => item.path === path).title;
+          let title = path;
+          let isCabinet = false;
+
+          const matchingNavItem = navigation.find((item) => item.path === path);
+          if (matchingNavItem) {
+            title = matchingNavItem.title;
+            isCabinet = matchingNavItem.path === 'cabinet';
+          }
 
           return last ? (
             <StyledBreadcrumbTypography key={to} color="text.primary">
               {title}
             </StyledBreadcrumbTypography>
           ) : (
-            <StyledBreadcrumbLink key={to} href={to}>
-              {title}
-            </StyledBreadcrumbLink>
+            <React.Fragment key={to}>
+              {isCabinet ? (
+                <StyledBreadcrumbTypography color="text.primary">
+                  {title}
+                </StyledBreadcrumbTypography>
+              ) : (
+                <StyledBreadcrumbLink href={to}>{title}</StyledBreadcrumbLink>
+              )}
+            </React.Fragment>
           );
         })}
       </Breadcrumbs>
