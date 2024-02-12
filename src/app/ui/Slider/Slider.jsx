@@ -32,6 +32,8 @@ const Slider = ({
   slides,
   reviews,
   slidesProductPage,
+  prevtype,
+  nexttype,
 }) => {
   const [swiper, setSwiper] = useState();
   let listProducts;
@@ -204,7 +206,7 @@ const Slider = ({
           <SwiperPrev
             onClick={() => swiper.slidePrev()}
             swipertype="section"
-            prevtype={products ? 'products' : 'reviews'}
+            prevtype={prevtype ? prevtype : products ? 'products' : 'reviews'}
             component="img"
             alt="prev"
             src="/images/swiper/prev.png"
@@ -212,7 +214,7 @@ const Slider = ({
           <SwiperNext
             onClick={() => swiper.slideNext()}
             swipertype="section"
-            nexttype={products ? 'products' : 'reviews'}
+            nexttype={nexttype ? nexttype : products ? 'products' : 'reviews'}
             component="img"
             alt="next"
             src="/images/swiper/next.png"
