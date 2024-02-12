@@ -2,22 +2,22 @@ export const categoryBlockData = [
   {
     name: 'Гірські',
     img: 'mtb-e-bike.jpg',
-    url: 'mtb-e-bike',
+    url: '/',
   },
   {
     name: 'Fatbike',
     img: 'fatbike.jpg',
-    url: 'fatbike',
+    url: '/',
   },
   {
     name: 'Міські',
     img: 'city-e-bike.jpg',
-    url: 'city-e-bike',
+    url: '/',
   },
   {
     name: 'Триколісні',
     img: 'e-tricycle.jpg',
-    url: 'e-tricycle',
+    url: '/',
   },
 ];
 
