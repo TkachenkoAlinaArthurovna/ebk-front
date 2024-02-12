@@ -37,10 +37,19 @@ export const StyledBoxIcons = styled(Box)`
 export const StyledMenuIcon = styled(MenuIcon)``;
 
 export const StyledLogoBox = styled(Box)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 64px;
   margin-right: 32px;
   @media (max-width: 700px) {
     position: absolute;
     left: 51px;
+    top: 0;
+  }
+  @media (max-width: 700px) {
+    height: 56px;
   }
 `;
 
