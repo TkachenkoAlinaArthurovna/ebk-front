@@ -37,7 +37,7 @@ const SideBar = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => (
       </Box>
       <IconButton
         onClick={toggleDrawer}
-        sx={{ position: 'absolute', top: '16px', right: '16px' }}
+        sx={{ position: 'absolute', top: '20px', right: '24px' }}
       >
         <CloseIcon />
       </IconButton>

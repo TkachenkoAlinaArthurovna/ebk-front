@@ -15,12 +15,21 @@ import { capitalizeFirstLetter } from '@/app/lib/helpers';
 const MenuDesktop = ({ handleCloseCatalog, categories }) => {
   const [showSubcategories, setShowSubcategories] = useState(null);
 
+  let enterTimer; // Таймер для отслеживания движения мыши
+  let leaveTimer; // Таймер для определения остановки курсора
+
   const handleMouseEnter = (categoryId) => {
-    setShowSubcategories(categoryId);
+    clearTimeout(leaveTimer); // Очищаем таймер остановки курсора, если есть
+    enterTimer = setTimeout(() => {
+      setShowSubcategories(categoryId);
+    }, 500);
   };
 
   const handleMouseLeave = () => {
-    setShowSubcategories(null);
+    clearTimeout(enterTimer); // Очищаем таймер движения мыши, если есть
+    leaveTimer = setTimeout(() => {
+      setShowSubcategories(null);
+    }, 500);
   };
 
   return (

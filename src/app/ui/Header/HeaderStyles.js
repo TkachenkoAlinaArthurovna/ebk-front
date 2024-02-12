@@ -157,6 +157,7 @@ export const StyledPaper = styled(Paper)`
     top: 152px;
     left: 48px;
     right: 48px;
+    height: auto;
     padding: 42px 20px;
   }
   @media (max-width: 788px) {
@@ -165,7 +166,7 @@ export const StyledPaper = styled(Paper)`
     padding: 20px;
   }
   @media (max-width: 700px) {
-    top: 195px;
+    top: 90px;
   }
   @media (max-width: 414px) {
     left: 14px;
@@ -210,6 +211,7 @@ export const StyledIconButton = styled(IconButton)`
 export const StyledItem = styled(Box)`
   min-width: 400px;
   border-radius: 28px;
+  transition: background-color 1s ease;
   &:hover {
     background-color: #eeeeee;
   }
@@ -335,6 +337,7 @@ export const StyledButtonSideBar = styled(Button)`
 
 export const StyledSideBarContainer = styled(Box)`
   width: 436px;
+  height: 100%;
   box-sizing: border-box;
   padding: 20px 24px 28px 48px;
   @media (max-width: 1250px) {

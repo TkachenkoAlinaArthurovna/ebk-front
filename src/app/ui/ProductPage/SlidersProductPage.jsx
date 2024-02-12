@@ -24,6 +24,8 @@ const SlidersProductPage = () => {
               slidesPerView="4"
               pagination={false}
               products={true}
+              prevtype={'reviews'}
+              nexttype={'reviews'}
             />
           </Box>
         </Box>
