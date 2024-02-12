@@ -9,13 +9,39 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-
+import createWebStorage from 'redux-persist/es/storage/createWebStorage';
 import MenuModalSlice from '@/redux/slices/MenuModalSlice';
 import CartModalSlice from '@/redux/slices/CartModalSlice';
 import ProductFilterSlice from '@/redux/slices/ProductFilterSlice';
 import FavoritesSlice from '@/redux/slices/FavoritesSlice';
 import CartSlice from '@/redux/slices/CartSlice';
+
+export function createPersistStore() {
+  const isServer = typeof window === 'undefined';
+  if (isServer) {
+    return {
+      getItem() {
+        return Promise.resolve(null);
+      },
+      setItem() {
+        return Promise.resolve();
+      },
+      removeItem() {
+        return Promise.resolve();
+      },
+    };
+  }
+  return createWebStorage('local');
+}
+const storage =
+  typeof window !== 'undefined'
+    ? createWebStorage('local')
+    : createPersistStore();
+const persistConfig = {
+  key: 'root',
+  version: 1,
+  storage,
+};
 
 const rootReducer = combineReducers({
   menuModal: MenuModalSlice,
@@ -24,11 +50,6 @@ const rootReducer = combineReducers({
   favorites: FavoritesSlice,
   cart: CartSlice,
 });
-
-const persistConfig = {
-  key: 'root',
-  storage,
-};
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
