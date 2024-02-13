@@ -27,7 +27,7 @@ import Phones from '@/app/ui/Header/Phones';
 import Logo from '@/app/ui/Logo/Logo';
 
 const Toolbar = ({ catalog }) => {
-  const catalogLinks = createLinks(catalog);
+  const catalogLinks = createLinks(catalog.items);
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const toggleDrawer = () => {
