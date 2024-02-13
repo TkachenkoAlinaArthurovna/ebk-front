@@ -1,4 +1,4 @@
-import { Box, Icon } from '@mui/material';
+import { Box } from '@mui/material';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import PageText from '@/app/ui/PageText';
 import Image from 'next/image';
@@ -10,7 +10,7 @@ import {
 } from '@/app/ui/CartItem/CartItemStyles';
 import { useState } from 'react';
 
-const CartItem = () => {
+const CartItem = ({ product }) => {
   const [count, setCount] = useState(1);
 
   const handleIncrement = () => {
@@ -29,7 +29,7 @@ const CartItem = () => {
         <Box sx={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           <StyledImageWrapper>
             <Image
-              src="/images/city-e-bike.jpg"
+              src={product.image}
               alt="item-preview"
               sizes="100%"
               fill
@@ -39,8 +39,8 @@ const CartItem = () => {
             ></Image>
           </StyledImageWrapper>
           <Box>
-            <PageText>Велосипед “Ardis Messina”</PageText>
-            <PageText color={'#6A6A6A'}>Код: 200604769</PageText>
+            <PageText>{product.name}</PageText>
+            <PageText color={'#6A6A6A'}>Код: {product.code}</PageText>
           </Box>
         </Box>
 
@@ -59,8 +59,10 @@ const CartItem = () => {
             </StyledButton>
           </StyledButtonGroup>
           <Box>
-            <StyledPriceTypography>15 000 ₴</StyledPriceTypography>
-            <PageText color={'#DC362E'}>12 999 ₴</PageText>
+            <StyledPriceTypography>
+              {product.oldPrice * count} ₴
+            </StyledPriceTypography>
+            <PageText color={'#DC362E'}>{product.price * count} ₴</PageText>
           </Box>
         </Box>
       </Box>

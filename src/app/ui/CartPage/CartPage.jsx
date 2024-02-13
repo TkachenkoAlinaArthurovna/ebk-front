@@ -1,5 +1,10 @@
 'use client';
 
+// Git rebase
+// Finish layout and styles
+// Add error message
+// 1100 breakpoint
+
 import { useState } from 'react';
 import BreadCrumbs from '@/app/ui/BreadCrumbs/BreadCrumbs';
 import CartItem from '@/app/ui/CartItem/CartItem';
@@ -34,6 +39,7 @@ import {
 import { Field, Form, Formik, ErrorMessage } from 'formik';
 import DeliveryItem from '@/app/ui/CartPage/DeliveryItem/DeliveryItem';
 import { contactDataSchema } from '@/lib/schemas';
+import { cartProducts } from '@/app/lib/mockData';
 
 const CartPage = () => {
   const initialValues = {
@@ -52,6 +58,9 @@ const CartPage = () => {
   const [selectedCity, setSelectedCity] = useState('');
   const [departmentOptions, setDepartmentOptions] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState('');
+
+  const products = cartProducts;
+  console.log(products);
 
   const handleSubmit = (values) => {
     console.log(values);
@@ -72,8 +81,10 @@ const CartPage = () => {
             <StyledCartLayout>
               <StyledOrderWrapper>
                 <CartPageTitle>Кошик</CartPageTitle>
-                <CartItem />
-                <CartItem />
+                {/* add key attribute */}
+                {products.map((product) => (
+                  <CartItem product={product} />
+                ))}
                 <StyledAccordion defaultExpanded>
                   <AccordionSummary
                     sx={{ padding: '0' }}
