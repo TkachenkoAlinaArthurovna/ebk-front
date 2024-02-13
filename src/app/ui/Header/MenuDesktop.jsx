@@ -6,27 +6,28 @@ import {
   StyledButton,
   SubCategoriesWrapper,
   SubCategoriesList,
+  WrapperForScroll,
 } from '@/app/ui/Header/HeaderStyles';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Link from 'next/link';
 import { useState } from 'react';
 import { capitalizeFirstLetter } from '@/app/lib/helpers';
 
-const MenuDesktop = ({ handleCloseCatalog, categories }) => {
+const MenuDesktop = ({ handleCloseCatalog, categories, heightMenu }) => {
   const [showSubcategories, setShowSubcategories] = useState(null);
 
-  let enterTimer; // Таймер для отслеживания движения мыши
-  let leaveTimer; // Таймер для определения остановки курсора
+  let enterTimer;
+  let leaveTimer;
 
   const handleMouseEnter = (categoryId) => {
-    clearTimeout(leaveTimer); // Очищаем таймер остановки курсора, если есть
+    clearTimeout(leaveTimer);
     enterTimer = setTimeout(() => {
       setShowSubcategories(categoryId);
     }, 500);
   };
 
   const handleMouseLeave = () => {
-    clearTimeout(enterTimer); // Очищаем таймер движения мыши, если есть
+    clearTimeout(enterTimer);
     leaveTimer = setTimeout(() => {
       setShowSubcategories(null);
     }, 500);
@@ -65,29 +66,32 @@ const MenuDesktop = ({ handleCloseCatalog, categories }) => {
                 visibility:
                   showSubcategories === category.id ? 'visible' : 'hidden',
                 opacity: showSubcategories === category.id ? '1' : '0',
+                height: `${heightMenu}px`,
               }}
             >
               <StyledIconButton onClick={handleCloseCatalog}>
                 <CloseIcon />
               </StyledIconButton>
               <SubCategoriesList>
-                {category.children.map((item) => (
-                  <Link
-                    key={item.id}
-                    href={`/${item.link}`}
-                    onClick={handleCloseCatalog}
-                  >
-                    <StyledButton typebutton="subcategory">
-                      <ListItemText
-                        sx={{
-                          margin: '0',
-                        }}
-                      >
-                        {capitalizeFirstLetter(item.name)}
-                      </ListItemText>
-                    </StyledButton>
-                  </Link>
-                ))}
+                <WrapperForScroll>
+                  {category.children.map((item) => (
+                    <Link
+                      key={item.id}
+                      href={`/${item.link}`}
+                      onClick={handleCloseCatalog}
+                    >
+                      <StyledButton typebutton="subcategory">
+                        <ListItemText
+                          sx={{
+                            margin: '0',
+                          }}
+                        >
+                          {capitalizeFirstLetter(item.name)}
+                        </ListItemText>
+                      </StyledButton>
+                    </Link>
+                  ))}
+                </WrapperForScroll>
               </SubCategoriesList>
             </SubCategoriesWrapper>
           )}

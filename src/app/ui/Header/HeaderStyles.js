@@ -150,7 +150,7 @@ export const StyledPaper = styled(Paper)`
   position: absolute;
   top: 116px;
   left: 40px;
-  height: 80vh;
+  height: auto;
   padding: 42px;
   border-radius: 24px;
   @media (max-width: 900px) {
@@ -223,20 +223,39 @@ export const SubCategoriesWrapper = styled(Box)`
   position: absolute;
   top: 0;
   right: -378px;
-  height: 80vh;
   transition: opacity 0.3s ease-out;
 `;
 
 export const SubCategoriesList = styled(Box)`
   width: 420px;
+  height: 100%;
   padding: 120px 42px 42px 20px;
   border-radius: 24px;
   background-color: #ffff;
-  overflow: auto;
-  &::-webkit-scrollbar {
-    width: 0 !important;
+`;
+
+export const WrapperForScroll = styled(Box)`
+  height: 100%;
+  overflow-y: auto;
+  /* width */
+  ::-webkit-scrollbar {
+    width: 2px;
   }
-  scrollbar-width: none;
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #49beb7;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 `;
 
 // MenuMob
