@@ -12,7 +12,7 @@ import {
   CartProductWrapper,
   CartItemWrapper,
   DeleteButtonWrapper,
-} from '@/app/ui/CartItem/CartItemStyles';
+} from '@/app/ui/CartPage/CartItem/CartItemStyles';
 import { useState } from 'react';
 
 const CartItem = ({ product, handleRemove }) => {

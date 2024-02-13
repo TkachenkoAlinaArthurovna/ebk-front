@@ -5,7 +5,7 @@
 
 import { useState } from 'react';
 import BreadCrumbs from '@/app/ui/BreadCrumbs/BreadCrumbs';
-import CartItem from '@/app/ui/CartItem/CartItem';
+import CartItem from '@/app/ui/CartPage/CartItem/CartItem';
 import Content from '@/app/ui/Content';
 import PageText from '@/app/ui/PageText';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -18,7 +18,7 @@ import {
   ListItemText,
   Radio,
   RadioGroup,
-  Autocomplete,
+  Autocomplete
 } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import {
@@ -32,7 +32,7 @@ import {
   StyledListItem,
   StyledTotalBox,
   StyledTotalPrice,
-  StyledTotalText,
+  StyledTotalText, StyledTermsTitle
 } from '@/app/ui/CartPage/CartPageStyles';
 import { Field, Form, Formik, ErrorMessage } from 'formik';
 import DeliveryItem from '@/app/ui/CartPage/DeliveryItem/DeliveryItem';
@@ -50,7 +50,7 @@ const CartPage = () => {
     payment: '',
     comment: '',
     anotherPerson: false,
-    doNotCall: false,
+    doNotCall: false
   };
 
   const [selectedDelivery, setSelectedDelivery] = useState('');
@@ -59,7 +59,7 @@ const CartPage = () => {
 
   const handleRemoveProduct = (code) => {
     setProducts((prevProducts) =>
-      prevProducts.filter((product) => product.code !== code),
+      prevProducts.filter((product) => product.code !== code)
     );
   };
 
@@ -103,7 +103,7 @@ const CartPage = () => {
                     </AccordionSummary>
                     <AccordionDetails sx={{ padding: 0 }}>
                       <Grid container spacing={3}>
-                        <Grid item lg={6} sm={12}>
+                        <Grid item md={6} xs={12}>
                           <Field
                             as={TextField}
                             label="Прізвище"
@@ -112,8 +112,12 @@ const CartPage = () => {
                             InputLabelProps={{ shrink: true }}
                             name="lastname"
                           />
+                          <ErrorMessage name={'lastname'}
+                                        component={'div'}
+                                        style={{ color: '#dc362e' }}
+                          />
                         </Grid>
-                        <Grid item lg={6} sm={12}>
+                        <Grid item md={6} xs={12}>
                           <Field
                             as={TextField}
                             label="Ім'я"
@@ -122,8 +126,12 @@ const CartPage = () => {
                             InputLabelProps={{ shrink: true }}
                             name="firstname"
                           />
+                          <ErrorMessage name={'firstname'}
+                                        component={'div'}
+                                        style={{ color: '#dc362e' }}
+                          />
                         </Grid>
-                        <Grid item lg={6} sm={12}>
+                        <Grid item md={6} xs={12}>
                           <Field
                             as={TextField}
                             label="Телефон"
@@ -132,8 +140,12 @@ const CartPage = () => {
                             InputLabelProps={{ shrink: true }}
                             name="phone"
                           />
+                          <ErrorMessage name={'phone'}
+                                        component={'div'}
+                                        style={{ color: '#dc362e' }}
+                          />
                         </Grid>
-                        <Grid item lg={6} sm={12}>
+                        <Grid item md={6} xs={12}>
                           <Field
                             as={TextField}
                             label="Ел. пошта"
@@ -141,6 +153,10 @@ const CartPage = () => {
                             fullWidth
                             InputLabelProps={{ shrink: true }}
                             name="email"
+                          />
+                          <ErrorMessage name={'email'}
+                                        component={'div'}
+                                        style={{ color: '#dc362e' }}
                           />
                         </Grid>
                       </Grid>
@@ -195,7 +211,7 @@ const CartPage = () => {
                               options={[
                                 'Department 1',
                                 'Department 2',
-                                'Department 3',
+                                'Department 3'
                               ]}
                               renderInput={(params) => (
                                 <TextField
@@ -284,6 +300,7 @@ const CartPage = () => {
                         rows={4}
                         name={'comment'}
                       />
+                      <ErrorMessage name={'comment'} component={'div'} style={{ color: '#dc362e' }} />
                       <FormControlLabel
                         sx={{ marginTop: '24px' }}
                         control={<Checkbox />}
@@ -314,9 +331,9 @@ const CartPage = () => {
                   >
                     Замовлення підтверджую
                   </StyledCheckoutButton>
-                  <PageText color="#6A6A6A">
+                  <StyledTermsTitle>
                     Підтверджуючи замовлення, я приймаю умови:{' '}
-                  </PageText>
+                  </StyledTermsTitle>
                   <StyledList>
                     <StyledListItem>
                       <ListItemText>

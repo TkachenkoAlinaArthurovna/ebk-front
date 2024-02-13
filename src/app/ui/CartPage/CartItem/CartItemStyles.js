@@ -88,4 +88,9 @@ export const StyledCartItemText = styled(Typography)`
     width: 400px;
     font-size: 28px;
   }
+    
+  @media (max-width: 480px) {
+      font-size: 24px;
+    width: 300px;
+  }
 `;
