@@ -6,11 +6,16 @@ import {
   StyledButton,
   StyledButtonGroup,
   StyledImageWrapper,
+  StyledOldPriceTypography,
   StyledPriceTypography,
+  StyledCartItemText,
+  CartProductWrapper,
+  CartItemWrapper,
+  DeleteButtonWrapper,
 } from '@/app/ui/CartItem/CartItemStyles';
 import { useState } from 'react';
 
-const CartItem = ({ product }) => {
+const CartItem = ({ product, handleRemove }) => {
   const [count, setCount] = useState(1);
 
   const handleIncrement = () => {
@@ -23,10 +28,8 @@ const CartItem = ({ product }) => {
 
   return (
     <Box mt={3}>
-      <Box
-        sx={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}
-      >
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+      <CartItemWrapper>
+        <CartProductWrapper>
           <StyledImageWrapper>
             <Image
               src={product.image}
@@ -39,11 +42,10 @@ const CartItem = ({ product }) => {
             ></Image>
           </StyledImageWrapper>
           <Box>
-            <PageText>{product.name}</PageText>
+            <StyledCartItemText>{product.name}</StyledCartItemText>
             <PageText color={'#6A6A6A'}>Код: {product.code}</PageText>
           </Box>
-        </Box>
-
+        </CartProductWrapper>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: '35px' }}>
           <StyledButtonGroup>
             <StyledButton
@@ -59,29 +61,28 @@ const CartItem = ({ product }) => {
             </StyledButton>
           </StyledButtonGroup>
           <Box>
-            <StyledPriceTypography>
+            <StyledOldPriceTypography>
               {product.oldPrice * count} ₴
+            </StyledOldPriceTypography>
+            <StyledPriceTypography>
+              {product.price * count} ₴
             </StyledPriceTypography>
-            <PageText color={'#DC362E'}>{product.price * count} ₴</PageText>
           </Box>
         </Box>
-      </Box>
-      <Box
-        sx={{
-          my: '24px',
-          display: 'flex',
-          justifyContent: 'flex-end',
-          width: '100%',
-        }}
-      >
-        <StyledButton>
+      </CartItemWrapper>
+      <DeleteButtonWrapper>
+        <StyledButton
+          onClick={() => {
+            handleRemove(product.code);
+          }}
+        >
           <DeleteOutlineOutlinedIcon
             sx={{ fontSize: '24px', mr: '8px' }}
             style={{ color: '#4D4D4D' }}
           />
           <PageText color={'#4D4D4D'}>Видалити</PageText>
         </StyledButton>
-      </Box>
+      </DeleteButtonWrapper>
     </Box>
   );
 };

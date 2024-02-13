@@ -14,7 +14,7 @@ export const StyledCartLayout = styled(Box)`
   margin-top: 32px;
   margin-bottom: 120px;
   gap: 80px;
-  @media (max-width: 768px) {
+  @media (max-width: 1100px) {
     flex-direction: column-reverse;
   }
 `;
@@ -24,7 +24,7 @@ export const StyledPriceWrapper = styled(Box)`
   flexdirection: 'column';
   width: 40%;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1100px) {
     width: 100%;
   }
 `;
@@ -34,7 +34,7 @@ export const StyledOrderWrapper = styled(Box)`
   flexdirection: 'column';
   width: 60%;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1100px) {
     width: 100%;
   }
 `;
