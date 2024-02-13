@@ -157,6 +157,7 @@ export const StyledPaper = styled(Paper)`
     top: 152px;
     left: 48px;
     right: 48px;
+    bottom: 20px;
     height: auto;
     padding: 42px 20px;
   }
