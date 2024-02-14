@@ -157,3 +157,27 @@ export const navigation = [
   { id: 11, title: 'Обране', path: 'favorites' },
   { id: 11, title: 'Мої відгуки', path: 'reviews' },
 ];
+
+export const cartProducts = [
+  {
+    name: 'Велосипед “Ardis Messina"',
+    code: '200604769',
+    image: '/images/city-e-bike.jpg',
+    price: 12999,
+    oldPrice: 15000,
+  },
+  {
+    name: 'Велосипед “Not Ardis Messina"',
+    code: '123456789',
+    image: '/images/city-e-bike.jpg',
+    price: 13500,
+    oldPrice: 16000,
+  },
+  {
+    name: 'Велосипед “Definitely Not Ardis Messina"',
+    code: '987654321',
+    image: '/images/city-e-bike.jpg',
+    price: 3500,
+    oldPrice: 5000,
+  },
+];
