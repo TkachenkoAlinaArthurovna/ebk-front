@@ -5,10 +5,9 @@ import { StyledSection } from '@/app/ui/Homepage/MainSlider/MainSliderStyled';
 
 const MainSlider = () => {
   const slides = [
-    '/images/main-slider.png',
-    '/images/main-slider.png',
-    '/images/main-slider.png',
-    '/images/main-slider.png',
+    '/images/bike_banner_1.jpg',
+    '/images/bike_banner_2.jpg',
+    '/images/bike_banner_3.jpg',
   ];
   return (
     <StyledSection as="section">
