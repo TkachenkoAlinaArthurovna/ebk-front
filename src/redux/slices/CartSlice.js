@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   cartProducts: [],
+  currentCard: {},
 };
 
 const CartSlice = createSlice({
@@ -16,7 +17,7 @@ const CartSlice = createSlice({
           }
           if (
             !state.cartProducts.find(
-              (item) => item.id === action.payload.currentCard.id,
+              (item) => item._id === action.payload.currentCard._id,
             )
           ) {
             state.cartProducts.push({
@@ -25,7 +26,7 @@ const CartSlice = createSlice({
             });
           } else {
             state.cartProducts.map((item) => {
-              if (item.id === action.payload.currentCard.id) {
+              if (item._id === action.payload.currentCard._id) {
                 item.count++;
               }
             });
@@ -33,7 +34,7 @@ const CartSlice = createSlice({
           break;
         case 'minus':
           state.cartProducts.map((item) => {
-            if (item.id === action.payload.currentCard.id) {
+            if (item._id === action.payload.currentCard._id) {
               item.count--;
             }
           });
@@ -48,8 +49,12 @@ const CartSlice = createSlice({
     removeCartProducts(state, action) {
       state.cartProducts = [];
     },
+    setCurrentCard(state, action) {
+      state.currentCard = action.payload;
+    },
   },
 });
 
-export const { toggleCart } = CartSlice.actions;
+export const { toggleCart, removeCartProducts, setCurrentCard } =
+  CartSlice.actions;
 export default CartSlice.reducer;

@@ -1,14 +1,17 @@
 'use client';
 
-import { styled } from '@mui/system';
+import { height, styled } from '@mui/system';
+import { Box } from '@mui/material';
 import Card from '@mui/material/Card';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
+import Link from 'next/link';
 
 export const StyledCard = styled(Card)`
   position: relative;
   max-width: 300;
+  max-height: 452px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -73,4 +76,11 @@ export const StyledCardContent = styled(CardContent)`
   @media (max-width: 480px) {
     padding: 12px 6px;
   }
+`;
+
+export const StyledLink = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 `;

@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleCartModal } from '@/redux/slices/CartModalSlice';
+import { setCurrentCard } from '@/redux/slices/CartSlice';
 import { toggleFavorites } from '@/redux/slices/FavoritesSlice';
-import Link from 'next/link';
 import CardMedia from '@mui/material/CardMedia';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -14,36 +14,86 @@ import {
   StyledIconFavoriteButton,
   Title,
   StyledCardContent,
+  StyledLink,
 } from '@/app/ui/ProductCard/ProductCardStyles';
+import { Box } from '@mui/material';
+import productColors from '@/app/lib/productColors';
 
-const ProductCard = ({ id, img, name, colors, price, oldprice }) => {
-  const productId = 'product1';
+const ProductCard = ({ product }) => {
+  const { name, picture, price, oldprice, params, _id } = product;
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites.favorites);
   const cartProducts = useSelector((state) => state.cart.cartProducts);
-  const arrId = cartProducts.map((item) => item.id);
+  const arrId = cartProducts.map((item) => item._id);
+
   const toggleFavoritesProduct = () => {
-    dispatch(toggleFavorites(productId));
+    dispatch(toggleFavorites(_id));
   };
-  const toggleCart = () => dispatch(toggleCartModal());
+
+  const getImage = (picture) => {
+    if (Array.isArray(picture)) {
+      return picture[0];
+    }
+    if (!Array.isArray(picture)) {
+      return picture;
+    }
+  };
+
+  const getColorValue = (params) => {
+    for (const param of params) {
+      if (param.name.includes('Color')) {
+        const colorName = param.value[0].toLowerCase();
+        const colorObject = productColors.find(
+          (color) => color.name.toLowerCase() === colorName,
+        );
+
+        return colorObject ? colorObject.value : null;
+      }
+    }
+    return null;
+  };
+
   return (
     <StyledCard>
-      <Link href="/category/product_id">
-        <CardMedia
-          component="img"
-          alt="name"
-          image="https://images.prom.ua/4434624546_miskij-elektrovelosiped-paola.jpg"
-          sx={{ marginBottom: '16px', borderRadius: '28px' }}
-        />
-        <Title component="div">
-          Міський електровелосипед Paola 500W 10 A/h
-        </Title>
-      </Link>
+      <Box sx={{ height: '70%' }}>
+        <StyledLink href="/category/product_id">
+          <Box
+            sx={{
+              height: '70%',
+            }}
+          >
+            <CardMedia
+              component="img"
+              alt={`${name}`}
+              image={
+                picture ? getImage(picture) : '/images/noimageavailable.png'
+              }
+              sx={{
+                height: '100%',
+                marginBottom: '16px',
+                borderRadius: '28px',
+              }}
+            />
+          </Box>
+          <Title
+            sx={{
+              height: '20%',
+            }}
+          >
+            {name}
+          </Title>
+        </StyledLink>
+      </Box>
       <StyledCardContent>
-        <Colors colors={colors} />
-        <Price price={100000} oldprice={200000} fontSize={22} />
-        <StyledIconButton onClick={toggleCart}>
-          {arrId.includes(productId) ? (
+        <Colors colors={getColorValue(params)} />
+        <Price price={price} oldprice={oldprice} fontSize={22} />
+        <StyledIconButton
+          onClick={() => {
+            dispatch(toggleCartModal());
+            dispatch(setCurrentCard(product));
+          }}
+        >
+          {arrId.includes(_id) ? (
             <ShoppingCartIcon
               color="primary"
               sx={{ width: '24px', height: '24px' }}
@@ -53,7 +103,7 @@ const ProductCard = ({ id, img, name, colors, price, oldprice }) => {
           )}
         </StyledIconButton>
         <StyledIconFavoriteButton onClick={toggleFavoritesProduct}>
-          {favorites.includes(productId) ? (
+          {favorites.includes(_id) ? (
             <FavoriteIcon
               color="primary"
               sx={{ width: '24px', height: '24px' }}

@@ -15,7 +15,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import ButtonMain from '@/app/ui/ButtonMain';
 
 const ModalCart = () => {
-  const currentCard = { id: 'product1' };
+  const currentCard = useSelector((state) => state.cart.currentCard);
+  console.log(currentCard);
   const isOpenModalCart = useSelector(
     (state) => state.cartModal.isOpenModalCart,
   );
