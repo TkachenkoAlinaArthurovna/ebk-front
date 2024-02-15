@@ -52,12 +52,19 @@ const CartPage = () => {
     comment: '',
     anotherPerson: false,
     doNotCall: false,
+    termsAgreement: false,
   };
 
   const [selectedDelivery, setSelectedDelivery] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
-  const products = useSelector((state) => state.cart.cartProducts);
-  console.log(products);
+  const [products, setProducts] = useState(cartProducts);
+  const [selectedDepartment, setSelectedDepartment] = useState('');
+
+  const handleRemoveProduct = (code) => {
+    setProducts((prevProducts) =>
+      prevProducts.filter((product) => product.code !== code),
+    );
+  };
 
   const handleSubmit = (values) => {
     console.log(values);
@@ -237,6 +244,65 @@ const CartPage = () => {
                             />
                           }
                         />
+                        {selectedDelivery === 'До поштомату Нової Пошти' && (
+                          <Autocomplete
+                            options={['Київ', 'Львів', 'Одеса', 'Харків']}
+                            renderInput={(params) => (
+                              <TextField {...params} label="Ваше місто" />
+                            )}
+                            onChange={(event, newValue) => {
+                              setSelectedCity(newValue);
+                            }}
+                          />
+                        )}
+                        <FormControlLabel
+                          control={
+                            <Field
+                              as={Radio}
+                              value="До відділення Укрпошти"
+                              name="delivery"
+                            />
+                          }
+                          disableTypography
+                          label={
+                            <DeliveryItem
+                              icon={'/images/delivery/UkrPoshta.png'}
+                              price={99}
+                              text={'До відділення Укрпошти'}
+                            />
+                          }
+                        />
+                        {selectedDelivery === 'До відділення Укрпошти' && (
+                          <Autocomplete
+                            sx={{ marginBottom: '24px' }}
+                            options={['Київ', 'Львів', 'Одеса', 'Харків']}
+                            renderInput={(params) => (
+                              <TextField {...params} label="Ваше місто" />
+                            )}
+                            onChange={(event, newValue) => {
+                              setSelectedCity(newValue);
+                            }}
+                          />
+                        )}
+                        {selectedDelivery === 'До відділення Укрпошти' &&
+                          selectedCity && (
+                            <Autocomplete
+                              options={[
+                                'Department 1',
+                                'Department 2',
+                                'Department 3',
+                              ]}
+                              renderInput={(params) => (
+                                <TextField
+                                  {...params}
+                                  label="Виберіть відділення"
+                                />
+                              )}
+                              onChange={(event, newValue) => {
+                                setSelectedDepartment(newValue);
+                              }}
+                            />
+                          )}
                       </RadioGroup>
                     </AccordionDetails>
                   </StyledAccordion>
@@ -331,17 +397,23 @@ const CartPage = () => {
                   >
                     Замовлення підтверджую
                   </StyledCheckoutButton>
+                  <FormControlLabel
+                    sx={{ marginBottom: '14px' }}
+                    control={<Checkbox />}
+                    name={'termsAgreement'}
+                    label={'З умовами ознайомлений та погоджуюсь*'}
+                  />
                   <StyledTermsTitle>
                     Підтверджуючи замовлення, я приймаю умови:{' '}
                   </StyledTermsTitle>
                   <StyledList>
                     <StyledListItem>
                       <ListItemText>
-                        положення про обробку персональних даних
+                        • положення про обробку персональних даних
                       </ListItemText>
                     </StyledListItem>
                     <StyledListItem>
-                      <ListItemText>угоди користувача</ListItemText>
+                      <ListItemText>• угоди користувача</ListItemText>
                     </StyledListItem>
                   </StyledList>
                 </StyledPriceWrapper>
