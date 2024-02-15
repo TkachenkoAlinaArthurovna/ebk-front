@@ -18,5 +18,5 @@ export const Color = styled(Box)`
   height: 20px;
   margin-right: 8px;
   border-radius: 50%;
-  background-color: red;
+  box-shadow: 0px 0px 10px #d0d0d0;
 `;

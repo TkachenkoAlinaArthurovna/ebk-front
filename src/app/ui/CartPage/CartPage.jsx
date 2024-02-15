@@ -4,6 +4,7 @@
 // Add error message
 
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import BreadCrumbs from '@/app/ui/BreadCrumbs/BreadCrumbs';
 import CartItem from '@/app/ui/CartPage/CartItem/CartItem';
 import Content from '@/app/ui/Content';
@@ -18,7 +19,7 @@ import {
   ListItemText,
   Radio,
   RadioGroup,
-  Autocomplete
+  Autocomplete,
 } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import {
@@ -32,12 +33,12 @@ import {
   StyledListItem,
   StyledTotalBox,
   StyledTotalPrice,
-  StyledTotalText, StyledTermsTitle
+  StyledTotalText,
+  StyledTermsTitle,
 } from '@/app/ui/CartPage/CartPageStyles';
 import { Field, Form, Formik, ErrorMessage } from 'formik';
 import DeliveryItem from '@/app/ui/CartPage/DeliveryItem/DeliveryItem';
 import { contactDataSchema } from '@/lib/schemas';
-import { cartProducts } from '@/app/lib/mockData';
 import EmptyCart from './EmptyCart/EmptyCart';
 
 const CartPage = () => {
@@ -50,18 +51,13 @@ const CartPage = () => {
     payment: '',
     comment: '',
     anotherPerson: false,
-    doNotCall: false
+    doNotCall: false,
   };
 
   const [selectedDelivery, setSelectedDelivery] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
-  const [products, setProducts] = useState(cartProducts);
-
-  const handleRemoveProduct = (code) => {
-    setProducts((prevProducts) =>
-      prevProducts.filter((product) => product.code !== code)
-    );
-  };
+  const products = useSelector((state) => state.cart.cartProducts);
+  console.log(products);
 
   const handleSubmit = (values) => {
     console.log(values);
@@ -86,11 +82,7 @@ const CartPage = () => {
                 <StyledOrderWrapper>
                   <CartPageTitle>Кошик</CartPageTitle>
                   {products.map((product) => (
-                    <CartItem
-                      product={product}
-                      key={product.code}
-                      handleRemove={handleRemoveProduct}
-                    />
+                    <CartItem product={product} key={product._id} />
                   ))}
                   <StyledAccordion defaultExpanded>
                     <AccordionSummary
@@ -112,9 +104,10 @@ const CartPage = () => {
                             InputLabelProps={{ shrink: true }}
                             name="lastname"
                           />
-                          <ErrorMessage name={'lastname'}
-                                        component={'div'}
-                                        style={{ color: '#dc362e' }}
+                          <ErrorMessage
+                            name={'lastname'}
+                            component={'div'}
+                            style={{ color: '#dc362e' }}
                           />
                         </Grid>
                         <Grid item md={6} xs={12}>
@@ -126,9 +119,10 @@ const CartPage = () => {
                             InputLabelProps={{ shrink: true }}
                             name="firstname"
                           />
-                          <ErrorMessage name={'firstname'}
-                                        component={'div'}
-                                        style={{ color: '#dc362e' }}
+                          <ErrorMessage
+                            name={'firstname'}
+                            component={'div'}
+                            style={{ color: '#dc362e' }}
                           />
                         </Grid>
                         <Grid item md={6} xs={12}>
@@ -140,9 +134,10 @@ const CartPage = () => {
                             InputLabelProps={{ shrink: true }}
                             name="phone"
                           />
-                          <ErrorMessage name={'phone'}
-                                        component={'div'}
-                                        style={{ color: '#dc362e' }}
+                          <ErrorMessage
+                            name={'phone'}
+                            component={'div'}
+                            style={{ color: '#dc362e' }}
                           />
                         </Grid>
                         <Grid item md={6} xs={12}>
@@ -154,9 +149,10 @@ const CartPage = () => {
                             InputLabelProps={{ shrink: true }}
                             name="email"
                           />
-                          <ErrorMessage name={'email'}
-                                        component={'div'}
-                                        style={{ color: '#dc362e' }}
+                          <ErrorMessage
+                            name={'email'}
+                            component={'div'}
+                            style={{ color: '#dc362e' }}
                           />
                         </Grid>
                       </Grid>
@@ -211,7 +207,7 @@ const CartPage = () => {
                               options={[
                                 'Department 1',
                                 'Department 2',
-                                'Department 3'
+                                'Department 3',
                               ]}
                               renderInput={(params) => (
                                 <TextField
@@ -300,7 +296,11 @@ const CartPage = () => {
                         rows={4}
                         name={'comment'}
                       />
-                      <ErrorMessage name={'comment'} component={'div'} style={{ color: '#dc362e' }} />
+                      <ErrorMessage
+                        name={'comment'}
+                        component={'div'}
+                        style={{ color: '#dc362e' }}
+                      />
                       <FormControlLabel
                         sx={{ marginTop: '24px' }}
                         control={<Checkbox />}

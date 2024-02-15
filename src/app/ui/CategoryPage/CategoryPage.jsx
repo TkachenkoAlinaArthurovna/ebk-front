@@ -17,7 +17,7 @@ import {
 import FilterListIcon from '@mui/icons-material/FilterList';
 import FilterListOffIcon from '@mui/icons-material/FilterListOff';
 
-const CategoryPage = ({ categoryName }) => {
+const CategoryPage = ({ categoryName, products }) => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const toggleDrawer = () => {
     setOpenDrawer(!openDrawer);
@@ -47,7 +47,7 @@ const CategoryPage = ({ categoryName }) => {
               toggleDrawer={toggleDrawer}
               openDrawer={openDrawer}
             />
-            <CategoryItems />
+            <CategoryItems products={products} />
           </StyledContentWrapper>
         </StyledWrapper>
       </Content>

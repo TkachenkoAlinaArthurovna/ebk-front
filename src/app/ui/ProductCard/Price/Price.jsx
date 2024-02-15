@@ -5,63 +5,60 @@ import {
   Discount,
   DiscountProductPage,
 } from '@/app/ui/ProductCard/Price/PriceStyles';
+import { Typography } from '@mui/material';
 
 const Price = ({ price, oldprice, fontSize, productPage }) => {
+  const currencyRate = 38;
+  const priceUa = price * currencyRate;
+  const oldPriceUa = oldprice * currencyRate;
+
+  const formatNumberWithSpaces = (number) => {
+    const numString = String(number);
+    let formattedNumber = '';
+    let count = 0;
+
+    for (let i = numString.length - 1; i >= 0; i--) {
+      count++;
+      formattedNumber = numString[i] + formattedNumber;
+      if (count === 3 && i !== 0) {
+        formattedNumber = ' ' + formattedNumber;
+        count = 0;
+      }
+    }
+
+    return formattedNumber;
+  };
+
+  const formattedPriceUa = formatNumberWithSpaces(priceUa);
+  const formattedOldPriceUa = formatNumberWithSpaces(oldPriceUa);
+
   if (!oldprice) {
     return (
       <WrapperBoxNew>
-        <Box sx={{ marginRight: '10px', fontSize: `${fontSize}px` }}>
-          {price}
-        </Box>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 384 512"
-          height={'20px'}
-        >
-          <path d="M384 304c0 17.67-14.33 32-32 32H122.2C116 344.4 112 354.8 112 365.9C112 393.5 134.5 416 162.1 416h48.64c20.33 0 40.25-8.25 54.63-22.62c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25C283.1 465.3 248.5 480 210.8 480H162.1C99.19 480 48 428.8 48 365.9c0-10.2 1.457-20.23 4.111-29.89H32c-17.67 0-32-14.33-32-32s14.33-32 32-32h65.67c1.568-1.078 3.018-2.295 4.646-3.297L154.7 240H32c-17.67 0-32-14.33-32-32s14.33-32 32-32h229.8C267.1 167.6 272 157.2 272 146.1C272 118.5 249.5 96 221.9 96H173.3C152.9 96 133 104.3 118.6 118.6c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25C100 46.69 135.5 32 173.3 32h48.64C284.8 32 336 83.19 336 146.1c0 10.2-1.457 20.23-4.111 29.89H352c17.67 0 32 14.33 32 32s-14.33 32-32 32h-65.67c-1.568 1.078-3.018 2.295-4.646 3.297L229.3 272H352C369.7 272 384 286.3 384 304z" />
-        </svg>
+        <Typography sx={{ fontSize: `${fontSize}px`, fontWeight: '500' }}>
+          {formattedPriceUa} ₴
+        </Typography>
       </WrapperBoxNew>
     );
   }
   if (oldprice) {
-    const getDiscount = (price, oldprice) => {
-      return Math.round(100 - (price * 100) / oldprice);
+    const getDiscount = (priceUa, oldPriceUa) => {
+      return Math.round(100 - (priceUa * 100) / oldPriceUa);
     };
-    const discount = getDiscount(price, oldprice);
+    const discount = getDiscount(priceUa, oldPriceUa);
 
     return (
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         {!productPage && <Discount>{`-${discount}%`}</Discount>}
         <WrapperBoxOld>
-          <Box sx={{ marginRight: '10px', textDecoration: 'line-through' }}>
-            {oldprice}
-          </Box>
-
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 384 512"
-            height={'14px'}
-          >
-            <path
-              fill="#6A6A6A"
-              d="M384 304c0 17.67-14.33 32-32 32H122.2C116 344.4 112 354.8 112 365.9C112 393.5 134.5 416 162.1 416h48.64c20.33 0 40.25-8.25 54.63-22.62c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25C283.1 465.3 248.5 480 210.8 480H162.1C99.19 480 48 428.8 48 365.9c0-10.2 1.457-20.23 4.111-29.89H32c-17.67 0-32-14.33-32-32s14.33-32 32-32h65.67c1.568-1.078 3.018-2.295 4.646-3.297L154.7 240H32c-17.67 0-32-14.33-32-32s14.33-32 32-32h229.8C267.1 167.6 272 157.2 272 146.1C272 118.5 249.5 96 221.9 96H173.3C152.9 96 133 104.3 118.6 118.6c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25C100 46.69 135.5 32 173.3 32h48.64C284.8 32 336 83.19 336 146.1c0 10.2-1.457 20.23-4.111 29.89H352c17.67 0 32 14.33 32 32s-14.33 32-32 32h-65.67c-1.568 1.078-3.018 2.295-4.646 3.297L229.3 272H352C369.7 272 384 286.3 384 304z"
-            />
-          </svg>
+          <Typography sx={{ textDecoration: 'line-through' }}>
+            {formattedOldPriceUa} ₴
+          </Typography>
         </WrapperBoxOld>
         <WrapperBoxNew sx={{ color: '#DC362E' }}>
-          <Box sx={{ marginRight: '10px', fontSize: `${fontSize}px` }}>
-            {price}
-          </Box>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 384 512"
-            height={`${fontSize - 6}px`}
-          >
-            <path
-              fill="#DC362E"
-              d="M384 304c0 17.67-14.33 32-32 32H122.2C116 344.4 112 354.8 112 365.9C112 393.5 134.5 416 162.1 416h48.64c20.33 0 40.25-8.25 54.63-22.62c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25C283.1 465.3 248.5 480 210.8 480H162.1C99.19 480 48 428.8 48 365.9c0-10.2 1.457-20.23 4.111-29.89H32c-17.67 0-32-14.33-32-32s14.33-32 32-32h65.67c1.568-1.078 3.018-2.295 4.646-3.297L154.7 240H32c-17.67 0-32-14.33-32-32s14.33-32 32-32h229.8C267.1 167.6 272 157.2 272 146.1C272 118.5 249.5 96 221.9 96H173.3C152.9 96 133 104.3 118.6 118.6c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25C100 46.69 135.5 32 173.3 32h48.64C284.8 32 336 83.19 336 146.1c0 10.2-1.457 20.23-4.111 29.89H352c17.67 0 32 14.33 32 32s-14.33 32-32 32h-65.67c-1.568 1.078-3.018 2.295-4.646 3.297L229.3 272H352C369.7 272 384 286.3 384 304z"
-            />
-          </svg>
+          <Typography sx={{ fontSize: `${fontSize}px`, fontWeight: '500' }}>
+            {formattedPriceUa} ₴
+          </Typography>
           {productPage && (
             <DiscountProductPage>{`-${discount}%`}</DiscountProductPage>
           )}

@@ -8,6 +8,7 @@ import { styled, Box } from '@mui/material';
 const StyledWrapper = styled(Box)`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 1fr;
   gap: 16px;
   @media (max-width: 600px) {
     grid-template-columns: repeat(2, 1fr);
@@ -17,10 +18,10 @@ const StyledWrapper = styled(Box)`
   }
 `;
 
-const ProductsList = () => {
-  const productCards = Array.from({ length: 12 }, (_, index) => (
-    <ProductCard key={index} />
-  ));
+const ProductsList = ({ products }) => {
+  const productCards = products.map((product) => {
+    return <ProductCard key={product._id} product={product} />;
+  });
 
   return <StyledWrapper>{productCards}</StyledWrapper>;
 };

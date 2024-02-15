@@ -1,3 +1,5 @@
+import { useDispatch } from 'react-redux';
+import { toggleCart } from '@/redux/slices/CartSlice';
 import { Box } from '@mui/material';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import PageText from '@/app/ui/PageText';
@@ -6,24 +8,28 @@ import {
   StyledButton,
   StyledButtonGroup,
   StyledImageWrapper,
-  StyledOldPriceTypography,
-  StyledPriceTypography,
   StyledCartItemText,
   CartProductWrapper,
   CartItemWrapper,
   DeleteButtonWrapper,
 } from '@/app/ui/CartPage/CartItem/CartItemStyles';
-import { useState } from 'react';
+import getImageForProductCard from '@/app/lib/getImageForProductCard';
+import Price from '@/app/ui/ProductCard/Price';
 
-const CartItem = ({ product, handleRemove }) => {
-  const [count, setCount] = useState(1);
+const CartItem = ({ product }) => {
+  const { picture, price, oldprice, count } = product;
+  const dispatch = useDispatch();
 
-  const handleIncrement = () => {
-    setCount((prevCount) => prevCount + 1);
+  const removeCartProduct = () => {
+    dispatch(toggleCart({ currentCard: product, action: 'remove' }));
   };
 
-  const handleDecrement = () => {
-    setCount((prevCount) => prevCount - 1);
+  const minusCartProduct = () => {
+    dispatch(toggleCart({ currentCard: product, action: 'minus' }));
+  };
+
+  const plusCartProduct = () => {
+    dispatch(toggleCart({ currentCard: product, action: 'plus' }));
   };
 
   return (
@@ -32,55 +38,69 @@ const CartItem = ({ product, handleRemove }) => {
         <CartProductWrapper>
           <StyledImageWrapper>
             <Image
-              src={product.image}
+              src={
+                picture
+                  ? getImageForProductCard(picture)
+                  : '/images/noimageavailable.png'
+              }
               alt="item-preview"
               sizes="100%"
               fill
               style={{
                 objectFit: 'contain',
+                borderRadius: '16px',
               }}
             ></Image>
           </StyledImageWrapper>
           <Box>
             <StyledCartItemText>{product.name}</StyledCartItemText>
-            <PageText color={'#6A6A6A'}>Код: {product.code}</PageText>
+            <PageText color={'#6A6A6A'}>Код:</PageText>
           </Box>
         </CartProductWrapper>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: '35px' }}>
+        <Box
+          sx={{
+            width: '50%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'end',
+            gap: '35px',
+          }}
+        >
           <StyledButtonGroup>
             <StyledButton
               variant="text"
-              onClick={handleDecrement}
-              disabled={count === 1}
+              onClick={count === 1 ? removeCartProduct : minusCartProduct}
             >
               -
             </StyledButton>
             <PageText>{count}</PageText>
-            <StyledButton variant="text" onClick={handleIncrement}>
+            <StyledButton variant="text" onClick={plusCartProduct}>
               +
             </StyledButton>
           </StyledButtonGroup>
-          <Box>
-            <StyledOldPriceTypography>
-              {product.oldPrice * count} ₴
-            </StyledOldPriceTypography>
-            <StyledPriceTypography>
-              {product.price * count} ₴
-            </StyledPriceTypography>
-          </Box>
+          <Price price={price} oldprice={oldprice} fontSize={22} />
         </Box>
       </CartItemWrapper>
       <DeleteButtonWrapper>
         <StyledButton
-          onClick={() => {
-            handleRemove(product.code);
+          onClick={removeCartProduct}
+          sx={{
+            '&:hover': {
+              color: 'red',
+            },
           }}
         >
           <DeleteOutlineOutlinedIcon
-            sx={{ fontSize: '24px', mr: '8px' }}
-            style={{ color: '#4D4D4D' }}
+            sx={{
+              fontSize: '18px',
+              marginRight: '4px',
+              marginBottom: '2px',
+              '&:hover': {
+                color: '#dc362e',
+              },
+            }}
           />
-          <PageText color={'#4D4D4D'}>Видалити</PageText>
+          Видалити
         </StyledButton>
       </DeleteButtonWrapper>
     </Box>
