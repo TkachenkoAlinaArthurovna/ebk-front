@@ -3,8 +3,11 @@ import { createLinks } from '@/app/lib/createLinks';
 
 export const dynamicParams = false;
 export async function generateStaticParams() {
-  const res = await fetch('https://stage.eco-bike.com.ua/api/categories');
+  const res = await fetch('https://stage.eco-bike.com.ua/api/categories', {
+    next: { revalidate: 3600 },
+  });
   const data = await res.json();
+  console.log(data);
   const categoriesLinks = createLinks(data.items);
   return categoriesLinks.map((category) => ({
     category: category.link,
@@ -12,7 +15,9 @@ export async function generateStaticParams() {
 }
 
 async function getCategoryIdProducts(category) {
-  const res = await fetch('https://stage.eco-bike.com.ua/api/categories');
+  const res = await fetch('https://stage.eco-bike.com.ua/api/categories', {
+    next: { revalidate: 3600 },
+  });
   const data = await res.json();
   const categoriesLinks = createLinks(data.items);
   const categoryId = categoriesLinks.find(
@@ -24,6 +29,7 @@ async function getCategoryIdProducts(category) {
 async function getCategoryProducts(categoryId) {
   const res = await fetch(
     `https://stage.eco-bike.com.ua/api/catalog/${categoryId}`,
+    { next: { revalidate: 3600 } },
   );
   const data = await res.json();
   return data.results;

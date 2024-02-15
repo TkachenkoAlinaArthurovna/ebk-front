@@ -3,8 +3,8 @@ import { Box, Button, ButtonGroup, Typography, styled } from '@mui/material';
 export const StyledImageWrapper = styled(Box)`
   margin-right: 28px;
   position: relative;
-  width: 60px;
-  height: 38px;
+  width: 120px;
+  height: 76px;
 
   @media (max-width: 768px) {
     margin-right: 0;
@@ -26,8 +26,9 @@ export const CartItemWrapper = styled(Box)`
 
 export const CartProductWrapper = styled(Box)`
   display: flex;
+  flex-direction: row;
+  justify-content: start;
   align-items: center;
-  gap: 16px;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -50,8 +51,11 @@ export const StyledButton = styled(Button)`
   && {
     outline: none;
     background-color: transparent !important;
-    font-size: 20px;
-    color: #212121;
+    font-size: 16px;
+    color: #4d4d4d;
+  }
+  &&:hover {
+    color: #dc362e;
   }
 `;
 
@@ -76,21 +80,17 @@ export const StyledPriceTypography = styled(Typography)`
   color: #dc362e;
 `;
 
-export const StyledCartItemText = styled(Typography)`
+export const StyledCartItemText = styled(Box)`
   font-size: 16px;
   font-weight: 400;
-  width: 250px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 
   @media (max-width: 768px) {
     width: 400px;
     font-size: 28px;
   }
-    
+
   @media (max-width: 480px) {
-      font-size: 24px;
+    font-size: 24px;
     width: 300px;
   }
 `;

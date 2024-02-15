@@ -13,10 +13,10 @@ import {
 } from '@/app/ui/ModalCart/ModalCartStyles';
 import CloseIcon from '@mui/icons-material/Close';
 import ButtonMain from '@/app/ui/ButtonMain';
+import CartItem from '@/app/ui/CartPage/CartItem/CartItem';
 
 const ModalCart = () => {
   const currentCard = useSelector((state) => state.cart.currentCard);
-  console.log(currentCard);
   const isOpenModalCart = useSelector(
     (state) => state.cartModal.isOpenModalCart,
   );
@@ -36,7 +36,9 @@ const ModalCart = () => {
             <CloseIcon />
           </StyledIconButton>
         </StyledWrapper>
-        <StyledWrapperForProduct></StyledWrapperForProduct>
+        <StyledWrapperForProduct>
+          <CartItem product={currentCard} />
+        </StyledWrapperForProduct>
         <StyledWrapper>
           <StyledButton>Продовжити покупки</StyledButton>
           <ButtonMain width={'276px'} onClick={toggleCartProduct}>

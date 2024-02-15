@@ -18,6 +18,7 @@ import {
 } from '@/app/ui/ProductCard/ProductCardStyles';
 import { Box } from '@mui/material';
 import productColors from '@/app/lib/productColors';
+import getImageForProductCard from '@/app/lib/getImageForProductCard';
 
 const ProductCard = ({ product }) => {
   const { name, picture, price, oldprice, params, _id } = product;
@@ -28,15 +29,6 @@ const ProductCard = ({ product }) => {
 
   const toggleFavoritesProduct = () => {
     dispatch(toggleFavorites(_id));
-  };
-
-  const getImage = (picture) => {
-    if (Array.isArray(picture)) {
-      return picture[0];
-    }
-    if (!Array.isArray(picture)) {
-      return picture;
-    }
   };
 
   const getColorValue = (params) => {
@@ -66,7 +58,9 @@ const ProductCard = ({ product }) => {
               component="img"
               alt={`${name}`}
               image={
-                picture ? getImage(picture) : '/images/noimageavailable.png'
+                picture
+                  ? getImageForProductCard(picture)
+                  : '/images/noimageavailable.png'
               }
               sx={{
                 height: '100%',

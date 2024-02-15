@@ -41,7 +41,7 @@ const CartSlice = createSlice({
           break;
         case 'remove':
           state.cartProducts = state.cartProducts.filter(
-            (item) => item.title !== action.payload.currentCard.title,
+            (item) => item.name !== action.payload.currentCard.name,
           );
           break;
       }
