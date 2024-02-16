@@ -12,6 +12,7 @@ import SearchComponent from '@/app/ui/Header/SearchComponent';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import CloseIcon from '@mui/icons-material/Close';
 import Catalog from '@/app/ui/Header/Catalog';
+import SearchNew from '@/app/ui/Header/SearchNew';
 import {
   StyledButtonCatalog,
   StyledToolbar,
@@ -60,7 +61,8 @@ const Toolbar = ({ catalog }) => {
         Каталог
       </StyledButtonCatalog>
       <Catalog catalog={catalogLinks} />
-      <SearchComponent />
+      {/* <SearchComponent /> */}
+      <SearchNew/>
       <Phones />
       <StyledBoxIcons>
         <StyledLinkFavorite href="cabinet/favorites">
