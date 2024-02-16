@@ -51,6 +51,12 @@ const SearchNew = () => {
           placeholder="Я шукаю..."
         />
         {value && (
+          <ul className={styles.list}>
+            <li>список найденній товаров з затримкою </li>
+          </ul>
+        )}
+
+        {value && (
           <svg
             onClick={onClickClear}
             className={styles.closeIcon}
