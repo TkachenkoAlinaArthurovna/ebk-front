@@ -3,7 +3,7 @@ import { styled } from '@mui/system';
 import { Grid, Typography, ListItem, Box } from '@mui/material';
 
 export const StyledImg = styled('img')`
-  width: 100%;
+  width: 86%;
   border-radius: 28px;
 `;
 

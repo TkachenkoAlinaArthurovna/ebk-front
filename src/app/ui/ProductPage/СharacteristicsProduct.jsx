@@ -53,7 +53,11 @@ const СharacteristicsProduct = () => {
             <StyleTypographyName>{name}</StyleTypographyName>
             <Typography sx={{ color: '#6A6A6A' }}>Код: id</Typography>
           </Box>
-          <Box sx={{ marginBottom: '24px' }}>
+          <Box
+            sx={{
+              marginBottom: '24px',
+            }}
+          >
             <StyledImg src={mainPicture(picture)} />
           </Box>
           <Box sx={{ marginBottom: '32px' }}>

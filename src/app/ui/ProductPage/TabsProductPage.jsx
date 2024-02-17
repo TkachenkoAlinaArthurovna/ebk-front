@@ -42,7 +42,7 @@ const TabsProductPage = ({ currentProduct }) => {
           </StyledTabs>
         </Box>
         <CustomTabPanel value={value} index={0}>
-          {/* <AboutProduct /> */}
+          <AboutProduct />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
           <СharacteristicsProduct />
