@@ -9,7 +9,7 @@ const ProductPage = () => {
         <p>Bread Crumbs</p>
       </Content>
       <TabsProductPage />
-      <SlidersProductPage />
+      {/* <SlidersProductPage /> */}
     </>
   );
 };

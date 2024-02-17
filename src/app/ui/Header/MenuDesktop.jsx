@@ -48,7 +48,7 @@ const MenuDesktop = ({ handleCloseCatalog, categories, heightMenu }) => {
           onMouseEnter={() => handleMouseEnter(category.id)}
           onMouseLeave={handleMouseLeave}
         >
-          <Link href={`/${category.link}`} onClick={handleCloseCatalog}>
+          {category.children.length > 0 ? (
             <StyledButton>
               <ListItemText sx={{ margin: '0' }}>
                 {capitalizeFirstLetter(category.name)}
@@ -59,7 +59,20 @@ const MenuDesktop = ({ handleCloseCatalog, categories, heightMenu }) => {
                 />
               )}
             </StyledButton>
-          </Link>
+          ) : (
+            <Link href={`/${category.link}`} onClick={handleCloseCatalog}>
+              <StyledButton>
+                <ListItemText sx={{ margin: '0' }}>
+                  {capitalizeFirstLetter(category.name)}
+                </ListItemText>
+                {category.children.length > 0 && (
+                  <ArrowForwardIosIcon
+                    sx={{ marginLeft: '40px', fontSize: '16px' }}
+                  />
+                )}
+              </StyledButton>
+            </Link>
+          )}
           {category.children.length > 0 && (
             <SubCategoriesWrapper
               style={{
