@@ -27,7 +27,7 @@ const TabsProductPage = ({ currentProduct }) => {
   };
   return (
     <StyledSection as="section">
-      <Content>
+      {/* <Content>
         <Box
           sx={{ marginBottom: '24px', borderBottom: 1, borderColor: 'divider' }}
         >
@@ -50,7 +50,7 @@ const TabsProductPage = ({ currentProduct }) => {
         <CustomTabPanel value={value} index={2}>
           <DescriptionProduct />
         </CustomTabPanel>
-      </Content>
+      </Content> */}
     </StyledSection>
   );
 };
