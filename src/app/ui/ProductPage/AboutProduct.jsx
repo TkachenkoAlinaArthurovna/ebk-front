@@ -25,7 +25,6 @@ const AboutProduct = () => {
     (state) => state.currentProductPage.currentProduct,
   );
   const { name, picture, params, price, oldprice } = currentProduct;
-  console.log(picture);
   const dispatch = useDispatch();
 
   return (
@@ -41,16 +40,17 @@ const AboutProduct = () => {
           },
         }}
       >
-        {/* {picture && picture.length > 1 ? ( */}
-        <WrapperSlider>
-          <Slider
-            spaceBetween={0}
-            slidesPerView={1}
-            pagination={false}
-            slidesProductPage={picture}
-          />
-        </WrapperSlider>
-        {/* ) : picture && picture.length === 1 ? (
+        {Array.isArray(picture) && picture.length > 1 && (
+          <WrapperSlider>
+            <Slider
+              spaceBetween={0}
+              slidesPerView={1}
+              pagination={false}
+              slidesProductPage={picture}
+            />
+          </WrapperSlider>
+        )}
+        {Array.isArray(picture) && picture.length == 1 && (
           <WrapperSlider>
             <Box
               component="img"
@@ -63,7 +63,8 @@ const AboutProduct = () => {
               }}
             />
           </WrapperSlider>
-        ) : (
+        )}
+        {!Array.isArray(picture) && (
           <WrapperSlider>
             <Box
               component="img"
@@ -76,7 +77,7 @@ const AboutProduct = () => {
               }}
             />
           </WrapperSlider>
-        )} */}
+        )}
       </Box>
       <WrapperContent>
         <PageTitle>{name}</PageTitle>
