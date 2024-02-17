@@ -56,6 +56,7 @@ const Slider = ({
           component="img"
           src={slide}
           sx={{
+            maxWidth: '100%',
             maxHeight: '500px',
             borderRadius: '28px',
             '@media (max-width: 1024px)': {
@@ -150,8 +151,6 @@ const Slider = ({
         autoplay={autoplay}
         speed={speed}
         spaceBetween={spaceBetween}
-        slidesPerView={1}
-        slidesPerGroup={1}
         loopAddBlankSlides={true}
         loop={false}
         pagination={pagination}
