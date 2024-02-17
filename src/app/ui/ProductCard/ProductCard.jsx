@@ -1,3 +1,4 @@
+import { usePathname } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleCartModal } from '@/redux/slices/CartModalSlice';
 import { setCurrentCard } from '@/redux/slices/CartSlice';
@@ -19,6 +20,7 @@ import {
 import { Box } from '@mui/material';
 import productColors from '@/app/lib/productColors';
 import getImageForProductCard from '@/app/lib/getImageForProductCard';
+import { createLinkProduct } from '@/app/lib/createLinkProduct';
 
 const ProductCard = ({ product }) => {
   const { name, picture, price, oldprice, params, _id } = product;
@@ -26,6 +28,8 @@ const ProductCard = ({ product }) => {
   const favorites = useSelector((state) => state.favorites.favorites);
   const cartProducts = useSelector((state) => state.cart.cartProducts);
   const arrId = cartProducts.map((item) => item._id);
+  const pathname = usePathname();
+  const link = createLinkProduct(name);
 
   const toggleFavoritesProduct = () => {
     dispatch(toggleFavorites(_id));
@@ -48,7 +52,7 @@ const ProductCard = ({ product }) => {
   return (
     <StyledCard>
       <Box sx={{ height: '70%' }}>
-        <StyledLink href="/category/product_id">
+        <StyledLink href={`${pathname}/${link}`}>
           <Box
             sx={{
               height: '70%',

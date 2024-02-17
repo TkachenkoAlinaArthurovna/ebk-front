@@ -1,7 +1,8 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleMenuModal } from '@/redux/slices/MenuModalSlice';
+import { setCatalogLinks } from '@/redux/slices/CatalogLinksSlice';
 import Link from 'next/link';
 import IconButtonMenu from '@/app/ui/Header/IconButtonMenu';
 import IconButton from '@mui/material/IconButton';
@@ -27,7 +28,11 @@ import Phones from '@/app/ui/Header/Phones';
 import Logo from '@/app/ui/Logo/Logo';
 
 const Toolbar = ({ catalog }) => {
+  const dispatch = useDispatch();
   const catalogLinks = createLinks(catalog.items);
+  useEffect(() => {
+    dispatch(setCatalogLinks(catalogLinks));
+  }, [catalogLinks]);
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const toggleDrawer = () => {
@@ -37,7 +42,7 @@ const Toolbar = ({ catalog }) => {
   const isOpenModalMenu = useSelector(
     (state) => state.menuModal.isOpenModalMenu,
   );
-  const dispatch = useDispatch();
+
   const toggleOpenCatalog = () => dispatch(toggleMenuModal());
 
   return (
@@ -59,7 +64,7 @@ const Toolbar = ({ catalog }) => {
       >
         Каталог
       </StyledButtonCatalog>
-      <Catalog catalog={catalogLinks} />
+      <Catalog />
       <SearchComponent />
       <Phones />
       <StyledBoxIcons>

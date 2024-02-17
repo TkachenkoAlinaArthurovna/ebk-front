@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useSelector } from 'react-redux';
 import ProductCard from '@/app/ui/ProductCard';
 
 import { styled, Box } from '@mui/material';
@@ -18,7 +19,10 @@ const StyledWrapper = styled(Box)`
   }
 `;
 
-const ProductsList = ({ products }) => {
+const ProductsList = () => {
+  const products = useSelector(
+    (state) => state.categoryProducts.categoryProducts,
+  );
   const productCards = products.map((product) => {
     return <ProductCard key={product._id} product={product} />;
   });

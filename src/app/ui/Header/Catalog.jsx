@@ -14,7 +14,8 @@ import MenuMob from '@/app/ui/Header/MenuMob';
 import { useResize } from '@/app/lib/helpers';
 import { height } from '@mui/system';
 
-const Catalog = ({ catalog }) => {
+const Catalog = () => {
+  const catalog = useSelector((state) => state.catalogLinks.catalogLinks);
   const isOpenModalMenu = useSelector(
     (state) => state.menuModal.isOpenModalMenu,
   );
