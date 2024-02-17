@@ -16,7 +16,7 @@ export const StyledGridOrder = styled(Grid)(({ theme }) => ({
 }));
 
 export const StyledTypography = styled(Typography)`
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   font-weight: 500;
   font-size: 28px;
   @media (max-width: 900px) {

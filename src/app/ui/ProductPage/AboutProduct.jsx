@@ -1,5 +1,6 @@
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { toggleCartModal } from '@/redux/slices/CartModalSlice';
+import { setCurrentCard } from '@/redux/slices/CartSlice';
 import { Box, Typography } from '@mui/material';
 import {
   WrapperAboutProduct,
@@ -17,16 +18,15 @@ import FavoriteIcon from '@mui/icons-material/FavoriteBorder';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Delivery from '@/app/ui/ProductPage/Delivery';
 import Pay from '@/app/ui/ProductPage/Pay';
+import { getColorValue } from '@/app/lib/getColorValue';
 
 const AboutProduct = () => {
+  const currentProduct = useSelector(
+    (state) => state.currentProductPage.currentProduct,
+  );
+  const { name, picture, params, price, oldprice } = currentProduct;
   const dispatch = useDispatch();
-  const toggleCart = () => dispatch(toggleCartModal());
-  const slides = [
-    'https://images.prom.ua/4402122690_elektro-velosiped-elite-26.jpg',
-    'https://images.prom.ua/4402123724_elektro-velosiped-elite-26.jpg',
-    'https://images.prom.ua/4402124044_elektro-velosiped-elite-26.jpg',
-    'https://images.prom.ua/4402124239_elektro-velosiped-elite-26.jpg',
-  ];
+
   return (
     <WrapperAboutProduct>
       <Box
@@ -40,32 +40,67 @@ const AboutProduct = () => {
           },
         }}
       >
-        <WrapperSlider>
-          <Slider
-            spaceBetween={0}
-            slidesPerView={1}
-            pagination={false}
-            slidesProductPage={slides}
-          />
-        </WrapperSlider>
+        {picture && picture.length > 1 ? (
+          <WrapperSlider>
+            <Slider
+              spaceBetween={0}
+              slidesPerView={1}
+              pagination={false}
+              slidesProductPage={picture}
+            />
+          </WrapperSlider>
+        ) : picture && picture.length === 1 ? (
+          <WrapperSlider>
+            <Box
+              component="img"
+              alt={`${name}`}
+              src={picture[0]}
+              sx={{
+                width: 'auto',
+                maxHeight: '500px',
+                borderRadius: '28px',
+              }}
+            />
+          </WrapperSlider>
+        ) : (
+          <WrapperSlider>
+            <Box
+              component="img"
+              alt={`${name}`}
+              src={picture ? picture : '/images/noimageavailable.png'}
+              sx={{
+                width: 'auto',
+                maxHeight: '500px',
+                borderRadius: '28px',
+              }}
+            />
+          </WrapperSlider>
+        )}
       </Box>
       <WrapperContent>
-        <PageTitle>Електро-велосипед "Elite", 26", 500W, 13A/h</PageTitle>
+        <PageTitle>{name}</PageTitle>
         <Box sx={{ display: 'flex', justifyContent: 'end', marginTop: '16px' }}>
-          <Typography sx={{ color: '#6a6a6a' }}>1810488191</Typography>
+          <Typography sx={{ color: '#6a6a6a' }}>id</Typography>
         </Box>
-        <WrapperColor>
-          <Typography sx={{ color: '#6a6a6a', marginBottom: '16px' }}>
-            Доступні варіанти товару
-          </Typography>
-          <Box
-            sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'nowrap' }}
-          >
-            <Color sx={{ backgroundColor: '#D2B48C' }} />
-          </Box>
-        </WrapperColor>
+        {getColorValue(params) && (
+          <WrapperColor>
+            <Typography sx={{ color: '#6a6a6a', marginBottom: '16px' }}>
+              Доступні варіанти товару:
+            </Typography>
+            <Box
+              sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'nowrap' }}
+            >
+              <Color sx={{ backgroundColor: `${getColorValue(params)}` }} />
+            </Box>
+          </WrapperColor>
+        )}
         <Box sx={{ marginBottom: '32px' }}>
-          <Price price={828} oldprice={920} fontSize={28} productPage={true} />
+          <Price
+            price={price}
+            oldprice={oldprice}
+            fontSize={28}
+            productPage={true}
+          />
         </Box>
         <Box
           sx={{
@@ -78,7 +113,10 @@ const AboutProduct = () => {
           <ButtonMain
             width={'100%'}
             startIcon={<ShoppingCartIcon />}
-            onClick={toggleCart}
+            onClick={() => {
+              dispatch(toggleCartModal());
+              dispatch(setCurrentCard(currentProduct));
+            }}
           >
             Купити
           </ButtonMain>
