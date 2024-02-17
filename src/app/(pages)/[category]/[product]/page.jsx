@@ -56,6 +56,5 @@ async function getProduct(productId) {
 export default async function Product({ params }) {
   const { product } = params;
   const currentProduct = await getProductId(product);
-  // return <ProductPage currentProduct={currentProduct} />;
-  return <div>hi</div>;
+  return <ProductPage currentProduct={currentProduct} />;
 }
