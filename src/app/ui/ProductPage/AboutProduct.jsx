@@ -40,7 +40,7 @@ const AboutProduct = () => {
           },
         }}
       >
-        {picture && picture.length > 1 && (
+        {Array.isArray(picture) && picture.length > 1 && (
           <WrapperSlider>
             <Slider
               spaceBetween={0}
@@ -50,7 +50,7 @@ const AboutProduct = () => {
             />
           </WrapperSlider>
         )}
-        {picture && picture.length == 1 && (
+        {Array.isArray(picture) && picture.length == 1 && (
           <WrapperSlider>
             <Box
               component="img"
