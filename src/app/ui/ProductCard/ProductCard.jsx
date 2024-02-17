@@ -18,9 +18,9 @@ import {
   StyledLink,
 } from '@/app/ui/ProductCard/ProductCardStyles';
 import { Box } from '@mui/material';
-import productColors from '@/app/lib/productColors';
 import getImageForProductCard from '@/app/lib/getImageForProductCard';
 import { createLinkProduct } from '@/app/lib/createLinkProduct';
+import { getColorValue } from '@/app/lib/getColorValue';
 
 const ProductCard = ({ product }) => {
   const { name, picture, price, oldprice, params, _id } = product;
@@ -33,20 +33,6 @@ const ProductCard = ({ product }) => {
 
   const toggleFavoritesProduct = () => {
     dispatch(toggleFavorites(_id));
-  };
-
-  const getColorValue = (params) => {
-    for (const param of params) {
-      if (param.name.includes('Color')) {
-        const colorName = param.value[0].toLowerCase();
-        const colorObject = productColors.find(
-          (color) => color.name.toLowerCase() === colorName,
-        );
-
-        return colorObject ? colorObject.value : null;
-      }
-    }
-    return null;
   };
 
   return (

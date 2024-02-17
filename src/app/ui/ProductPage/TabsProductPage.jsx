@@ -1,5 +1,8 @@
 'use client';
 import * as React from 'react';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { serCurrentProduct } from '@/redux/slices/CurrentProductPageSlice';
 import { StyledTabs, StyledTab } from '@/app/ui/Tabs/TabsStyled';
 import CustomTabPanel from '@/app/ui/Tabs/CustomTabPanel';
 import { Box } from '@mui/material';
@@ -10,7 +13,13 @@ import СharacteristicsProduct from '@/app/ui/ProductPage/СharacteristicsProduc
 import DescriptionProduct from '@/app/ui/ProductPage/DescriptionProduct';
 import { StyledSection } from '@/app/ui/ProductPage/ProductPageStyles';
 
-const TabsProductPage = () => {
+const TabsProductPage = ({ currentProduct }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(serCurrentProduct(currentProduct));
+  }, [currentProduct]);
+
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {

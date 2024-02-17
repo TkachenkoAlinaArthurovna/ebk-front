@@ -1,5 +1,4 @@
 import ProductPage from '@/app/ui/ProductPage';
-import { createLinks } from '@/app/lib/createLinks';
 import { createLinkProduct } from '@/app/lib/createLinkProduct';
 
 export const dynamicParams = false;
@@ -36,7 +35,26 @@ export async function generateStaticParams() {
   return staticParams;
 }
 
+async function getProductId(name) {
+  const products = await getProducts();
+  const product = products.find(
+    (item) => createLinkProduct(item.name) === name,
+  );
+  const productId = product ? product._id : null;
+  return getProduct(productId);
+}
+
+async function getProduct(productId) {
+  const res = await fetch(
+    `https://stage.eco-bike.com.ua/api/products/${productId}`,
+    { next: { revalidate: 3600 } },
+  );
+  const data = await res.json();
+  return data;
+}
+
 export default async function Product({ params }) {
   const { product } = params;
-  return <ProductPage />;
+  const currentProduct = await getProductId(product);
+  return <ProductPage currentProduct={currentProduct} />;
 }
