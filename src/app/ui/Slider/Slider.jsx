@@ -153,7 +153,7 @@ const Slider = ({
         slidesPerView={1}
         slidesPerGroup={1}
         loopAddBlankSlides={true}
-        loop={true}
+        loop={false}
         pagination={pagination}
         modules={[Autoplay, Navigation, Pagination]}
         navigation
