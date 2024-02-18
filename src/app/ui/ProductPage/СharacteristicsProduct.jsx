@@ -15,10 +15,10 @@ import { StyledIconFavoriteButton } from '@/app/ui/ProductPage/ProductPageStyles
 import Price from '@/app/ui/ProductCard/Price';
 import ButtonMain from '@/app/ui/ButtonMain';
 
-const СharacteristicsProduct = () => {
-  const currentProduct = useSelector(
-    (state) => state.currentProductPage.currentProduct,
-  );
+const СharacteristicsProduct = ({ currentProduct }) => {
+  // const currentProduct = useSelector(
+  //   (state) => state.currentProductPage.currentProduct,
+  // );
   const { name, picture, params, price, oldprice } = currentProduct;
   const mainPicture = (picture) => {
     if (picture && picture.length >= 1) {
