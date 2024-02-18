@@ -14,10 +14,10 @@ import { StyledIconFavoriteButton } from '@/app/ui/ProductPage/ProductPageStyles
 import Price from '@/app/ui/ProductCard/Price';
 import ButtonMain from '@/app/ui/ButtonMain';
 
-const DescriptionProduct = () => {
-  const currentProduct = useSelector(
-    (state) => state.currentProductPage.currentProduct,
-  );
+const DescriptionProduct = ({ currentProduct }) => {
+  // const currentProduct = useSelector(
+  //   (state) => state.currentProductPage.currentProduct,
+  // );
   const { name, picture, description, price, oldprice } = currentProduct;
   const dispatch = useDispatch();
   const mainPicture = (picture) => {

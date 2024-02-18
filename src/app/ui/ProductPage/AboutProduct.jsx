@@ -20,10 +20,10 @@ import Delivery from '@/app/ui/ProductPage/Delivery';
 import Pay from '@/app/ui/ProductPage/Pay';
 import { getColorValue } from '@/app/lib/getColorValue';
 
-const AboutProduct = () => {
-  const currentProduct = useSelector(
-    (state) => state.currentProductPage.currentProduct,
-  );
+const AboutProduct = ({ currentProduct }) => {
+  // const currentProduct = useSelector(
+  //   (state) => state.currentProductPage.currentProduct,
+  // );
   const { name, picture, params, price, oldprice } = currentProduct;
   console.log(params);
   const dispatch = useDispatch();

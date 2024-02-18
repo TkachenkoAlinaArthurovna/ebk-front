@@ -14,11 +14,11 @@ import DescriptionProduct from '@/app/ui/ProductPage/DescriptionProduct';
 import { StyledSection } from '@/app/ui/ProductPage/ProductPageStyles';
 
 const TabsProductPage = ({ currentProduct }) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(serCurrentProduct(currentProduct));
-  }, [currentProduct]);
+  // useEffect(() => {
+  //   dispatch(serCurrentProduct(currentProduct));
+  // }, [currentProduct]);
 
   const [value, setValue] = React.useState(0);
 
@@ -42,13 +42,13 @@ const TabsProductPage = ({ currentProduct }) => {
           </StyledTabs>
         </Box>
         <CustomTabPanel value={value} index={0}>
-          <AboutProduct />
+          <AboutProduct currentProduct={currentProduct} />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          <СharacteristicsProduct />
+          <СharacteristicsProduct currentProduct={currentProduct} />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-          <DescriptionProduct />
+          <DescriptionProduct currentProduct={currentProduct} />
         </CustomTabPanel>
       </Content>
     </StyledSection>
