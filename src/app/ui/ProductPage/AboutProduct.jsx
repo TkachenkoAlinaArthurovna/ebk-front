@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toggleCartModal } from '@/redux/slices/CartModalSlice';
 import { setCurrentCard } from '@/redux/slices/CartSlice';
 import { Box, Typography } from '@mui/material';
@@ -21,9 +21,6 @@ import Pay from '@/app/ui/ProductPage/Pay';
 import { getColorValue } from '@/app/lib/getColorValue';
 
 const AboutProduct = ({ currentProduct }) => {
-  // const currentProduct = useSelector(
-  //   (state) => state.currentProductPage.currentProduct,
-  // );
   const { name, picture, params, price, oldprice } = currentProduct;
   console.log(params);
   const dispatch = useDispatch();
