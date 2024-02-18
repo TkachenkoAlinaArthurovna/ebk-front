@@ -25,6 +25,7 @@ const AboutProduct = () => {
     (state) => state.currentProductPage.currentProduct,
   );
   const { name, picture, params, price, oldprice } = currentProduct;
+  console.log(params);
   const dispatch = useDispatch();
 
   return (
