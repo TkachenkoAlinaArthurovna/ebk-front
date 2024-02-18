@@ -26,7 +26,7 @@ export const StyledBox = styled(Box)`
   justify-content: ${({ position }) =>
     position === 'center' ? 'center' : 'flex-start'};
 
-  @media (max-width: 670px) {
+  @media (max-width: 700px) {
     justify-content: center;
     text-align: center;
   }

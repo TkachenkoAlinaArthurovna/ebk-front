@@ -5,8 +5,10 @@ import { Box, List, Typography, Grid } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/FavoriteBorder';
 import {
+  StyledWrapper,
   StyledImg,
-  StyledGridOrder,
+  StyledLeft,
+  StyledRight,
   StyledTypography,
   StyledListItem,
   StyleTypographyName,
@@ -29,8 +31,8 @@ const СharacteristicsProduct = ({ currentProduct }) => {
   const toggleCart = () => dispatch(toggleCartModal());
   return (
     <Box>
-      <Grid container spacing={4}>
-        <StyledGridOrder item lg={7} md={7} sm={12} xs={12}>
+      <StyledWrapper>
+        <StyledLeft>
           <StyledTypography>Характеристики</StyledTypography>
           <List disablePadding>
             {params.map((item) => (
@@ -44,8 +46,8 @@ const СharacteristicsProduct = ({ currentProduct }) => {
               </StyledListItem>
             ))}
           </List>
-        </StyledGridOrder>
-        <Grid item lg={5} md={5} sm={12} xs={12}>
+        </StyledLeft>
+        <StyledRight>
           <Box sx={{ marginBottom: '16px' }}>
             <StyleTypographyName>{name}</StyleTypographyName>
             <Typography sx={{ color: '#6A6A6A' }}>Код: id</Typography>
@@ -53,6 +55,10 @@ const СharacteristicsProduct = ({ currentProduct }) => {
           <Box
             sx={{
               marginBottom: '24px',
+              '@media (max-width: 900px)': {
+                display: 'flex',
+                justifyContent: 'center',
+              },
             }}
           >
             <StyledImg src={mainPicture(picture)} />
@@ -87,8 +93,8 @@ const СharacteristicsProduct = ({ currentProduct }) => {
               <FavoriteIcon sx={{ width: '24px', height: '24px' }} />
             </StyledIconFavoriteButton>
           </Box>
-        </Grid>
-      </Grid>
+        </StyledRight>
+      </StyledWrapper>
     </Box>
   );
 };

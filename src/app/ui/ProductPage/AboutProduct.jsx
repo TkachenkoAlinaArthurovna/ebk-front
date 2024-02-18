@@ -22,7 +22,6 @@ import { getColorValue } from '@/app/lib/getColorValue';
 
 const AboutProduct = ({ currentProduct }) => {
   const { name, picture, params, price, oldprice } = currentProduct;
-  console.log(params);
   const dispatch = useDispatch();
 
   return (

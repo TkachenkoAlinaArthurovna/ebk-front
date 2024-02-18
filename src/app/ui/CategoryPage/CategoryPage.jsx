@@ -18,6 +18,7 @@ import {
 } from '@/app/ui/CategoryPage/CategoryPageStyles';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import FilterListOffIcon from '@mui/icons-material/FilterListOff';
+import BreadCrumbsDynamic from '@/app/ui/BreadCrumbsDynamic';
 
 const CategoryPage = ({ categoryName, products }) => {
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const CategoryPage = ({ categoryName, products }) => {
     <>
       <Content>
         <StyledWrapper>
-          <p>Bread Crumbs</p>
+          <BreadCrumbsDynamic />
 
           <StyledTitleBox>
             <PageTitle>{categoryName}</PageTitle>
