@@ -8,7 +8,7 @@ export const StyledWrapper = styled(Box)`
 
 export const StyledTitleBox = styled(Box)`
   margin-top: 48px;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
 `;
 
 export const StyledSelectedFiltersWrapper = styled(Box)`

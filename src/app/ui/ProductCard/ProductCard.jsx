@@ -14,6 +14,7 @@ import {
   StyledIconButton,
   StyledIconFavoriteButton,
   Title,
+  StyledCardLink,
   StyledCardContent,
   StyledLink,
 } from '@/app/ui/ProductCard/ProductCardStyles';
@@ -37,11 +38,18 @@ const ProductCard = ({ product }) => {
 
   return (
     <StyledCard>
-      <Box sx={{ height: '70%' }}>
+      <StyledCardLink>
         <StyledLink href={`${pathname}/${link}`}>
           <Box
             sx={{
               height: '70%',
+              marginBottom: '10px',
+              '@media (max-width: 500px)': {
+                height: '60%',
+              },
+              '@media (max-width: 400px)': {
+                height: '74%',
+              },
             }}
           >
             <CardMedia
@@ -59,15 +67,9 @@ const ProductCard = ({ product }) => {
               }}
             />
           </Box>
-          <Title
-            sx={{
-              height: '20%',
-            }}
-          >
-            {name}
-          </Title>
+          <Title>{name}</Title>
         </StyledLink>
-      </Box>
+      </StyledCardLink>
       <StyledCardContent>
         <Colors colors={getColorValue(params)} />
         <Price price={price} oldprice={oldprice} fontSize={22} />

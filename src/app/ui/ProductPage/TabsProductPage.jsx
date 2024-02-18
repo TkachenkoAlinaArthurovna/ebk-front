@@ -17,7 +17,7 @@ const TabsProductPage = ({ currentProduct }) => {
     setValue(newValue);
   };
   return (
-    <StyledSection as="section">
+    <StyledSection as="section" sx={{ marginTop: '20px' }}>
       <Content>
         <Box
           sx={{ marginBottom: '24px', borderBottom: 1, borderColor: 'divider' }}

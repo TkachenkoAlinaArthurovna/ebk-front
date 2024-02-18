@@ -11,12 +11,21 @@ import Link from 'next/link';
 export const StyledCard = styled(Card)`
   position: relative;
   max-width: 300;
-  max-height: 452px;
+  max-height: 420px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border: none;
   box-shadow: none;
+  @media (max-width: 800px) {
+    max-height: 460px;
+  }
+  @media (max-width: 700px) {
+    max-height: 410px;
+  }
+  @media (max-width: 500px) {
+    max-height: 380px;
+  }
 `;
 
 export const StyledIconButton = styled(IconButton)`
@@ -26,8 +35,11 @@ export const StyledIconButton = styled(IconButton)`
   width: 40px;
   height: 40px;
   border: 1px solid #e5e5e5;
-  @media (max-width: 780px) {
+  @media (max-width: 800px) {
     right: 12px;
+  }
+  @media (max-width: 400px) {
+    bottom: 18px;
   }
 `;
 
@@ -38,49 +50,75 @@ export const StyledIconFavoriteButton = styled(IconButton)`
   width: 40px;
   height: 40px;
   border: none;
-  @media (max-width: 780px) {
+  @media (max-width: 800px) {
     right: 12px;
   }
-  @media (max-width: 480px) {
-    bottom: 82px;
+  @media (max-width: 500px) {
+    bottom: 70px;
+  }
+  @media (max-width: 400px) {
+    bottom: 64px;
   }
 `;
 
 export const Title = styled(Typography)`
+  height: 84px;
   margin: 0 14px;
   font-size: 18px;
   font-weight: 500;
   line-height: 28px;
+  overflow: hidden;
   @media (max-width: 1200px) {
     font-size: 16px;
   }
-  @media (max-width: 780px) {
+  @media (max-width: 800px) {
     margin: 0 12px;
   }
-  @media (max-width: 650px) {
-    font-size: 18px;
-  }
-  @media (max-width: 585px) {
+  @media (max-width: 600px) {
     font-size: 16px;
   }
-  @media (max-width: 480px) {
+  @media (max-width: 500px) {
     margin: 0 6px;
+  }
+  @media (max-width: 400px) {
+    height: 66px;
+  }
+`;
+
+export const StyledCardLink = styled(Box)`
+  height: 70%;
+  margin-bottom: 10px;
+  @media (max-width: 1100px) {
+    height: 74%;
+  }
+  @media (max-width: 700px) {
+    height: 70%;
+  }
+  @media (max-width: 400px) {
+    height: 80%;
   }
 `;
 
 export const StyledCardContent = styled(CardContent)`
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
   padding: 14px;
-  @media (max-width: 780px) {
+  @media (max-width: 1100px) {
+    height: 26%;
+  }
+  @media (max-width: 800px) {
     padding: 12px;
   }
-  @media (max-width: 480px) {
-    padding: 12px 6px;
+  @media (max-width: 400px) {
+    height: 20%;
   }
 `;
 
 export const StyledLink = styled(Link)`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: start;
   height: 100%;
 `;

@@ -11,10 +11,10 @@ const StyledWrapper = styled(Box)`
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 1fr;
   gap: 16px;
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
     grid-template-columns: repeat(2, 1fr);
   }
-  @media (max-width: 380px) {
+  @media (max-width: 400px) {
     grid-template-columns: repeat(1, 1fr);
   }
 `;

@@ -6,7 +6,9 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/FavoriteBorder';
 import {
   StyledImg,
-  StyledGridOrder,
+  StyledWrapper,
+  StyledLeft,
+  StyledRight,
   StyleTypographyName,
   StyledTypography,
 } from '@/app/ui/ProductPage/CaracteristicsProductStyles';
@@ -28,21 +30,29 @@ const DescriptionProduct = ({ currentProduct }) => {
 
   return (
     <Box>
-      <Grid container spacing={4}>
-        <StyledGridOrder item lg={7} md={7} sm={12} xs={12}>
+      <StyledWrapper>
+        <StyledLeft>
           <StyledTypography>Опис</StyledTypography>
           <Typography
             className="description"
             dangerouslySetInnerHTML={{ __html: description }}
             sx={{ lineHeight: '24px' }}
           />
-        </StyledGridOrder>
-        <Grid item lg={5} md={5} sm={12} xs={12}>
+        </StyledLeft>
+        <StyledRight>
           <Box sx={{ marginBottom: '16px' }}>
             <StyleTypographyName>{name}</StyleTypographyName>
             <Typography sx={{ color: '#6A6A6A' }}>Код: id</Typography>
           </Box>
-          <Box sx={{ marginBottom: '24px' }}>
+          <Box
+            sx={{
+              marginBottom: '24px',
+              '@media (max-width: 900px)': {
+                display: 'flex',
+                justifyContent: 'center',
+              },
+            }}
+          >
             <StyledImg src={mainPicture(picture)} />
           </Box>
           <Box sx={{ marginBottom: '32px' }}>
@@ -75,8 +85,8 @@ const DescriptionProduct = ({ currentProduct }) => {
               <FavoriteIcon sx={{ width: '24px', height: '24px' }} />
             </StyledIconFavoriteButton>
           </Box>
-        </Grid>
-      </Grid>
+        </StyledRight>
+      </StyledWrapper>
     </Box>
   );
 };
