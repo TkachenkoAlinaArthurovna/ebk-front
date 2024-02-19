@@ -41,7 +41,7 @@ const CategoryPage = ({
           </StyledTitleBox>
 
           <StyledSelectedFiltersWrapper>
-            {/* <SelectedFilters /> */}
+            <SelectedFilters />
             <StyledRightWrapper>
               <SortingProducts />
               <StyledIconButton onClick={toggleDrawer}>
