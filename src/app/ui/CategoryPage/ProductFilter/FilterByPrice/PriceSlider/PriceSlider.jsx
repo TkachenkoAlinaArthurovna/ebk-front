@@ -4,35 +4,43 @@ import { Slider } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { setMinPrice, setMaxPrice } from '@/redux/slices/ProductFilterSlice';
 
-const PriceSlider = () => {
+const PriceSlider = ({ priceRange, categoryId }) => {
+  const categoryProductsPrice = priceRange;
   const dispatch = useDispatch();
-  const minPrice = useSelector((state) => state.productFilter.minPrice);
-  const maxPrice = useSelector((state) => state.productFilter.maxPrice);
+
+  const minPrice = () => {
+    const minPriceArr = useSelector((state) => state.productFilter.minPrice);
+    const obj = minPriceArr.find((item) => item.category === categoryId);
+    const value = obj ? obj.value : Math.min(...categoryProductsPrice);
+    return value;
+  };
+  const maxPrice = () => {
+    const maxPriceArr = useSelector((state) => state.productFilter.maxPrice);
+    const obj = maxPriceArr.find((item) => item.category === categoryId);
+    const value = obj ? obj.value : Math.max(...categoryProductsPrice);
+    return value;
+  };
   const selectedPrice = useSelector(
     (state) => state.productFilter.selectedPrice,
   );
-  const categoryProductsPrice = [
-    7850, 15678, 11344, 24890, 18234, 9234, 20456, 27765, 13890, 122789,
-  ];
-
   useEffect(() => {
     const min = Math.min(...categoryProductsPrice);
     const max = Math.max(...categoryProductsPrice);
     if (selectedPrice == '') {
-      dispatch(setMinPrice(min));
-      dispatch(setMaxPrice(max));
+      dispatch(setMinPrice({ category: categoryId, value: min }));
+      dispatch(setMaxPrice({ category: categoryId, value: max }));
     }
   }, [selectedPrice]);
 
   const handleSliderChange = (event, newValue) => {
-    dispatch(setMinPrice(newValue[0]));
-    dispatch(setMaxPrice(newValue[1]));
+    dispatch(setMinPrice({ category: categoryId, value: newValue[0] }));
+    dispatch(setMaxPrice({ category: categoryId, value: newValue[1] }));
   };
 
   return (
     <>
       <Slider
-        value={[minPrice, maxPrice]}
+        value={[minPrice(), maxPrice()]}
         onChange={handleSliderChange}
         min={Math.min(...categoryProductsPrice)}
         max={Math.max(...categoryProductsPrice)}

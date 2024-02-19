@@ -5,7 +5,7 @@ import { createLinks } from '@/app/lib/createLinks';
 export const dynamicParams = false;
 
 async function getProducts() {
-  const res = await fetch(`https://stage.eco-bike.com.ua/api/products`, {
+  const res = await fetch(`https://stage.eco-bike.com.ua/api/products/all`, {
     next: { revalidate: 3600 },
   });
   const data = await res.json();

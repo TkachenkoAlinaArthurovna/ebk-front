@@ -1,7 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { setCategoryProducts } from '@/redux/slices/CategoryProductsSlice';
+import React, { useState } from 'react';
 import Content from '@/app/ui/Content';
 import PageTitle from '@/app/ui/PageTitle';
 import SelectedFilters from '@/app/ui/CategoryPage/SelectedFilters';
@@ -20,11 +18,13 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import FilterListOffIcon from '@mui/icons-material/FilterListOff';
 import BreadCrumbsDynamic from '@/app/ui/BreadCrumbsDynamic';
 
-const CategoryPage = ({ categoryName, products }) => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(setCategoryProducts(products));
-  }, [products]);
+const CategoryPage = ({
+  categoryName,
+  products,
+  priceRange,
+  categoryId,
+  paramsForCategory,
+}) => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const toggleDrawer = () => {
     setOpenDrawer(!openDrawer);
@@ -54,8 +54,11 @@ const CategoryPage = ({ categoryName, products }) => {
             <ProductFilter
               toggleDrawer={toggleDrawer}
               openDrawer={openDrawer}
+              priceRange={priceRange}
+              paramsForCategory={paramsForCategory}
+              categoryId={categoryId}
             />
-            <CategoryItems />
+            <CategoryItems products={products} />
           </StyledContentWrapper>
         </StyledWrapper>
       </Content>

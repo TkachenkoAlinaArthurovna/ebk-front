@@ -7,7 +7,7 @@ const ProductPage = ({ currentProduct }) => {
   return (
     <>
       <Content>
-        <BreadCrumbsDynamic />
+        <BreadCrumbsDynamic currentProduct={currentProduct} />
       </Content>
       <TabsProductPage currentProduct={currentProduct} />
       {/* <SlidersProductPage /> */}

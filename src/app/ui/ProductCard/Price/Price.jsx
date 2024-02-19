@@ -6,11 +6,12 @@ import {
   DiscountProductPage,
 } from '@/app/ui/ProductCard/Price/PriceStyles';
 import { Typography } from '@mui/material';
+import { dollar } from '@/app/lib/dollar';
 
 const Price = ({ price, oldprice, fontSize, productPage }) => {
-  const currencyRate = 38;
-  const priceUa = price * currencyRate;
-  const oldPriceUa = oldprice * currencyRate;
+  const currencyRate = dollar;
+  const priceUa = Math.ceil(price * currencyRate);
+  const oldPriceUa = Math.ceil(oldprice * currencyRate);
 
   const formatNumberWithSpaces = (number) => {
     const numString = String(number);

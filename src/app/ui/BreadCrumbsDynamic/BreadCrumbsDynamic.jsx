@@ -10,7 +10,7 @@ import {
 } from '@/app/ui/BreadCrumbsDynamic/BreadCrumbsDynamicStyles';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
-const BreadCrumbsDynamic = () => {
+const BreadCrumbsDynamic = ({ currentProduct }) => {
   const categories = useSelector((state) => state.catalogLinks.catalogLinks);
 
   const getCategoryName = (category) => {
@@ -43,7 +43,7 @@ const BreadCrumbsDynamic = () => {
         )}
         {pathnames.length > 1 && (
           <StyledBreadcrumbTypography color="text.primary">
-            product
+            {currentProduct.name}
           </StyledBreadcrumbTypography>
         )}
       </Breadcrumbs>

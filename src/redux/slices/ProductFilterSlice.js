@@ -3,9 +3,9 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   checkedFilters: [],
   selectedFilters: [],
-  selectedPrice: '',
-  minPrice: 0,
-  maxPrice: 0,
+  selectedPrice: [],
+  minPrice: [],
+  maxPrice: [],
 };
 
 const ProductFilterSlice = createSlice({
@@ -41,12 +41,27 @@ const ProductFilterSlice = createSlice({
     resetFilters: (state) => {
       state.checkedFilters = [];
       state.selectedFilters = [];
+      state.selectedPrice = [];
     },
     setMinPrice: (state, action) => {
-      state.minPrice = action.payload;
+      const objectIndex = state.minPrice.findIndex(
+        (item) => item.category === action.payload.category,
+      );
+      if (objectIndex !== -1) {
+        state.minPrice[objectIndex].value = action.payload.value;
+      } else {
+        state.minPrice.push(action.payload);
+      }
     },
     setMaxPrice: (state, action) => {
-      state.maxPrice = action.payload;
+      const objectIndex = state.maxPrice.findIndex(
+        (item) => item.category === action.payload.category,
+      );
+      if (objectIndex !== -1) {
+        state.maxPrice[objectIndex].value = action.payload.value;
+      } else {
+        state.maxPrice.push(action.payload);
+      }
     },
   },
 });
