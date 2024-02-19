@@ -10,14 +10,14 @@ import {
 
 const MinMaxInputs = ({ priceRange, categoryId }) => {
   const categoryProductsPrice = priceRange;
+  const minPriceArr = useSelector((state) => state.productFilter.minPrice);
+  const maxPriceArr = useSelector((state) => state.productFilter.maxPrice);
   const minPrice = () => {
-    const minPriceArr = useSelector((state) => state.productFilter.minPrice);
     const obj = minPriceArr.find((item) => item.category === categoryId);
     const value = obj ? obj.value : Math.min(...categoryProductsPrice);
     return value;
   };
   const maxPrice = () => {
-    const maxPriceArr = useSelector((state) => state.productFilter.maxPrice);
     const obj = maxPriceArr.find((item) => item.category === categoryId);
     const value = obj ? obj.value : Math.max(...categoryProductsPrice);
     return value;
