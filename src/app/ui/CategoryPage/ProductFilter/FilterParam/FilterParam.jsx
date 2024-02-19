@@ -10,14 +10,14 @@ import {
 
 const FilterParam = ({ paramName, paramValues }) => {
   const paramValue = paramValues.map((paramValue, index) => {
-    return <ParamValue key={index} paramValue={paramValue} />;
+    return <ParamValue key={paramValue[0]} paramValue={paramValue[1]} />;
   });
 
   return (
     <StyledAccordionBox>
       <StyledAccordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <StyledAccordionTitle>{paramName}</StyledAccordionTitle>
+          <StyledAccordionTitle>{paramName[1]}</StyledAccordionTitle>
         </AccordionSummary>
         {paramValue}
       </StyledAccordion>

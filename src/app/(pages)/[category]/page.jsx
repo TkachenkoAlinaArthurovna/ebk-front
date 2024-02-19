@@ -23,7 +23,7 @@ async function getCategoryIdProducts(category) {
   const categoryId = categoriesLinks.find(
     (item) => item.link === category,
   )?._id;
-  return getCategoryProducts(categoryId);
+  return categoryId;
 }
 
 async function getCategoryProducts(categoryId) {
@@ -32,7 +32,7 @@ async function getCategoryProducts(categoryId) {
     { next: { revalidate: 3600 } },
   );
   const data = await res.json();
-  return data.results;
+  return data;
 }
 
 async function getCategoryName(category) {
@@ -45,7 +45,8 @@ async function getCategoryName(category) {
 
 export default async function Category({ params }) {
   const { category } = params;
-  const categoryProducts = await getCategoryIdProducts(category);
+  const categoryId = await getCategoryIdProducts(category);
+  const categoryProducts = await getCategoryProducts(categoryId);
   const categoryName = await getCategoryName(category);
 
   return (
@@ -54,7 +55,10 @@ export default async function Category({ params }) {
         categoryName.charAt(0).toUpperCase() +
         categoryName.slice(1).toLowerCase()
       }
-      products={categoryProducts}
+      categoryId={categoryId}
+      products={categoryProducts.results}
+      priceRange={categoryProducts.priceRange}
+      paramsForCategory={categoryProducts.params}
     />
   );
 }

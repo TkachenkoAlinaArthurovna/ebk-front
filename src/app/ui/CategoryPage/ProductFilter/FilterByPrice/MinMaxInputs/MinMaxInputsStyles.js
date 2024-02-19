@@ -25,14 +25,18 @@ export const StyledInput = styled(OutlinedInput)`
   border-radius: 8px;
   font-size: 16px;
   color: #212121;
-  border-color: red;
-
-  & .MuiInputBase-input {
-    padding: 10px 10px 10px 12px;
-  }
 
   & .MuiOutlinedInput-notchedOutline {
-    border-color: #999999;
+    border: 1px solid #999999;
+  }
+
+  &:hover .MuiOutlinedInput-notchedOutline,
+  &.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border: 1px solid #999999;
+  }
+
+  & .MuiInputBase-input {
+    padding: 10px 12px;
   }
 `;
 

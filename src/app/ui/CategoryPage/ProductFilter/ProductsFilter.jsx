@@ -18,31 +18,55 @@ import {
 } from '@/app/ui/CategoryPage/ProductFilter/ProductsFilterStyles';
 import CloseIcon from '@mui/icons-material/Close';
 import { Drawer, IconButton, Typography } from '@mui/material';
-import ButtonMain from '@/app/ui/ButtonMain';
+import { dollar } from '@/app/lib/dollar';
 
-const ProductFilter = ({ toggleDrawer, openDrawer }) => {
+const ProductFilter = ({
+  toggleDrawer,
+  openDrawer,
+  priceRange,
+  paramsForCategory,
+  categoryId,
+}) => {
   const dispatch = useDispatch();
-  const minPrice = useSelector((state) => state.productFilter.minPrice);
-  const maxPrice = useSelector((state) => state.productFilter.maxPrice);
+  const categoryProductsPrice = priceRange;
+  const minPriceArr = useSelector((state) => state.productFilter.minPrice);
+  const maxPriceArr = useSelector((state) => state.productFilter.maxPrice);
+  const minPrice = () => {
+    const obj = minPriceArr.find((item) => item.category === categoryId);
+    const value = obj ? obj.value : Math.min(...categoryProductsPrice);
+    return value;
+  };
+  const maxPrice = () => {
+    const obj = maxPriceArr.find((item) => item.category === categoryId);
+    const value = obj ? obj.value : Math.max(...categoryProductsPrice);
+    return value;
+  };
+
   const checkedFilters = useSelector(
     (state) => state.productFilter.checkedFilters,
   );
 
+  function multiplyAndRoundUp(array, multiplier) {
+    return array.map((number) => Math.ceil(number * multiplier));
+  }
+
   const handleFilterClick = () => {
-    const selectedPrice = `${minPrice}-${maxPrice} грн.`;
-    dispatch(addSelectedPrice(`${minPrice}-${maxPrice} грн.`));
+    const selectedPrice = `${minPrice()}-${maxPrice()} грн.`;
+    dispatch(addSelectedPrice(`${minPrice()}-${maxPrice()} грн.`));
     const updatedFilters = [...checkedFilters];
     dispatch(addProductToFilter(updatedFilters));
   };
-
-  const filterParams = categoryData.map(({ id, name, values }) => {
-    return <FilterParam key={id} paramName={name} paramValues={values} />;
+  const filterParams = paramsForCategory.map(({ name, values }) => {
+    return <FilterParam key={name[0]} paramName={name} paramValues={values} />;
   });
 
   return (
     <>
       <StyledWrapper>
-        <FilterByPrice />
+        <FilterByPrice
+          priceRange={multiplyAndRoundUp(priceRange, dollar)}
+          categoryId={categoryId}
+        />
         {filterParams}
         <StyledSubstrate>
           <StyledButton onClick={handleFilterClick}>
