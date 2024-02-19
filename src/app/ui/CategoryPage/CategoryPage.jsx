@@ -51,13 +51,13 @@ const CategoryPage = ({
           </StyledSelectedFiltersWrapper>
 
           <StyledContentWrapper>
-            {/* <ProductFilter
+            <ProductFilter
               toggleDrawer={toggleDrawer}
               openDrawer={openDrawer}
               priceRange={priceRange}
               paramsForCategory={paramsForCategory}
               categoryId={categoryId}
-            /> */}
+            />
             <CategoryItems products={products} />
           </StyledContentWrapper>
         </StyledWrapper>
