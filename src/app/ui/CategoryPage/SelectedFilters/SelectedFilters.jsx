@@ -31,11 +31,11 @@ const SelectedFilters = () => {
   };
 
   const ChipsArray = () => {
-    const selectedFilterParams = selectedFilters.map((data, index) => (
+    const selectedFilterParams = selectedFilters.map((filter, index) => (
       <Box key={index}>
         <StyledChip
-          label={data}
-          onDelete={() => handleRemoveFilter(data)}
+          label={filter.paramValue}
+          onDelete={() => handleRemoveFilter(filter)}
           deleteIcon={<CloseIcon />}
         />
       </Box>

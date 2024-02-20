@@ -1,5 +1,7 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { resetFilters } from '@/redux/slices/ProductFilterSlice';
 import Content from '@/app/ui/Content';
 import PageTitle from '@/app/ui/PageTitle';
 import SelectedFilters from '@/app/ui/CategoryPage/SelectedFilters';
@@ -29,6 +31,16 @@ const CategoryPage = ({
   const toggleDrawer = () => {
     setOpenDrawer(!openDrawer);
   };
+  const currentCategoryId = useSelector(
+    (state) => state.productFilter.categoryId,
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (currentCategoryId !== categoryId) {
+      dispatch(resetFilters());
+    }
+  }, [categoryId]);
 
   return (
     <>

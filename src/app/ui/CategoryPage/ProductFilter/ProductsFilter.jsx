@@ -2,13 +2,15 @@
 
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { addCategoryId } from '@/redux/slices/ProductFilterSlice';
+import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import {
   addProductToFilter,
   addSelectedPrice,
 } from '@/redux/slices/ProductFilterSlice';
 import FilterByPrice from '@/app/ui/CategoryPage/ProductFilter/FilterByPrice';
 import FilterParam from '@/app/ui/CategoryPage/ProductFilter/FilterParam';
-import { categoryData } from '@/app/lib/mockDataCategoryPage';
 import {
   StyledWrapper,
   StyledSubstrate,
@@ -19,6 +21,7 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import { Drawer, IconButton, Typography } from '@mui/material';
 import { dollar } from '@/app/lib/dollar';
+import { generateQueryString } from '@/app/lib/getFilterParams';
 
 const ProductFilter = ({
   toggleDrawer,
@@ -27,6 +30,8 @@ const ProductFilter = ({
   paramsForCategory,
   categoryId,
 }) => {
+  const router = useRouter();
+  const pathname = usePathname();
   const dispatch = useDispatch();
   const categoryProductsPrice = priceRange;
   const minPriceArr = useSelector((state) => state.productFilter.minPrice);
@@ -50,12 +55,23 @@ const ProductFilter = ({
     return array.map((number) => Math.ceil(number * multiplier));
   }
 
+  const updatedFilters = [...checkedFilters];
+  const selectedPrice = { paramValue: `${minPrice()}-${maxPrice()} грн.` };
+
   const handleFilterClick = () => {
-    const selectedPrice = `${minPrice()}-${maxPrice()} грн.`;
-    dispatch(addSelectedPrice(`${minPrice()}-${maxPrice()} грн.`));
-    const updatedFilters = [...checkedFilters];
+    dispatch(
+      addSelectedPrice({ paramValue: `${minPrice()}-${maxPrice()} грн.` }),
+    );
     dispatch(addProductToFilter(updatedFilters));
+    dispatch(addCategoryId(categoryId));
   };
+
+  const handleClick = () => {
+    const newUpdatedFilters = [selectedPrice, ...updatedFilters];
+    const queryString = generateQueryString(newUpdatedFilters);
+    router.push(`${pathname}/filter/${queryString}`);
+  };
+
   const filterParams = paramsForCategory.map(({ name, values }) => {
     return <FilterParam key={name[0]} paramName={name} paramValues={values} />;
   });
@@ -69,7 +85,12 @@ const ProductFilter = ({
         />
         {filterParams}
         <StyledSubstrate>
-          <StyledButton onClick={handleFilterClick}>
+          <StyledButton
+            onClick={() => {
+              handleFilterClick();
+              handleClick();
+            }}
+          >
             Застосувати фільтри
           </StyledButton>
         </StyledSubstrate>
@@ -89,7 +110,11 @@ const ProductFilter = ({
           <FilterByPrice />
           {filterParams}
           <StyledSubstrate>
-            <StyledButton onClick={handleFilterClick}>
+            <StyledButton
+              onClick={() => {
+                handleFilterClick();
+              }}
+            >
               Застосувати фільтри
             </StyledButton>
           </StyledSubstrate>
