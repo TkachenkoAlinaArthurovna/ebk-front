@@ -40,6 +40,7 @@ import { Field, Form, Formik, ErrorMessage } from 'formik';
 import DeliveryItem from '@/app/ui/CartPage/DeliveryItem/DeliveryItem';
 import { contactDataSchema } from '@/lib/schemas';
 import EmptyCart from './EmptyCart/EmptyCart';
+import CartContactInfo from './CartContactInfo/CartContactInfo';
 
 const CartPage = () => {
   const initialValues = {
@@ -101,68 +102,7 @@ const CartPage = () => {
                       <CartPageTitle>Контактна інформація</CartPageTitle>
                     </AccordionSummary>
                     <AccordionDetails sx={{ padding: 0 }}>
-                      <Grid container spacing={3}>
-                        <Grid item md={6} xs={12}>
-                          <Field
-                            as={TextField}
-                            label="Прізвище"
-                            placeholder="Введіть своє прізвище"
-                            fullWidth
-                            InputLabelProps={{ shrink: true }}
-                            name="lastname"
-                          />
-                          <ErrorMessage
-                            name={'lastname'}
-                            component={'div'}
-                            style={{ color: '#dc362e' }}
-                          />
-                        </Grid>
-                        <Grid item md={6} xs={12}>
-                          <Field
-                            as={TextField}
-                            label="Ім'я"
-                            placeholder="Введіть своє ім'я"
-                            fullWidth
-                            InputLabelProps={{ shrink: true }}
-                            name="firstname"
-                          />
-                          <ErrorMessage
-                            name={'firstname'}
-                            component={'div'}
-                            style={{ color: '#dc362e' }}
-                          />
-                        </Grid>
-                        <Grid item md={6} xs={12}>
-                          <Field
-                            as={TextField}
-                            label="Телефон"
-                            placeholder="+38"
-                            fullWidth
-                            InputLabelProps={{ shrink: true }}
-                            name="phone"
-                          />
-                          <ErrorMessage
-                            name={'phone'}
-                            component={'div'}
-                            style={{ color: '#dc362e' }}
-                          />
-                        </Grid>
-                        <Grid item md={6} xs={12}>
-                          <Field
-                            as={TextField}
-                            label="Ел. пошта"
-                            placeholder="Введіть свою ел. пошту"
-                            fullWidth
-                            InputLabelProps={{ shrink: true }}
-                            name="email"
-                          />
-                          <ErrorMessage
-                            name={'email'}
-                            component={'div'}
-                            style={{ color: '#dc362e' }}
-                          />
-                        </Grid>
-                      </Grid>
+                      <CartContactInfo />
                     </AccordionDetails>
                   </StyledAccordion>
                   <StyledAccordion defaultExpanded>
@@ -399,9 +339,14 @@ const CartPage = () => {
                   </StyledCheckoutButton>
                   <FormControlLabel
                     sx={{ marginBottom: '14px' }}
-                    control={<Checkbox />}
-                    name={'termsAgreement'}
-                    label={'З умовами ознайомлений та погоджуюсь*'}
+                    control={
+                      <Field
+                        type="checkbox"
+                        name="termsAgreement"
+                        as={Checkbox}
+                      />
+                    }
+                    label="З умовами ознайомлений та погоджуюсь*"
                   />
                   <StyledTermsTitle>
                     Підтверджуючи замовлення, я приймаю умови:{' '}
