@@ -10,20 +10,26 @@ import {
   StyledAccordionDetails,
 } from '@/app/ui/CategoryPage/ProductFilter/FilterParam/ParamValue/ParamValueStyles';
 
-const ParamValue = ({ paramValue }) => {
+const ParamValue = ({ paramValue, paramValueEng, paramNameEng }) => {
   const dispatch = useDispatch();
   const checkedFilters = useSelector(
     (state) => state.productFilter.checkedFilters,
   );
   const handleFilterClick = () => {
-    dispatch(toggleCheckedFilters(paramValue));
+    dispatch(toggleCheckedFilters({ paramValue, paramValueEng, paramNameEng }));
   };
+
+  function isParamValueExists(array, paramValue) {
+    return array.some((item) => item.paramValue === paramValue);
+  }
 
   return (
     <StyledAccordionDetails onClick={handleFilterClick}>
       <StyledWrapper>
         <StyledParamValue>{paramValue}</StyledParamValue>
-        <StyledCheckbox checked={checkedFilters.includes(paramValue)} />
+        <StyledCheckbox
+          checked={isParamValueExists(checkedFilters, paramValue)}
+        />
       </StyledWrapper>
     </StyledAccordionDetails>
   );

@@ -10,7 +10,14 @@ import {
 
 const FilterParam = ({ paramName, paramValues }) => {
   const paramValue = paramValues.map((paramValue, index) => {
-    return <ParamValue key={paramValue[0]} paramValue={paramValue[1]} />;
+    return (
+      <ParamValue
+        key={paramValue[0]}
+        paramValue={paramValue[1]}
+        paramValueEng={paramValue[0]}
+        paramNameEng={paramName[0]}
+      />
+    );
   });
 
   return (
