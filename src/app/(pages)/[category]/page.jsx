@@ -48,7 +48,6 @@ export default async function Category({ params }) {
   const categoryId = await getCategoryIdProducts(category);
   const categoryProducts = await getCategoryProducts(categoryId);
   const categoryName = await getCategoryName(category);
-  console.log(categoryProducts);
   return (
     <CategoryPage
       categoryName={

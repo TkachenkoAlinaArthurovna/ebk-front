@@ -6,7 +6,7 @@ export const dynamicParams = false;
 
 async function getProducts() {
   const res = await fetch(`https://stage.eco-bike.com.ua/api/products/all`, {
-    next: { revalidate: 3600 },
+    next: { revalidate: 0 },
   });
   const data = await res.json();
   return data;
@@ -14,7 +14,7 @@ async function getProducts() {
 
 async function getCategory(id) {
   const res = await fetch('https://stage.eco-bike.com.ua/api/categories', {
-    next: { revalidate: 3600 },
+    next: { revalidate: 0 },
   });
   const data = await res.json();
   const category = data.items.find((item) => item._id === id);
