@@ -1,7 +1,6 @@
 import React from 'react';
 import Skeleton from '@mui/material/Skeleton';
 import Content from '@/app/ui/Content';
-import { StyledDiv } from '@/app/ui/SkeletonProductPage/SkeletonProductPageStyled';
 
 const SkeletonProductPage = () => {
   return (
@@ -31,9 +30,9 @@ const SkeletonProductPage = () => {
             height={35}
           />
         </div>
-        <StyledDiv>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Skeleton
-            sx={{ margin: '40px 60px 0 0' }}
+            sx={{ margin: '40px 80px 0 0' }}
             variant="rounded"
             width={625}
             height={500}
@@ -59,7 +58,7 @@ const SkeletonProductPage = () => {
                 height={56}
               />
               <Skeleton
-                sx={{ margin: '35px 0 0 20px' }}
+                sx={{ marginTop: '35px' }}
                 variant="circular"
                 width={56}
                 height={56}
@@ -78,7 +77,7 @@ const SkeletonProductPage = () => {
               height={10}
             />
           </div>
-        </StyledDiv>
+        </div>
       </Content>
     </>
   );
