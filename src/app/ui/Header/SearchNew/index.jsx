@@ -384,8 +384,6 @@ const SearchNew = () => {
     inputRef.current.focus();
   };
 
-
-
   // функция задержки поиска => которая записивает инпут в редакс из которой достается и делается запрос или сразу запрос..
   // => полученний массив из бека вставляем в всплывающее окно внизу инпута
   // => если есть ответ то виводим ответ от бека под инрут
@@ -422,8 +420,12 @@ const SearchNew = () => {
         {value && (
           <ul className={styles.list}>
             {options.map((obj) => (
-              <li style={{display: 'flex', marginBottom: '10px'}}>
-                <img style={{ width: '40px', marginRight: '10px' }} src={obj.picture[0]} alt="img" />
+              <li style={{ display: 'flex', marginBottom: '10px' }}>
+                <img
+                  style={{ width: '40px', marginRight: '10px' }}
+                  src={obj.picture[0]}
+                  alt="img"
+                />
                 <p>{obj.name}</p>
               </li>
             ))}
