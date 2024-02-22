@@ -28,7 +28,7 @@ async function getCategoryIdProducts(category) {
 
 async function getCategoryProducts(categoryId) {
   const res = await fetch(
-    `https://stage.eco-bike.com.ua/api/catalog/${categoryId}`,
+    `https://stage.eco-bike.com.ua/api/catalog/${categoryId}?page=1&limit=10`,
     { next: { revalidate: 3600 } },
   );
   const data = await res.json();
