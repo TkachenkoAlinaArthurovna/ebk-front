@@ -22,14 +22,15 @@ const SkeletonCategoryPage = () => {
           />
           <Skeleton variant="rounded" sx={{ width: '215px', height: '24px' }} />
         </div>
-        <div style={{ display: 'grid', gridAutoColumns: '1fr 3fr' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Skeleton
             sx={{
-              width: '387px',
-              height: '1298px',
+              width: '25%',
+              height: '300px',
+              marginRight: '30px'
             }}
           />
-          <Skeleton sx={{ width: '941px', height: '1298px' }} />
+          <Skeleton sx={{ width: '75%', height: '300px'}} />
         </div>
       </Content>
     </>
