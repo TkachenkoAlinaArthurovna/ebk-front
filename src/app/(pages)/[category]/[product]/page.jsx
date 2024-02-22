@@ -1,6 +1,8 @@
+import { Suspense } from 'react';
 import ProductPage from '@/app/ui/ProductPage';
 import { createLinkProduct } from '@/app/lib/createLinkProduct';
 import { createLinks } from '@/app/lib/createLinks';
+import SkeletonProductPage from '@/app/ui/SkeletonProductPage/SkeletonProductPage';
 
 export const dynamicParams = false;
 
@@ -82,5 +84,9 @@ async function getProduct(productId) {
 export default async function Product({ params }) {
   const { category, product } = params;
   const currentProduct = await getProductId(category, product);
-  return <ProductPage currentProduct={currentProduct} />;
+  return (
+    <Suspense fallback={<SkeletonProductPage/>}>
+      <ProductPage currentProduct={currentProduct} />
+    </Suspense>
+  );
 }

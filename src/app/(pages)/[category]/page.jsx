@@ -1,5 +1,7 @@
+import { Suspense } from 'react';
 import CategoryPage from '@/app/ui/CategoryPage';
 import { createLinks } from '@/app/lib/createLinks';
+import SkeletonCategoryPage from '@/app/ui/SkeletonCategoryPage/SkeletonCategoryPage';
 
 export const dynamicParams = false;
 
@@ -49,15 +51,17 @@ export default async function Category({ params }) {
   const categoryProducts = await getCategoryProducts(categoryId);
   const categoryName = await getCategoryName(category);
   return (
-    <CategoryPage
-      categoryName={
-        categoryName.charAt(0).toUpperCase() +
-        categoryName.slice(1).toLowerCase()
-      }
-      categoryId={categoryId}
-      products={categoryProducts.results}
-      priceRange={categoryProducts.priceRange}
-      paramsForCategory={categoryProducts.params}
-    />
+    <Suspense fallback={<SkeletonCategoryPage />}>
+      <CategoryPage
+        categoryName={
+          categoryName.charAt(0).toUpperCase() +
+          categoryName.slice(1).toLowerCase()
+        }
+        categoryId={categoryId}
+        products={categoryProducts.results}
+        priceRange={categoryProducts.priceRange}
+        paramsForCategory={categoryProducts.params}
+      />
+    </Suspense>
   );
 }
