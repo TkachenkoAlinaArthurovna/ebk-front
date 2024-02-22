@@ -30,6 +30,7 @@ const ProductCard = ({ product }) => {
   const cartProducts = useSelector((state) => state.cart.cartProducts);
   const arrId = cartProducts.map((item) => item._id);
   const pathname = usePathname();
+  const pathnames = pathname.split('/').filter((path) => path);
   const link = createLinkProduct(name);
 
   const toggleFavoritesProduct = () => {
@@ -39,7 +40,13 @@ const ProductCard = ({ product }) => {
   return (
     <StyledCard>
       <StyledCardLink>
-        <StyledLink href={`${pathname}/${link}`}>
+        <StyledLink
+          href={
+            pathnames.length == 1
+              ? `/${pathnames[0]}/${link}`
+              : `/${pathnames[0]}/${pathnames[1]}/${pathnames[2]}/${link}`
+          }
+        >
           <Box
             sx={{
               height: '70%',

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { resetFilters } from '@/redux/slices/ProductFilterSlice';
+import { usePathname } from 'next/navigation';
 import Content from '@/app/ui/Content';
 import PageTitle from '@/app/ui/PageTitle';
 import SelectedFilters from '@/app/ui/CategoryPage/SelectedFilters';
@@ -42,18 +43,32 @@ const CategoryPage = ({
     }
   }, [categoryId]);
 
+  const pathname = usePathname();
+  const pathnames = pathname.split('/').filter((path) => path);
+
   return (
     <>
       <Content>
         <StyledWrapper>
-          <BreadCrumbsDynamic />
+          <BreadCrumbsDynamic paramsForCategory={paramsForCategory} />
 
           <StyledTitleBox>
             <PageTitle>{categoryName}</PageTitle>
           </StyledTitleBox>
 
-          <StyledSelectedFiltersWrapper>
-            <SelectedFilters />
+          <StyledSelectedFiltersWrapper
+            sx={
+              pathnames.length == 1
+                ? { justifyContent: 'end' }
+                : { justifyContent: 'space-between' }
+            }
+          >
+            {pathnames.length > 1 && (
+              <SelectedFilters
+                categoryId={categoryId}
+                priceRange={priceRange}
+              />
+            )}
             <StyledRightWrapper>
               <SortingProducts />
               <StyledIconButton onClick={toggleDrawer}>

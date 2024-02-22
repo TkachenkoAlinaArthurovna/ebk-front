@@ -32,6 +32,7 @@ const ProductFilter = ({
 }) => {
   const router = useRouter();
   const pathname = usePathname();
+  const pathnames = pathname.split('/').filter((path) => path);
   const dispatch = useDispatch();
   const categoryProductsPrice = priceRange;
   const minPriceArr = useSelector((state) => state.productFilter.minPrice);
@@ -69,7 +70,10 @@ const ProductFilter = ({
   const handleClick = () => {
     const newUpdatedFilters = [selectedPrice, ...updatedFilters];
     const queryString = generateQueryString(newUpdatedFilters);
-    router.push(`${pathname}/filter/${queryString}`);
+    const urlComponent = encodeURIComponent(queryString);
+    pathnames.length > 2
+      ? router.push(`/${pathnames[0]}/filter/${urlComponent}`)
+      : router.push(`${pathname}/filter/${urlComponent}`);
   };
 
   const filterParams = paramsForCategory.map(({ name, values }) => {
@@ -113,6 +117,7 @@ const ProductFilter = ({
             <StyledButton
               onClick={() => {
                 handleFilterClick();
+                handleClick();
               }}
             >
               Застосувати фільтри

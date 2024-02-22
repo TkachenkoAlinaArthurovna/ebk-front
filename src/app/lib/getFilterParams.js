@@ -16,8 +16,8 @@ export const generateQueryString = (arr) => {
   const params = {};
   formattedArr.forEach((obj) => {
     if (obj.paramValueEng) {
-      const paramName = obj.paramNameEng.replace(/\s/g, '-');
-      const paramValue = obj.paramValueEng.replace(/\s/g, '-');
+      const paramName = obj.paramNameEng;
+      const paramValue = obj.paramValueEng;
       if (params[paramName]) {
         params[paramName].push(paramValue);
       } else {
