@@ -15,7 +15,7 @@ const BreadCrumbs = () => {
   const pathnames = pathname.split('/').filter((path) => path);
 
   return (
-    <Box>
+    <Box sx={{ marginBottom: '20px' }}>
       <Breadcrumbs
         aria-label="breadcrumb"
         separator={<NavigateNextIcon fontSize="medium" />}
@@ -37,16 +37,14 @@ const BreadCrumbs = () => {
             <StyledBreadcrumbTypography key={to} color="text.primary">
               {title}
             </StyledBreadcrumbTypography>
+          ) : isCabinet ? (
+            <StyledBreadcrumbTypography key={to} color="text.primary">
+              {title}
+            </StyledBreadcrumbTypography>
           ) : (
-            <React.Fragment key={to}>
-              {isCabinet ? (
-                <StyledBreadcrumbTypography color="text.primary">
-                  {title}
-                </StyledBreadcrumbTypography>
-              ) : (
-                <StyledBreadcrumbLink href={to}>{title}</StyledBreadcrumbLink>
-              )}
-            </React.Fragment>
+            <StyledBreadcrumbLink key={to} href={to}>
+              {title}
+            </StyledBreadcrumbLink>
           );
         })}
       </Breadcrumbs>
