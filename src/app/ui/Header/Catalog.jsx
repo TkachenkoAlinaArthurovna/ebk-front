@@ -12,8 +12,10 @@ import MenuDesktop from '@/app/ui/Header/MenuDesktop';
 import MenuTouchpad from '@/app/ui/Header/MenuTouchpad';
 import MenuMob from '@/app/ui/Header/MenuMob';
 import { useResize } from '@/app/lib/helpers';
+import { height } from '@mui/system';
 
-const Catalog = ({ catalog }) => {
+const Catalog = () => {
+  const catalog = useSelector((state) => state.catalogLinks.catalogLinks);
   const isOpenModalMenu = useSelector(
     (state) => state.menuModal.isOpenModalMenu,
   );
@@ -26,7 +28,7 @@ const Catalog = ({ catalog }) => {
     children: catalog.filter((subItem) => subItem.parentId === item.id),
   }));
   const categories = updatedCatalog.filter((item) => !item.parentId);
-
+  const heightMenu = 162 + 48 * categories.length;
   return (
     <>
       <Modal
@@ -46,7 +48,14 @@ const Catalog = ({ catalog }) => {
         }}
       >
         <Fade in={isOpenModalMenu}>
-          <StyledPaper papertype={width <= 1025 ? 'mob' : 'desktop'}>
+          <StyledPaper
+            papertype={width <= 1025 ? 'mob' : 'desktop'}
+            sx={{
+              '@media(min-width: 1025px)': {
+                height: `${heightMenu}px`,
+              },
+            }}
+          >
             <Box
               sx={{
                 overflow: 'auto',
@@ -81,6 +90,7 @@ const Catalog = ({ catalog }) => {
                 <MenuDesktop
                   handleCloseCatalog={toggleCatalog}
                   categories={categories}
+                  heightMenu={heightMenu}
                 />
               )}
             </Box>

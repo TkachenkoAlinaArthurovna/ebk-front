@@ -2,22 +2,22 @@ export const categoryBlockData = [
   {
     name: 'Гірські',
     img: 'mtb-e-bike.jpg',
-    url: 'mtb-e-bike',
+    url: '/hirski-elektrovelosypedy',
   },
   {
     name: 'Fatbike',
     img: 'fatbike.jpg',
-    url: 'fatbike',
+    url: '/fatbike',
   },
   {
     name: 'Міські',
     img: 'city-e-bike.jpg',
-    url: 'city-e-bike',
+    url: '/miski-elektrovelosypedy',
   },
   {
     name: 'Триколісні',
     img: 'e-tricycle.jpg',
-    url: 'e-tricycle',
+    url: '/trykolisni-elektrovelosypedy',
   },
 ];
 
@@ -87,7 +87,7 @@ export const reviewsBlockData = [
 
 export const catalog = [
   { id: '116094691', name: 'ЗАПЧАСТИНИ ДЛЯ ЕЛЕКТРОВЕЛОСИПЕДІВ' },
-  { id: '116118803', parentId: '38', name: 'МІСЬКІ ЕЛЕКТРО-ВЕЛОСИПЕДИ' },
+  { id: '116118803', parentId: '38', name: 'МІСЬКІ ЕЛЕКТРОВЕЛОСИПЕДИ' },
   { id: '117151657', parentId: '38', name: 'FAT-BIKE' },
   { id: '116763322', parentId: '39', name: 'МОТОР-КОЛЕСА' },
   { id: '116700451', name: 'ЗАПЧАСТИНИ ДЛЯ ВЕЛОСИПЕДІВ' },
@@ -100,9 +100,9 @@ export const catalog = [
   {
     id: '116238096',
     parentId: '38',
-    name: 'ТРИКОЛІСНІ ЕЛЕКТРО-ВЕЛОСИПЕДИ',
+    name: 'ТРИКОЛІСНІ ЕЛЕКТРОВЕЛОСИПЕДИ',
   },
-  { id: '116127700', parentId: '38', name: 'ГІРСЬКІ ЕЛЕКТРО-ВЕЛОСИПЕДИ' },
+  { id: '116127700', parentId: '38', name: 'ГІРСЬКІ ЕЛЕКТРОВЕЛОСИПЕДИ' },
   { id: '116094628', parentId: '39', name: 'МОТОРИ' },
   { id: '116096230', name: 'АКУМУЛЯТОРИ' },
   {
@@ -124,14 +124,14 @@ export const catalog = [
   {
     id: '125353126',
     parentId: '116700451',
-    name: 'ЗІРКИ, КАССЕТИ, ВТУЛКИ',
+    name: 'ЗІРКИ, КАСЕТИ, ВТУЛКИ',
   },
   {
     id: '124791554',
     parentId: '116700451',
     name: 'КОЛЕСА ДЛЯ ВЕЛОСИПЕДІВ',
   },
-  { id: '38', name: 'ЕЛЕКТРО-ВЕЛОСИПЕДИ' },
+  { id: '38', name: 'ЕЛЕКТРОВЕЛОСИПЕДИ' },
   { id: '39', name: 'МОТОРИ ТА МОТОР-КОЛЕСА' },
   { id: '40', parentId: '116700451', name: 'КАРЕТКИ, РУБАШКИ, ТРОСИКИ' },
   { id: '41', parentId: '116700451', name: 'ПІДНІЖКИ, КРИЛА, ЛІХТАРІ' },
@@ -145,11 +145,39 @@ export const catalog = [
 
 export const navigation = [
   { id: 1, title: 'Кошик', path: 'cart' },
-  { id: 2, title: 'Особистий кабінет', path: 'cabinet' },
+  { id: 2, title: 'Кабінет', path: 'cabinet' },
   { id: 3, title: 'Про нас', path: 'about' },
   { id: 4, title: 'Підтримка', path: 'support' },
   { id: 5, title: 'Доставка і оплата', path: 'payment-delivery' },
   { id: 6, title: 'Контакти', path: 'contacts' },
   { id: 7, title: 'Відгуки', path: 'reviews' },
   { id: 8, title: 'Політика конфеденційності', path: 'privacy-policy' },
+  { id: 9, title: 'Особиста інформація', path: 'personal-information' },
+  { id: 10, title: 'Мої замовлення', path: 'orders' },
+  { id: 11, title: 'Обране', path: 'favorites' },
+  { id: 11, title: 'Мої відгуки', path: 'reviews' },
+];
+
+export const cartProducts = [
+  {
+    name: 'Велосипед “Ardis Messina"',
+    code: '200604769',
+    image: '/images/city-e-bike.jpg',
+    price: 12999,
+    oldPrice: 15000,
+  },
+  {
+    name: 'Велосипед “Not Ardis Messina"',
+    code: '123456789',
+    image: '/images/city-e-bike.jpg',
+    price: 13500,
+    oldPrice: 16000,
+  },
+  {
+    name: 'Велосипед “Definitely Not Ardis Messina"',
+    code: '987654321',
+    image: '/images/city-e-bike.jpg',
+    price: 3500,
+    oldPrice: 5000,
+  },
 ];

@@ -8,9 +8,6 @@ export const WrapperBox = styled(Box)`
   flex-direction: row;
   flex-wrap: nowrap;
   margin-bottom: 22px;
-  @media (max-width: 480px) {
-    margin-bottom: 16px;
-  }
 `;
 
 export const Color = styled(Box)`
@@ -18,5 +15,5 @@ export const Color = styled(Box)`
   height: 20px;
   margin-right: 8px;
   border-radius: 50%;
-  background-color: red;
+  box-shadow: 0px 0px 10px #d0d0d0;
 `;

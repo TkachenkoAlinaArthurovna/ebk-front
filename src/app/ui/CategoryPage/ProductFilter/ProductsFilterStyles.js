@@ -33,7 +33,11 @@ export const StyledButton = styled(Button)`
   padding: 8px 0;
   font-size: 16px;
   font-weight: 500;
-  color: #fff;
+  text-transform: none;
+  color: #ffff;
+  &:hover {
+    background-color: #42ada7;
+  }
 `;
 
 export const StyledHeadFilter = styled(Box)`

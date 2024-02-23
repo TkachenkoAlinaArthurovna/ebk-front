@@ -1,20 +1,16 @@
-import Link from 'next/link';
+import InfoPagesMenu from '@/app/ui/InfoPagesMenu';
+import Content from '@/app/ui/Content';
+import BreadCrumbs from '@/app/ui/BreadCrumbs/BreadCrumbs';
+import { StyledPagesLayout } from '@/app/(pages)/(info)/layoutStyles';
 
-export default function Cabinet({ children }) {
+export default function InfoPagesLayout({ children }) {
   return (
-    <div>
-      <ul>
-        <li>
-          <Link href="/cabinet/personal-information">personal-information</Link>
-        </li>
-        <li>
-          <Link href="/cabinet/orders">orders</Link>
-        </li>
-        <li>
-          <Link href="/cabinet/favorites">favorites</Link>
-        </li>
-      </ul>
-      {children}
-    </div>
+    <Content>
+      <BreadCrumbs />
+      <StyledPagesLayout>
+        <InfoPagesMenu cabinet={true} />
+        {children}
+      </StyledPagesLayout>
+    </Content>
   );
 }

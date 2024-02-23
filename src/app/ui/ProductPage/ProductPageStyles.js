@@ -24,6 +24,7 @@ export const WrapperAboutProduct = styled(Box)`
 
 export const WrapperSlider = styled(Box)`
   display: flex;
+  justify-content: center;
   align-items: center;
   width: 100%;
 `;

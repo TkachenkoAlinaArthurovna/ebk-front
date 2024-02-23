@@ -11,7 +11,7 @@ export const StyledPaper = styled(Paper)`
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
-  max-width: 1114px;
+  width: 800px;
   padding: 36px;
   border: none;
   border-radius: 24px;
@@ -25,7 +25,7 @@ export const StyledWrapper = styled(Box)`
 `;
 
 export const StyledWrapperForProduct = styled(Box)`
-  margin: 32px 0;
+  margin-bottom: 24px;
 `;
 
 export const StyledTitle = styled(Typography)`

@@ -14,6 +14,7 @@ import {
   StyledButtonSideBar,
   StyledSideBarContainer,
 } from '@/app/ui/Header/HeaderStyles';
+import Logo from '@/app/ui/Logo/Logo';
 
 const navigation = [
   { id: 2, title: 'Кошик', path: '/cart' },
@@ -31,18 +32,12 @@ const navigationMain = [
 const SideBar = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => (
   <Drawer anchor="left" open={openDrawer} onClose={toggleDrawer}>
     <StyledSideBarContainer onClick={(e) => e.stopPropagation()}>
-      <Box sx={{ position: 'relative', width: '156px', height: '56px' }}>
-        <Box
-          component={'img'}
-          src={'/images/logo.png'}
-          style={{
-            width: '100%',
-          }}
-        ></Box>
+      <Box sx={{ position: 'relative', width: '120px', height: '40px' }}>
+        <Logo color={'#49BEB7'} width={'100%'} height={'100%'} />
       </Box>
       <IconButton
         onClick={toggleDrawer}
-        sx={{ position: 'absolute', top: '16px', right: '16px' }}
+        sx={{ position: 'absolute', top: '20px', right: '24px' }}
       >
         <CloseIcon />
       </IconButton>

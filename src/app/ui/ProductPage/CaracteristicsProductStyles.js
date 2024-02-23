@@ -2,21 +2,41 @@
 import { styled } from '@mui/system';
 import { Grid, Typography, ListItem, Box } from '@mui/material';
 
-export const StyledImg = styled('img')`
-  width: inherit;
-  border-radius: 28px;
+export const StyledWrapper = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  @media (max-width: 900px) {
+    flex-direction: column;
+  }
 `;
 
-export const StyledGridOrder = styled(Grid)(({ theme }) => ({
-  order: -1,
-  [theme.breakpoints.down('md')]: {
-    order: 1,
-    padding: '24px 0 0 24px ',
-  },
-}));
+export const StyledImg = styled('img')`
+  max-width: 86%;
+  border-radius: 28px;
+  @media (max-width: 900px) {
+    max-height: 380px;
+  }
+`;
+
+export const StyledLeft = styled(Box)`
+  width: 48%;
+  @media (max-width: 900px) {
+    width: 100%;
+    margin-bottom: 40px;
+  }
+`;
+
+export const StyledRight = styled(Box)`
+  width: 48%;
+  @media (max-width: 900px) {
+    width: 100%;
+  }
+`;
 
 export const StyledTypography = styled(Typography)`
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   font-weight: 500;
   font-size: 28px;
   @media (max-width: 900px) {
@@ -45,6 +65,7 @@ export const StyleTypographyName = styled(Typography)`
   margin-bottom: 8px;
   @media (max-width: 900px) {
     font-size: 26px;
+    text-align: center;
   }
 
   @media (max-width: 650px) {

@@ -10,14 +10,14 @@ import СharacteristicsProduct from '@/app/ui/ProductPage/СharacteristicsProduc
 import DescriptionProduct from '@/app/ui/ProductPage/DescriptionProduct';
 import { StyledSection } from '@/app/ui/ProductPage/ProductPageStyles';
 
-const TabsProductPage = () => {
+const TabsProductPage = ({ currentProduct }) => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   return (
-    <StyledSection as="section">
+    <StyledSection as="section" sx={{ marginTop: '20px' }}>
       <Content>
         <Box
           sx={{ marginBottom: '24px', borderBottom: 1, borderColor: 'divider' }}
@@ -28,19 +28,35 @@ const TabsProductPage = () => {
             aria-label="basic tabs example"
           >
             <StyledTab label="Про товар" {...a11yProps(0)} />
-            <StyledTab label="Характеристики" {...a11yProps(1)} />
-            <StyledTab label="Опис" {...a11yProps(2)} />
+            {currentProduct.params.length > 0 && (
+              <StyledTab label="Характеристики" {...a11yProps(1)} />
+            )}
+            {currentProduct.params.length > 0 && (
+              <StyledTab label="Опис" {...a11yProps(2)} />
+            )}
+            {currentProduct.params.length == 0 && (
+              <StyledTab label="Опис" {...a11yProps(1)} />
+            )}
           </StyledTabs>
         </Box>
         <CustomTabPanel value={value} index={0}>
-          <AboutProduct />
+          <AboutProduct currentProduct={currentProduct} />
         </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
-          <СharacteristicsProduct />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={2}>
-          <DescriptionProduct />
-        </CustomTabPanel>
+        {currentProduct.params.length > 0 && (
+          <CustomTabPanel value={value} index={1}>
+            <СharacteristicsProduct currentProduct={currentProduct} />
+          </CustomTabPanel>
+        )}
+        {currentProduct.params.length > 0 && (
+          <CustomTabPanel value={value} index={2}>
+            <DescriptionProduct currentProduct={currentProduct} />
+          </CustomTabPanel>
+        )}
+        {currentProduct.params.length == 0 && (
+          <CustomTabPanel value={value} index={1}>
+            <DescriptionProduct currentProduct={currentProduct} />
+          </CustomTabPanel>
+        )}
       </Content>
     </StyledSection>
   );

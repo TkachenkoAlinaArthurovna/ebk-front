@@ -1,15 +1,14 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleMenuModal } from '@/redux/slices/MenuModalSlice';
+import { setCatalogLinks } from '@/redux/slices/CatalogLinksSlice';
 import Link from 'next/link';
 import IconButtonMenu from '@/app/ui/Header/IconButtonMenu';
-import Image from 'next/image';
 import IconButton from '@mui/material/IconButton';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Badge from '@mui/material/Badge';
-import logo from '../../../../public/images/logo.png';
 import SearchComponent from '@/app/ui/Header/SearchComponent';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import CloseIcon from '@mui/icons-material/Close';
@@ -26,9 +25,14 @@ import {
 } from '@/app/ui/Header/HeaderStyles';
 import { createLinks } from '@/app/lib/createLinks';
 import Phones from '@/app/ui/Header/Phones';
+import Logo from '@/app/ui/Logo/Logo';
 
 const Toolbar = ({ catalog }) => {
-  const catalogLinks = createLinks(catalog);
+  const dispatch = useDispatch();
+  const catalogLinks = createLinks(catalog.items);
+  useEffect(() => {
+    dispatch(setCatalogLinks(catalogLinks));
+  }, [catalogLinks]);
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const toggleDrawer = () => {
@@ -38,7 +42,7 @@ const Toolbar = ({ catalog }) => {
   const isOpenModalMenu = useSelector(
     (state) => state.menuModal.isOpenModalMenu,
   );
-  const dispatch = useDispatch();
+
   const toggleOpenCatalog = () => dispatch(toggleMenuModal());
 
   return (
@@ -48,11 +52,11 @@ const Toolbar = ({ catalog }) => {
         openDrawer={openDrawer}
         handleOpenCatalog={toggleOpenCatalog}
       />
-      <StyledLogoBox>
-        <Link href="/">
-          <Image priority={true} src={logo} alt="logo" />
-        </Link>
-      </StyledLogoBox>
+      <Link href="/">
+        <StyledLogoBox>
+          <Logo color={'#49BEB7'} width={'100%'} height={'100%'} />
+        </StyledLogoBox>
+      </Link>
       <StyledButtonCatalog
         onClick={toggleOpenCatalog}
         variant="contained"
@@ -60,7 +64,7 @@ const Toolbar = ({ catalog }) => {
       >
         Каталог
       </StyledButtonCatalog>
-      <Catalog catalog={catalogLinks} />
+      <Catalog />
       <SearchComponent />
       <Phones />
       <StyledBoxIcons>
@@ -80,7 +84,7 @@ const Toolbar = ({ catalog }) => {
             </Badge>
           </IconButton>
         </StyledLinkCart>
-        <StyledLinkCabinet href="/cabinet">
+        <StyledLinkCabinet href="/cabinet/personal-information">
           <IconButton>
             <Badge badgeContent={null} color="error">
               <PermIdentityIcon

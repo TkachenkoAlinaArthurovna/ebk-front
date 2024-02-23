@@ -1,4 +1,4 @@
-import '@/app/ui/globals.css';
+import './globals.css';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -18,14 +18,21 @@ export const metadata = {
   link: ' href="./output.css" rel="stylesheet"',
 };
 
-export default function RootLayout({ children }) {
+const getCategories = () =>
+  fetch('https://stage.eco-bike.com.ua/api/categories', {
+    next: { revalidate: 3600 },
+  }).then((response) => response.json());
+
+export default async function RootLayout({ children }) {
+  const catalog = await getCategories();
+
   return (
     <html lang="en">
       <AppTheme>
         <body>
           <Providers>
             <Wrapper>
-              <Header />
+              <Header catalog={catalog} />
               <Box sx={{ flex: '1 1 auto' }}>
                 {children} <ModalCart />
               </Box>

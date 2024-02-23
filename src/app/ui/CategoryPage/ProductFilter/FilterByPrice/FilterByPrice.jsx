@@ -10,7 +10,7 @@ import {
   StyledAccordionTitle,
 } from '@/app/ui/CategoryPage/ProductFilter/FilterByPrice/FilterByPriceStyles';
 
-const FilterByPrice = () => {
+const FilterByPrice = ({ priceRange, categoryId }) => {
   return (
     <StyledAccordionBox>
       <StyledAccordion defaultExpanded={true}>
@@ -18,8 +18,8 @@ const FilterByPrice = () => {
           <StyledAccordionTitle>Ціна</StyledAccordionTitle>
         </AccordionSummary>
         <AccordionDetails>
-          <PriceSlider />  
-          <MinMaxInputs />
+          <PriceSlider priceRange={priceRange} categoryId={categoryId} />
+          <MinMaxInputs priceRange={priceRange} categoryId={categoryId} />
         </AccordionDetails>
       </StyledAccordion>
     </StyledAccordionBox>

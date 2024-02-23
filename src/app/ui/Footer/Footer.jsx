@@ -9,12 +9,12 @@ import {
   StyledList,
   StyledListItem,
   WrapperItemBox,
+  StyledLogoBox,
 } from '@/app/ui/Footer/FooterStyles';
 import Link from 'next/link';
 import { Box, Typography } from '@mui/material';
 import Image from 'next/image';
-import logo from '../../../../public/images/logo-inverted.png';
-import { useTheme } from '@mui/material/styles';
+import Logo from '@/app/ui/Logo/Logo';
 
 const Footer = () => {
   return (
@@ -24,7 +24,9 @@ const Footer = () => {
           <WrapperItemBox>
             <LogoContainer area_name="logo">
               <Link href="/">
-                <Image src={logo} component="button" alt="logo" />
+                <StyledLogoBox>
+                  <Logo color={'#ffff'} width={'100%'} height={'100%'} />
+                </StyledLogoBox>
               </Link>
             </LogoContainer>
             <FooterItemBox area_name="company">
@@ -92,6 +94,9 @@ const Footer = () => {
               justifyContent: 'center',
               alignItems: 'center',
               mb: '16px',
+              '@media(max-width: 400px)': {
+                fontSize: '14px',
+              },
             }}
           >
             <Box sx={{ marginBottom: '16px' }}>
@@ -101,7 +106,7 @@ const Footer = () => {
           </Box>
           <LogoContainerBottom>
             <Link href="/">
-              <Image src={logo} component="button" alt="logo" />
+              <Logo color={'#ffff'} width={'120px'} height={'64px'} />
             </Link>
           </LogoContainerBottom>
         </Content>
