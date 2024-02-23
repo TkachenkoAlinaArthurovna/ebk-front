@@ -6,22 +6,22 @@ import SkeletonProductPage from '@/app/ui/SkeletonProductPage/SkeletonProductPag
 
 // export const dynamicParams = false;
 
-// async function getProducts() {
-//   const res = await fetch(`https://stage.eco-bike.com.ua/api/products/all`, {
-//     next: { revalidate: 3600 },
-//   });
-//   const data = await res.json();
-//   return data;
-// }
+async function getProducts() {
+  const res = await fetch(`https://stage.eco-bike.com.ua/api/products/all`, {
+    next: { revalidate: 3600 },
+  });
+  const data = await res.json();
+  return data;
+}
 
-// async function getCategory(id) {
-//   const res = await fetch('https://stage.eco-bike.com.ua/api/categories', {
-//     next: { revalidate: 3600 },
-//   });
-//   const data = await res.json();
-//   const category = data.items.find((item) => item._id === id);
-//   return category ? createLinkProduct(category.name) : null;
-// }
+async function getCategory(id) {
+  const res = await fetch('https://stage.eco-bike.com.ua/api/categories', {
+    next: { revalidate: 3600 },
+  });
+  const data = await res.json();
+  const category = data.items.find((item) => item._id === id);
+  return category ? createLinkProduct(category.name) : null;
+}
 
 // export async function generateStaticParams() {
 //   const products = await getProducts();
@@ -83,8 +83,11 @@ async function getProduct(productId) {
 
 export default async function Product({ params }) {
   const { category, product } = params;
-  const partsOfCategory = [category];
-  const currentProduct = await getProductId(category, product);
+
+  const partsOfCategory = category.includes('%26')
+    ? category.split('%26')
+    : [category];
+  const currentProduct = await getProductId(partsOfCategory[0], product);
   return (
     <Suspense fallback={<SkeletonProductPage />}>
       <ProductPage
