@@ -40,6 +40,7 @@ import { Field, Form, Formik, ErrorMessage } from 'formik';
 import DeliveryItem from '@/app/ui/CartPage/DeliveryItem/DeliveryItem';
 import { contactDataSchema } from '@/lib/schemas';
 import EmptyCart from './EmptyCart/EmptyCart';
+import CartContactInfo from './CartContactInfo/CartContactInfo';
 
 const CartPage = () => {
   const initialValues = {
@@ -52,12 +53,22 @@ const CartPage = () => {
     comment: '',
     anotherPerson: false,
     doNotCall: false,
+    termsAgreement: false,
+    termsAgreement: false,
   };
+
+  const cartProducts = useSelector((state) => state.cart.cartProducts);
 
   const [selectedDelivery, setSelectedDelivery] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
-  const products = useSelector((state) => state.cart.cartProducts);
-  console.log(products);
+  const [products, setProducts] = useState(cartProducts);
+  const [selectedDepartment, setSelectedDepartment] = useState('');
+
+  const handleRemoveProduct = (code) => {
+    setProducts((prevProducts) =>
+      prevProducts.filter((product) => product.code !== code),
+    );
+  };
 
   const handleSubmit = (values) => {
     console.log(values);
@@ -94,68 +105,7 @@ const CartPage = () => {
                       <CartPageTitle>Контактна інформація</CartPageTitle>
                     </AccordionSummary>
                     <AccordionDetails sx={{ padding: 0 }}>
-                      <Grid container spacing={3}>
-                        <Grid item md={6} xs={12}>
-                          <Field
-                            as={TextField}
-                            label="Прізвище"
-                            placeholder="Введіть своє прізвище"
-                            fullWidth
-                            InputLabelProps={{ shrink: true }}
-                            name="lastname"
-                          />
-                          <ErrorMessage
-                            name={'lastname'}
-                            component={'div'}
-                            style={{ color: '#dc362e' }}
-                          />
-                        </Grid>
-                        <Grid item md={6} xs={12}>
-                          <Field
-                            as={TextField}
-                            label="Ім'я"
-                            placeholder="Введіть своє ім'я"
-                            fullWidth
-                            InputLabelProps={{ shrink: true }}
-                            name="firstname"
-                          />
-                          <ErrorMessage
-                            name={'firstname'}
-                            component={'div'}
-                            style={{ color: '#dc362e' }}
-                          />
-                        </Grid>
-                        <Grid item md={6} xs={12}>
-                          <Field
-                            as={TextField}
-                            label="Телефон"
-                            placeholder="+38"
-                            fullWidth
-                            InputLabelProps={{ shrink: true }}
-                            name="phone"
-                          />
-                          <ErrorMessage
-                            name={'phone'}
-                            component={'div'}
-                            style={{ color: '#dc362e' }}
-                          />
-                        </Grid>
-                        <Grid item md={6} xs={12}>
-                          <Field
-                            as={TextField}
-                            label="Ел. пошта"
-                            placeholder="Введіть свою ел. пошту"
-                            fullWidth
-                            InputLabelProps={{ shrink: true }}
-                            name="email"
-                          />
-                          <ErrorMessage
-                            name={'email'}
-                            component={'div'}
-                            style={{ color: '#dc362e' }}
-                          />
-                        </Grid>
-                      </Grid>
+                      <CartContactInfo />
                     </AccordionDetails>
                   </StyledAccordion>
                   <StyledAccordion defaultExpanded>
@@ -237,6 +187,124 @@ const CartPage = () => {
                             />
                           }
                         />
+                        {selectedDelivery === 'До поштомату Нової Пошти' && (
+                          <Autocomplete
+                            options={['Київ', 'Львів', 'Одеса', 'Харків']}
+                            renderInput={(params) => (
+                              <TextField {...params} label="Ваше місто" />
+                            )}
+                            onChange={(event, newValue) => {
+                              setSelectedCity(newValue);
+                            }}
+                          />
+                        )}
+                        <FormControlLabel
+                          control={
+                            <Field
+                              as={Radio}
+                              value="До відділення Укрпошти"
+                              name="delivery"
+                            />
+                          }
+                          disableTypography
+                          label={
+                            <DeliveryItem
+                              icon={'/images/delivery/UkrPoshta.png'}
+                              price={99}
+                              text={'До відділення Укрпошти'}
+                            />
+                          }
+                        />
+                        {selectedDelivery === 'До відділення Укрпошти' && (
+                          <Autocomplete
+                            sx={{ marginBottom: '24px' }}
+                            options={['Київ', 'Львів', 'Одеса', 'Харків']}
+                            renderInput={(params) => (
+                              <TextField {...params} label="Ваше місто" />
+                            )}
+                            onChange={(event, newValue) => {
+                              setSelectedCity(newValue);
+                            }}
+                          />
+                        )}
+                        {selectedDelivery === 'До відділення Укрпошти' &&
+                          selectedCity && (
+                            <Autocomplete
+                              options={[
+                                'Department 1',
+                                'Department 2',
+                                'Department 3',
+                              ]}
+                              renderInput={(params) => (
+                                <TextField
+                                  {...params}
+                                  label="Виберіть відділення"
+                                />
+                              )}
+                              onChange={(event, newValue) => {
+                                setSelectedDepartment(newValue);
+                              }}
+                            />
+                          )}
+                        {selectedDelivery === 'До поштомату Нової Пошти' && (
+                          <Autocomplete
+                            options={['Київ', 'Львів', 'Одеса', 'Харків']}
+                            renderInput={(params) => (
+                              <TextField {...params} label="Ваше місто" />
+                            )}
+                            onChange={(event, newValue) => {
+                              setSelectedCity(newValue);
+                            }}
+                          />
+                        )}
+                        <FormControlLabel
+                          control={
+                            <Field
+                              as={Radio}
+                              value="До відділення Укрпошти"
+                              name="delivery"
+                            />
+                          }
+                          disableTypography
+                          label={
+                            <DeliveryItem
+                              icon={'/images/delivery/UkrPoshta.png'}
+                              price={99}
+                              text={'До відділення Укрпошти'}
+                            />
+                          }
+                        />
+                        {selectedDelivery === 'До відділення Укрпошти' && (
+                          <Autocomplete
+                            sx={{ marginBottom: '24px' }}
+                            options={['Київ', 'Львів', 'Одеса', 'Харків']}
+                            renderInput={(params) => (
+                              <TextField {...params} label="Ваше місто" />
+                            )}
+                            onChange={(event, newValue) => {
+                              setSelectedCity(newValue);
+                            }}
+                          />
+                        )}
+                        {selectedDelivery === 'До відділення Укрпошти' &&
+                          selectedCity && (
+                            <Autocomplete
+                              options={[
+                                'Department 1',
+                                'Department 2',
+                                'Department 3',
+                              ]}
+                              renderInput={(params) => (
+                                <TextField
+                                  {...params}
+                                  label="Виберіть відділення"
+                                />
+                              )}
+                              onChange={(event, newValue) => {
+                                setSelectedDepartment(newValue);
+                              }}
+                            />
+                          )}
                       </RadioGroup>
                     </AccordionDetails>
                   </StyledAccordion>
@@ -331,17 +399,34 @@ const CartPage = () => {
                   >
                     Замовлення підтверджую
                   </StyledCheckoutButton>
+                  <FormControlLabel
+                    sx={{ marginBottom: '14px' }}
+                    control={
+                      <Field
+                        type="checkbox"
+                        name="termsAgreement"
+                        as={Checkbox}
+                      />
+                    }
+                    label="З умовами ознайомлений та погоджуюсь*"
+                  />
+                  <FormControlLabel
+                    sx={{ marginBottom: '14px' }}
+                    control={<Checkbox />}
+                    name={'termsAgreement'}
+                    label={'З умовами ознайомлений та погоджуюсь*'}
+                  />
                   <StyledTermsTitle>
                     Підтверджуючи замовлення, я приймаю умови:{' '}
                   </StyledTermsTitle>
                   <StyledList>
                     <StyledListItem>
                       <ListItemText>
-                        положення про обробку персональних даних
+                        • положення про обробку персональних даних
                       </ListItemText>
                     </StyledListItem>
                     <StyledListItem>
-                      <ListItemText>угоди користувача</ListItemText>
+                      <ListItemText>• угоди користувача</ListItemText>
                     </StyledListItem>
                   </StyledList>
                 </StyledPriceWrapper>

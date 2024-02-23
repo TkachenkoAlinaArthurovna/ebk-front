@@ -11,4 +11,7 @@ export const contactDataSchema = yup.object({
   delivery: yup.string().required("Спосіб доставки обов'язковий"),
   payment: yup.string().required("Спосіб оплати обов'язковий"),
   comment: yup.string().max(200, 'Максимальна довжина коментаря 200 символів'),
+  termsAgreement: yup
+    .boolean()
+    .oneOf([true], 'Погодьтесь з умовами користування'),
 });
