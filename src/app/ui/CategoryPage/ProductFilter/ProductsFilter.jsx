@@ -111,7 +111,10 @@ const ProductFilter = ({
               <CloseIcon />
             </IconButton>
           </StyledHeadFilter>
-          <FilterByPrice />
+          <FilterByPrice
+            priceRange={multiplyAndRoundUp(priceRange, dollar)}
+            categoryId={categoryId}
+          />
           {filterParams}
           <StyledSubstrate>
             <StyledButton
