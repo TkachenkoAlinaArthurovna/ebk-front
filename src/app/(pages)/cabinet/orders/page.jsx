@@ -1,3 +1,5 @@
+import OrdersPage from '@/app/ui/Cabinet/OrdersPage';
+
 export default function Orders() {
-  return <div>Orders</div>;
+  return <OrdersPage />;
 }
