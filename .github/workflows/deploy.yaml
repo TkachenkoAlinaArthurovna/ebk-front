@@ -1,0 +1,36 @@
+name: Deploy Next.js App from GitHub to Contabo VPS
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Latest Repo
+        uses: actions/checkout@v2
+
+      - name: Copy files to VPS
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          source: "."
+          target: "/home/frontend/ebk-front"
+
+      - name: Run commands on VPS
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /home/frontend
+            chown -R root:root ./ebk-front
+            cd ebk-front
+            npm i
+            pm2 restart frontend
+
+      - name: Deployed!
+        run: echo App deployed to Contabo VPS
