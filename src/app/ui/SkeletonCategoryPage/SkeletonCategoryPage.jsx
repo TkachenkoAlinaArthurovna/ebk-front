@@ -9,11 +9,11 @@ const SkeletonCategoryPage = () => {
       <Content>
         <Skeleton
           variant="rounded"
-          sx={{ width: '700px', height: '24px', marginBottom: '30px' }}
+          sx={{ width: '200px', height: '24px', marginBottom: '30px' }}
         />
         <Skeleton
-          variant="text"
-          sx={{ width: '266px', fontSize: '28px', marginBottom: '30px' }}
+          variant="rounded"
+          sx={{ width: '266px', height:'28px', marginBottom: '30px' }}
         />
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Skeleton
@@ -26,11 +26,11 @@ const SkeletonCategoryPage = () => {
           <Skeleton
             sx={{
               width: '25%',
-              height: '300px',
+              height: '600px',
               marginRight: '30px'
             }}
           />
-          <Skeleton sx={{ width: '75%', height: '300px'}} />
+          <Skeleton sx={{ width: '75%', height: '600px'}} />
         </div>
       </Content>
     </>

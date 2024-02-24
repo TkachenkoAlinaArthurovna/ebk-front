@@ -420,7 +420,7 @@ const SearchNew = () => {
         {value && (
           <ul className={styles.list}>
             {options.map((obj) => (
-              <li style={{ display: 'flex', marginBottom: '10px' }}>
+              <li key={obj.name} style={{ display: 'flex', marginBottom: '10px' }}>
                 <img
                   style={{ width: '40px', marginRight: '10px' }}
                   src={obj.picture[0]}
