@@ -84,9 +84,5 @@ async function getProduct(productId) {
 export default async function Product({ params }) {
   const { category, product } = params;
   const currentProduct = await getProductId(category, product);
-  return (
-    <Suspense fallback={<SkeletonProductPage/>}>
-      <ProductPage currentProduct={currentProduct} />
-    </Suspense>
-  );
+  return <ProductPage currentProduct={currentProduct} />;
 }
