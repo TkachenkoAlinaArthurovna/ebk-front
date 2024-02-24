@@ -1,4 +1,4 @@
-name: Deploy NextJS App from GitHub to Contabo VPS
+name: Deploy Next.js App from GitHub to Contabo VPS
 on:
   push:
     branches:
