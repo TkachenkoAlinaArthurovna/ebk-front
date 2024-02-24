@@ -1,4 +1,19 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  // images: {
+  //   domains: ['images.prom.ua'],
+  // },
+  // webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+  //   if (!isServer) {
+  //     config.output.filename = 'static/chunks/[name].js';
+  //     config.output.chunkFilename = 'static/chunks/[name].js';
+  //   }
+  //   return config;
+  // },
+};
 
-module.exports = nextConfig
+module.exports = {
+  images: {
+    domains: ['images.prom.ua'],
+  },
+};
