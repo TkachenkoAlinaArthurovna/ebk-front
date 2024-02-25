@@ -7,7 +7,7 @@ export const dynamicParams = false;
 
 async function getCategories() {
   const res = await fetch('https://stage.eco-bike.com.ua/api/categories', {
-    next: { revalidate: 0 },
+    next: { revalidate: 3600 },
   });
   const data = await res.json();
   return createLinks(data.items);
