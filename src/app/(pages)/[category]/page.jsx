@@ -1,7 +1,5 @@
-import { Suspense } from 'react';
 import CategoryPage from '@/app/ui/CategoryPage';
 import { createLinks } from '@/app/lib/createLinks';
-import SkeletonCategoryPage from '@/app/ui/SkeletonCategoryPage/SkeletonCategoryPage';
 
 export const dynamicParams = false;
 

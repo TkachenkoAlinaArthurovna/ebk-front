@@ -5,7 +5,10 @@ import CustomTabPanel from '@/app/ui/Tabs/CustomTabPanel';
 import { Box, Typography, Skeleton } from '@mui/material';
 import { a11yProps } from '@/app/lib/helpers';
 import Content from '@/app/ui/Content';
-import { StyledSection, StyledIconFavoriteButton } from '@/app/ui/ProductPage/ProductPageStyles';
+import {
+  StyledSection,
+  StyledIconFavoriteButton,
+} from '@/app/ui/ProductPage/ProductPageStyles';
 import SkeletonBreadCrumbs from '@/app/ui/Skeletons/SkeletonBreadCrumbs';
 import SkeletonPageTitle from '@/app/ui/Skeletons/SkeletonPageTitle';
 import {
@@ -20,7 +23,7 @@ const SkeletonProductPage = () => {
   return (
     <>
       <Content>
-        <Skeleton variant='rounded' width={200} height={28} />
+        <Skeleton variant="rounded" width={200} height={28} />
         <StyledSection as="section" sx={{ marginTop: '20px' }}>
           <Content>
             <Box
@@ -62,7 +65,7 @@ const SkeletonProductPage = () => {
                   <Typography sx={{ color: '#6a6a6a' }}>id</Typography>
                 </Box>
                 <Box sx={{ marginBottom: '32px' }}>
-                  <Skeleton variant="rounded" fontSize={28}  width={100}/>
+                  <Skeleton variant="rounded" fontSize={28} width={100} />
                 </Box>
                 <Box
                   sx={{
@@ -85,7 +88,6 @@ const SkeletonProductPage = () => {
             </WrapperAboutProduct>
           </Content>
         </StyledSection>
-        <StyledDiv></StyledDiv>
       </Content>
     </>
   );
