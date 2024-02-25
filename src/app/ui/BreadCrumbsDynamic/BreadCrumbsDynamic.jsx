@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
-import React from "react";
-import { useSelector } from "react-redux";
-import { usePathname } from "next/navigation";
-import { Breadcrumbs, Box } from "@mui/material";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { usePathname } from 'next/navigation';
+import { Breadcrumbs, Box } from '@mui/material';
 import {
   StyledBreadcrumbLink,
   StyledBreadcrumbTypography,
-} from "@/app/ui/BreadCrumbsDynamic/BreadCrumbsDynamicStyles";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+} from '@/app/ui/BreadCrumbsDynamic/BreadCrumbsDynamicStyles';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 const BreadCrumbsDynamic = ({ currentProduct, paramsForCategory }) => {
   const selectedFilters = useSelector(
-    (state) => state.productFilter.selectedFilters
+    (state) => state.productFilter.selectedFilters,
   );
   const categories = useSelector((state) => state.catalogLinks.catalogLinks);
   const getCategoryName = (category) => {
     const categoryName = categories.find(
-      (item) => item.link === category
+      (item) => item.link === category,
     )?.name;
     return (
       categoryName.charAt(0).toUpperCase() + categoryName.slice(1).toLowerCase()
@@ -25,20 +25,20 @@ const BreadCrumbsDynamic = ({ currentProduct, paramsForCategory }) => {
   };
 
   const pathname = usePathname();
-  const pathnames = pathname.split("/").filter((path) => path);
+  const pathnames = pathname.split('/').filter((path) => path);
   const decodedPathname = decodeURIComponent(pathnames[2]);
 
   const formattedString = selectedFilters.reduce((acc, obj) => {
     if (obj.paramValue) {
       if (acc) {
-        return acc + ", " + obj.paramValue;
+        return acc + ', ' + obj.paramValue;
       } else {
         return obj.paramValue;
       }
     } else {
       return acc;
     }
-  }, "");
+  }, '');
 
   return (
     <Box>

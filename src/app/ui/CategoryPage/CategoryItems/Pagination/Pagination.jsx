@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { styled } from "@mui/material";
-import MuiPagination from "@mui/material/Pagination";
-import { useResize } from "@/app/lib/helpers";
+import React, { useState } from 'react';
+import { styled } from '@mui/material';
+import MuiPagination from '@mui/material/Pagination';
+import { useResize } from '@/app/lib/helpers';
 
 const StyledPagination = styled(MuiPagination)`
   margin-top: 84px;
@@ -21,7 +21,7 @@ const Pagination = () => {
   return (
     <StyledPagination
       count={20}
-      size={width > 500 ? "large" : "small"}
+      size={width > 500 ? 'large' : 'small'}
       color="primary"
       onChange={handleChange}
     />

@@ -1,14 +1,14 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { resetFilters } from "@/redux/slices/ProductFilterSlice";
-import { usePathname } from "next/navigation";
-import Content from "@/app/ui/Content";
-import PageTitle from "@/app/ui/PageTitle";
-import SelectedFilters from "@/app/ui/CategoryPage/SelectedFilters";
-import SortingProducts from "@/app/ui/CategoryPage/SortingProducts";
-import ProductFilter from "@/app/ui/CategoryPage/ProductFilter";
-import CategoryItems from "@/app/ui/CategoryPage/CategoryItems";
+'use client';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { resetFilters } from '@/redux/slices/ProductFilterSlice';
+import { usePathname } from 'next/navigation';
+import Content from '@/app/ui/Content';
+import PageTitle from '@/app/ui/PageTitle';
+import SelectedFilters from '@/app/ui/CategoryPage/SelectedFilters';
+import SortingProducts from '@/app/ui/CategoryPage/SortingProducts';
+import ProductFilter from '@/app/ui/CategoryPage/ProductFilter';
+import CategoryItems from '@/app/ui/CategoryPage/CategoryItems';
 import {
   StyledWrapper,
   StyledTitleBox,
@@ -16,10 +16,10 @@ import {
   StyledContentWrapper,
   StyledIconButton,
   StyledRightWrapper,
-} from "@/app/ui/CategoryPage/CategoryPageStyles";
-import FilterListIcon from "@mui/icons-material/FilterList";
-import FilterListOffIcon from "@mui/icons-material/FilterListOff";
-import BreadCrumbsDynamic from "@/app/ui/BreadCrumbsDynamic";
+} from '@/app/ui/CategoryPage/CategoryPageStyles';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import FilterListOffIcon from '@mui/icons-material/FilterListOff';
+import BreadCrumbsDynamic from '@/app/ui/BreadCrumbsDynamic';
 
 const CategoryPage = ({
   categoryName,
@@ -33,7 +33,7 @@ const CategoryPage = ({
     setOpenDrawer(!openDrawer);
   };
   const currentCategoryId = useSelector(
-    (state) => state.productFilter.categoryId
+    (state) => state.productFilter.categoryId,
   );
   const dispatch = useDispatch();
 
@@ -44,7 +44,7 @@ const CategoryPage = ({
   }, [categoryId]);
 
   const pathname = usePathname();
-  const pathnames = pathname.split("/").filter((path) => path);
+  const pathnames = pathname.split('/').filter((path) => path);
 
   return (
     <>
@@ -59,8 +59,8 @@ const CategoryPage = ({
           <StyledSelectedFiltersWrapper
             sx={
               pathnames.length == 1
-                ? { justifyContent: "end" }
-                : { justifyContent: "space-between" }
+                ? { justifyContent: 'end' }
+                : { justifyContent: 'space-between' }
             }
           >
             {pathnames.length > 1 && (

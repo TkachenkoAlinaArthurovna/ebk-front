@@ -1,9 +1,9 @@
-import CategoryPage from "@/app/ui/CategoryPage";
-import { createLinks } from "@/app/lib/createLinks";
-import { dollar } from "@/app/lib/dollar";
+import CategoryPage from '@/app/ui/CategoryPage';
+import { createLinks } from '@/app/lib/createLinks';
+import { dollar } from '@/app/lib/dollar';
 
 async function getCategories() {
-  const res = await fetch("https://stage.eco-bike.com.ua/api/categories", {
+  const res = await fetch('https://stage.eco-bike.com.ua/api/categories', {
     next: { revalidate: 3600 },
   });
   const data = await res.json();
@@ -13,15 +13,15 @@ async function getCategories() {
 async function getCategoryIdProducts(category) {
   const categoriesLinks = await getCategories();
   const categoryId = categoriesLinks.find(
-    (item) => item.link === category
+    (item) => item.link === category,
   )?._id;
   return categoryId;
 }
 
 async function getCategoryProducts(categoryId, price, filterParams) {
   const res = await fetch(
-    `https://stage.eco-bike.com.ua/api/catalog/${categoryId}${!filterParams == "" ? "/" + filterParams : ""}?price=${price}&page=1&limit=10`,
-    { next: { revalidate: 0 } }
+    `https://stage.eco-bike.com.ua/api/catalog/${categoryId}${!filterParams == '' ? '/' + filterParams : ''}?price=${price}&page=1&limit=10`,
+    { next: { revalidate: 0 } },
   );
   const data = await res.json();
   return data;
@@ -30,36 +30,36 @@ async function getCategoryProducts(categoryId, price, filterParams) {
 async function getCategoryName(category) {
   const categoriesLinks = await getCategories();
   const categoryName = categoriesLinks.find(
-    (item) => item.link === category
+    (item) => item.link === category,
   )?.name;
   return categoryName;
 }
 
 const extractPriceFromString = (filterProducts) => {
-  const endIndex = filterProducts.indexOf("&");
-  let result = "";
+  const endIndex = filterProducts.indexOf('&');
+  let result = '';
   if (endIndex !== -1) {
-    const prices = filterProducts.substring(0, endIndex).split("-");
+    const prices = filterProducts.substring(0, endIndex).split('-');
     const dividedPrices = prices.map((price) =>
-      Math.floor(parseInt(price) / dollar)
+      Math.floor(parseInt(price) / dollar),
     );
-    result = dividedPrices.join("-");
+    result = dividedPrices.join('-');
   } else {
-    const prices = filterProducts.split("-");
+    const prices = filterProducts.split('-');
     const dividedPrices = prices.map((price) =>
-      Math.floor(parseInt(price) / dollar)
+      Math.floor(parseInt(price) / dollar),
     );
-    result = dividedPrices.join("-");
+    result = dividedPrices.join('-');
   }
   return result;
 };
 
 const extractParamsFromString = (filterProducts) => {
-  const startIndex = filterProducts.indexOf("&");
+  const startIndex = filterProducts.indexOf('&');
   if (startIndex !== -1) {
     return filterProducts.substring(startIndex + 1);
   } else {
-    return "";
+    return '';
   }
 };
 
@@ -68,12 +68,12 @@ export default async function Category({ params }) {
   const categoryId = await getCategoryIdProducts(category);
   const price = extractPriceFromString(decodeURIComponent(filterProducts));
   const filterParams = extractParamsFromString(
-    decodeURIComponent(filterProducts)
-  ).replace(/\//g, "%2F");
+    decodeURIComponent(filterProducts),
+  ).replace(/\//g, '%2F');
   const categoryProducts = await getCategoryProducts(
     categoryId,
     price,
-    filterParams
+    filterParams,
   );
   const categoryName = await getCategoryName(category);
   return (
@@ -86,7 +86,7 @@ export default async function Category({ params }) {
       products={categoryProducts.results}
       priceRange={categoryProducts.priceRange}
       paramsForCategory={
-        filterParams == ""
+        filterParams == ''
           ? categoryProducts.params
           : categoryProducts.productsParams
       }

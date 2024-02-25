@@ -1,12 +1,12 @@
-import { Suspense } from "react";
-import CategoryPage from "@/app/ui/CategoryPage";
-import { createLinks } from "@/app/lib/createLinks";
-import SkeletonCategoryPage from "@/app/ui/SkeletonCategoryPage/SkeletonCategoryPage";
+import { Suspense } from 'react';
+import CategoryPage from '@/app/ui/CategoryPage';
+import { createLinks } from '@/app/lib/createLinks';
+import SkeletonCategoryPage from '@/app/ui/SkeletonCategoryPage/SkeletonCategoryPage';
 
 export const dynamicParams = false;
 
 async function getCategories() {
-  const res = await fetch("https://stage.eco-bike.com.ua/api/categories", {
+  const res = await fetch('https://stage.eco-bike.com.ua/api/categories', {
     next: { revalidate: 3600 },
   });
   const data = await res.json();
@@ -23,7 +23,7 @@ export async function generateStaticParams() {
 async function getCategoryIdProducts(category) {
   const categoriesLinks = await getCategories();
   const categoryId = categoriesLinks.find(
-    (item) => item.link === category
+    (item) => item.link === category,
   )?._id;
   return categoryId;
 }
@@ -31,7 +31,7 @@ async function getCategoryIdProducts(category) {
 async function getCategoryProducts(categoryId) {
   const res = await fetch(
     `https://stage.eco-bike.com.ua/api/catalog/${categoryId}?page=1&limit=10`,
-    { next: { revalidate: 3600 } }
+    { next: { revalidate: 3600 } },
   );
   const data = await res.json();
   return data;
@@ -40,7 +40,7 @@ async function getCategoryProducts(categoryId) {
 async function getCategoryName(category) {
   const categoriesLinks = await getCategories();
   const categoryName = categoriesLinks.find(
-    (item) => item.link === category
+    (item) => item.link === category,
   )?.name;
   return categoryName;
 }
