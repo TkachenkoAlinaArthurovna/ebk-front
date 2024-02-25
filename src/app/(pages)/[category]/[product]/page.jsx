@@ -83,8 +83,11 @@ async function getProduct(productId) {
 
 export default async function Product({ params }) {
   const { category, product } = params;
-  const partsOfCategory = [category];
-  const currentProduct = await getProductId(category, product);
+  console.log(category);
+  const partsOfCategory = category.includes('%26')
+    ? category.split('%26')
+    : [category];
+  const currentProduct = await getProductId(partsOfCategory[0], product);
   return (
     <Suspense fallback={<SkeletonProductPage />}>
       <ProductPage

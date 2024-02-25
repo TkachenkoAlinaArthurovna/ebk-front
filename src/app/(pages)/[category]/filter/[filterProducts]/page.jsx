@@ -56,8 +56,11 @@ const extractParamsFromString = (filterProducts) => {
 
 export default async function Category({ params }) {
   const { category, filterProducts } = params;
+  const partsOfCategory = category.includes('%26')
+    ? category.split('%26')
+    : [category];
 
-  const categoryId = await getCategoryIdProducts(category);
+  const categoryId = await getCategoryIdProducts(partsOfCategory[0]);
 
   const price = extractPriceFromString(decodeURIComponent(filterProducts));
 
@@ -67,13 +70,11 @@ export default async function Category({ params }) {
     .replace(/\//g, '%2F')
     .replace(/&?page=[^&]*/, '');
 
-  const partsOfCategory = [category];
-
   const page = (filterProducts) => {
     const match = filterProducts.match(/page%3D([^&]*)/);
     return match ? match[1] : '1';
   };
-  const categoryName = await getCategoryName(category);
+  const categoryName = await getCategoryName(partsOfCategory[0]);
 
   return (
     <CategoryPage
