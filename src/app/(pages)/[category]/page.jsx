@@ -13,12 +13,12 @@ async function getCategories() {
   return createLinks(data.items);
 }
 
-export async function generateStaticParams() {
-  const categoriesLinks = await getCategories();
-  return categoriesLinks.map((category) => ({
-    category: category.link,
-  }));
-}
+// export async function generateStaticParams() {
+//   const categoriesLinks = await getCategories();
+//   return categoriesLinks.map((category) => ({
+//     category: category.link,
+//   }));
+// }
 
 async function getCategoryIdProducts(category) {
   const categoriesLinks = await getCategories();
@@ -26,15 +26,6 @@ async function getCategoryIdProducts(category) {
     (item) => item.link === category,
   )?._id;
   return categoryId;
-}
-
-async function getCategoryProducts(categoryId) {
-  const res = await fetch(
-    `https://stage.eco-bike.com.ua/api/catalog/${categoryId}?page=1&limit=10`,
-    { next: { revalidate: 3600 } },
-  );
-  const data = await res.json();
-  return data;
 }
 
 async function getCategoryName(category) {
@@ -47,20 +38,23 @@ async function getCategoryName(category) {
 
 export default async function Category({ params }) {
   const { category } = params;
-  const categoryId = await getCategoryIdProducts(category);
-  const categoryProducts = await getCategoryProducts(categoryId);
-  const categoryName = await getCategoryName(category);
+  const partsOfCategory = category.includes('%26')
+    ? category.split('%26')
+    : [category];
+  const page = partsOfCategory[1] ? partsOfCategory[1].split('%3D')[1] : 1;
+  const categoryId = await getCategoryIdProducts(partsOfCategory[0]);
+  const categoryName = await getCategoryName(partsOfCategory[0]);
+
   return (
     <Suspense fallback={<SkeletonCategoryPage />}>
       <CategoryPage
+        partsOfCategory={partsOfCategory}
         categoryName={
           categoryName.charAt(0).toUpperCase() +
           categoryName.slice(1).toLowerCase()
         }
         categoryId={categoryId}
-        products={categoryProducts.results}
-        priceRange={categoryProducts.priceRange}
-        paramsForCategory={categoryProducts.params}
+        page={page}
       />
     </Suspense>
   );
