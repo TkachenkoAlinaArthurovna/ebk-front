@@ -1,30 +1,58 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
+import { useResize } from '@/app/lib/helpers';
+import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { styled } from '@mui/material';
 import MuiPagination from '@mui/material/Pagination';
-import { useResize } from '@/app/lib/helpers';
 
 const StyledPagination = styled(MuiPagination)`
   margin-top: 84px;
   letter-spacing: 0.5px;
 `;
 
-const Pagination = () => {
+const Pagination = ({ totalPage, page }) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const pathnames = pathname.split('/').filter((path) => path);
   const [width] = useResize();
-  const [page, setPage] = useState(1);
+
   const handleChange = (event, value) => {
-    console.log(value);
-    setPage(value);
+    if (pathnames.length == 1) {
+      if (value == 1) {
+        router.push(`/${pathnames[0].split('&')[0]}`);
+      }
+      if (value == page) {
+      } else {
+        router.push(`/${pathnames[0].split('&')[0]}&page=${value}`);
+      }
+    } else {
+      console.log(pathnames);
+      if (value == 1) {
+        router.push(
+          `/${pathnames[0]}/${pathnames[1]}/${pathnames[2].split('&')[0]}`,
+        );
+      }
+      if (value == page) {
+      } else {
+        router.push(
+          `/${pathnames[0]}/${pathnames[1]}/${pathnames[2].split('&')[0]}&page=${value}`,
+        );
+      }
+    }
   };
 
   return (
-    <StyledPagination
-      count={20}
-      size={width > 500 ? 'large' : 'small'}
-      color="primary"
-      onChange={handleChange}
-    />
+    totalPage > 1 && (
+      <StyledPagination
+        page={parseInt(page)}
+        count={totalPage}
+        size={width > 500 ? 'large' : 'small'}
+        color="primary"
+        onChange={handleChange}
+      />
+    )
   );
 };
 

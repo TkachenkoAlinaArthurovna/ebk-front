@@ -47,6 +47,14 @@ async function getProduct(productId) {
 
 export default async function Product({ params }) {
   const { category, product } = params;
-  const currentProduct = await getProductId(category, product);
-  return <ProductPage currentProduct={currentProduct} />;
+  const partsOfCategory = category.includes('%26')
+    ? category.split('%26')
+    : [category];
+  const currentProduct = await getProductId(partsOfCategory[0], product);
+  return (
+    <ProductPage
+      currentProduct={currentProduct}
+      partsOfCategory={partsOfCategory}
+    />
+  );
 }
