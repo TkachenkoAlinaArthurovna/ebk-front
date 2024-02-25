@@ -3,11 +3,11 @@ import { StyledWrapper } from '@/app/ui/CategoryPage/CategoryItems/CategoryItems
 import ProductsList from '@/app/ui/CategoryPage/CategoryItems/ProductsList';
 import Pagination from '@/app/ui/CategoryPage/CategoryItems/Pagination';
 
-const CategoryItems = ({ products, totalPage, categoryId, page }) => {
+const CategoryItems = ({ products }) => {
   return (
     <StyledWrapper>
       <ProductsList products={products} />
-      <Pagination totalPage={totalPage} categoryId={categoryId} page={page} />
+      <Pagination />
     </StyledWrapper>
   );
 };

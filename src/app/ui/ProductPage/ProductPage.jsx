@@ -3,14 +3,11 @@ import SlidersProductPage from '@/app/ui/ProductPage/SlidersProductPage';
 import Content from '@/app/ui/Content';
 import BreadCrumbsDynamic from '@/app/ui/BreadCrumbsDynamic';
 
-const ProductPage = ({ currentProduct, partsOfCategory }) => {
+const ProductPage = ({ currentProduct }) => {
   return (
     <>
       <Content>
-        <BreadCrumbsDynamic
-          currentProduct={currentProduct}
-          partsOfCategory={partsOfCategory}
-        />
+        <BreadCrumbsDynamic currentProduct={currentProduct} />
       </Content>
       <TabsProductPage currentProduct={currentProduct} />
       {/* <SlidersProductPage /> */}

@@ -18,6 +18,15 @@ async function getCategoryIdProducts(category) {
   return categoryId;
 }
 
+async function getCategoryProducts(categoryId, price, filterParams) {
+  const res = await fetch(
+    `https://stage.eco-bike.com.ua/api/catalog/${categoryId}${!filterParams == '' ? '/' + filterParams : ''}?price=${price}&page=1&limit=10`,
+    { next: { revalidate: 0 } },
+  );
+  const data = await res.json();
+  return data;
+}
+
 async function getCategoryName(category) {
   const categoriesLinks = await getCategories();
   const categoryName = categoriesLinks.find(
@@ -56,36 +65,31 @@ const extractParamsFromString = (filterProducts) => {
 
 export default async function Category({ params }) {
   const { category, filterProducts } = params;
-
   const categoryId = await getCategoryIdProducts(category);
-
   const price = extractPriceFromString(decodeURIComponent(filterProducts));
-
   const filterParams = extractParamsFromString(
     decodeURIComponent(filterProducts),
-  )
-    .replace(/\//g, '%2F')
-    .replace(/&?page=[^&]*/, '');
-
-  const partsOfCategory = [category];
-
-  const page = (filterProducts) => {
-    const match = filterProducts.match(/page%3D([^&]*)/);
-    return match ? match[1] : '1';
-  };
+  ).replace(/\//g, '%2F');
+  const categoryProducts = await getCategoryProducts(
+    categoryId,
+    price,
+    filterParams,
+  );
   const categoryName = await getCategoryName(category);
-
   return (
     <CategoryPage
-      partsOfCategory={partsOfCategory}
       categoryName={
         categoryName.charAt(0).toUpperCase() +
         categoryName.slice(1).toLowerCase()
       }
       categoryId={categoryId}
-      price={price}
-      filterParams={filterParams}
-      page={page(filterProducts)}
+      products={categoryProducts.results}
+      priceRange={categoryProducts.priceRange}
+      paramsForCategory={
+        filterParams == ''
+          ? categoryProducts.params
+          : categoryProducts.productsParams
+      }
     />
   );
 }

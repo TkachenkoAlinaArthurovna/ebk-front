@@ -1,8 +1,8 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { usePathname } from 'next/navigation';
 import { resetFilters } from '@/redux/slices/ProductFilterSlice';
+import { usePathname } from 'next/navigation';
 import Content from '@/app/ui/Content';
 import PageTitle from '@/app/ui/PageTitle';
 import SelectedFilters from '@/app/ui/CategoryPage/SelectedFilters';
@@ -20,65 +20,14 @@ import {
 import FilterListIcon from '@mui/icons-material/FilterList';
 import FilterListOffIcon from '@mui/icons-material/FilterListOff';
 import BreadCrumbsDynamic from '@/app/ui/BreadCrumbsDynamic';
-import { useResize } from '@/app/lib/helpers';
 
-export default function CategoryPage({
-  partsOfCategory,
+const CategoryPage = ({
   categoryName,
+  products,
+  priceRange,
   categoryId,
-  price,
-  filterParams,
-  page,
-}) {
-  const [products, setProducts] = useState(null);
-  const [priceRange, setPriceRange] = useState([]);
-  const [params, setParams] = useState([]);
-  const [vendors, setVendors] = useState({});
-  const [totalPage, setTotalPage] = useState(1);
-  const [width] = useResize();
-  const limit = width > 700 ? 9 : 10;
-  const pathname = usePathname();
-  const pathnames = pathname.split('/').filter((path) => path);
-
-  const getProducts = async () => {
-    try {
-      let res;
-      if (!price && !filterParams) {
-        res = await fetch(
-          `https://stage.eco-bike.com.ua/api/catalog/${categoryId}?page=${page}&limit=${limit}`,
-          { next: { revalidate: 3600 } },
-        );
-      }
-      if (price || filterParams) {
-        res = await fetch(
-          `https://stage.eco-bike.com.ua/api/catalog/${categoryId}${!filterParams == '' ? '/' + filterParams : ''}?price=${price}&page=${page}&limit=${limit}`,
-          { next: { revalidate: 3600 } },
-        );
-      }
-      if (res) {
-        const data = await res.json();
-        if (data) {
-          setProducts(data.results);
-          setPriceRange(data.priceRange);
-          setParams(!filterParams ? data.params : data.productsParams);
-          const duplicateArray = data.vendors.map((vendor) => [vendor, vendor]);
-          const vendorsObj = {
-            name: ['Vendor', 'Виробник'],
-            values: duplicateArray,
-          };
-          setVendors(vendorsObj);
-          setTotalPage(data.meta.totalPages);
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getProducts();
-  }, []);
-
+  paramsForCategory,
+}) => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const toggleDrawer = () => {
     setOpenDrawer(!openDrawer);
@@ -94,58 +43,54 @@ export default function CategoryPage({
     }
   }, [categoryId]);
 
+  const pathname = usePathname();
+  const pathnames = pathname.split('/').filter((path) => path);
+
   return (
     <>
-      {!products && <div>loading</div>}
-      {products && (
-        <Content>
-          <StyledWrapper>
-            <BreadCrumbsDynamic partsOfCategory={partsOfCategory} />
+      <Content>
+        <StyledWrapper>
+          <BreadCrumbsDynamic paramsForCategory={paramsForCategory} />
 
-            <StyledTitleBox>
-              <PageTitle>{categoryName}</PageTitle>
-            </StyledTitleBox>
+          <StyledTitleBox>
+            <PageTitle>{categoryName}</PageTitle>
+          </StyledTitleBox>
 
-            <StyledSelectedFiltersWrapper
-              sx={
-                pathnames.length == 1
-                  ? { justifyContent: 'end' }
-                  : { justifyContent: 'space-between' }
-              }
-            >
-              {pathnames.length > 1 && (
-                <SelectedFilters
-                  categoryId={categoryId}
-                  priceRange={priceRange}
-                />
-              )}
-              <StyledRightWrapper>
-                <SortingProducts />
-                <StyledIconButton onClick={toggleDrawer}>
-                  {openDrawer ? <FilterListOffIcon /> : <FilterListIcon />}
-                </StyledIconButton>
-              </StyledRightWrapper>
-            </StyledSelectedFiltersWrapper>
-
-            <StyledContentWrapper>
-              <ProductFilter
-                toggleDrawer={toggleDrawer}
-                openDrawer={openDrawer}
+          <StyledSelectedFiltersWrapper
+            sx={
+              pathnames.length == 1
+                ? { justifyContent: 'end' }
+                : { justifyContent: 'space-between' }
+            }
+          >
+            {pathnames.length > 1 && (
+              <SelectedFilters
+                categoryId={categoryId}
                 priceRange={priceRange}
-                paramsForCategory={params}
-                vendors={vendors}
-                categoryId={categoryId}
               />
-              <CategoryItems
-                products={products}
-                totalPage={totalPage}
-                categoryId={categoryId}
-                page={page}
-              />
-            </StyledContentWrapper>
-          </StyledWrapper>
-        </Content>
-      )}
+            )}
+            <StyledRightWrapper>
+              <SortingProducts />
+              <StyledIconButton onClick={toggleDrawer}>
+                {openDrawer ? <FilterListOffIcon /> : <FilterListIcon />}
+              </StyledIconButton>
+            </StyledRightWrapper>
+          </StyledSelectedFiltersWrapper>
+
+          <StyledContentWrapper>
+            <ProductFilter
+              toggleDrawer={toggleDrawer}
+              openDrawer={openDrawer}
+              priceRange={priceRange}
+              paramsForCategory={paramsForCategory}
+              categoryId={categoryId}
+            />
+            <CategoryItems products={products} />
+          </StyledContentWrapper>
+        </StyledWrapper>
+      </Content>
     </>
   );
-}
+};
+
+export default CategoryPage;

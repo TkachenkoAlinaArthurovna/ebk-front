@@ -28,7 +28,6 @@ const ProductFilter = ({
   openDrawer,
   priceRange,
   paramsForCategory,
-  vendors,
   categoryId,
 }) => {
   const router = useRouter();
@@ -60,11 +59,6 @@ const ProductFilter = ({
   const updatedFilters = [...checkedFilters];
   const selectedPrice = { paramValue: `${minPrice()}-${maxPrice()} грн.` };
 
-  const removeAfterAmpersand = (queryString) => {
-    const index = queryString.indexOf('&');
-    return index !== -1 ? queryString.substring(0, index) : queryString;
-  };
-
   const handleFilterClick = () => {
     dispatch(
       addSelectedPrice({ paramValue: `${minPrice()}-${maxPrice()} грн.` }),
@@ -79,7 +73,7 @@ const ProductFilter = ({
     const urlComponent = encodeURIComponent(queryString);
     pathnames.length > 2
       ? router.push(`/${pathnames[0]}/filter/${urlComponent}`)
-      : router.push(`${removeAfterAmpersand(pathname)}/filter/${urlComponent}`);
+      : router.push(`${pathname}/filter/${urlComponent}`);
   };
 
   const filterParams = paramsForCategory.map(({ name, values }) => {
@@ -94,11 +88,6 @@ const ProductFilter = ({
           categoryId={categoryId}
         />
         {filterParams}
-        <FilterParam
-          key={vendors.name[0]}
-          paramName={vendors.name}
-          paramValues={vendors.values}
-        />
         <StyledSubstrate>
           <StyledButton
             onClick={() => {

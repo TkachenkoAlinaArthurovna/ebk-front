@@ -10,14 +10,14 @@ import {
 } from '@/app/ui/BreadCrumbsDynamic/BreadCrumbsDynamicStyles';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
-const BreadCrumbsDynamic = ({ currentProduct, partsOfCategory }) => {
+const BreadCrumbsDynamic = ({ currentProduct, paramsForCategory }) => {
   const selectedFilters = useSelector(
     (state) => state.productFilter.selectedFilters,
   );
   const categories = useSelector((state) => state.catalogLinks.catalogLinks);
   const getCategoryName = (category) => {
     const categoryName = categories.find(
-      (item) => item.link === partsOfCategory[0],
+      (item) => item.link === category,
     )?.name;
     return (
       categoryName.charAt(0).toUpperCase() + categoryName.slice(1).toLowerCase()
