@@ -36,15 +36,23 @@ async function getCategoryName(category) {
   return categoryName;
 }
 
+const getPageParams = (queryString) => {
+  const index = queryString.indexOf('%26page%3D');
+  if (index !== -1) {
+    return queryString.substring(index + 10);
+  }
+  return '';
+};
+
 export default async function Category({ params }) {
   const { category } = params;
   const partsOfCategory = category.includes('%26')
     ? category.split('%26')
     : [category];
-  const page = partsOfCategory[1] ? partsOfCategory[1].split('%3D')[1] : 1;
+  const sort = category.includes('sort%3Ddesc') ? 'desc' : 'asc';
+  const page = category.includes('page') ? getPageParams(category) : 1;
   const categoryId = await getCategoryIdProducts(partsOfCategory[0]);
   const categoryName = await getCategoryName(partsOfCategory[0]);
-
   return (
     <Suspense fallback={<SkeletonCategoryPage />}>
       <CategoryPage
@@ -55,6 +63,7 @@ export default async function Category({ params }) {
         }
         categoryId={categoryId}
         page={page}
+        sortParam={sort}
       />
     </Suspense>
   );

@@ -21,6 +21,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import FilterListOffIcon from '@mui/icons-material/FilterListOff';
 import BreadCrumbsDynamic from '@/app/ui/BreadCrumbsDynamic';
 import { useResize } from '@/app/lib/helpers';
+import { createLinkProduct } from '@/app/lib/createLinkProduct';
 
 export default function CategoryPage({
   partsOfCategory,
@@ -29,6 +30,8 @@ export default function CategoryPage({
   price,
   filterParams,
   page,
+  sortParam,
+  vendorParam,
 }) {
   const [products, setProducts] = useState(null);
   const [priceRange, setPriceRange] = useState([]);
@@ -43,15 +46,17 @@ export default function CategoryPage({
   const getProducts = async () => {
     try {
       let res;
+      const sort = sortParam ? `sort=${sortParam}&` : '';
+      const vendor = vendorParam ? `vendor=${vendorParam}&` : '';
       if (!price && !filterParams) {
         res = await fetch(
-          `https://stage.eco-bike.com.ua/api/catalog/${categoryId}?page=${page}&limit=${limit}`,
+          `https://stage.eco-bike.com.ua/api/catalog/${categoryId}?${sort}page=${page}&limit=${limit}`,
           { next: { revalidate: 3600 } },
         );
       }
       if (price || filterParams) {
         res = await fetch(
-          `https://stage.eco-bike.com.ua/api/catalog/${categoryId}${!filterParams == '' ? '/' + filterParams : ''}?price=${price}&page=${page}&limit=${limit}`,
+          `https://stage.eco-bike.com.ua/api/catalog/${categoryId}${!filterParams == '' ? '/' + filterParams : ''}?${vendor}${sort}price=${price}&page=${page}&limit=${limit}`,
           { next: { revalidate: 3600 } },
         );
       }
@@ -61,7 +66,10 @@ export default function CategoryPage({
           setProducts(data.results);
           setPriceRange(data.priceRange);
           setParams(!filterParams ? data.params : data.productsParams);
-          const duplicateArray = data.vendors.map((vendor) => [vendor, vendor]);
+          const duplicateArray = data.vendors.map((vendor) => [
+            createLinkProduct(vendor),
+            createLinkProduct(vendor),
+          ]);
           const vendorsObj = {
             name: ['Vendor', 'Виробник'],
             values: duplicateArray,

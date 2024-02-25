@@ -13,7 +13,9 @@ const FilterParam = ({ paramName, paramValues }) => {
     return (
       <ParamValue
         key={paramValue[0]}
-        paramValue={paramValue[1]}
+        paramValue={
+          paramValue[1].charAt(0).toUpperCase() + paramValue[1].slice(1)
+        }
         paramValueEng={paramValue[0]}
         paramNameEng={paramName[0]}
       />

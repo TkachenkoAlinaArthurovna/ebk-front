@@ -1,14 +1,21 @@
-import { WrapperBox, Color } from '@/app/ui/ProductCard/Colors/ColorsStyles';
-import Box from '@mui/system/Box';
+import {
+  WrapperBox,
+  Color,
+  WrapperColors,
+} from '@/app/ui/ProductCard/Colors/ColorsStyles';
 
 const Colors = ({ colors }) => {
-  console.log(colors);
   return (
     <WrapperBox>
-      {colors && colors.length == 1 ? (
+      {colors && colors.length == 1 && (
         <Color sx={{ backgroundColor: `${colors[0].value}` }} />
-      ) : (
-        console.log('hi')
+      )}
+      {colors && colors.length == 2 && (
+        <WrapperColors
+          sx={{
+            background: `linear-gradient(to right, ${colors[0].value} 50%, ${colors[1].value} 50%)`,
+          }}
+        ></WrapperColors>
       )}
     </WrapperBox>
   );

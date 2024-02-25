@@ -29,6 +29,7 @@ const ProductFilter = ({
   priceRange,
   paramsForCategory,
   categoryId,
+  vendors,
 }) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -88,6 +89,9 @@ const ProductFilter = ({
           categoryId={categoryId}
         />
         {filterParams}
+        {vendors.values.length > 1 && (
+          <FilterParam paramName={vendors.name} paramValues={vendors.values} />
+        )}
         <StyledSubstrate>
           <StyledButton
             onClick={() => {
