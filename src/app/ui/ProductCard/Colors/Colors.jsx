@@ -4,7 +4,11 @@ import Box from '@mui/system/Box';
 const Colors = ({ colors }) => {
   return (
     <WrapperBox>
-      {colors ? <Color sx={{ backgroundColor: `${colors}` }} /> : null}
+      {colors && colors.length == 1 ? (
+        <Color sx={{ backgroundColor: `${colors[0].value}` }} />
+      ) : (
+        console.log('hi')
+      )}
     </WrapperBox>
   );
 };
