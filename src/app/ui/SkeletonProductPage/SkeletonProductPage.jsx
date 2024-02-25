@@ -1,59 +1,62 @@
 'use client';
 import * as React from 'react';
-import { StyledTabs, StyledTab } from '@/app/ui/Tabs/TabsStyled';
-import CustomTabPanel from '@/app/ui/Tabs/CustomTabPanel';
-import { Box, Typography, Skeleton } from '@mui/material';
-import { a11yProps } from '@/app/lib/helpers';
 import Content from '@/app/ui/Content';
-import {
-  StyledSection,
-  StyledIconFavoriteButton,
-} from '@/app/ui/ProductPage/ProductPageStyles';
-import SkeletonBreadCrumbs from '@/app/ui/Skeletons/SkeletonBreadCrumbs';
+import { StyledSection } from '@/app/ui/ProductPage/ProductPageStyles';
 import SkeletonPageTitle from '@/app/ui/Skeletons/SkeletonPageTitle';
+import { Box, Typography, Skeleton } from '@mui/material';
 import {
   WrapperAboutProduct,
+  WrapperSlider,
   WrapperContent,
+  StyledIconFavoriteButton,
 } from '@/app/ui/ProductPage/ProductPageStyles';
-import { StyledDiv } from '@/app/ui/SkeletonProductPage/SkeletonProductPageStyled';
+
 import ButtonMain from '@/app/ui/ButtonMain';
-import ShoppingCartIcon from '@mui/icons-material';
+import FavoriteIcon from '@mui/icons-material/FavoriteBorder';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const SkeletonProductPage = () => {
   return (
     <>
       <Content>
-        <Skeleton variant="rounded" width={200} height={28} />
+      <Skeleton variant='rounded' width={'60%'} height={24} />
         <StyledSection as="section" sx={{ marginTop: '20px' }}>
           <Content>
             <Box
               sx={{
                 display: 'flex',
-                marginBottom: '24px',
+                // marginBottom: '24px',
                 borderBottom: 1,
                 borderColor: 'divider',
               }}
             >
-              <Skeleton variant='rounded' width={150} height={26} sx={{marginRight: '40px'}}/>
-              <Skeleton variant='rounded' width={150} height={26} sx={{marginRight: '40px'}}/>
-              <Skeleton variant='rounded' width={150} height={26} sx={{marginRight: '40px'}}/>
+              <Skeleton variant="rounded" width={200} height={48} />
+              <Skeleton variant="rounded" width={200} height={48} />
+              <Skeleton variant="rounded" width={200} height={48} />
             </Box>
             <WrapperAboutProduct>
-              <Skeleton
+              <Box
                 sx={{
                   width: '50%',
                   display: 'flex',
-                  alignItems: 'flex-start',
+                  // alignItems: 'flex-start',
                   '@media (max-width: 700px)': {
                     width: '100%',
                     marginBottom: '16px',
                   },
                 }}
               >
-                <Skeleton variant="rounded" width="100%" height="100%" />
-              </Skeleton>
+                <WrapperSlider>
+                  <Skeleton
+                    sx={{
+                      width: '100%',
+                      height: '200px',
+                    }}
+                  />
+                </WrapperSlider>
+              </Box>
               <WrapperContent>
-                <SkeletonPageTitle />
+              <Skeleton variant="rounded" width={200} height={48} sx={{marginTop: '10px'}}/>
                 <Box
                   sx={{
                     display: 'flex',
@@ -64,7 +67,7 @@ const SkeletonProductPage = () => {
                   <Typography sx={{ color: '#6a6a6a' }}>id</Typography>
                 </Box>
                 <Box sx={{ marginBottom: '32px' }}>
-                  <Skeleton variant="rounded" fontSize={28} width={100} />
+                <Skeleton variant="rounded" width={100} height={28} />
                 </Box>
                 <Box
                   sx={{
@@ -74,13 +77,11 @@ const SkeletonProductPage = () => {
                     marginBottom: '32px',
                   }}
                 >
-                  <Skeleton width={'100%'} />
-
+                  <ButtonMain width={'100%'} startIcon={<ShoppingCartIcon />}>
+                    Купити
+                  </ButtonMain>
                   <StyledIconFavoriteButton>
-                    <Skeleton
-                      variant="circular"
-                      sx={{ width: '24px', height: '24px' }}
-                    />
+                    <FavoriteIcon sx={{ width: '24px', height: '24px' }} />
                   </StyledIconFavoriteButton>
                 </Box>
               </WrapperContent>
