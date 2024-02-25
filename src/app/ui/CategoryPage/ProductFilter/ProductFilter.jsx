@@ -1,27 +1,27 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { addCategoryId } from '@/redux/slices/ProductFilterSlice';
-import { useRouter } from 'next/navigation';
-import { usePathname } from 'next/navigation';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addCategoryId } from "@/redux/slices/ProductFilterSlice";
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import {
   addProductToFilter,
   addSelectedPrice,
-} from '@/redux/slices/ProductFilterSlice';
-import FilterByPrice from '@/app/ui/CategoryPage/ProductFilter/FilterByPrice';
-import FilterParam from '@/app/ui/CategoryPage/ProductFilter/FilterParam';
+} from "@/redux/slices/ProductFilterSlice";
+import FilterByPrice from "@/app/ui/CategoryPage/ProductFilter/FilterByPrice";
+import FilterParam from "@/app/ui/CategoryPage/ProductFilter/FilterParam";
 import {
   StyledWrapper,
   StyledSubstrate,
   StyledButton,
   StyledWrapperSide,
   StyledHeadFilter,
-} from '@/app/ui/CategoryPage/ProductFilter/ProductsFilterStyles';
-import CloseIcon from '@mui/icons-material/Close';
-import { Drawer, IconButton, Typography } from '@mui/material';
-import { dollar } from '@/app/lib/dollar';
-import { generateQueryString } from '@/app/lib/getFilterParams';
+} from "@/app/ui/CategoryPage/ProductFilter/ProductsFilterStyles";
+import CloseIcon from "@mui/icons-material/Close";
+import { Drawer, IconButton, Typography } from "@mui/material";
+import { dollar } from "@/app/lib/dollar";
+import { generateQueryString } from "@/app/lib/getFilterParams";
 
 const ProductFilter = ({
   toggleDrawer,
@@ -32,7 +32,7 @@ const ProductFilter = ({
 }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const pathnames = pathname.split('/').filter((path) => path);
+  const pathnames = pathname.split("/").filter((path) => path);
   const dispatch = useDispatch();
   const categoryProductsPrice = priceRange;
   const minPriceArr = useSelector((state) => state.productFilter.minPrice);
@@ -49,7 +49,7 @@ const ProductFilter = ({
   };
 
   const checkedFilters = useSelector(
-    (state) => state.productFilter.checkedFilters,
+    (state) => state.productFilter.checkedFilters
   );
 
   function multiplyAndRoundUp(array, multiplier) {
@@ -61,7 +61,7 @@ const ProductFilter = ({
 
   const handleFilterClick = () => {
     dispatch(
-      addSelectedPrice({ paramValue: `${minPrice()}-${maxPrice()} грн.` }),
+      addSelectedPrice({ paramValue: `${minPrice()}-${maxPrice()} грн.` })
     );
     dispatch(addProductToFilter(updatedFilters));
     dispatch(addCategoryId(categoryId));
@@ -103,11 +103,11 @@ const ProductFilter = ({
         <StyledWrapperSide>
           <StyledHeadFilter>
             <Typography
-              sx={{ padding: '16px', fontSize: '22px', fontWeight: '500' }}
+              sx={{ padding: "16px", fontSize: "22px", fontWeight: "500" }}
             >
               Фільтри
             </Typography>
-            <IconButton onClick={toggleDrawer} sx={{ padding: '16px' }}>
+            <IconButton onClick={toggleDrawer} sx={{ padding: "16px" }}>
               <CloseIcon />
             </IconButton>
           </StyledHeadFilter>

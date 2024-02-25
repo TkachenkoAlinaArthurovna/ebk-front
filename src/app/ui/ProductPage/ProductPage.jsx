@@ -1,7 +1,7 @@
-import TabsProductPage from '@/app/ui/ProductPage/TabsProductPage';
-import SlidersProductPage from '@/app/ui/ProductPage/SlidersProductPage';
-import Content from '@/app/ui/Content';
-import BreadCrumbsDynamic from '@/app/ui/BreadCrumbsDynamic';
+import TabsProductPage from "@/app/ui/ProductPage/TabsProductPage";
+import SlidersProductPage from "@/app/ui/ProductPage/SlidersProductPage";
+import Content from "@/app/ui/Content";
+import BreadCrumbsDynamic from "@/app/ui/BreadCrumbsDynamic";
 
 const ProductPage = ({ currentProduct }) => {
   return (
