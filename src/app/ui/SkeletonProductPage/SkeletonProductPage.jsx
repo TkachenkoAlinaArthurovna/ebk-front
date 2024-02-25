@@ -28,16 +28,15 @@ const SkeletonProductPage = () => {
           <Content>
             <Box
               sx={{
+                display: 'flex',
                 marginBottom: '24px',
                 borderBottom: 1,
                 borderColor: 'divider',
               }}
             >
-              <StyledTabs aria-label="basic tabs example">
-                <StyledTab label="Про товар" />
-                <StyledTab label="Характеристики" />
-                <StyledTab label="Опис" />
-              </StyledTabs>
+              <Skeleton variant='rounded' width={150} height={26} sx={{marginRight: '40px'}}/>
+              <Skeleton variant='rounded' width={150} height={26} sx={{marginRight: '40px'}}/>
+              <Skeleton variant='rounded' width={150} height={26} sx={{marginRight: '40px'}}/>
             </Box>
             <WrapperAboutProduct>
               <Skeleton
