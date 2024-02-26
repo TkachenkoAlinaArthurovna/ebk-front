@@ -16,6 +16,9 @@ export const metadata = {
   description:
     'Електровелосипеди, запчастини для електровелосипедів, запчастини для велосипедів, комплекти для електровелосипедів, акумулятори, мотори, мотор-колеса',
   link: ' href="./output.css" rel="stylesheet"',
+  icons: {
+    icon: ['/logo.svg'],
+  },
 };
 
 const getCategories = () =>
@@ -25,7 +28,6 @@ const getCategories = () =>
 
 export default async function RootLayout({ children }) {
   const catalog = await getCategories();
-
   return (
     <html lang="en">
       <AppTheme>

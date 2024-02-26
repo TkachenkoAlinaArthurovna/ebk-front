@@ -39,12 +39,11 @@ const ProductFilterSlice = createSlice({
       if (action.payload.paramValue.includes('грн.')) {
         state.selectedPrice = '';
       }
-      const trimmedParamValue = action.payload.paramValue.replace(' грн.', '');
       state.checkedFilters = state.checkedFilters.filter(
-        (filter) => filter.paramValue !== trimmedParamValue,
+        (filter) => filter.paramValue !== action.payload.paramValue,
       );
       state.selectedFilters = state.selectedFilters.filter(
-        (filter) => filter.paramValue !== trimmedParamValue,
+        (filter) => filter.paramValue !== action.payload.paramValue,
       );
     },
     resetFilters: (state) => {

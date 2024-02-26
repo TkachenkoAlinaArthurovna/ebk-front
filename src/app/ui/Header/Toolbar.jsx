@@ -55,7 +55,7 @@ const Toolbar = ({ catalog }) => {
       />
       <Link href="/">
         <StyledLogoBox>
-          <Logo color={'#49BEB7'} width={'100%'} height={'100%'} />
+          <Logo color={'#000'} width={'100%'} height={'100%'} />
         </StyledLogoBox>
       </Link>
       <StyledButtonCatalog
@@ -67,7 +67,7 @@ const Toolbar = ({ catalog }) => {
       </StyledButtonCatalog>
       <Catalog catalog={catalogLinks} />
       {/* <SearchComponent /> */}
-      <SearchNew/>
+      <SearchNew />
       <Phones />
       <StyledBoxIcons>
         <StyledLinkFavorite href="cabinet/favorites">
