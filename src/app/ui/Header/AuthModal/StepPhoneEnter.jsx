@@ -22,18 +22,34 @@ const StepPhoneEnter = ({ setPhone, phone, setStep }) => {
     setPhone(phone);
   };
 
-  const handleNextStep = () => {
-    // validation
-    // send to server
-    // error mock
-    if (phone.slice(-1) % 2 === 1) {
-      setIsError(true);
-      setHelperText('Невірний номер телефону');
-      return;
-    }
+  function handleNextStep() {
+    phone = phone.replace(/\D/g, '');
+    const params = {
+      phone: phone,
+    };
 
-    setStep(2);
-  };
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params),
+    };
+
+    fetch(`https://stage.eco-bike.com.ua/api/auth/sign-in`, options)
+      .then((response) => {
+        if (response.status !== 200) {
+          setIsError(true);
+          setHelperText('Невірний номер телефону');
+          return;
+        }
+        setStep(2);
+      })
+      .catch(() => {
+        setIsError(true);
+        setHelperText('Невірний номер телефону');
+      });
+  }
 
   return (
     <>

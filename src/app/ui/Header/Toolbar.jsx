@@ -6,6 +6,7 @@ import { setCatalogLinks } from '@/redux/slices/CatalogLinksSlice';
 import Link from 'next/link';
 import IconButtonMenu from '@/app/ui/Header/IconButtonMenu';
 import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Badge from '@mui/material/Badge';
@@ -34,6 +35,9 @@ import { createLinks } from '@/app/lib/createLinks';
 import Phones from '@/app/ui/Header/Phones';
 import Logo from '@/app/ui/Logo/Logo';
 import Authorization from '@/app/ui/Header/AuthModal/Authorization';
+import { useAuth } from '@/redux/contexts/AuthContext';
+import { MenuItem, Select } from '@mui/material';
+import Account from '@/app/ui/Header/Account';
 
 const Toolbar = ({ catalog }) => {
   const dispatch = useDispatch();
@@ -67,6 +71,7 @@ const Toolbar = ({ catalog }) => {
         toggleDrawer={toggleDrawer}
         openDrawer={openDrawer}
         handleOpenCatalog={toggleOpenCatalog}
+        handleOpenAuthModal={handleOpenAuthModal}
       />
       <Link href="/">
         <StyledLogoBox>
@@ -105,17 +110,7 @@ const Toolbar = ({ catalog }) => {
             </Badge>
           </IconButton>
         </StyledLinkCart>
-        <StyledLinkCabinet href="/cabinet/personal-information">
-          <IconButton>
-        <Box>
-          <IconButton onClick={handleOpenAuthModal}>
-            <Badge badgeContent={null} color="error">
-              <PermIdentityIcon
-                sx={{ width: '24px', height: '24px', color: '#252A31' }}
-              />
-            </Badge>
-          </IconButton>
-        </Box>
+        <Account handleOpenAuthModal={handleOpenAuthModal} />
       </StyledBoxIcons>
     </StyledToolbar>
   );

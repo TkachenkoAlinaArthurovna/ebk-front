@@ -23,8 +23,7 @@ const StepCodeEnter = ({ phone, handleClose }) => {
   };
 
   const handleConfirmCode = () => {
-    // validation
-    // send to server
+    // send to server after sms taken
     // error mock
     if (code !== phone.slice(-4)) {
       setIsError(true);
@@ -33,7 +32,7 @@ const StepCodeEnter = ({ phone, handleClose }) => {
     }
 
     // auth on server
-    login('mock-token');
+    login();
     handleClose();
   };
 

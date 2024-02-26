@@ -4,7 +4,12 @@ import {
 } from '@/app/ui/Header/HeaderStyles';
 import SideBar from '@/app/ui/Header/SideBar';
 
-const IconButtonMenu = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => {
+const IconButtonMenu = ({
+  toggleDrawer,
+  openDrawer,
+  handleOpenCatalog,
+  handleOpenAuthModal,
+}) => {
   return (
     <StyledIconButtonMenu
       onClick={toggleDrawer}
@@ -17,6 +22,7 @@ const IconButtonMenu = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => {
         toggleDrawer={toggleDrawer}
         openDrawer={openDrawer}
         handleOpenCatalog={handleOpenCatalog}
+        handleOpenAuthModal={handleOpenAuthModal}
       />
     </StyledIconButtonMenu>
   );
