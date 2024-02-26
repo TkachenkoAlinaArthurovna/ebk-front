@@ -22,7 +22,7 @@ const Catalog = () => {
   const dispatch = useDispatch();
   const toggleCatalog = () => dispatch(toggleMenuModal());
 
-  const [width] = useResize();
+  const [width, height] = useResize();
   const updatedCatalog = catalog.map((item) => ({
     ...item,
     children: catalog.filter((subItem) => subItem.parentId === item.id),
@@ -50,14 +50,23 @@ const Catalog = () => {
         <Fade in={isOpenModalMenu}>
           <StyledPaper
             papertype={width <= 1025 ? 'mob' : 'desktop'}
-            sx={{
-              '@media(min-width: 1025px)': {
-                height: `${heightMenu}px`,
-              },
-            }}
+            sx={
+              height > 640
+                ? {
+                    '@media(min-width: 1025px)': {
+                      height: `${heightMenu}px`,
+                    },
+                  }
+                : {
+                    '@media(min-width: 1025px)': {
+                      bottom: '10px',
+                    },
+                  }
+            }
           >
             <Box
               sx={{
+                height: '100%',
                 overflow: 'auto',
                 '&::-webkit-scrollbar': {
                   width: '0 !important',
@@ -86,7 +95,13 @@ const Catalog = () => {
                   categories={categories}
                 />
               )}
-              {width > 1025 && (
+              {width > 1025 && height <= heightMenu + 140 && (
+                <MenuMob
+                  handleCloseCatalog={toggleCatalog}
+                  categories={categories}
+                />
+              )}
+              {width > 1025 && height > heightMenu + 140 && (
                 <MenuDesktop
                   handleCloseCatalog={toggleCatalog}
                   categories={categories}

@@ -2,6 +2,21 @@ import CategoryPage from '@/app/ui/CategoryPage';
 import { createLinks } from '@/app/lib/createLinks';
 import { dollar } from '@/app/lib/dollar';
 
+export async function generateMetadata({ params, searchParams }, parent) {
+  const { category } = params;
+  const partsOfCategory = category.includes('%26')
+    ? category.split('%26')
+    : [category];
+
+  const categoryName = await getCategoryName(partsOfCategory[0]);
+
+  return {
+    title:
+      categoryName.charAt(0).toUpperCase() +
+      categoryName.slice(1).toLowerCase(),
+  };
+}
+
 async function getCategories() {
   const res = await fetch('https://stage.eco-bike.com.ua/api/categories', {
     next: { revalidate: 3600 },

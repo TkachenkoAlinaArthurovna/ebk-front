@@ -3,7 +3,28 @@ import CategoryPage from '@/app/ui/CategoryPage';
 import { createLinks } from '@/app/lib/createLinks';
 import SkeletonCategoryPage from '@/app/ui/SkeletonCategoryPage/SkeletonCategoryPage';
 
-export const dynamicParams = false;
+export async function generateMetadata({ params, searchParams }, parent) {
+  const { category } = params;
+  const partsOfCategory = category.includes('%26')
+    ? category.split('%26')
+    : [category];
+
+  const categoryName = await getCategoryName(partsOfCategory[0]);
+
+  return {
+    title:
+      categoryName.charAt(0).toUpperCase() +
+      categoryName.slice(1).toLowerCase(),
+  };
+}
+
+// export const dynamicParams = false;
+// export async function generateStaticParams() {
+//   const categoriesLinks = await getCategories();
+//   return categoriesLinks.map((category) => ({
+//     category: category.link,
+//   }));
+// }
 
 async function getCategories() {
   const res = await fetch('https://stage.eco-bike.com.ua/api/categories', {
@@ -12,13 +33,6 @@ async function getCategories() {
   const data = await res.json();
   return createLinks(data.items);
 }
-
-// export async function generateStaticParams() {
-//   const categoriesLinks = await getCategories();
-//   return categoriesLinks.map((category) => ({
-//     category: category.link,
-//   }));
-// }
 
 async function getCategoryIdProducts(category) {
   const categoriesLinks = await getCategories();
@@ -53,6 +67,7 @@ export default async function Category({ params }) {
   const page = category.includes('page') ? getPageParams(category) : 1;
   const categoryId = await getCategoryIdProducts(partsOfCategory[0]);
   const categoryName = await getCategoryName(partsOfCategory[0]);
+
   return (
     <Suspense fallback={<SkeletonCategoryPage />}>
       <CategoryPage

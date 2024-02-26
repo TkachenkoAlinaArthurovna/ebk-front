@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { AccordionSummary } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ParamValue from '@/app/ui/CategoryPage/ProductFilter/FilterParam/ParamValue';
@@ -9,6 +10,14 @@ import {
 } from '@/app/ui/CategoryPage/ProductFilter/FilterParam/FilterParamStyles';
 
 const FilterParam = ({ paramName, paramValues }) => {
+  const checkedFilters = useSelector(
+    (state) => state.productFilter.checkedFilters,
+  );
+
+  function isParamValueExists(array, paramValue) {
+    return array.some((item) => item.paramValue === paramValue);
+  }
+
   const paramValue = paramValues.map((paramValue, index) => {
     return (
       <ParamValue
@@ -22,9 +31,13 @@ const FilterParam = ({ paramName, paramValues }) => {
     );
   });
 
+  const hasMatch = checkedFilters.some((item1) =>
+    paramValue.some((item2) => item1.paramValue === item2.props.paramValue),
+  );
+  console.log(hasMatch);
   return (
     <StyledAccordionBox>
-      <StyledAccordion>
+      <StyledAccordion defaultExpanded={hasMatch ? true : false}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <StyledAccordionTitle>{paramName[1]}</StyledAccordionTitle>
         </AccordionSummary>
