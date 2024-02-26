@@ -34,7 +34,6 @@ const FilterParam = ({ paramName, paramValues }) => {
   const hasMatch = checkedFilters.some((item1) =>
     paramValue.some((item2) => item1.paramValue === item2.props.paramValue),
   );
-  console.log(hasMatch);
   return (
     <StyledAccordionBox>
       <StyledAccordion defaultExpanded={hasMatch ? true : false}>
