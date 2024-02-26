@@ -120,17 +120,8 @@ export default function CategoryPage({
                   : { justifyContent: 'space-between' }
               }
             >
-              {pathnames.length > 1 && (
-                <SelectedFilters
-                  categoryId={categoryId}
-                  priceRange={priceRange}
-                />
-              )}
               <StyledRightWrapper>
                 <SortingProducts />
-                <StyledIconButton onClick={toggleDrawer}>
-                  {openDrawer ? <FilterListOffIcon /> : <FilterListIcon />}
-                </StyledIconButton>
               </StyledRightWrapper>
             </StyledSelectedFiltersWrapper>
             <StyledContentWrapper>
