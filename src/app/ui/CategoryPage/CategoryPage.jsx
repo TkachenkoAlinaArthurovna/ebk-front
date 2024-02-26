@@ -21,7 +21,11 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import FilterListOffIcon from '@mui/icons-material/FilterListOff';
 import BreadCrumbsDynamic from '@/app/ui/BreadCrumbsDynamic';
 import { useResize } from '@/app/lib/helpers';
-import { createLinkProduct } from '@/app/lib/createLinkProduct';
+import SkeletonCategoryPage from '@/app/ui/SkeletonCategoryPage/SkeletonCategoryPage';
+import SkeletonBreadCrumbs from '@/app/ui/Skeletons/SkeletonBreadCrumbs';
+import SkeletonPageTitle from '@/app/ui/Skeletons/SkeletonPageTitle';
+import SkeletonCategoryItems from '@/app/ui/Skeletons/SkeletonCategoryItems';
+import SkeletonProductFilter from '@/app/ui/Skeletons/SkeletonProductFilter';
 
 export default function CategoryPage({
   partsOfCategory,
@@ -102,7 +106,31 @@ export default function CategoryPage({
 
   return (
     <>
-      {!products && <div>loading</div>}
+      {!products && (
+        <Content>
+          <StyledWrapper>
+            <SkeletonBreadCrumbs />
+            <StyledTitleBox>
+              <SkeletonPageTitle />
+            </StyledTitleBox>
+            <StyledSelectedFiltersWrapper
+              sx={
+                pathnames.length == 1
+                  ? { justifyContent: 'end' }
+                  : { justifyContent: 'space-between' }
+              }
+            >
+              <StyledRightWrapper>
+                <SortingProducts />
+              </StyledRightWrapper>
+            </StyledSelectedFiltersWrapper>
+            <StyledContentWrapper>
+              <SkeletonProductFilter />
+              <SkeletonCategoryItems />
+            </StyledContentWrapper>
+          </StyledWrapper>
+        </Content>
+      )}
       {products && (
         <Content>
           <StyledWrapper>
@@ -111,7 +139,6 @@ export default function CategoryPage({
             <StyledTitleBox>
               <PageTitle>{categoryName}</PageTitle>
             </StyledTitleBox>
-
             <StyledSelectedFiltersWrapper
               sx={
                 pathnames.length == 1
