@@ -8,6 +8,7 @@ const StepPhoneEnter = ({ setPhone, phone, setStep }) => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [helperText, setHelperText] = useState(defaultHelperText);
   const [isError, setIsError] = useState(false);
+  const [isDisabled, setIsFieldDisabled] = useState(false);
 
   const handlePhoneChange = (e) => {
     phone = e.target.value;
@@ -23,6 +24,8 @@ const StepPhoneEnter = ({ setPhone, phone, setStep }) => {
   };
 
   function handleNextStep() {
+    setIsFieldDisabled(true);
+    setIsButtonDisabled(true);
     phone = phone.replace(/\D/g, '');
     const params = {
       phone: phone,
@@ -38,6 +41,7 @@ const StepPhoneEnter = ({ setPhone, phone, setStep }) => {
 
     fetch(`https://stage.eco-bike.com.ua/api/auth/sign-in`, options)
       .then((response) => {
+        console.log('response', response);
         if (response.status !== 200) {
           setIsError(true);
           setHelperText('Невірний номер телефону');
@@ -48,6 +52,10 @@ const StepPhoneEnter = ({ setPhone, phone, setStep }) => {
       .catch(() => {
         setIsError(true);
         setHelperText('Невірний номер телефону');
+      })
+      .finally(() => {
+        setIsFieldDisabled(false);
+        setIsButtonDisabled(false);
       });
   }
 
@@ -62,6 +70,7 @@ const StepPhoneEnter = ({ setPhone, phone, setStep }) => {
         onChange={handlePhoneChange}
         helperText={helperText}
         error={isError}
+        disabled={isDisabled}
         fullWidth
       />
 

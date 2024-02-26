@@ -86,11 +86,10 @@ const Toolbar = ({ catalog }) => {
         Каталог
       </StyledButtonCatalog>
       <Catalog catalog={catalogLinks} />
-      {/* <Authorization
+      <Authorization
         isOpen={openAuthModal}
         handleClose={handleCloseAuthModal}
       />
-      <SearchComponent /> */}
       <SearchNew />
       <Phones />
       <StyledBoxIcons>
