@@ -67,7 +67,7 @@ export default async function Category({ params }) {
   const page = category.includes('page') ? getPageParams(category) : 1;
   const categoryId = await getCategoryIdProducts(partsOfCategory[0]);
   const categoryName = await getCategoryName(partsOfCategory[0]);
-
+  console.log(categoryName);
   return (
     <Suspense fallback={<SkeletonCategoryPage />}>
       <CategoryPage
