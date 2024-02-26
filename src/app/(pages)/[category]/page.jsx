@@ -69,17 +69,15 @@ export default async function Category({ params }) {
   const categoryName = await getCategoryName(partsOfCategory[0]);
 
   return (
-    <Suspense fallback={<SkeletonCategoryPage />}>
-      <CategoryPage
-        partsOfCategory={partsOfCategory}
-        categoryName={
-          categoryName.charAt(0).toUpperCase() +
-          categoryName.slice(1).toLowerCase()
-        }
-        categoryId={categoryId}
-        page={page}
-        sortParam={sort}
-      />
-    </Suspense>
+    <CategoryPage
+      partsOfCategory={partsOfCategory}
+      categoryName={
+        categoryName.charAt(0).toUpperCase() +
+        categoryName.slice(1).toLowerCase()
+      }
+      categoryId={categoryId}
+      page={page}
+      sortParam={sort}
+    />
   );
 }
