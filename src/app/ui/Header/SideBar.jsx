@@ -33,7 +33,7 @@ const SideBar = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => (
   <Drawer anchor="left" open={openDrawer} onClose={toggleDrawer}>
     <StyledSideBarContainer onClick={(e) => e.stopPropagation()}>
       <Box sx={{ position: 'relative', width: '120px', height: '40px' }}>
-        <Logo color={'#49BEB7'} width={'100%'} height={'100%'} />
+        <Logo color={'rgba(0, 0, 0, 0.54)'} width={'100%'} height={'100%'} />
       </Box>
       <IconButton
         onClick={toggleDrawer}
