@@ -7,7 +7,7 @@ import {
   StyledListWrapper,
 } from '@/app/ui/InfoPagesMenu/InfoPagesMenuStyles';
 import { usePathname } from 'next/navigation';
-import { ListItemText, Box } from '@mui/material';
+import { ListItemText } from '@mui/material';
 
 const InfoPagesMenu = ({ cabinet }) => {
   const path = usePathname();
@@ -16,7 +16,7 @@ const InfoPagesMenu = ({ cabinet }) => {
     { href: '/about', label: 'Про нас' },
     { href: '/support', label: 'Підтримка' },
     { href: '/contacts', label: 'Контакти' },
-    { href: '/reviews', label: 'Відгуки' }
+    { href: '/reviews', label: 'Відгуки' },
   ];
 
   const linksForCabinet = [
@@ -26,30 +26,33 @@ const InfoPagesMenu = ({ cabinet }) => {
     { href: '/cabinet/reviews', label: 'Мої відгуки' },
   ];
 
+  const linksLayout = links.map((link) => (
+    <Link key={link.label} href={link.href} passHref>
+      <StyledListItemButton selected={path === link.href}>
+        <ListItemText primary={link.label} selected={path === link.href} />
+      </StyledListItemButton>
+    </Link>
+  ));
+
+  const linksForCabinetLayout = (
+    <>
+      {linksForCabinet.map((link) => (
+        <Link key={link.label} href={link.href} passHref>
+          <StyledListItemButton selected={path === link.href}>
+            <ListItemText primary={link.label} selected={path === link.href} />
+          </StyledListItemButton>
+        </Link>
+      ))}
+      <StyledListItemButton onClick={() => console.log('Exit')}>
+        Вихід
+      </StyledListItemButton>
+    </>
+  );
+
   return (
     <StyledListWrapper>
       <StyledList component="nav">
-        {!cabinet
-          ? links.map((link) => (
-              <Link key={link.label} href={link.href} passHref>
-                <StyledListItemButton selected={path === link.href}>
-                  <ListItemText
-                    primary={link.label}
-                    selected={path === link.href}
-                  />
-                </StyledListItemButton>
-              </Link>
-            ))
-          : linksForCabinet.map((link) => (
-              <Link key={link.label} href={link.href} passHref>
-                <StyledListItemButton selected={path === link.href}>
-                  <ListItemText
-                    primary={link.label}
-                    selected={path === link.href}
-                  />
-                </StyledListItemButton>
-              </Link>
-            ))}
+        {!cabinet ? linksLayout : linksForCabinetLayout}
       </StyledList>
     </StyledListWrapper>
   );
