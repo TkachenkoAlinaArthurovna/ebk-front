@@ -1,15 +1,21 @@
 import TextField from '@mui/material/TextField';
-import { StyledAuthButton } from '@/app/ui/Header/AuthModal/AuthorizationStyles';
-import { useState } from 'react';
+import Box from '@mui/material/Box';
+import {
+  StyledAuthButton,
+  StyledBackButton,
+  StyledTimer,
+} from '@/app/ui/Header/AuthModal/AuthorizationStyles';
+import React, { useState } from 'react';
 import { useAuth } from '@/redux/contexts/AuthContext';
 
-const StepCodeEnter = ({ phone, handleClose }) => {
+const StepCodeEnter = ({ phone, handleClose, setStep, setPhone }) => {
   const [code, setCode] = useState('');
   const [helperText, setHelperText] = useState(
     'Введіть код, який ми відправили на ваш номер',
   );
   const [isError, setIsError] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [timer, setTimer] = useState(60);
 
   const { login } = useAuth();
 
@@ -36,6 +42,46 @@ const StepCodeEnter = ({ phone, handleClose }) => {
     handleClose();
   };
 
+  setTimeout(() => {
+    if (timer === 0) return;
+    setTimer(timer - 1);
+  }, 1000);
+
+  const handleResendCode = () => {
+    setTimer(60);
+
+    phone = phone.replace(/\D/g, '');
+    const params = {
+      phone: phone,
+    };
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params),
+    };
+
+    fetch(`https://stage.eco-bike.com.ua/api/auth/sign-in`, options)
+      .then((response) => {
+        console.log('response', response);
+        if (response.status !== 200) {
+          setIsError(true);
+          return;
+        }
+        setStep(2);
+      })
+      .catch(() => {
+        setIsError(true);
+      });
+  };
+
+  const handleEditPhone = () => {
+    setPhone('+380');
+    setStep(1);
+  };
+
   return (
     <>
       <TextField
@@ -52,13 +98,25 @@ const StepCodeEnter = ({ phone, handleClose }) => {
 
       <StyledAuthButton
         variant="contained"
-        sx={{ p: 2 }}
+        sx={{ p: 2, mb: 3 }}
         fullWidth
         disabled={isButtonDisabled}
         onClick={handleConfirmCode}
       >
         Надіслати код
       </StyledAuthButton>
+
+      {timer === 0 && (
+        <StyledTimer onClick={handleResendCode}>
+          Надіслати код ще раз
+        </StyledTimer>
+      )}
+      {timer !== 0 && (
+        <StyledTimer>Надіслати код повторно через: {timer}</StyledTimer>
+      )}
+      <StyledBackButton onClick={handleEditPhone}>
+        Змінити номер телефону
+      </StyledBackButton>
     </>
   );
 };

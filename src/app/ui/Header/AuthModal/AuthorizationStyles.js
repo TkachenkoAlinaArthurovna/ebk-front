@@ -20,3 +20,27 @@ export const StyledAuthButton = styled(Button)`
     background-color: #eeeeee !important;
   }
 `;
+
+export const StyledTimer = styled(Box)`
+  font-size: 14px;
+  margin-top: 8px;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: underline;
+  margin-bottom: 24px;
+`;
+
+export const StyledBackButton = styled(Box)`
+  font-size: 14px;
+  margin-top: 8px;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  margin-bottom: 24px;
+`;

@@ -32,7 +32,12 @@ const Authorization = ({ isOpen, handleClose }) => {
             )}
 
             {step === 2 && (
-              <StepCodeEnter phone={phone} handleClose={handleClose} />
+              <StepCodeEnter
+                phone={phone}
+                handleClose={handleClose}
+                setStep={setStep}
+                setPhone={setPhone}
+              />
             )}
           </Box>
         </StyledModalContent>
