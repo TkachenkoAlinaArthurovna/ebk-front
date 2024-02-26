@@ -4,6 +4,7 @@ import {
   StyledButton,
   StyledButtonMob,
   StyledAccordionSummary,
+  WrapperMobMenu,
 } from '@/app/ui/Header/HeaderStyles';
 import { ListItemText, Box } from '@mui/material';
 import Accordion from '@mui/material/Accordion';
@@ -19,7 +20,7 @@ const MenuMob = ({ handleCloseCatalog, categories }) => {
   };
 
   return (
-    <>
+    <WrapperMobMenu sx={{ height: '80%', overflow: 'auto' }}>
       {categories.map((category) => {
         if (category.children.length > 0) {
           return (
@@ -65,7 +66,7 @@ const MenuMob = ({ handleCloseCatalog, categories }) => {
           );
         }
       })}
-    </>
+    </WrapperMobMenu>
   );
 };
 

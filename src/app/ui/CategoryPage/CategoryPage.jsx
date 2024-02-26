@@ -62,14 +62,12 @@ export default function CategoryPage({
       }
       if (res) {
         const data = await res.json();
+        console.log(data);
         if (data) {
           setProducts(data.results);
           setPriceRange(data.priceRange);
           setParams(!filterParams ? data.params : data.productsParams);
-          const duplicateArray = data.vendors.map((vendor) => [
-            createLinkProduct(vendor),
-            createLinkProduct(vendor),
-          ]);
+          const duplicateArray = data.vendors.map((vendor) => [vendor, vendor]);
           const vendorsObj = {
             name: ['Vendor', 'Виробник'],
             values: duplicateArray,

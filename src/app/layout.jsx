@@ -25,7 +25,6 @@ const getCategories = () =>
 
 export default async function RootLayout({ children }) {
   const catalog = await getCategories();
-
   return (
     <html lang="en">
       <AppTheme>
