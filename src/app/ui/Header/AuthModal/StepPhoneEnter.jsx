@@ -2,7 +2,7 @@ import TextField from '@mui/material/TextField';
 import { StyledAuthButton } from '@/app/ui/Header/AuthModal/AuthorizationStyles';
 import { useState } from 'react';
 
-const StepPhoneEnter = ({ setPhone, phone, setStep }) => {
+const StepPhoneEnter = ({ setPhone, phone, setStep, isStub }) => {
   const defaultHelperText =
     'Необхідно вірно вказати код країни +380. Приклад: +380 36 982 5874';
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -31,6 +31,14 @@ const StepPhoneEnter = ({ setPhone, phone, setStep }) => {
       phone: phone,
     };
 
+    // TODO: remove this block after server will be ready
+    if (isStub) {
+      setIsFieldDisabled(false);
+      setIsButtonDisabled(false);
+      setStep(2);
+      return;
+    }
+
     const options = {
       method: 'POST',
       headers: {
@@ -41,7 +49,6 @@ const StepPhoneEnter = ({ setPhone, phone, setStep }) => {
 
     fetch(`https://stage.eco-bike.com.ua/api/auth/sign-in`, options)
       .then((response) => {
-        console.log('response', response);
         if (response.status !== 200) {
           setIsError(true);
           setHelperText('Невірний номер телефону');
