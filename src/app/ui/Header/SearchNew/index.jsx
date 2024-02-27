@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef, useCallback, use } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import debounce from 'lodash.debounce';
 import { Search } from '@/app/ui/Header/HeaderStyles';
@@ -10,13 +10,13 @@ import {
   cleareSearchedProducts,
 } from '@/redux/slices/SearchProductSlice';
 import { createLinkProduct } from '@/app/lib/createLinkProduct';
+import HourglassTopIcon from '@mui/icons-material/HourglassTop';
 
 const SearchNew = () => {
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
   const [searchValue, setSearchValue] = useState('');
   const inputRef = useRef();
-  const listRef = useRef(null);
   const router = useRouter();
   const { catalogLinks } = useSelector((state) => state.catalogLinks);
   const { searchedProducts } = useSelector((state) => state.search);
@@ -26,9 +26,9 @@ const SearchNew = () => {
     try {
       let res;
       const search = searchValue ? `searchQuery=${searchValue}&` : '';
-      if (search) {
+      if (search && value.length > 1) {
         res = await fetch(
-          `https://stage.eco-bike.com.ua/api/search?${search}&page=1&limit=10`,
+          `https://stage.eco-bike.com.ua/api/search?${search}&page=1&limit=200`,
           { next: { revalidate: 3600 } },
         );
       }
@@ -47,7 +47,7 @@ const SearchNew = () => {
   const updateSearchValue = useCallback(
     debounce((str) => {
       setSearchValue(str);
-    }, 250),
+    }, 500),
     [],
   );
 
@@ -60,18 +60,20 @@ const SearchNew = () => {
   };
 
   const onClickClear = () => {
-    dispatch(cleareSearchedProducts());
     setValue('');
+    dispatch(cleareSearchedProducts());
     inputRef.current.focus();
   };
 
   const onClickProduct = (event) => {
     const id = event.target.id;
-    const text = event.target.innerHTML;
     const { link } = catalogLinks.find((obj) => obj._id === id);
+    const text = event.target.innerHTML;
+    console.log(link);
     const productName = createLinkProduct(text);
     router.push(`/${link}/${productName}`);
     setValue('');
+    setSearchValue('');
     dispatch(cleareSearchedProducts());
   };
 
@@ -102,27 +104,24 @@ const SearchNew = () => {
         </svg>
         <div id="dropdown">
           <input
+            type="text"
             ref={inputRef}
             value={value}
             onChange={onChangeInput}
             className={styles.input}
             placeholder="Я шукаю..."
           />
-          {value && searchedProducts && openList && (
-            <ul id="list" className={styles.list}>
+          {value.length > 1 && searchedProducts && openList && (
+            <ul className={styles.list}>
               {searchedProducts.map((obj) => (
                 <li
+                  className={styles.item}
                   onClick={onClickProduct}
                   key={obj._id}
-                  style={{
-                    display: 'flex',
-                    marginBottom: '10px',
-                    cursor: 'pointer',
-                  }}
                 >
                   {obj.picture && (
                     <img
-                      style={{ width: '40px', marginRight: '10px' }}
+                      className={styles.picture}
                       src={obj.picture[0]}
                       alt="img"
                     />
