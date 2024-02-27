@@ -22,11 +22,15 @@ const Account = ({ handleOpenAuthModal }) => {
 
   const { isAuthorized, logout } = useAuth();
 
+  const handleOpenAuthModalReal = () => {
+    handleOpenAuthModal(false);
+  };
+
   return (
     <>
       {!isAuthorized() && (
         <Box>
-          <IconButton onClick={handleOpenAuthModal}>
+          <IconButton onClick={handleOpenAuthModalReal}>
             <Badge badgeContent={null} color="error">
               <PermIdentityIcon
                 sx={{ width: '24px', height: '24px', color: '#252A31' }}

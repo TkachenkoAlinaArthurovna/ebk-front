@@ -29,9 +29,7 @@ export const AuthProvider = ({ children }) => {
     return JSON.parse(jsonPayload);
   }
 
-  const login = () => {
-    const tempToken =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDdjNDA1ZDEzZTRjNjM1NjE3NmUzMiIsImlhdCI6MTcwODYzOTMyMn0.YlWSO1DKdzDJPNlLrNHh0xs0g8FJZ8J_hMP2lijMqK0';
+  const login = (tempToken) => {
     setToken(tempToken);
     const user = parseJwt(tempToken);
 

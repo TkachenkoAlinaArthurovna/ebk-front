@@ -8,7 +8,7 @@ import {
 import React, { useState } from 'react';
 import { useAuth } from '@/redux/contexts/AuthContext';
 
-const StepCodeEnter = ({ phone, handleClose, setStep, setPhone }) => {
+const StepCodeEnter = ({ phone, handleClose, setStep, setPhone, isStub }) => {
   const [code, setCode] = useState('');
   const [helperText, setHelperText] = useState(
     'Введіть код, який ми відправили на ваш номер',
@@ -21,7 +21,7 @@ const StepCodeEnter = ({ phone, handleClose, setStep, setPhone }) => {
 
   const handleCodeChange = (event) => {
     setCode(event.target.value);
-    if (event.target.value.length === 4) {
+    if (event.target.value.length >= 4) {
       setIsButtonDisabled(false);
     } else {
       setIsButtonDisabled(true);
@@ -31,15 +31,51 @@ const StepCodeEnter = ({ phone, handleClose, setStep, setPhone }) => {
   const handleConfirmCode = () => {
     // send to server after sms taken
     // error mock
-    if (code !== phone.slice(-4)) {
-      setIsError(true);
-      setHelperText('Невірний код');
+
+    if (isStub) {
+      if (code !== phone.slice(-4)) {
+        setIsError(true);
+        setHelperText('Невірний код');
+        return;
+      }
+      const tempToken =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDdjNDA1ZDEzZTRjNjM1NjE3NmUzMiIsImlhdCI6MTcwODYzOTMyMn0.YlWSO1DKdzDJPNlLrNHh0xs0g8FJZ8J_hMP2lijMqK0';
+      login(tempToken);
+      handleClose();
       return;
     }
 
-    // auth on server
-    login();
-    handleClose();
+    phone = phone.replace(/\D/g, '');
+    const params = {
+      phone: phone,
+      code: code,
+    };
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params),
+    };
+
+    fetch(`https://stage.eco-bike.com.ua/api/auth/verify`, options)
+      .then((response) => {
+        console.log('response', response);
+        if (response.status !== 202) {
+          setIsError(true);
+          return;
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        login(data.token);
+        handleClose();
+      })
+      .catch(() => {
+        setIsError(true);
+      });
   };
 
   setTimeout(() => {
@@ -49,6 +85,10 @@ const StepCodeEnter = ({ phone, handleClose, setStep, setPhone }) => {
 
   const handleResendCode = () => {
     setTimer(60);
+
+    if (isStub) {
+      return;
+    }
 
     phone = phone.replace(/\D/g, '');
     const params = {
