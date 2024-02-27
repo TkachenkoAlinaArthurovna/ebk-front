@@ -15,6 +15,7 @@ import {
   StyledSideBarContainer,
 } from '@/app/ui/Header/HeaderStyles';
 import Logo from '@/app/ui/Logo/Logo';
+import { useAuth } from '@/redux/contexts/AuthContext';
 
 const navigation = [
   { id: 2, title: 'Кошик', path: '/cart' },
@@ -29,93 +30,111 @@ const navigationMain = [
   { id: 7, title: 'Відгуки', path: '/reviews' },
 ];
 
-const SideBar = ({ toggleDrawer, openDrawer, handleOpenCatalog }) => (
-  <Drawer anchor="left" open={openDrawer} onClose={toggleDrawer}>
-    <StyledSideBarContainer onClick={(e) => e.stopPropagation()}>
-      <Box sx={{ position: 'relative', width: '120px', height: '40px' }}>
-        <Logo color={'rgba(0, 0, 0, 0.54)'} width={'100%'} height={'100%'} />
-      </Box>
-      <IconButton
-        onClick={toggleDrawer}
-        sx={{ position: 'absolute', top: '20px', right: '24px' }}
-      >
-        <CloseIcon />
-      </IconButton>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          flexDirection: 'column',
-          marginBottom: '24px',
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            margin: '12px 0',
-          }}
-        >
-          <StyledButtonSideBar variant="contained">Вхід</StyledButtonSideBar>
+const SideBar = ({
+  toggleDrawer,
+  openDrawer,
+  handleOpenCatalog,
+  handleOpenAuthModal,
+}) => {
+  const { isAuthorized } = useAuth();
+
+  return (
+    <Drawer anchor="left" open={openDrawer} onClose={toggleDrawer}>
+      <StyledSideBarContainer onClick={(e) => e.stopPropagation()}>
+        <Box sx={{ position: 'relative', width: '120px', height: '40px' }}>
+          <Logo color={'rgba(0, 0, 0, 0.54)'} width={'100%'} height={'100%'} />
         </Box>
-        <Typography sx={{ fontSize: '14px', color: 'grey' }}>
-          Авторизуйтесь для отримання розширених можливостей
-        </Typography>
-      </Box>
-      <Box>
-        <ListItem disablePadding>
-          <ListItemButton
-            sx={{ padding: '10px 24px 10px 16px', borderRadius: '28px' }}
-            disableGutters
-            onClick={() => {
-              handleOpenCatalog();
-              toggleDrawer();
+        <IconButton
+          onClick={toggleDrawer}
+          sx={{ position: 'absolute', top: '20px', right: '24px' }}
+        >
+          <CloseIcon />
+        </IconButton>
+
+        {!isAuthorized() && (
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              marginBottom: '24px',
             }}
           >
-            <MenuIcon
-              sx={{ width: '20px', height: '20px', marginRight: '12px' }}
-            />
-            <ListItemText primary="Каталог товарів" />
-          </ListItemButton>
-        </ListItem>
-        {navigation.map(({ id, title, path }) => (
-          <ListItem key={id} disablePadding>
+            <Box
+              sx={{
+                display: 'flex',
+                margin: '12px 0',
+              }}
+            >
+              <StyledButtonSideBar
+                variant="contained"
+                onClick={handleOpenAuthModal}
+              >
+                Вхід
+              </StyledButtonSideBar>
+            </Box>
+            <Typography sx={{ fontSize: '14px', color: 'grey' }}>
+              Авторизуйтесь для отримання розширених можливостей
+            </Typography>
+          </Box>
+        )}
+
+        <Box>
+          <ListItem disablePadding>
             <ListItemButton
               sx={{ padding: '10px 24px 10px 16px', borderRadius: '28px' }}
               disableGutters
-              href={path}
+              onClick={() => {
+                handleOpenCatalog();
+                toggleDrawer();
+              }}
             >
-              {path === '/cart' ? (
-                <ShoppingCartIcon
-                  sx={{ width: '20px', height: '20px', marginRight: '12px' }}
-                />
-              ) : null}
-              {path === 'cabinet/favorites' ? (
-                <FavoriteBorderIcon
-                  sx={{ width: '20px', height: '20px', marginRight: '12px' }}
-                />
-              ) : null}
-              <ListItemText primary={title} />
-              {path === '/cart' ? <Typography>{id}</Typography> : null}
-              {path === 'cabinet/favorites' ? (
-                <Typography>{id}</Typography>
-              ) : null}
+              <MenuIcon
+                sx={{ width: '20px', height: '20px', marginRight: '12px' }}
+              />
+              <ListItemText primary="Каталог товарів" />
             </ListItemButton>
           </ListItem>
-        ))}
-        {navigationMain.map(({ id, title, path }) => (
-          <ListItem key={id} disablePadding>
-            <ListItemButton
-              sx={{ padding: '10px 24px 10px 16px', borderRadius: '28px' }}
-              disableGutters
-              href={path}
-            >
-              <ListItemText primary={title} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </Box>
-    </StyledSideBarContainer>
-  </Drawer>
-);
+          {navigation.map(({ id, title, path }) => (
+            <ListItem key={id} disablePadding>
+              <ListItemButton
+                sx={{ padding: '10px 24px 10px 16px', borderRadius: '28px' }}
+                disableGutters
+                href={path}
+              >
+                {path === '/cart' ? (
+                  <ShoppingCartIcon
+                    sx={{ width: '20px', height: '20px', marginRight: '12px' }}
+                  />
+                ) : null}
+                {path === 'cabinet/favorites' ? (
+                  <FavoriteBorderIcon
+                    sx={{ width: '20px', height: '20px', marginRight: '12px' }}
+                  />
+                ) : null}
+                <ListItemText primary={title} />
+                {path === '/cart' ? <Typography>{id}</Typography> : null}
+                {path === 'cabinet/favorites' ? (
+                  <Typography>{id}</Typography>
+                ) : null}
+              </ListItemButton>
+            </ListItem>
+          ))}
+          {navigationMain.map(({ id, title, path }) => (
+            <ListItem key={id} disablePadding>
+              <ListItemButton
+                sx={{ padding: '10px 24px 10px 16px', borderRadius: '28px' }}
+                disableGutters
+                href={path}
+              >
+                <ListItemText primary={title} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </Box>
+      </StyledSideBarContainer>
+    </Drawer>
+  );
+};
 
 export default SideBar;
