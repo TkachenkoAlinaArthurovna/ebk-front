@@ -66,7 +66,6 @@ export default function CategoryPage({
       }
       if (res) {
         const data = await res.json();
-        console.log(data);
         if (data) {
           setProducts(data.results);
           setPriceRange(data.priceRange);

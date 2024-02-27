@@ -18,16 +18,18 @@ const DeliveryItem = ({ text, icon, price }) => {
         width: '100%',
       }}
     >
-      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <Box display="flex">
-          <StyledTotalText>{text}</StyledTotalText>
-          <StyledIconWrapper>
-            <Image sizes="100%" fill src={icon} alt={'delivery icon'} />
-          </StyledIconWrapper>
-        </Box>
-        <StyledDeliveryDateText>Сьогодні</StyledDeliveryDateText>
+      <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+        <StyledTotalText>{text}</StyledTotalText>
+        <StyledIconWrapper>
+          <Box
+            component={'img'}
+            width={'auto'}
+            height={'100%'}
+            src={icon}
+            alt={'delivery icon'}
+          />
+        </StyledIconWrapper>
       </Box>
-      {price && <StyledDeliveryPrice>{price} ₴</StyledDeliveryPrice>}
     </Box>
   );
 };

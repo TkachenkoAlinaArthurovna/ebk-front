@@ -152,7 +152,7 @@ const Slider = ({
         speed={speed}
         spaceBetween={spaceBetween}
         loopAddBlankSlides={true}
-        loop={false}
+        loop={true}
         pagination={pagination}
         modules={[Autoplay, Navigation, Pagination]}
         navigation
