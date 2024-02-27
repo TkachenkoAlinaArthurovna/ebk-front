@@ -10,7 +10,6 @@ const StepPhoneEnter = ({ setPhone, phone, setStep, isStub }) => {
   const [isError, setIsError] = useState(false);
   const [isDisabled, setIsFieldDisabled] = useState(false);
 
-  console.log('isStub', isStub);
   const handlePhoneChange = (e) => {
     phone = e.target.value;
     setHelperText(defaultHelperText);
@@ -50,7 +49,6 @@ const StepPhoneEnter = ({ setPhone, phone, setStep, isStub }) => {
 
     fetch(`https://stage.eco-bike.com.ua/api/auth/sign-in`, options)
       .then((response) => {
-        console.log('response', response);
         if (response.status !== 200) {
           setIsError(true);
           setHelperText('Невірний номер телефону');

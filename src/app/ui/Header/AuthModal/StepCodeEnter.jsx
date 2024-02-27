@@ -61,7 +61,6 @@ const StepCodeEnter = ({ phone, handleClose, setStep, setPhone, isStub }) => {
 
     fetch(`https://stage.eco-bike.com.ua/api/auth/verify`, options)
       .then((response) => {
-        console.log('response', response);
         if (response.status !== 202) {
           setIsError(true);
           return;
@@ -105,7 +104,6 @@ const StepCodeEnter = ({ phone, handleClose, setStep, setPhone, isStub }) => {
 
     fetch(`https://stage.eco-bike.com.ua/api/auth/sign-in`, options)
       .then((response) => {
-        console.log('response', response);
         if (response.status !== 200) {
           setIsError(true);
           return;

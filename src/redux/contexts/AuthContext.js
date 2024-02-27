@@ -45,7 +45,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   const isAuthorized = () => {
-    console.log('user ', user);
     return user !== null;
   };
 
