@@ -1,16 +1,12 @@
 'use client';
 
-// Finish layout and styles
-// Add error message
-
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import BreadCrumbs from '@/app/ui/BreadCrumbs/BreadCrumbs';
 import CartItem from '@/app/ui/CartPage/CartItem/CartItem';
 import Content from '@/app/ui/Content';
 import PageText from '@/app/ui/PageText';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import {
   AccordionDetails,
@@ -19,7 +15,6 @@ import {
   ListItemText,
   Radio,
   RadioGroup,
-  Autocomplete,
 } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import {
@@ -37,10 +32,10 @@ import {
   StyledTermsTitle,
 } from '@/app/ui/CartPage/CartPageStyles';
 import { Field, Form, Formik, ErrorMessage } from 'formik';
-import DeliveryItem from '@/app/ui/CartPage/DeliveryItem/DeliveryItem';
 import { contactDataSchema } from '@/lib/schemas';
 import EmptyCart from './EmptyCart/EmptyCart';
 import CartContactInfo from './CartContactInfo/CartContactInfo';
+import Delivery from '@/app/ui/CartPage/Delivery/Delivery';
 
 const CartPage = () => {
   const initialValues = {
@@ -58,11 +53,7 @@ const CartPage = () => {
   };
 
   const cartProducts = useSelector((state) => state.cart.cartProducts);
-
-  const [selectedDelivery, setSelectedDelivery] = useState('');
-  const [selectedCity, setSelectedCity] = useState('');
   const [products, setProducts] = useState(cartProducts);
-  const [selectedDepartment, setSelectedDepartment] = useState('');
 
   const handleRemoveProduct = (code) => {
     setProducts((prevProducts) =>
@@ -108,206 +99,7 @@ const CartPage = () => {
                       <CartContactInfo />
                     </AccordionDetails>
                   </StyledAccordion>
-                  <StyledAccordion defaultExpanded>
-                    <AccordionSummary
-                      sx={{ padding: '0' }}
-                      id="delivery-info"
-                      aria-controls="delivery-info-content"
-                      expandIcon={<ExpandMoreIcon />}
-                    >
-                      <CartPageTitle>Спосіб доставки</CartPageTitle>
-                    </AccordionSummary>
-                    <AccordionDetails sx={{ padding: 0 }}>
-                      <RadioGroup
-                        name="delivery"
-                        onChange={(e) => setSelectedDelivery(e.target.value)}
-                      >
-                        <FormControlLabel
-                          control={
-                            <Field
-                              as={Radio}
-                              value="До відділення Нової Пошти"
-                              name="delivery"
-                            />
-                          }
-                          disableTypography
-                          label={
-                            <DeliveryItem
-                              icon={'/images/delivery/NovaPoshta.png'}
-                              price={599}
-                              text={'До відділення Нова Пошта'}
-                            />
-                          }
-                        />
-                        {selectedDelivery === 'До відділення Нової Пошти' && (
-                          <Autocomplete
-                            sx={{ marginBottom: '24px' }}
-                            options={['Київ', 'Львів', 'Одеса', 'Харків']}
-                            renderInput={(params) => (
-                              <TextField {...params} label="Ваше місто" />
-                            )}
-                            onChange={(event, newValue) => {
-                              setSelectedCity(newValue);
-                            }}
-                          />
-                        )}
-                        {selectedDelivery === 'До відділення Нової Пошти' &&
-                          selectedCity && (
-                            <Autocomplete
-                              options={[
-                                'Department 1',
-                                'Department 2',
-                                'Department 3',
-                              ]}
-                              renderInput={(params) => (
-                                <TextField
-                                  {...params}
-                                  label="Виберіть відділення"
-                                />
-                              )}
-                              onChange={(event, newValue) => {
-                                setSelectedDepartment(newValue);
-                              }}
-                            />
-                          )}
-                        <FormControlLabel
-                          control={
-                            <Field
-                              as={Radio}
-                              value="До поштомату Нової Пошти"
-                              name="delivery"
-                            />
-                          }
-                          disableTypography
-                          label={
-                            <DeliveryItem
-                              icon={'/images/delivery/NovaPoshta.png'}
-                              price={299}
-                              text={'До поштомату Нова Пошта'}
-                            />
-                          }
-                        />
-                        {selectedDelivery === 'До поштомату Нової Пошти' && (
-                          <Autocomplete
-                            options={['Київ', 'Львів', 'Одеса', 'Харків']}
-                            renderInput={(params) => (
-                              <TextField {...params} label="Ваше місто" />
-                            )}
-                            onChange={(event, newValue) => {
-                              setSelectedCity(newValue);
-                            }}
-                          />
-                        )}
-                        <FormControlLabel
-                          control={
-                            <Field
-                              as={Radio}
-                              value="До відділення Укрпошти"
-                              name="delivery"
-                            />
-                          }
-                          disableTypography
-                          label={
-                            <DeliveryItem
-                              icon={'/images/delivery/UkrPoshta.png'}
-                              price={99}
-                              text={'До відділення Укрпошти'}
-                            />
-                          }
-                        />
-                        {selectedDelivery === 'До відділення Укрпошти' && (
-                          <Autocomplete
-                            sx={{ marginBottom: '24px' }}
-                            options={['Київ', 'Львів', 'Одеса', 'Харків']}
-                            renderInput={(params) => (
-                              <TextField {...params} label="Ваше місто" />
-                            )}
-                            onChange={(event, newValue) => {
-                              setSelectedCity(newValue);
-                            }}
-                          />
-                        )}
-                        {selectedDelivery === 'До відділення Укрпошти' &&
-                          selectedCity && (
-                            <Autocomplete
-                              options={[
-                                'Department 1',
-                                'Department 2',
-                                'Department 3',
-                              ]}
-                              renderInput={(params) => (
-                                <TextField
-                                  {...params}
-                                  label="Виберіть відділення"
-                                />
-                              )}
-                              onChange={(event, newValue) => {
-                                setSelectedDepartment(newValue);
-                              }}
-                            />
-                          )}
-                        {selectedDelivery === 'До поштомату Нової Пошти' && (
-                          <Autocomplete
-                            options={['Київ', 'Львів', 'Одеса', 'Харків']}
-                            renderInput={(params) => (
-                              <TextField {...params} label="Ваше місто" />
-                            )}
-                            onChange={(event, newValue) => {
-                              setSelectedCity(newValue);
-                            }}
-                          />
-                        )}
-                        <FormControlLabel
-                          control={
-                            <Field
-                              as={Radio}
-                              value="До відділення Укрпошти"
-                              name="delivery"
-                            />
-                          }
-                          disableTypography
-                          label={
-                            <DeliveryItem
-                              icon={'/images/delivery/UkrPoshta.png'}
-                              price={99}
-                              text={'До відділення Укрпошти'}
-                            />
-                          }
-                        />
-                        {selectedDelivery === 'До відділення Укрпошти' && (
-                          <Autocomplete
-                            sx={{ marginBottom: '24px' }}
-                            options={['Київ', 'Львів', 'Одеса', 'Харків']}
-                            renderInput={(params) => (
-                              <TextField {...params} label="Ваше місто" />
-                            )}
-                            onChange={(event, newValue) => {
-                              setSelectedCity(newValue);
-                            }}
-                          />
-                        )}
-                        {selectedDelivery === 'До відділення Укрпошти' &&
-                          selectedCity && (
-                            <Autocomplete
-                              options={[
-                                'Department 1',
-                                'Department 2',
-                                'Department 3',
-                              ]}
-                              renderInput={(params) => (
-                                <TextField
-                                  {...params}
-                                  label="Виберіть відділення"
-                                />
-                              )}
-                              onChange={(event, newValue) => {
-                                setSelectedDepartment(newValue);
-                              }}
-                            />
-                          )}
-                      </RadioGroup>
-                    </AccordionDetails>
-                  </StyledAccordion>
+                  <Delivery />
                   <StyledAccordion defaultExpanded>
                     <AccordionSummary
                       sx={{ padding: '0' }}
