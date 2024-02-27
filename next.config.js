@@ -12,4 +12,8 @@ const nextConfig = {
   // },
 };
 
-module.exports = nextConfig;
+module.exports = {
+  images: {
+    domains: ['images.prom.ua'],
+  },
+};
