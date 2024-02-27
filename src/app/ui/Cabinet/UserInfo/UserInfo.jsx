@@ -2,15 +2,20 @@
 
 import React from 'react';
 import { styled, Button, Box } from '@mui/material';
+import ButtonMain from '@/app/ui/ButtonMain';
 import CartContactInfo from '@/app/ui/CartPage/CartContactInfo/CartContactInfo';
 import PageTitle from '@/app/ui/PageTitle';
 import { Form, Formik } from 'formik';
-import { contactDataSchema } from '@/lib/schemas';
+// import { contactDataSchema } from '@/lib/schemas';
 
 const Wrapper = styled(Box)`
   display: flex;
   flex-direction: column;
-  margin-bottom: 248px;
+  margin-bottom: 80px;
+
+  @media (max-width: 1024px) {
+    margin-bottom: 40px;
+  }
 `;
 
 const StyledButton = styled(Button)`
@@ -49,7 +54,7 @@ const UserInfo = () => {
         <Formik
           initialValues={initialValues}
           onSubmit={handleSubmit}
-          validationSchema={contactDataSchema}
+          // validationSchema={contactDataSchema}
           validateOnMount
           enableReinitialize
         >

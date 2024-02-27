@@ -44,7 +44,7 @@ const InfoPagesMenu = ({ cabinet }) => {
         </Link>
       ))}
       <StyledListItemButton onClick={() => console.log('Exit')}>
-        Вихід
+      <ListItemText>Вихід</ListItemText>
       </StyledListItemButton>
     </>
   );
