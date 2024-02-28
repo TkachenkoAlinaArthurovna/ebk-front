@@ -35,7 +35,7 @@ import { Field, Form, Formik, ErrorMessage } from 'formik';
 import { contactDataSchema } from '@/lib/schemas';
 import EmptyCart from './EmptyCart/EmptyCart';
 import CartContactInfo from './CartContactInfo/CartContactInfo';
-import Delivery from '@/app/ui/CartPage/Delivery/Delivery';
+import Delivery from '@/app/ui/CartPage/Delivery';
 
 const CartPage = () => {
   const initialValues = {

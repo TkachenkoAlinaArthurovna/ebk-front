@@ -101,10 +101,9 @@ export default async function Product({ params }) {
     : [category];
   const currentProduct = await getProductId(partsOfCategory[0], product);
   return (
-      <ProductPage
-        currentProduct={currentProduct}
-        partsOfCategory={partsOfCategory}
-      />
- 
+    <ProductPage
+      currentProduct={currentProduct}
+      partsOfCategory={partsOfCategory}
+    />
   );
 }
