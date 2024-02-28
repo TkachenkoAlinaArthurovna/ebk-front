@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, use } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import debounce from 'lodash.debounce';
 import { Search } from '@/app/ui/Header/HeaderStyles';
@@ -17,11 +17,12 @@ const SearchNew = () => {
   const [value, setValue] = useState('');
   const [searchValue, setSearchValue] = useState('');
   const inputRef = useRef();
+  const listRef = useRef(null);
   const router = useRouter();
   const { catalogLinks } = useSelector((state) => state.catalogLinks);
   const { searchedProducts } = useSelector((state) => state.search);
   // const { searchValue } = useSelector((state) => state.search);
-  // console.log(searchValue);
+
 
   const getProducts = async () => {
     try {
@@ -49,7 +50,7 @@ const SearchNew = () => {
     debounce((str) => {
       // dispatch(setSearchValue(str));
       setSearchValue(str);
-    }, 250),
+    }, 350),
     [],
   );
 
@@ -62,7 +63,6 @@ const SearchNew = () => {
     dispatch(cleareSearchedProducts());
     setValue('');
     inputRef.current.focus();
-
   };
 
   const onClickProduct = (event) => {
@@ -78,6 +78,23 @@ const SearchNew = () => {
   useEffect(() => {
     getProducts();
   }, [searchValue]);
+
+  // const useCallback = (listRef) => {
+  //   const handleClickOutside = (ev) => {
+  //     if (listRef && !listRef.current.containes(ev.target)) {
+  //       console.log('outside');
+  //     } else {
+  //       console.log('inside');
+  //     }
+  //   };
+  //   useEffect(() => {
+  //     document.addEventListener('click', handleClickOutside);
+  //     return () => {
+  //       document.removeEventListener('click', handleClickOutside);
+  //     };
+  //   });
+  // };
+  
 
   return (
     <Search>
@@ -96,7 +113,7 @@ const SearchNew = () => {
           className={styles.input}
           placeholder="Я шукаю..."
         />
-        {searchedProducts && (
+        {value && searchedProducts && (
           <ul className={styles.list}>
             {searchedProducts.map((obj) => (
               <li
