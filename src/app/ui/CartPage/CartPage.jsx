@@ -41,6 +41,7 @@ const CartPage = () => {
   const initialValues = {
     lastname: '',
     firstname: '',
+    middlename: '',
     phone: '',
     email: '',
     delivery: '',

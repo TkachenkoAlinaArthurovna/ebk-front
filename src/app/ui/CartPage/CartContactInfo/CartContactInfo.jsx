@@ -38,6 +38,21 @@ const CartContactInfo = () => {
       <Grid item md={6} xs={12}>
         <Field
           as={TextField}
+          label="По-батькові"
+          placeholder="Введіть своє по-батькові"
+          fullWidth
+          InputLabelProps={{ shrink: true }}
+          name="middlename"
+        />
+        <ErrorMessage
+          name={'middlename'}
+          component={'div'}
+          style={{ color: '#dc362e' }}
+        />
+      </Grid>
+      <Grid item md={6} xs={12}>
+        <Field
+          as={TextField}
           label="Телефон"
           placeholder="+38"
           fullWidth
