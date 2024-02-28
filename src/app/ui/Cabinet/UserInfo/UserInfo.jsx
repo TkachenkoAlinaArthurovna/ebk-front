@@ -1,39 +1,16 @@
 'use client';
 
 import React from 'react';
-import { styled, Button, Box } from '@mui/material';
-import ButtonMain from '@/app/ui/ButtonMain';
 import CartContactInfo from '@/app/ui/CartPage/CartContactInfo/CartContactInfo';
 import PageTitle from '@/app/ui/PageTitle';
 import { Form, Formik } from 'formik';
 // import { contactDataSchema } from '@/lib/schemas';
-
-const Wrapper = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 80px;
-
-  @media (max-width: 1024px) {
-    margin-bottom: 40px;
-  }
-`;
-
-const StyledButton = styled(Button)`
-  margin-top: 10px;
-  padding: 12px 24px;
-  margin-top: 30px;
-  font-size: 16px;
-  font-weight: 500;
-  text-transform: none;
-  color: #ffff;
-  &:hover {
-    background-color: #42ada7;
-  }
-`;
-
-const FormContainer = styled(Box)`
-  margin-top: 32px;
-`;
+import {
+  Wrapper,
+  ButtonBox,
+  StyledButton,
+  FormContainer,
+} from '@/app/ui/Cabinet/UserInfo/UserInfoStyles';
 
 const UserInfo = () => {
   const initialValues = {
@@ -61,7 +38,9 @@ const UserInfo = () => {
           {() => (
             <Form>
               <CartContactInfo />
-              <StyledButton type="submit">Зберегти зміни</StyledButton>
+              <ButtonBox>
+                <StyledButton type="submit">Зберегти зміни</StyledButton>
+              </ButtonBox>
             </Form>
           )}
         </Formik>
