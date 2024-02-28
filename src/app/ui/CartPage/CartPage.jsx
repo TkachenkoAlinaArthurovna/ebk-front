@@ -49,7 +49,6 @@ const CartPage = () => {
     anotherPerson: false,
     doNotCall: false,
     termsAgreement: false,
-    termsAgreement: false,
   };
 
   const cartProducts = useSelector((state) => state.cart.cartProducts);
