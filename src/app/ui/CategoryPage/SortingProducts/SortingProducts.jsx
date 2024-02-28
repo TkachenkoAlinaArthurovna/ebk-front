@@ -1,16 +1,47 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { MenuItem, FormControl } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { StyledSelect } from '@/app/ui/CategoryPage/SortingProducts/SortingProductsStyles';
 
 const SortingProducts = () => {
-  const [view, setView] = useState('price-high');
+  const router = useRouter();
+  const pathname = usePathname();
+  const pathnames = pathname.split('/').filter((path) => path);
+  const sort = () => {
+    if (pathnames.length == 1) {
+      return pathnames[0].includes('sort=desc') ? 'desc' : 'asc';
+    }
+    if (pathnames.length > 2) {
+      return pathnames[2].includes('sort=desc') ? 'desc' : 'asc';
+    }
+  };
+  const [view, setView] = useState(sort);
+
+  const removeAfterAmpersand = (str) => {
+    const ampersandIndex = str.indexOf('&');
+    if (ampersandIndex !== -1) {
+      return str.substring(0, ampersandIndex);
+    }
+    return str;
+  };
 
   const handleChange = (event) => {
-    console.log(event.target.value);
-    setView(event.target.value);
+    if (event.target.value !== view && pathnames.length == 1) {
+      setView(event.target.value);
+      router.push(
+        `/${removeAfterAmpersand(pathnames[0])}&sort=${event.target.value}`,
+      );
+    }
+    if (event.target.value !== view && pathnames.length > 2) {
+      setView(event.target.value);
+      router.push(
+        `/${pathnames[0]}/${pathnames[1]}/${pathnames[2].split('&page')[0].replace(/&sort=(asc|desc)/, '')}&sort=${event.target.value}`,
+      );
+    }
   };
 
   return (
@@ -39,8 +70,8 @@ const SortingProducts = () => {
         label="View"
         onChange={handleChange}
       >
-        <MenuItem value="price-high">Від дорогих до дешевих</MenuItem>
-        <MenuItem value="price-low">Від дешевих до дорогих</MenuItem>
+        <MenuItem value="desc">Від дорогих до дешевих</MenuItem>
+        <MenuItem value="asc">Від дешевих до дорогих</MenuItem>
       </StyledSelect>
     </FormControl>
   );

@@ -2,6 +2,21 @@ import CategoryPage from '@/app/ui/CategoryPage';
 import { createLinks } from '@/app/lib/createLinks';
 import { dollar } from '@/app/lib/dollar';
 
+export async function generateMetadata({ params, searchParams }, parent) {
+  const { category } = params;
+  const partsOfCategory = category.includes('%26')
+    ? category.split('%26')
+    : [category];
+
+  const categoryName = await getCategoryName(partsOfCategory[0]);
+
+  return {
+    title:
+      categoryName.charAt(0).toUpperCase() +
+      categoryName.slice(1).toLowerCase(),
+  };
+}
+
 async function getCategories() {
   const res = await fetch('https://stage.eco-bike.com.ua/api/categories', {
     next: { revalidate: 3600 },
@@ -54,27 +69,52 @@ const extractParamsFromString = (filterProducts) => {
   }
 };
 
+const getPageAndVendorParams = (queryString, value) => {
+  const regex = new RegExp(`${value}(.*?)(&|$)`);
+  const match = queryString.match(regex);
+  if (match) {
+    return match[1];
+  }
+  return '';
+};
+
 export default async function Category({ params }) {
   const { category, filterProducts } = params;
+
   const partsOfCategory = category.includes('%26')
     ? category.split('%26')
     : [category];
 
   const categoryId = await getCategoryIdProducts(partsOfCategory[0]);
-
-  const price = extractPriceFromString(decodeURIComponent(filterProducts));
+  const categoryName = await getCategoryName(partsOfCategory[0]);
 
   const filterParams = extractParamsFromString(
     decodeURIComponent(filterProducts),
   )
     .replace(/\//g, '%2F')
+    .replace(/&?sort=asc*/, '')
+    .replace(/&?sort=desc*/, '')
+    .replace(/&?page=[^&]*/, '')
+    .replace(/&?Vendor=[^&]*(?:&|$)/g, '');
+
+  const stringWithVendor = extractParamsFromString(
+    decodeURIComponent(filterProducts),
+  )
+    .replace(/&?sort=asc*/, '')
+    .replace(/&?sort=desc*/, '')
     .replace(/&?page=[^&]*/, '');
 
-  const page = (filterProducts) => {
-    const match = filterProducts.match(/page%3D([^&]*)/);
-    return match ? match[1] : '1';
-  };
-  const categoryName = await getCategoryName(partsOfCategory[0]);
+  const vendor = filterProducts.includes('Vendor')
+    ? getPageAndVendorParams(stringWithVendor, 'Vendor=')
+    : '';
+
+  const sort = filterProducts.includes('sort%3Ddesc') ? 'desc' : 'asc';
+
+  const price = extractPriceFromString(decodeURIComponent(filterProducts));
+
+  const page = filterProducts.includes('page')
+    ? getPageAndVendorParams(filterProducts, 'page%3D')
+    : 1;
 
   return (
     <CategoryPage
@@ -84,9 +124,11 @@ export default async function Category({ params }) {
         categoryName.slice(1).toLowerCase()
       }
       categoryId={categoryId}
-      price={price}
       filterParams={filterParams}
-      page={page(filterProducts)}
+      sortParam={sort}
+      price={price}
+      page={page}
+      vendorParam={vendor.charAt(0).toUpperCase() + vendor.slice(1)}
     />
   );
 }

@@ -17,3 +17,14 @@ export const Color = styled(Box)`
   border-radius: 50%;
   box-shadow: 0px 0px 10px #d0d0d0;
 `;
+
+export const WrapperColors = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  border-radius: 50%;
+  box-shadow: 0px 0px 10px #d0d0d0;
+`;

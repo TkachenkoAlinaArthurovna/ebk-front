@@ -29,6 +29,7 @@ const ProductFilter = ({
   priceRange,
   paramsForCategory,
   categoryId,
+  vendors,
 }) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -59,6 +60,14 @@ const ProductFilter = ({
   const updatedFilters = [...checkedFilters];
   const selectedPrice = { paramValue: `${minPrice()}-${maxPrice()} грн.` };
 
+  function removeQueryString(url) {
+    const index = url.indexOf('&');
+    if (index !== -1) {
+      return url.substring(0, index);
+    }
+    return url;
+  }
+
   const handleFilterClick = () => {
     dispatch(
       addSelectedPrice({ paramValue: `${minPrice()}-${maxPrice()} грн.` }),
@@ -71,9 +80,12 @@ const ProductFilter = ({
     const newUpdatedFilters = [selectedPrice, ...updatedFilters];
     const queryString = generateQueryString(newUpdatedFilters);
     const urlComponent = encodeURIComponent(queryString);
+
     pathnames.length > 2
-      ? router.push(`/${pathnames[0]}/filter/${urlComponent}`)
-      : router.push(`${pathname}/filter/${urlComponent}`);
+      ? router.push(
+          `/${removeQueryString(pathnames[0])}/filter/${urlComponent}`,
+        )
+      : router.push(`${removeQueryString(pathname)}/filter/${urlComponent}`);
   };
 
   const filterParams = paramsForCategory.map(({ name, values }) => {
@@ -88,6 +100,9 @@ const ProductFilter = ({
           categoryId={categoryId}
         />
         {filterParams}
+        {vendors.values.length > 1 && (
+          <FilterParam paramName={vendors.name} paramValues={vendors.values} />
+        )}
         <StyledSubstrate>
           <StyledButton
             onClick={() => {

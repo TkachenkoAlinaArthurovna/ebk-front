@@ -9,8 +9,6 @@ export const getColorValue = (params) => {
           (color) => color.name.toLowerCase() === colorName[index],
         );
       });
-
-      console.log(colorArr);
       return colorArr ? colorArr : null;
     }
   }
