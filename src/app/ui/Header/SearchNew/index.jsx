@@ -5,31 +5,31 @@ import debounce from 'lodash.debounce';
 import { Search } from '@/app/ui/Header/HeaderStyles';
 import { useRouter } from 'next/navigation';
 import styles from './Search.module.scss';
-// import { setSearchValue } from "../redux/slices/filterSlice";
+import {
+  setSearchedProducts,
+  cleareSearchedProducts,
+  // setSearchValue,
+} from '@/redux/slices/SearchProductSlice';
 import { createLinkProduct } from '@/app/lib/createLinkProduct';
+
 const SearchNew = () => {
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
+  const [searchValue, setSearchValue] = useState('');
   const inputRef = useRef();
-  const [products, setProducts] = useState([]);
   const router = useRouter();
   const { catalogLinks } = useSelector((state) => state.catalogLinks);
-  // console.log(catalogLinks);
+  const { searchedProducts } = useSelector((state) => state.search);
+  // const { searchValue } = useSelector((state) => state.search);
+  // console.log(searchValue);
 
-  const onClickClear = () => {
-    // dispatch(setSearchValue(""));
-    setValue('');
-    setProducts([]);
-    inputRef.current.focus();
-  };
-
-  const findProducts = async () => {
+  const getProducts = async () => {
     try {
       let res;
-      const searchValue = value ? `searchQuery=${value}&` : '';
-      if (value) {
+      const search = searchValue ? `searchQuery=${searchValue}&` : '';
+      if (search) {
         res = await fetch(
-          `https://stage.eco-bike.com.ua/api/search?${searchValue}&page=1&limit=10`,
+          `https://stage.eco-bike.com.ua/api/search?${search}&page=1&limit=10`,
           { next: { revalidate: 3600 } },
         );
       }
@@ -37,7 +37,7 @@ const SearchNew = () => {
       if (res) {
         const data = await res.json();
         if (data) {
-          setProducts(data.results);
+          dispatch(setSearchedProducts(data.results));
         }
       }
     } catch (err) {
@@ -45,35 +45,39 @@ const SearchNew = () => {
     }
   };
 
-  // функция задержки поиска => которая записивает инпут в редакс из которой достается и делается запрос или сразу запрос..
-  // => полученний массив из бека вставляем в всплывающее окно внизу инпута
-  // => если есть ответ то виводим ответ от бека под инрут
-  // => ссылка на товар или категорию
   const updateSearchValue = useCallback(
     debounce((str) => {
-      dispatch(setSearchValue(str));
+      // dispatch(setSearchValue(str));
+      setSearchValue(str);
     }, 250),
     [],
   );
 
   const onChangeInput = (event) => {
     setValue(event.target.value);
-    // updateSearchValue(event.target.value);
+    updateSearchValue(event.target.value);
+  };
+
+  const onClickClear = () => {
+    dispatch(cleareSearchedProducts());
+    setValue('');
+    inputRef.current.focus();
+
   };
 
   const onClickProduct = (event) => {
     const id = event.target.id;
     const text = event.target.innerHTML;
-    const category = catalogLinks.find((obj) => obj._id === id);
-    const name = createLinkProduct(text);
-    router.push(`/${category.link}/${name}`);
-    setProducts([]);
+    const { link } = catalogLinks.find((obj) => obj._id === id);
+    const productName = createLinkProduct(text);
+    router.push(`/${link}/${productName}`);
+    dispatch(cleareSearchedProducts());
     setValue('');
   };
 
   useEffect(() => {
-    findProducts();
-  }, [value]);
+    getProducts();
+  }, [searchValue]);
 
   return (
     <Search>
@@ -92,9 +96,9 @@ const SearchNew = () => {
           className={styles.input}
           placeholder="Я шукаю..."
         />
-        {products && (
+        {searchedProducts && (
           <ul className={styles.list}>
-            {products.map((obj) => (
+            {searchedProducts.map((obj) => (
               <li
                 onClick={onClickProduct}
                 key={obj._id}
