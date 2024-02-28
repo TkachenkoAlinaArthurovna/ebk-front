@@ -38,6 +38,10 @@ const SideBar = ({
 }) => {
   const { isAuthorized } = useAuth();
 
+  const handleOpenAuthModalStub = () => {
+    handleOpenAuthModal(true);
+  };
+
   return (
     <Drawer anchor="left" open={openDrawer} onClose={toggleDrawer}>
       <StyledSideBarContainer onClick={(e) => e.stopPropagation()}>
@@ -68,7 +72,7 @@ const SideBar = ({
             >
               <StyledButtonSideBar
                 variant="contained"
-                onClick={handleOpenAuthModal}
+                onClick={handleOpenAuthModalStub}
               >
                 Вхід
               </StyledButtonSideBar>

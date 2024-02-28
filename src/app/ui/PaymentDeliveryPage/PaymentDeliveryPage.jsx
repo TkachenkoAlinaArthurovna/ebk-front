@@ -113,7 +113,7 @@ const PaymentDeliveryPage = () => {
             забирається клієнтом з поштомату протягом 3 днів - вона автоматично
             переміщується на найближче відділення Нова Пошта.
           </Typography>
-          <Typography variant="h6">Укрпошта (відділення)</Typography>
+          {/* <Typography variant="h6">Укрпошта (відділення)</Typography>
           <Typography variant="body1">
             Доставка у відділення Укрпошти по Україні.
           </Typography>
@@ -145,7 +145,7 @@ const PaymentDeliveryPage = () => {
             ВАЖЛИВО: якщо посилка не забирається клієнтом з відділення поштової
             служби протягом 5 днів - вантаж автоматично повертається на наш
             склад.
-          </Typography>
+          </Typography> */}
         </Box>
       </WrapperPaymentDelivery>
     </Content>

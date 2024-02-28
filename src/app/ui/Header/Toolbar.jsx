@@ -61,8 +61,13 @@ const Toolbar = ({ catalog }) => {
   const handleOpenCatalog = () => setOpen(true);
   const handleCloseCatalog = () => setOpen(false);
 
+  const [isStub, setIsStub] = useState(false);
+
   const [openAuthModal, setOpenAuth] = React.useState(false);
-  const handleOpenAuthModal = () => setOpenAuth(true);
+  const handleOpenAuthModal = (isStub) => {
+    setIsStub(isStub);
+    setOpenAuth(true);
+  };
   const handleCloseAuthModal = () => setOpenAuth(false);
 
   return (
@@ -89,6 +94,7 @@ const Toolbar = ({ catalog }) => {
       <Authorization
         isOpen={openAuthModal}
         handleClose={handleCloseAuthModal}
+        isStub={isStub}
       />
       <SearchNew />
       <Phones />

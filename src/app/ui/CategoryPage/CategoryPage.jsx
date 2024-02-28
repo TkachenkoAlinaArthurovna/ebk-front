@@ -17,8 +17,8 @@ import {
   StyledIconButton,
   StyledRightWrapper,
 } from '@/app/ui/CategoryPage/CategoryPageStyles';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import FilterListOffIcon from '@mui/icons-material/FilterListOff';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import BreadCrumbsDynamic from '@/app/ui/BreadCrumbsDynamic';
 import { useResize } from '@/app/lib/helpers';
 import SkeletonCategoryPage from '@/app/ui/SkeletonCategoryPage/SkeletonCategoryPage';
@@ -154,7 +154,7 @@ export default function CategoryPage({
               <StyledRightWrapper>
                 <SortingProducts />
                 <StyledIconButton onClick={toggleDrawer}>
-                  {openDrawer ? <FilterListOffIcon /> : <FilterListIcon />}
+                  {openDrawer ? <FilterAltOffIcon /> : <FilterAltIcon />}
                 </StyledIconButton>
               </StyledRightWrapper>
             </StyledSelectedFiltersWrapper>

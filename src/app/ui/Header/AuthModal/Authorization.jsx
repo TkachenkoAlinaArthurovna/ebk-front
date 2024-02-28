@@ -1,11 +1,10 @@
 import { Modal, Typography, Box } from '@mui/material';
 import { StyledModalContent } from '@/app/ui/Header/AuthModal/AuthorizationStyles';
-import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 import StepPhoneEnter from '@/app/ui/Header/AuthModal/StepPhoneEnter';
 import StepCodeEnter from '@/app/ui/Header/AuthModal/StepCodeEnter';
 
-const Authorization = ({ isOpen, handleClose }) => {
+const Authorization = ({ isOpen, handleClose, isStub }) => {
   const [phone, setPhone] = useState('+380');
   const [step, setStep] = useState(1);
 
@@ -28,6 +27,7 @@ const Authorization = ({ isOpen, handleClose }) => {
                 setPhone={setPhone}
                 phone={phone}
                 setStep={setStep}
+                isStub={isStub}
               />
             )}
 
@@ -37,6 +37,7 @@ const Authorization = ({ isOpen, handleClose }) => {
                 handleClose={handleClose}
                 setStep={setStep}
                 setPhone={setPhone}
+                isStub={isStub}
               />
             )}
           </Box>
