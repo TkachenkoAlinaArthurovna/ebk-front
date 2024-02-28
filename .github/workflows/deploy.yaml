@@ -30,7 +30,9 @@ jobs:
             chown -R root:root ./ebk-front
             cd ebk-front
             npm i
-            pm2 restart frontend
+            npm run build
+            pm2 delete frontend
+            pm2 start npm --name frontend -- start
 
       - name: Deployed!
         run: echo App deployed to Contabo VPS
