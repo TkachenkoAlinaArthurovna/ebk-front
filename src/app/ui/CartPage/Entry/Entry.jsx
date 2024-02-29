@@ -6,7 +6,7 @@ import { StyledButtonEntry } from '@/app/ui/CartPage/CartPageStyles';
 
 const Entry = ({}) => {
   return (
-    <Box sx={{ margin: '20px 0' }}>
+    <Box sx={{ margin: '20px 0 40px 0' }}>
       <Typography variant="h6" sx={{ marginBottom: '20px' }}>
         <Typography variant="span" sx={{ color: '#dc362e' }}>
           Увага!
