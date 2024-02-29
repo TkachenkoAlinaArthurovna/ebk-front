@@ -1,4 +1,4 @@
-// import UserReviews from "@/app/ui/Cabinet/UserReviews";
+import UserReviews from "@/app/ui/Cabinet/UserReviews";
 
 export default function Reviews() {
   return <UserReviews/>;

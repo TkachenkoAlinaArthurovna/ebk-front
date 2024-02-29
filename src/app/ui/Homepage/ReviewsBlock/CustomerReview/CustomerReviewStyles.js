@@ -1,7 +1,6 @@
 'use client';
 
 import { styled, Typography, Box, Stack } from '@mui/material';
-import { exportTraceState } from 'next/dist/trace';
 
 export const StyledComponentWrapper = styled(Stack)`
   display: flex;
@@ -53,9 +52,10 @@ export const StyledDateWrapper = styled(Box)`
 `;
 
 export const StyledDate = styled(Typography)`
+  display: inline-block;
+  padding: 8px;
   font-size: 16px;
   font-weight: 400;
-  line-height: 24px;
   letter-spacing: 0.5px;
 `;
 

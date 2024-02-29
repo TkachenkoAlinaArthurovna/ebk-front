@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import ShadowBox from '@/app/ui/ShadowBox';
 
 import IconButton from '@mui/material/IconButton';
@@ -20,12 +20,11 @@ import {
   StyledDateWrapper,
   StyledComponentWrapper,
   StyledNameAndInitialsContainer,
-  ReviewMenuWrapper,
 } from '@/app/ui/Homepage/ReviewsBlock/CustomerReview/CustomerReviewStyles';
 
 const CustomerReview = ({ date, firstName, lastName, text, menu }) => {
   const customerInitials = createInitials(firstName, lastName);
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
   const options = ['Редагувати', 'Видалити'];
@@ -34,42 +33,50 @@ const CustomerReview = ({ date, firstName, lastName, text, menu }) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = (option) => {
     setAnchorEl(null);
+    if (option === 'Редагувати') {
+      console.log('Відредаговано');
+    } 
+    if (option === 'Видалити') {
+      console.log('Видалено');
+    }
   };
 
   const reviewMenu = (
-    <ReviewMenuWrapper>
-      <IconButton
-        aria-label="more"
-        id="long-button"
-        aria-controls={open ? 'long-menu' : undefined}
-        aria-expanded={open ? 'true' : undefined}
-        aria-haspopup="true"
-        onClick={handleClick}
-      >
-        <MoreVertIcon />
-      </IconButton>
-      <Menu
-        id="long-menu"
-        MenuListProps={{
-          'aria-labelledby': 'long-button',
-        }}
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-      >
-        {options.map((option) => (
-          <MenuItem
-            key={option}
-            selected={option === 'Pyxis'}
-            onClick={handleClose}
-          >
-            {option}
-          </MenuItem>
-        ))}
-      </Menu>
-    </ReviewMenuWrapper>
+    menu && (
+      <>
+        <IconButton
+          aria-label="more"
+          id="long-button"
+          aria-controls={open ? 'long-menu' : undefined}
+          aria-expanded={open ? 'true' : undefined}
+          aria-haspopup="true"
+          onClick={handleClick}
+        >
+          <MoreVertIcon />
+        </IconButton>
+        <Menu
+          id="long-menu"
+          MenuListProps={{
+            'aria-labelledby': 'long-button',
+          }}
+          anchorEl={anchorEl}
+          open={open}
+          onClose={() => handleClose(null)}
+        >
+          {options.map((option) => (
+            <MenuItem
+              key={option}
+              selected={option === 'Pyxis'}
+              onClick={() => handleClose(option)}
+            >
+              {option}
+            </MenuItem>
+          ))}
+        </Menu>
+      </>
+    )
   );
 
   return (

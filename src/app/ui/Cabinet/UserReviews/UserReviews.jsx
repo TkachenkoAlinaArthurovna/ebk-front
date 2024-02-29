@@ -31,7 +31,7 @@ const StyledButton = styled(Button)`
   &:hover {
     background-color: #42ada7;
   }
-  `;
+`;
 
 const UserReviews = () => {
   const listReviews = reviewsData.map(
@@ -42,6 +42,7 @@ const UserReviews = () => {
         firstName={firstName}
         lastName={lastName}
         text={text}
+        menu
       />
     ),
   );
@@ -51,12 +52,12 @@ const UserReviews = () => {
       <PageTitle>Відгуки</PageTitle>
       {listReviews}
       <ShowMoreBox>
-      <StyledButton
-              endIcon={<ArrowDownwardIcon />}
-              onClick={() => console.log('Load more')}
-            >
-              Показати ще
-            </StyledButton>
+        <StyledButton
+          endIcon={<ArrowDownwardIcon />}
+          onClick={() => console.log('Load more')}
+        >
+          Показати ще
+        </StyledButton>
       </ShowMoreBox>
     </Wrapper>
   );
