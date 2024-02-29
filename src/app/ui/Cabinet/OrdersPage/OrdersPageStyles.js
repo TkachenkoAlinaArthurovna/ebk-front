@@ -35,4 +35,10 @@ export const StyledButton = styled(Button)`
   &:hover {
     background-color: #42ada7;
   }
+  @media (max-width: 900px) {
+    width: 100%;
+  }
+  @media (max-width: 1200px) {
+    height: 43px;
+  }
 `;

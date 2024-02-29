@@ -18,5 +18,3 @@ export const StyledPagesLayout = styled(Box)`
 //     width: 100%;
 //   }
 // `;
-
-
