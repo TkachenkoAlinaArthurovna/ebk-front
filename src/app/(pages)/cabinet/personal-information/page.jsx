@@ -1,3 +1,5 @@
+import UserInfo from "@/app/ui/Cabinet/UserInfo";
+
 export default function PersonalInformation() {
-  return <div>Personal Information</div>;
+  return <UserInfo/>;
 }
