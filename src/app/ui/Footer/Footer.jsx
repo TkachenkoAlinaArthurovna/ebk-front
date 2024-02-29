@@ -100,7 +100,7 @@ const Footer = () => {
             }}
           >
             <Box sx={{ marginBottom: '16px' }}>
-              <Link href="/privacy-policy">Політика конфеденційності</Link>
+              <Link href="/privacy-policy">Політика конфіденційності</Link>
             </Box>
             <Box>© text 2023, All Rights Reserved</Box>
           </Box>

@@ -11,6 +11,21 @@ const CartSlice = createSlice({
   reducers: {
     toggleCart(state, action) {
       switch (action.payload.action) {
+        case 'plusToCart':
+          if (!state.cartProducts) {
+            state.cartProducts = [];
+          }
+          if (
+            !state.cartProducts.find(
+              (item) => item._id === action.payload.currentCard._id,
+            )
+          ) {
+            state.cartProducts.push({
+              ...action.payload.currentCard,
+              count: 1,
+            });
+          }
+          break;
         case 'plus':
           if (!state.cartProducts) {
             state.cartProducts = [];

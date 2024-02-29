@@ -10,6 +10,8 @@ import {
   CartPageTitle,
   StyledCartLayout,
   StyledOrderWrapper,
+  WrapperCartProducts,
+  Wrapper,
 } from '@/app/ui/CartPage/CartPageStyles';
 import { Form, Formik } from 'formik';
 import { contactDataSchema } from '@/lib/schemas';
@@ -20,6 +22,8 @@ import Payment from '@/app/ui/CartPage/Payment';
 import Comment from '@/app/ui/CartPage/Comment';
 import Total from '@/app/ui/CartPage/Total';
 import Entry from '@/app/ui/CartPage/Entry';
+import { Box } from '@mui/material';
+import PageTitle from '@/app/ui/PageTitle';
 
 const CartPage = () => {
   const { isAuthorized, getUser } = useAuth();
@@ -27,27 +31,18 @@ const CartPage = () => {
   const authorized = isAuthorized();
 
   const initialValues = {
-    lastname: '',
     firstname: '',
+    surname: '',
     phone: '',
     email: '',
     delivery: '',
     payment: '',
     comment: '',
-    anotherPerson: false,
     doNotCall: false,
-    termsAgreement: false,
     termsAgreement: false,
   };
 
   const cartProducts = useSelector((state) => state.cart.cartProducts);
-  const [products, setProducts] = useState(cartProducts);
-
-  const handleRemoveProduct = (code) => {
-    setProducts((prevProducts) =>
-      prevProducts.filter((product) => product.code !== code),
-    );
-  };
 
   const handleSubmit = (values) => {
     console.log(values);
@@ -56,7 +51,7 @@ const CartPage = () => {
   return (
     <Content>
       <BreadCrumbs />
-      {products.length === 0 ? (
+      {cartProducts.length === 0 ? (
         <EmptyCart />
       ) : (
         <Formik
@@ -70,21 +65,33 @@ const CartPage = () => {
             <Form>
               <StyledCartLayout>
                 <StyledOrderWrapper>
-                  <CartPageTitle>Кошик</CartPageTitle>
-                  {authorized ? <Entry /> : <Entry />}
-                  {products.map((product) => (
-                    <CartItem product={product} key={product._id} />
-                  ))}
-                  {authorized ? (
-                    <>
-                      <UserInfo />
-                      <Delivery />
-                      <Payment />
-                      <Comment />
-                    </>
-                  ) : null}
+                  <WrapperCartProducts>
+                    <Box sx={{ marginBottom: '20px' }}>
+                      <PageTitle>Кошик</PageTitle>
+                    </Box>
+                    {authorized ? null : <Entry />}
+                    {cartProducts.map((product) => (
+                      <CartItem
+                        product={product}
+                        key={product._id}
+                        type="cart"
+                      />
+                    ))}
+                  </WrapperCartProducts>
+                  <Total
+                    dirty={dirty}
+                    isValid={isValid}
+                    cartProducts={cartProducts}
+                  />
                 </StyledOrderWrapper>
-                <Total dirty={dirty} isValid={isValid} />
+                {authorized ? (
+                  <Wrapper>
+                    <UserInfo />
+                    <Delivery />
+                    <Payment />
+                    <Comment />
+                  </Wrapper>
+                ) : null}
               </StyledCartLayout>
             </Form>
           )}

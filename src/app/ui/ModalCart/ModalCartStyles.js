@@ -15,6 +15,18 @@ export const StyledPaper = styled(Paper)`
   padding: 36px;
   border: none;
   border-radius: 24px;
+  @media (max-width: 900px) {
+    width: 656px;
+  }
+  @media (max-width: 700px) {
+    width: auto;
+    left: 22px;
+    right: 22px;
+    transform: translate(0, -50%);
+  }
+  @media (max-width: 500px) {
+    padding: 26px;
+  }
 `;
 
 export const StyledWrapper = styled(Box)`
@@ -22,6 +34,7 @@ export const StyledWrapper = styled(Box)`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 16px;
 `;
 
 export const StyledWrapperForProduct = styled(Box)`
@@ -57,5 +70,8 @@ export const StyledButton = styled(Button)`
   background-color: #ffff !important;
   @media (max-width: 1200px) {
     height: 43px;
+  }
+  @media (max-width: 600px) {
+    display: none;
   }
 `;
