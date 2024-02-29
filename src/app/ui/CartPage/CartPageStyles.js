@@ -15,7 +15,7 @@ export const StyledCartLayout = styled(Box)`
   margin-bottom: 120px;
   gap: 80px;
   @media (max-width: 1100px) {
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
 `;
 
@@ -114,5 +114,17 @@ export const StyledAccordion = styled(Accordion)`
 
   &::before {
     display: none;
+  }
+`;
+
+export const StyledButtonEntry = styled(Button)`
+  width: 138px;
+  padding: 10px 0;
+  @media (max-width: 1200px) {
+    height: 44px;
+  }
+  @media (max-width: 900px) {
+    height: 34px;
+    font-size: 12px;
   }
 `;
