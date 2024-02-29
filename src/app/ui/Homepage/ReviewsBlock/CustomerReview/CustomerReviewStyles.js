@@ -1,6 +1,7 @@
 'use client';
 
 import { styled, Typography, Box, Stack } from '@mui/material';
+import { exportTraceState } from 'next/dist/trace';
 
 export const StyledComponentWrapper = styled(Stack)`
   display: flex;

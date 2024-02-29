@@ -1,3 +1,5 @@
+// import UserReviews from "@/app/ui/Cabinet/UserReviews";
+
 export default function Reviews() {
-  return <div>Reviews</div>;
+  return <UserReviews/>;
 }
