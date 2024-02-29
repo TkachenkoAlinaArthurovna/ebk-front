@@ -8,7 +8,7 @@ import {
 } from '@/app/ui/CartPage/CartPageStyles';
 import { AccordionDetails, AccordionSummary, RadioGroup } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import NovaPoshtaDepartment from '@/app/ui/CartPage/Delivery/novaPoshtaDepartment';
+import NovaPoshtaDepartment from '@/app/ui/CartPage/Delivery/NovaPoshtaDepartment';
 import NovaPoshtaPostmachines from '@/app/ui/CartPage/Delivery/NovaPoshtaPostmachines';
 import Ukrposhta from '@/app/ui/CartPage/Delivery/Ukrposhta';
 
@@ -19,7 +19,7 @@ const Delivery = ({}) => {
   );
 
   return (
-    <StyledAccordion defaultExpanded>
+    <StyledAccordion>
       <AccordionSummary
         sx={{ padding: '0' }}
         id="delivery-info"
