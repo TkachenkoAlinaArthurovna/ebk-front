@@ -9,20 +9,16 @@ import {
 
 export const StyledCartLayout = styled(Box)`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   margin-top: 32px;
   margin-bottom: 120px;
-  gap: 80px;
-  @media (max-width: 1100px) {
-    flex-direction: column;
-  }
 `;
 
 export const StyledPriceWrapper = styled(Box)`
   display: 'flex';
   flex-direction: 'column';
-  width: 40%;
+  width: 34%;
 
   @media (max-width: 1100px) {
     width: 100%;
@@ -31,21 +27,24 @@ export const StyledPriceWrapper = styled(Box)`
 
 export const StyledOrderWrapper = styled(Box)`
   display: flex;
-  flex-direction: column;
-  width: 60%;
-
-  @media (max-width: 1100px) {
-    width: 100%;
-  }
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 export const StyledTotalText = styled(Typography)`
-  font-size: 20px;
+  font-size: 16px;
 `;
 
 export const CartPageTitle = styled(Typography)`
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 500;
+  @media (max-width: 900px) {
+    font-size: 26px;
+  }
+
+  @media (max-width: 650px) {
+    font-size: 22px;
+  }
 `;
 
 export const StyledTotalBox = styled(Box)`
@@ -80,6 +79,7 @@ export const StyledCheckoutButton = styled(Button)`
 `;
 
 export const StyledTermsTitle = styled(Typography)`
+  margin-bottom: 16px;
   font-size: 16px;
   color: #6a6a6a;
 
@@ -127,4 +127,16 @@ export const StyledButtonEntry = styled(Button)`
     height: 34px;
     font-size: 12px;
   }
+`;
+
+export const WrapperCartProducts = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+`;
+
+export const Wrapper = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  width: 60%;
 `;

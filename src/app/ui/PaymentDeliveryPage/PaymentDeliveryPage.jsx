@@ -24,8 +24,8 @@ const PaymentDeliveryPage = () => {
             БЕЗ КОМІСІЙ ТА ПЕРЕПЛАТ. ШВИДКА ТА ЗРУЧНА ОПЛАТА ОНЛАЙН.
           </Typography>
           <Typography variant="body1" sx={{ margin: '16px 0' }}>
-            - Оплата на сайті, через платіжну систему Liqpay, після оформлення
-            замовлення.
+            - Оплата на сайті, через платіжну систему WayForPay, після
+            оформлення замовлення.
           </Typography>
           <Typography variant="h6">Накладений платіж Нова Пошта</Typography>
           <Typography variant="body1" sx={{ margin: '16px 0' }}>

@@ -1,37 +1,31 @@
 'use client';
 
-import { Box, styled, Button } from '@mui/material';
+import { styled, Button, Box } from '@mui/material';
 
 export const Wrapper = styled(Box)`
-  width: 100%;
-  margin: 0;
-  padding: 0;
-`;
-
-export const OrdersWrapper = styled(Box)`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  margin-bottom: 100px;
-`;
+  margin-bottom: 80px;
 
-export const OrdersList = styled(Box)`
-  margin-bottom: 24px;
+  @media (max-width: 1024px) {
+    margin-bottom: 40px;
+  }
 `;
 
 export const ButtonBox = styled(Box)`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: end;
 `;
 
 export const StyledButton = styled(Button)`
   margin-top: 10px;
   padding: 12px 24px;
+  margin-top: 30px;
   font-size: 16px;
   font-weight: 500;
   text-transform: none;
   color: #ffff;
+
   &:hover {
     background-color: #42ada7;
   }
@@ -41,4 +35,8 @@ export const StyledButton = styled(Button)`
   @media (max-width: 1200px) {
     height: 43px;
   }
+`;
+
+export const FormContainer = styled(Box)`
+  margin-top: 32px;
 `;

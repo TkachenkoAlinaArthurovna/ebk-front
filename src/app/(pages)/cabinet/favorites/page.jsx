@@ -1,3 +1,5 @@
+import FavoritePage from "@/app/ui/Cabinet/FavoritePage";
+
 export default function Favorites() {
-  return <div>Favorites</div>;
+  return <FavoritePage/>;
 }

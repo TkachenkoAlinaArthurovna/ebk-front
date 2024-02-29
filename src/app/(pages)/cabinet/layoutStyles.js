@@ -11,3 +11,10 @@ export const StyledPagesLayout = styled(Box)`
     flex-direction: column;
   }
 `;
+
+// export const StyledPageContent = styled(Box)`
+//   width: 70%;
+//   @media (max-width: 700px) {
+//     width: 100%;
+//   }
+// `;
