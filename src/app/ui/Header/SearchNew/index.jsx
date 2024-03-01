@@ -71,7 +71,6 @@ const SearchNew = () => {
     const { link } = catalogLinks.find((obj) => obj._id === id);
     const productName = createLinkProduct(text);
     router.push(`/${link}/${productName}`);
-    setValue('');
     dispatch(cleareSearchedProducts());
   };
 
