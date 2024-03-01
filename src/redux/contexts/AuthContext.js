@@ -14,7 +14,20 @@ export const AuthProvider = ({ children }) => {
   const router = useRouter();
 
   function parseJwt(token) {
+    if (!token) {
+      // Handle the case where the token is undefined
+      console.error('Token is undefined');
+      return null; // or any other appropriate action
+    }
+
     const base64Url = token.split('.')[1];
+
+    // Check if base64Url is defined
+    if (!base64Url) {
+      // Handle the case where base64Url is undefined
+      console.error('Base64Url is undefined');
+      return null; // or any other appropriate action
+    }
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     const jsonPayload = decodeURIComponent(
       window

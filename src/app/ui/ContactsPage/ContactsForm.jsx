@@ -1,39 +1,82 @@
 'use client';
 
+import React from 'react';
 import { Grid } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { StyledButton } from '@/app/ui/ContactsPage/ContactsStyles';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { contactsPageSchema } from '@/app/lib/schemas';
 
 const ContactsForm = () => {
+  const initialValues = {
+    name: '',
+    email: '',
+    message: '',
+  };
+
+  const onSubmit = (values) => {
+    // Поки що значення в консоль
+    console.log(values);
+  };
+
   return (
-    <Grid>
-      <TextField
-        sx={{ mb: 3 }}
-        label="Ім'я"
-        id="contact-name"
-        placeholder="Вкажіть ім'я"
-        fullWidth
-      />
-      <TextField
-        sx={{ mb: 3 }}
-        label="Email"
-        id="contact-email"
-        placeholder="Вкажіть email"
-        fullWidth
-      />
-      <TextField
-        sx={{ mb: 3 }}
-        label="Повідомлення"
-        id="contact-message"
-        multiline
-        rows={4}
-        placeholder="Ваше повідомлення"
-        fullWidth
-      />
-      <StyledButton variant="contained" fullWidth>
-        Відправити
-      </StyledButton>
-    </Grid>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={contactsPageSchema}
+      onSubmit={onSubmit}
+    >
+      {({ isValid, touched }) => (
+        <Form>
+          <Grid>
+            <Field
+              as={TextField}
+              sx={{ mb: 3 }}
+              label="Ім'я"
+              id="name"
+              name="name"
+              placeholder="Вкажіть ім'я"
+              fullWidth
+            />
+            <ErrorMessage name="name" component="div" className="error" />
+
+            <Field
+              as={TextField}
+              sx={{ mb: 3 }}
+              label="Email"
+              id="email"
+              name="email"
+              placeholder="Вкажіть email"
+              fullWidth
+            />
+            <ErrorMessage name="email" component="div" className="error" />
+
+            <Field
+              as={TextField}
+              sx={{ mb: 3 }}
+              label="Повідомлення"
+              id="message"
+              name="message"
+              multiline
+              rows={4}
+              placeholder="Ваше повідомлення"
+              fullWidth
+            />
+            <ErrorMessage name="message" component="div" className="error" />
+
+            <StyledButton
+              type="submit"
+              variant="contained"
+              fullWidth
+              disabled={
+                !isValid || !touched.name || !touched.email || !touched.message
+              }
+            >
+              Відправити
+            </StyledButton>
+          </Grid>
+        </Form>
+      )}
+    </Formik>
   );
 };
 
