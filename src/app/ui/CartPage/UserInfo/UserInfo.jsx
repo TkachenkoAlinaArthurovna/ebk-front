@@ -8,7 +8,15 @@ import {
 } from '@/app/ui/CartPage/CartPageStyles';
 import CartContactInfo from '@/app/ui/CartPage/CartContactInfo/CartContactInfo';
 
-const UserInfo = ({}) => {
+const UserInfo = ({
+  firstname,
+  setFirstname,
+  surname,
+  setSurname,
+  phone,
+  email,
+  setEmail,
+}) => {
   return (
     <StyledAccordion>
       <AccordionSummary
@@ -20,7 +28,15 @@ const UserInfo = ({}) => {
         <CartPageTitle>Контактна інформація</CartPageTitle>
       </AccordionSummary>
       <AccordionDetails sx={{ padding: 0 }}>
-        <CartContactInfo />
+        <CartContactInfo
+          firstname={firstname}
+          setFirstname={setFirstname}
+          surname={surname}
+          setSurname={setSurname}
+          phone={phone}
+          email={email}
+          setEmail={setEmail}
+        />
       </AccordionDetails>
     </StyledAccordion>
   );
