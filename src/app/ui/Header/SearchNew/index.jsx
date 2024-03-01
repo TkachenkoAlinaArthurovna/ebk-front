@@ -28,7 +28,7 @@ const SearchNew = () => {
       const search = searchValue ? `searchQuery=${searchValue}&` : '';
       if (search && value.length > 1) {
         res = await fetch(
-          `https://stage.eco-bike.com.ua/api/search?${search}&page=1&limit=10`,
+          `https://stage.eco-bike.com.ua/api/search?${search}&page=1&limit=200`,
           { next: { revalidate: 3600 } },
         );
       }
