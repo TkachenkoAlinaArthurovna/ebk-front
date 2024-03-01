@@ -23,24 +23,29 @@ import Total from '@/app/ui/CartPage/Total';
 import Entry from '@/app/ui/CartPage/Entry';
 import { Box } from '@mui/material';
 import PageTitle from '@/app/ui/PageTitle';
+import { makeAnOrder } from '@/app/lib/makeAnOrder';
 
 const CartPage = () => {
   const { isAuthorized, getUser } = useAuth();
   const authorized = isAuthorized();
-  console.log(authorized);
-
   const [firstname, setFirstname] = useState('');
   const [surname, setSurname] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
-
+  const selectedDelivery = useSelector(
+    (state) => state.delivery.selectedDelivery,
+  );
+  const selectedPayment = useSelector((state) => state.payment.selectedPayment);
+  const [settlement, setSettlement] = useState('');
+  const [department, setDepartment] = useState('');
+  const cartProducts = useSelector((state) => state.cart.cartProducts);
   const initialValues = {
     firstname: firstname,
     surname: surname,
     phone: phone,
     email: email,
-    delivery: '',
-    payment: '',
+    delivery: selectedDelivery,
+    payment: selectedPayment,
     comment: '',
     doNotCall: false,
     termsAgreement: false,
@@ -59,7 +64,6 @@ const CartPage = () => {
       if (res.ok) {
         const data = await res.json();
         if (data) {
-          console.log(data);
           data.name ? setFirstname(data.name) : '';
           data.surname ? setSurname(data.name) : '';
           data.phone ? setPhone('+' + data.phone) : '';
@@ -75,16 +79,31 @@ const CartPage = () => {
     if (authorized) {
       const token = localStorage.getItem('token');
       const user = getUser();
-      console.log(user);
-      console.log(token);
       getUserObj(token, user);
     }
   }, [authorized]);
 
-  const cartProducts = useSelector((state) => state.cart.cartProducts);
-
   const handleSubmit = (values) => {
-    console.log(values);
+    console.log(
+      firstname,
+      surname,
+      phone,
+      email,
+      initialValues.delivery,
+      initialValues.payment,
+      settlement.Present,
+      department,
+    );
+    makeAnOrder(
+      firstname,
+      surname,
+      phone,
+      email,
+      initialValues.delivery,
+      initialValues.payment,
+      settlement.Present,
+      department,
+    );
   };
 
   return (
@@ -121,6 +140,8 @@ const CartPage = () => {
                     dirty={dirty}
                     isValid={isValid}
                     cartProducts={cartProducts}
+                    settlement={settlement}
+                    department={department}
                   />
                 </StyledOrderWrapper>
                 {authorized ? (
@@ -134,7 +155,10 @@ const CartPage = () => {
                       email={email}
                       setEmail={setEmail}
                     />
-                    <Delivery />
+                    <Delivery
+                      setSettlement={setSettlement}
+                      setDepartment={setDepartment}
+                    />
                     <Payment />
                     <Comment />
                   </Wrapper>

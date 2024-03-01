@@ -12,7 +12,7 @@ import NovaPoshtaDepartment from '@/app/ui/CartPage/Delivery/NovaPoshtaDepartmen
 import NovaPoshtaPostmachines from '@/app/ui/CartPage/Delivery/NovaPoshtaPostmachines';
 import Ukrposhta from '@/app/ui/CartPage/Delivery/Ukrposhta';
 
-const Delivery = ({}) => {
+const Delivery = ({ setSettlement, setDepartment }) => {
   const dispatch = useDispatch();
   const selectedDelivery = useSelector(
     (state) => state.delivery.selectedDelivery,
@@ -34,8 +34,14 @@ const Delivery = ({}) => {
           value={selectedDelivery}
           onChange={(e) => dispatch(setSelectedDelivery(e.target.value))}
         >
-          <NovaPoshtaDepartment />
-          <NovaPoshtaPostmachines />
+          <NovaPoshtaDepartment
+            setSettlement={setSettlement}
+            setDepartment={setDepartment}
+          />
+          <NovaPoshtaPostmachines
+            setSettlement={setSettlement}
+            setDepartment={setDepartment}
+          />
           {/* <Ukrposhta /> */}
         </RadioGroup>
       </AccordionDetails>
