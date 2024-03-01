@@ -8,7 +8,7 @@ import { FormControlLabel, Radio, Autocomplete } from '@mui/material';
 import { Field } from 'formik';
 import useDebounce from '@/app/lib/useDebounce';
 
-const NovaPoshtaPostmachines = () => {
+const NovaPoshtaPostmachines = ({ setSettlement, setDepartment }) => {
   const selectedDelivery = useSelector(
     (state) => state.delivery.selectedDelivery,
   );
@@ -112,6 +112,8 @@ const NovaPoshtaPostmachines = () => {
       const settlement = arrAddresses.find(
         (obj) => obj.Present == selectedSettlement,
       );
+      setSettlement(settlement);
+      setDepartment('');
       getPostmachines(settlement.DeliveryCity);
     }
   }, [selectedSettlement]);
@@ -162,6 +164,7 @@ const NovaPoshtaPostmachines = () => {
               <TextField {...params} label="Виберіть поштомат" />
             )}
             onChange={(event, newValue) => {
+              setDepartment(newValue);
               setSelectedPostmachines(newValue);
             }}
           />

@@ -18,6 +18,7 @@ import CartSlice from '@/redux/slices/CartSlice';
 import CatalogLinksSlice from '@/redux/slices/CatalogLinksSlice';
 import CategoryProductsSlice from '@/redux/slices/CategoryProductsSlice';
 import DeliverySlice from '@/redux/slices/DeliverySlice';
+import PaymentSlice from '@/redux/slices/PaymentSlice';
 
 export function createPersistStore() {
   const isServer = typeof window === 'undefined';
@@ -55,6 +56,7 @@ const rootReducer = combineReducers({
   catalogLinks: CatalogLinksSlice,
   categoryProducts: CategoryProductsSlice,
   delivery: DeliverySlice,
+  payment: PaymentSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

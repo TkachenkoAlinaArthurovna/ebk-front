@@ -22,7 +22,7 @@ import {
   getProductsQuantity,
 } from '@/app/lib/getTotalForCart';
 
-const Total = ({ dirty, isValid, cartProducts }) => {
+const Total = ({ dirty, isValid, cartProducts, settlement, department }) => {
   const quantity = getProductsQuantity(cartProducts);
   const wordProduct = () => {
     if (quantity == 1) {
@@ -59,7 +59,7 @@ const Total = ({ dirty, isValid, cartProducts }) => {
       <StyledCheckoutButton
         type="submit"
         variant="contained"
-        disabled={!dirty || !isValid}
+        disabled={!dirty || !isValid || settlement == '' || department == ''}
       >
         Замовлення підтверджую
       </StyledCheckoutButton>
