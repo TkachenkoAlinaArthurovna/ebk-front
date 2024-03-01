@@ -26,7 +26,7 @@ const SearchNew = () => {
     try {
       let res;
       const search = searchValue ? `searchQuery=${searchValue}&` : '';
-      if (search) {
+      if (search && value.length > 1) {
         res = await fetch(
           `https://stage.eco-bike.com.ua/api/search?${search}&page=1&limit=10`,
           { next: { revalidate: 3600 } },
@@ -47,7 +47,7 @@ const SearchNew = () => {
   const updateSearchValue = useCallback(
     debounce((str) => {
       setSearchValue(str);
-    }, 250),
+    }, 1000),
     [],
   );
 
@@ -111,18 +111,22 @@ const SearchNew = () => {
           {value && searchedProducts && openList && (
             <ul id="list" className={styles.list}>
               {searchedProducts.map((obj) => (
-                <li
+                <li 
+                className={styles.item}
                   onClick={onClickProduct}
                   key={obj._id}
                   style={{
                     display: 'flex',
                     marginBottom: '10px',
-                    cursor: 'pointer',
+                    '&:hover': {
+                      cursor: 'pointer',
+                      backgroundColor: 'red',
+                    },
                   }}
                 >
                   {obj.picture && (
                     <img
-                      style={{ width: '40px', marginRight: '10px' }}
+                    className={styles.picture}
                       src={obj.picture[0]}
                       alt="img"
                     />
