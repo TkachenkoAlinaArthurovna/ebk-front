@@ -8,6 +8,8 @@ export const makeAnOrder = async (
   settlement,
   department,
 ) => {
+  const key =
+    'Wuv98scr0kChluYyfI-1RkaO6RXg1HUoM45lI1tKzLKGth5fimR3W3_XlkwJsXKGRU1cX-4AiNju9Q1eF27NnnFOlWWtkUwrghKv';
   const url = 'https://ebk.salesdrive.me/handler/';
   const requestBody = {
     form: '3Dzdp27OAOk1KxVAaSDDq_UZGndqVduZGpn21Uz1IXzef9hip4NQqCzHY',
@@ -71,6 +73,7 @@ export const makeAnOrder = async (
     const response = await fetch(url, {
       method: 'POST',
       headers: {
+        Authorization: `Bearer ${key}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(requestBody),
