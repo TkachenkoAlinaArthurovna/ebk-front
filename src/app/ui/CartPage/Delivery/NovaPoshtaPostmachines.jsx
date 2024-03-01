@@ -127,7 +127,12 @@ const NovaPoshtaPostmachines = () => {
     <>
       <FormControlLabel
         control={
-          <Field as={Radio} value="До поштомату Нової Пошти" name="delivery" />
+          <Field
+            sx={{ padding: '14px 16px 24px 0' }}
+            as={Radio}
+            value="До поштомату Нової Пошти"
+            name="delivery"
+          />
         }
         disableTypography
         label={

@@ -13,8 +13,7 @@ const DeliveryItem = ({ text, icon, price }) => {
       sx={{
         display: 'flex',
         justifyContent: 'space-between',
-        padding: '24px 0',
-        borderBottom: '1px solid #E5E5E5',
+        padding: '14px 0 24px 0',
         width: '100%',
       }}
     >

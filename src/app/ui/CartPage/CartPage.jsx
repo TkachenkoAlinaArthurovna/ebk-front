@@ -1,20 +1,19 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useAuth } from '@/redux/contexts/AuthContext';
 import BreadCrumbs from '@/app/ui/BreadCrumbs/BreadCrumbs';
 import CartItem from '@/app/ui/CartPage/CartItem/CartItem';
 import Content from '@/app/ui/Content';
 import {
-  CartPageTitle,
   StyledCartLayout,
   StyledOrderWrapper,
   WrapperCartProducts,
   Wrapper,
 } from '@/app/ui/CartPage/CartPageStyles';
 import { Form, Formik } from 'formik';
-import { contactDataSchema } from '@/lib/schemas';
+import { contactDataSchema } from '@/app/lib/schemas';
 import EmptyCart from './EmptyCart/EmptyCart';
 import Delivery from '@/app/ui/CartPage/Delivery';
 import UserInfo from '@/app/ui/CartPage/UserInfo';
@@ -27,20 +26,60 @@ import PageTitle from '@/app/ui/PageTitle';
 
 const CartPage = () => {
   const { isAuthorized, getUser } = useAuth();
-  const user = getUser();
   const authorized = isAuthorized();
+  console.log(authorized);
+
+  const [firstname, setFirstname] = useState('');
+  const [surname, setSurname] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
 
   const initialValues = {
-    firstname: '',
-    surname: '',
-    phone: '',
-    email: '',
+    firstname: firstname,
+    surname: surname,
+    phone: phone,
+    email: email,
     delivery: '',
     payment: '',
     comment: '',
     doNotCall: false,
     termsAgreement: false,
   };
+
+  const getUserObj = async (token, user) => {
+    try {
+      const url = `https://stage.eco-bike.com.ua/api/users/${user.id}`;
+      const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data) {
+          console.log(data);
+          data.name ? setFirstname(data.name) : '';
+          data.surname ? setSurname(data.name) : '';
+          data.phone ? setPhone('+' + data.phone) : '';
+          data.email ? setEmail(data.email) : '';
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (authorized) {
+      const token = localStorage.getItem('token');
+      const user = getUser();
+      console.log(user);
+      console.log(token);
+      getUserObj(token, user);
+    }
+  }, [authorized]);
 
   const cartProducts = useSelector((state) => state.cart.cartProducts);
 
@@ -86,7 +125,15 @@ const CartPage = () => {
                 </StyledOrderWrapper>
                 {authorized ? (
                   <Wrapper>
-                    <UserInfo />
+                    <UserInfo
+                      firstname={firstname}
+                      setFirstname={setFirstname}
+                      surname={surname}
+                      setSurname={setSurname}
+                      phone={phone}
+                      email={email}
+                      setEmail={setEmail}
+                    />
                     <Delivery />
                     <Payment />
                     <Comment />

@@ -28,14 +28,15 @@ const Payment = ({}) => {
       <AccordionDetails sx={{ padding: 0 }}>
         <RadioGroup name="payment">
           <FormControlLabel
-            value="Накладений платіж Нова Пошта"
-            control={<Field as={Radio} />}
-            label="Накладений платіж Нова Пошта"
+            sx={{ padding: '0 0 24px 0' }}
+            value="Visa/Mastercard • Google Pay • Apple Pay"
+            control={<Field as={Radio} sx={{ padding: '0 16px 0 0' }} />}
+            label="Visa/Mastercard • Google Pay • Apple Pay"
           />
           <FormControlLabel
-            value="Visa/Mastercard • Google Pay • Apple Pay"
-            control={<Field as={Radio} />}
-            label="Visa/Mastercard • Google Pay • Apple Pay"
+            value="Накладений платіж Нова Пошта"
+            control={<Field as={Radio} sx={{ padding: '0 16px 0 0' }} />}
+            label="Накладений платіж Нова Пошта"
           />
         </RadioGroup>
       </AccordionDetails>
