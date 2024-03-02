@@ -70,7 +70,8 @@ const SearchNew = () => {
     const { link } = catalogLinks.find((obj) => obj._id === id);
     const productName = createLinkProduct(text);
     router.push(`/${link}/${productName}`);
-    dispatch(cleareSearchedProducts());
+    setValue('');
+    // dispatch(cleareSearchedProducts());
   };
 
   useEffect(() => {
@@ -108,9 +109,7 @@ const SearchNew = () => {
             placeholder="Я шукаю..."
           />
           {value.length > 1 && searchedProducts && openList && (
-            <ul
-              className={`${!searchedProducts && !openList ? styles.none : styles.list}`}
-            >
+            <ul className={styles.list}>
               {searchedProducts.map((obj) => (
                 <li
                   className={styles.item}
