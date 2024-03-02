@@ -24,11 +24,12 @@
   }
 }
 .list {
-  border: 1px solid #d4d4d4;
+  // border: 1px solid #d4d4d4;
+  background-color: #fbfbfb;
   border-radius: 6px;
   position: absolute;
   top: 56px;
-  background-color: #fff;
+  // background-color: #fff;
   z-index: 10;
   width: 100%;
   max-height: 440px;
@@ -52,7 +53,7 @@
   border-bottom: 1px solid #d4d4d4;
   cursor: pointer;
   &:hover {
-    background-color: rgb(249, 249, 249);
+    background-color: rgb(242, 242, 242);
   }
 }
 
