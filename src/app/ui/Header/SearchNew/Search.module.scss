@@ -11,37 +11,51 @@
   transition: all 0.15s ease-in-out;
   height: 56px;
   outline: none;
+  text-decoration-line: none;
+  &::spelling-error {
+    text-decoration: none;
+  }
   &:focus {
     border: 1px solid rgba(0, 0, 0, 0.2);
+    outline: none;
   }
   @media (max-width: 1200px) {
     height: 43px;
   }
 }
 .list {
+  border: 1px solid #d4d4d4;
   border-radius: 6px;
   position: absolute;
   top: 56px;
   background-color: #fff;
   z-index: 10;
-  padding: 10px;
   width: 100%;
-  max-height: 390px;
+  max-height: 440px;
   overflow: auto;
   @media (max-width: 700px) {
     top: 50px;
   }
+}
+.none {
+ display: none;
 }
 .picture {
   width: 40px;
   margin-right: 10px;
 }
 .item {
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #d4d4d4;
   cursor: pointer;
   &:hover {
     background-color: rgb(249, 249, 249);
   }
 }
+
 .icon {
   width: 24px;
   height: 24px;

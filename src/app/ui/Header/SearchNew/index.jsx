@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef, useCallback, use } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import debounce from 'lodash.debounce';
 import { Search } from '@/app/ui/Header/HeaderStyles';
@@ -16,7 +16,6 @@ const SearchNew = () => {
   const [value, setValue] = useState('');
   const [searchValue, setSearchValue] = useState('');
   const inputRef = useRef();
-  const listRef = useRef(null);
   const router = useRouter();
   const { catalogLinks } = useSelector((state) => state.catalogLinks);
   const { searchedProducts } = useSelector((state) => state.search);
@@ -101,31 +100,26 @@ const SearchNew = () => {
         </svg>
         <div id="dropdown">
           <input
+            type="text"
             ref={inputRef}
             value={value}
             onChange={onChangeInput}
             className={styles.input}
             placeholder="Я шукаю..."
           />
-          {value && searchedProducts && openList && (
-            <ul id="list" className={styles.list}>
+          {value.length > 1 && searchedProducts && openList && (
+            <ul
+              className={`${!searchedProducts && !openList ? styles.none : styles.list}`}
+            >
               {searchedProducts.map((obj) => (
-                <li 
-                className={styles.item}
+                <li
+                  className={styles.item}
                   onClick={onClickProduct}
                   key={obj._id}
-                  style={{
-                    display: 'flex',
-                    marginBottom: '10px',
-                    '&:hover': {
-                      cursor: 'pointer',
-                      backgroundColor: 'red',
-                    },
-                  }}
                 >
                   {obj.picture && (
                     <img
-                    className={styles.picture}
+                      className={styles.picture}
                       src={obj.picture[0]}
                       alt="img"
                     />
