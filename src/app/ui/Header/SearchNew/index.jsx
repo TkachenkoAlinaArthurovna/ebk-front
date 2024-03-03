@@ -120,11 +120,13 @@ const SearchNew = () => {
                   key={obj._id}
                 >
                   {obj.picture && (
-                    <img
-                      className={styles.picture}
-                      src={obj.picture[0]}
-                      alt="img"
-                    />
+                    <div className={styles.wrapperPicture}>
+                      <img
+                        className={styles.picture}
+                        src={obj.picture[0]}
+                        alt="img"
+                      />
+                    </div>
                   )}
 
                   <p id={obj.category}>{obj.name}</p>
