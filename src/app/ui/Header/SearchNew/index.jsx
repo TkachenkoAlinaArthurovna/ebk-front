@@ -10,6 +10,7 @@ import {
   cleareSearchedProducts,
 } from '@/redux/slices/SearchProductSlice';
 import { createLinkProduct } from '@/app/lib/createLinkProduct';
+import HourglassTopIcon from '@mui/icons-material/HourglassTop';
 
 const SearchNew = () => {
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ const SearchNew = () => {
   const updateSearchValue = useCallback(
     debounce((str) => {
       setSearchValue(str);
-    }, 1000),
+    }, 500),
     [],
   );
 
@@ -59,19 +60,21 @@ const SearchNew = () => {
   };
 
   const onClickClear = () => {
-    dispatch(cleareSearchedProducts());
     setValue('');
+    dispatch(cleareSearchedProducts());
     inputRef.current.focus();
   };
 
   const onClickProduct = (event) => {
     const id = event.target.id;
-    const text = event.target.innerHTML;
     const { link } = catalogLinks.find((obj) => obj._id === id);
+    const text = event.target.innerHTML;
+    console.log(link);
     const productName = createLinkProduct(text);
     router.push(`/${link}/${productName}`);
     setValue('');
-    // dispatch(cleareSearchedProducts());
+    setSearchValue('');
+    dispatch(cleareSearchedProducts());
   };
 
   useEffect(() => {
