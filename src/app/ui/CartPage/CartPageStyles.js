@@ -19,8 +19,7 @@ export const StyledPriceWrapper = styled(Box)`
   display: 'flex';
   flex-direction: 'column';
   width: 34%;
-
-  @media (max-width: 1100px) {
+  @media (max-width: 1024px) {
     width: 100%;
   }
 `;
@@ -29,6 +28,9 @@ export const StyledOrderWrapper = styled(Box)`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
 `;
 
 export const StyledTotalText = styled(Typography)`
@@ -76,16 +78,15 @@ export const StyledCheckoutButton = styled(Button)`
   &:hover {
     background-color: #3ea39e;
   }
+  @media (max-width: 1200px) {
+    height: 44px;
+  }
 `;
 
 export const StyledTermsTitle = styled(Typography)`
   margin-bottom: 16px;
   font-size: 16px;
   color: #6a6a6a;
-
-  @media (max-width: 768px) {
-    text-align: center;
-  }
 `;
 
 export const StyledList = styled(List)`
@@ -95,10 +96,6 @@ export const StyledList = styled(List)`
   margin: 0;
   list-style: disc !important;
   color: #6a6a6a;
-
-  @media (max-width: 768px) {
-    align-items: center;
-  }
 `;
 
 export const StyledListItem = styled(Box)`
@@ -118,14 +115,15 @@ export const StyledAccordion = styled(Accordion)`
 `;
 
 export const StyledButtonEntry = styled(Button)`
+  display: flex;
   width: 138px;
   padding: 10px 0;
   @media (max-width: 1200px) {
     height: 44px;
   }
-  @media (max-width: 900px) {
-    height: 34px;
-    font-size: 12px;
+  @media (max-width: 700px) {
+    width: 100%;
+    margin: 0 auto;
   }
 `;
 
@@ -133,10 +131,16 @@ export const WrapperCartProducts = styled(Box)`
   display: flex;
   flex-direction: column;
   width: 60%;
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;
 
 export const Wrapper = styled(Box)`
   display: flex;
   flex-direction: column;
   width: 60%;
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;

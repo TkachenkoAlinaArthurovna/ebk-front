@@ -41,12 +41,6 @@ const Comment = ({}) => {
           component={'div'}
           style={{ color: '#dc362e' }}
         />
-        <FormControlLabel
-          sx={{ marginTop: '24px' }}
-          control={<Checkbox />}
-          name={'doNotCall'}
-          label={'Не дзвонити для підтвердження замовлення'}
-        />
       </AccordionDetails>
     </StyledAccordion>
   );
