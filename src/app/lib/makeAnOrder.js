@@ -1,19 +1,87 @@
-export const makeAnOrder = async (
-  firstname,
-  surname,
-  phone,
-  email,
-  delivery,
-  payment,
-  settlement,
-  department,
-) => {
-  const key =
-    'Wuv98scr0kChluYyfI-1RkaO6RXg1HUoM45lI1tKzLKGth5fimR3W3_XlkwJsXKGRU1cX-4AiNju9Q1eF27NnnFOlWWtkUwrghKv';
-  const url = 'https://ebk.salesdrive.me/handler/';
-  const requestBody = {
+export const makeAnOrder = () => {
+  // const url = 'https://ebk.salesdrive.me/handler/';
+  // const data = {
+  //   form: '3Dzdp27OAOk1KxVAaSDDq_UZGndqVduZGpn21Uz1IXzef9hip4NQqCzHY',
+  //   getResultData: '',
+  //   products: [
+  //     {
+  //       id: '1',
+  //       name: 'test',
+  //       costPerItem: '',
+  //       amount: '',
+  //       description: '',
+  //       discount: '',
+  //       sku: 'test1',
+  //     },
+  //   ],
+  //   comment: '',
+  //   fName: 'fTest',
+  //   lName: 'lTest',
+  //   mName: '',
+  //   phone: '',
+  //   email: '',
+  //   con_comment: '',
+  //   shipping_method: '',
+  //   payment_method: '',
+  //   shipping_address: '',
+  //   novaposhta: {
+  //     ServiceType: '',
+  //     payer: '',
+  //     area: '',
+  //     region: '',
+  //     city: '',
+  //     cityNameFormat: '',
+  //     WarehouseNumber: '',
+  //     Street: '',
+  //     BuildingNumber: '',
+  //     Flat: '',
+  //   },
+  //   ukrposhta: {
+  //     ServiceType: '',
+  //     payer: '',
+  //     type: '',
+  //     city: '',
+  //     WarehouseNumber: '',
+  //     Street: '',
+  //     BuildingNumber: '',
+  //     Flat: '',
+  //   },
+  //   sajt: '',
+  //   organizationId: '',
+  //   shipping_costs: '',
+  //   stockId: '',
+  //   prodex24source_full: '',
+  //   prodex24source: '',
+  //   prodex24medium: '',
+  //   prodex24campaign: '',
+  //   prodex24content: '',
+  //   prodex24term: '',
+  //   prodex24page: '',
+  // };
+
+  // const options = {
+  //   method: 'POST',
+  //   // mode: 'no-cors',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     'test-api':
+  //       'cthypdGW4hgGGpYW_4na4ZzJiS1z-UGqyUG9ODhipzlswg0iNVdK6UuFPiI7iMf7KnokJR_-tOt548qKQ_DXOTzaS4UyDqGhfW_O',
+  //   },
+  //   body: JSON.stringify(data),
+  // };
+
+  // fetch(url, options)
+  //   .then((response) => {
+  //     if (!response.ok) {
+  //       throw new Error('Network response was not ok');
+  //     }
+  //     return response.json();
+  //   })
+  //   .then((data) => console.log(data))
+  //   .catch((error) => console.error('There was an error!', error));
+  const formData = {
     form: '3Dzdp27OAOk1KxVAaSDDq_UZGndqVduZGpn21Uz1IXzef9hip4NQqCzHY',
-    getResultData: '',
+    getResultData: '1',
     products: [
       {
         id: '1',
@@ -26,14 +94,14 @@ export const makeAnOrder = async (
       },
     ],
     comment: '',
-    fName: firstname,
-    lName: surname,
+    fName: 'fTest',
+    lName: 'lTest',
     mName: '',
-    phone: phone,
-    email: email,
+    phone: '',
+    email: '',
     con_comment: '',
-    shipping_method: delivery,
-    payment_method: payment,
+    shipping_method: '',
+    payment_method: '',
     shipping_address: '',
     novaposhta: {
       ServiceType: '',
@@ -41,8 +109,8 @@ export const makeAnOrder = async (
       area: '',
       region: '',
       city: '',
-      cityNameFormat: settlement,
-      WarehouseNumber: department,
+      cityNameFormat: '',
+      WarehouseNumber: '',
       Street: '',
       BuildingNumber: '',
       Flat: '',
@@ -69,21 +137,31 @@ export const makeAnOrder = async (
     prodex24term: '',
     prodex24page: '',
   };
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${key}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestBody),
-    });
 
-    if (response.ok) {
-      const data = await response.json();
-      console.log('Response data:', data);
-    }
-  } catch (error) {
-    console.log(error);
-  }
+  // Опції запиту
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData),
+  };
+
+  // URL сервера
+  const salesdriveURL = 'https://ebk.salesdrive.me/handler/';
+
+  fetch(salesdriveURL, options)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log('Response:', data);
+      // Обробка відповіді від сервера
+    })
+    .catch((error) => {
+      console.error('There was a problem with your fetch operation:', error);
+    });
 };

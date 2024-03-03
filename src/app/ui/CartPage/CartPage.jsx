@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import Link from 'next/link';
 import { useAuth } from '@/redux/contexts/AuthContext';
 import BreadCrumbs from '@/app/ui/BreadCrumbs/BreadCrumbs';
 import CartItem from '@/app/ui/CartPage/CartItem/CartItem';
@@ -12,7 +13,13 @@ import {
   WrapperCartProducts,
   Wrapper,
 } from '@/app/ui/CartPage/CartPageStyles';
-import { Form, Formik } from 'formik';
+import {
+  StyledCheckoutButton,
+  StyledList,
+  StyledListItem,
+  StyledTermsTitle,
+} from '@/app/ui/CartPage/CartPageStyles';
+import { Form, Formik, Field } from 'formik';
 import { contactDataSchema } from '@/app/lib/schemas';
 import EmptyCart from './EmptyCart/EmptyCart';
 import Delivery from '@/app/ui/CartPage/Delivery';
@@ -21,13 +28,18 @@ import Payment from '@/app/ui/CartPage/Payment';
 import Comment from '@/app/ui/CartPage/Comment';
 import Total from '@/app/ui/CartPage/Total';
 import Entry from '@/app/ui/CartPage/Entry';
-import { Box } from '@mui/material';
+import { FormControlLabel, Box } from '@mui/material';
+import Checkbox from '@mui/material/Checkbox';
 import PageTitle from '@/app/ui/PageTitle';
 import { makeAnOrder } from '@/app/lib/makeAnOrder';
+import { getUserObj } from '@/app/lib/getUserObj';
+import { putUser } from '@/app/lib/putUser';
 
 const CartPage = () => {
   const { isAuthorized, getUser } = useAuth();
   const authorized = isAuthorized();
+  const user = authorized ? getUser() : null;
+  const token = authorized ? localStorage.getItem('token') : null;
   const [firstname, setFirstname] = useState('');
   const [surname, setSurname] = useState('');
   const [phone, setPhone] = useState('');
@@ -51,59 +63,25 @@ const CartPage = () => {
     termsAgreement: false,
   };
 
-  const getUserObj = async (token, user) => {
-    try {
-      const url = `https://stage.eco-bike.com.ua/api/users/${user.id}`;
-      const res = await fetch(url, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-      if (res.ok) {
-        const data = await res.json();
-        if (data) {
-          data.name ? setFirstname(data.name) : '';
-          data.surname ? setSurname(data.name) : '';
-          data.phone ? setPhone('+' + data.phone) : '';
-          data.email ? setEmail(data.email) : '';
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
     if (authorized) {
-      const token = localStorage.getItem('token');
-      const user = getUser();
-      getUserObj(token, user);
+      getUserObj(token, user, setFirstname, setSurname, setPhone, setEmail);
     }
   }, [authorized]);
 
-  const handleSubmit = (values) => {
-    console.log(
-      firstname,
-      surname,
-      phone,
-      email,
-      initialValues.delivery,
-      initialValues.payment,
-      settlement.Present,
-      department,
-    );
-    makeAnOrder(
-      firstname,
-      surname,
-      phone,
-      email,
-      initialValues.delivery,
-      initialValues.payment,
-      settlement.Present,
-      department,
-    );
+  const handleSubmit = () => {
+    putUser(firstname, surname, email, phone, user);
+    console.log('order');
+    // makeAnOrder(
+    //   firstname,
+    //   surname,
+    //   phone,
+    //   email,
+    //   initialValues.delivery,
+    //   initialValues.payment,
+    //   settlement.Present,
+    //   department,
+    // );
   };
 
   return (
@@ -161,8 +139,60 @@ const CartPage = () => {
                     />
                     <Payment />
                     <Comment />
+                    <FormControlLabel
+                      sx={{ margin: '24px 0 0 0' }}
+                      control={<Checkbox sx={{ paddingLeft: 0 }} />}
+                      name={'doNotCall'}
+                      label={'Не дзвонити для підтвердження замовлення'}
+                    />
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        margin: '0 0 24px 3px',
+                        '@media (min-width: 1025px)': {
+                          display: 'none',
+                        },
+                      }}
+                    >
+                      <FormControlLabel
+                        sx={{ marginBottom: '14px' }}
+                        control={
+                          <Field
+                            type="checkbox"
+                            name="termsAgreement"
+                            as={Checkbox}
+                          />
+                        }
+                        label="З умовами ознайомлений та погоджуюсь*"
+                      />
+                      <StyledTermsTitle>
+                        Підтверджуючи замовлення, я приймаю умови:{' '}
+                      </StyledTermsTitle>
+                      <StyledList>
+                        <StyledListItem>
+                          <Link href="/privacy-policy">
+                            • політики конфіденційності
+                          </Link>
+                        </StyledListItem>
+                      </StyledList>
+                    </Box>
                   </Wrapper>
                 ) : null}
+                <StyledCheckoutButton
+                  sx={{
+                    '@media (min-width: 1025px)': {
+                      display: 'none',
+                    },
+                  }}
+                  type="submit"
+                  variant="contained"
+                  disabled={
+                    !dirty || !isValid || settlement == '' || department == ''
+                  }
+                >
+                  Замовлення підтверджую
+                </StyledCheckoutButton>
               </StyledCartLayout>
             </Form>
           )}
