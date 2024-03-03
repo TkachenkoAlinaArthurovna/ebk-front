@@ -8,7 +8,7 @@ import { FormControlLabel, Radio, Autocomplete } from '@mui/material';
 import { Field } from 'formik';
 import useDebounce from '@/app/lib/useDebounce';
 
-const NovaPoshtaDepartment = () => {
+const NovaPoshtaDepartment = ({ setSettlement, setDepartment }) => {
   const selectedDelivery = useSelector(
     (state) => state.delivery.selectedDelivery,
   );
@@ -115,6 +115,8 @@ const NovaPoshtaDepartment = () => {
       const settlement = arrAddresses.find(
         (obj) => obj.Present == selectedSettlement,
       );
+      setSettlement(settlement);
+      setDepartment('');
       getDepartments(settlement.DeliveryCity);
     }
   }, [selectedSettlement]);
@@ -130,7 +132,12 @@ const NovaPoshtaDepartment = () => {
     <>
       <FormControlLabel
         control={
-          <Field as={Radio} value="До відділення Нової Пошти" name="delivery" />
+          <Field
+            sx={{ padding: '14px 16px 24px 0' }}
+            as={Radio}
+            value="До відділення Нової Пошти"
+            name="delivery"
+          />
         }
         disableTypography
         label={
@@ -160,6 +167,7 @@ const NovaPoshtaDepartment = () => {
               <TextField {...params} label="Виберіть відділення" />
             )}
             onChange={(event, newValue) => {
+              setDepartment(newValue);
               setSelectedDepartment(newValue);
             }}
           />

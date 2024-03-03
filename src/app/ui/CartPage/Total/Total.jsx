@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import PageText from '@/app/ui/PageText';
-import { FormControlLabel } from '@mui/material';
+import { FormControlLabel, Box } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import {
   CartPageTitle,
@@ -22,7 +22,7 @@ import {
   getProductsQuantity,
 } from '@/app/lib/getTotalForCart';
 
-const Total = ({ dirty, isValid, cartProducts }) => {
+const Total = ({ dirty, isValid, cartProducts, settlement, department }) => {
   const quantity = getProductsQuantity(cartProducts);
   const wordProduct = () => {
     if (quantity == 1) {
@@ -52,30 +52,51 @@ const Total = ({ dirty, isValid, cartProducts }) => {
         <StyledTotalText>Знижка</StyledTotalText>
         <PageText>{discount}</PageText>
       </StyledTotalBox>
-      <StyledTotalBox>
+      <StyledTotalBox
+        sx={{
+          '@media(max-width: 1024px)': {
+            marginBottom: '40px',
+          },
+        }}
+      >
         <StyledTotalText>Загальна сума</StyledTotalText>
         <StyledTotalPrice>{prices} ₴</StyledTotalPrice>
       </StyledTotalBox>
       <StyledCheckoutButton
+        sx={{
+          '@media (max-width: 1024px)': {
+            display: 'none',
+          },
+        }}
         type="submit"
         variant="contained"
-        disabled={!dirty || !isValid}
+        disabled={!dirty || !isValid || settlement == '' || department == ''}
       >
         Замовлення підтверджую
       </StyledCheckoutButton>
-      <FormControlLabel
-        sx={{ marginBottom: '14px' }}
-        control={<Field type="checkbox" name="termsAgreement" as={Checkbox} />}
-        label="З умовами ознайомлений та погоджуюсь*"
-      />
-      <StyledTermsTitle>
-        Підтверджуючи замовлення, я приймаю умови:{' '}
-      </StyledTermsTitle>
-      <StyledList>
-        <StyledListItem>
-          <Link href="/privacy-policy">• політики конфіденційності</Link>
-        </StyledListItem>
-      </StyledList>
+      <Box
+        sx={{
+          '@media(max-width: 1024px)': {
+            display: 'none',
+          },
+        }}
+      >
+        <FormControlLabel
+          sx={{ marginBottom: '14px' }}
+          control={
+            <Field type="checkbox" name="termsAgreement" as={Checkbox} />
+          }
+          label="З умовами ознайомлений та погоджуюсь*"
+        />
+        <StyledTermsTitle>
+          Підтверджуючи замовлення, я приймаю умови:{' '}
+        </StyledTermsTitle>
+        <StyledList>
+          <StyledListItem>
+            <Link href="/privacy-policy">• політики конфіденційності</Link>
+          </StyledListItem>
+        </StyledList>
+      </Box>
     </StyledPriceWrapper>
   );
 };

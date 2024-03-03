@@ -1,5 +1,7 @@
 'use client';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { setSelectedPayment } from '@/redux/slices/PaymentSlice';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   AccordionDetails,
@@ -15,6 +17,8 @@ import {
 import { Field } from 'formik';
 
 const Payment = ({}) => {
+  const dispatch = useDispatch();
+  const selectedPayment = useSelector((state) => state.payment.selectedPayment);
   return (
     <StyledAccordion>
       <AccordionSummary
@@ -26,16 +30,21 @@ const Payment = ({}) => {
         <CartPageTitle>Оплата</CartPageTitle>
       </AccordionSummary>
       <AccordionDetails sx={{ padding: 0 }}>
-        <RadioGroup name="payment">
+        <RadioGroup
+          name="payment"
+          value={selectedPayment}
+          onChange={(e) => dispatch(setSelectedPayment(e.target.value))}
+        >
           <FormControlLabel
-            value="Накладений платіж Нова Пошта"
-            control={<Field as={Radio} />}
-            label="Накладений платіж Нова Пошта"
+            sx={{ padding: '0 0 24px 0' }}
+            value="Visa/Mastercard • Google Pay • Apple Pay"
+            control={<Field as={Radio} sx={{ padding: '0 16px 0 0' }} />}
+            label="Visa/Mastercard • Google Pay • Apple Pay"
           />
           <FormControlLabel
-            value="Visa/Mastercard • Google Pay • Apple Pay"
-            control={<Field as={Radio} />}
-            label="Visa/Mastercard • Google Pay • Apple Pay"
+            value="Накладений платіж Нова Пошта"
+            control={<Field as={Radio} sx={{ padding: '0 16px 0 0' }} />}
+            label="Накладений платіж Нова Пошта"
           />
         </RadioGroup>
       </AccordionDetails>

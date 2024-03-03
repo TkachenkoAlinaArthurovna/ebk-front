@@ -35,8 +35,8 @@ const CartItem = ({ product, modal, type }) => {
 
   return (
     <Wrapper type={type}>
-      <CartItemWrapper type="modal">
-        <CartProductWrapper type="modal">
+      <CartItemWrapper type={type}>
+        <CartProductWrapper type={type}>
           <StyledImageWrapper>
             <Box
               component={'img'}
@@ -58,7 +58,7 @@ const CartItem = ({ product, modal, type }) => {
             <PageText color={'#6A6A6A'}>Код: {crmId}</PageText>
           </Box>
         </CartProductWrapper>
-        <WrapperPlusMinusPrice type="modal">
+        <WrapperPlusMinusPrice type={type}>
           {modal ? null : (
             <StyledButtonGroup>
               <StyledButton

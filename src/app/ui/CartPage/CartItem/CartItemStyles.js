@@ -17,16 +17,27 @@ export const CartItemWrapper = styled(Box)`
       switch (type) {
         case 'modal':
           return 'column';
+        case 'cart':
+          return 'column';
       }
     }};
   }
 `;
 
 export const CartProductWrapper = styled(Box)`
+  width: 50%;
   display: flex;
   flex-direction: row;
   justify-content: start;
   align-items: center;
+  @media (max-width: 600px) {
+    width: ${({ type }) => {
+      switch (type) {
+        case 'cart':
+          return '100%';
+      }
+    }};
+  }
   @media (max-width: 500px) {
     flex-direction: ${({ type }) => {
       switch (type) {
@@ -100,6 +111,8 @@ export const WrapperPlusMinusPrice = styled(Box)`
     width: ${({ type }) => {
       switch (type) {
         case 'modal':
+          return '100%';
+        case 'cart':
           return '100%';
       }
     }};

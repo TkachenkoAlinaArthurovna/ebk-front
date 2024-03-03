@@ -1,28 +1,22 @@
 import * as yup from 'yup';
 
-const cyrillicOnlyRegex = /^[а-яА-ЯЁё]+$/;
-
 export const basicContactSchema = yup.object({
-  lastname: yup
+  surname: yup
     .string()
-    .matches(cyrillicOnlyRegex, 'Прізвище може містити лише кириличні символи')
-    .required("Прізвище обов'язкове"),
+    .matches(/[а-яА-ЯёЁa-zA-Z]$/, 'Не може мати числові значення')
+    .min(2, 'Занадто коротке імʼя')
+    .max(70, 'Занадто довге імʼя')
+    .required('Обовʼязкове поле'),
   firstname: yup
     .string()
-    .matches(cyrillicOnlyRegex, "Ім'я може містити лише кириличні символи")
-    .required("Ім'я обов'язкове"),
-  middlename: yup
-    .string()
-    .matches(
-      cyrillicOnlyRegex,
-      'По-батькові може містити лише кириличні символи',
-    )
-    .required("По-батькові обов'язкове"),
-  phone: yup.string().required("Телефон обов'язковий"),
+    .matches(/[а-яА-ЯёЁa-zA-Z]$/, 'Не може мати числові значення')
+    .min(2, 'Занадто коротке прізвище')
+    .max(70, 'Занадто довге прізвище')
+    .required('Обовʼязкове поле'),
   email: yup
     .string()
     .email('Невірний формат ел. пошти')
-    .required("Ел. пошта обов'язкова"),
+    .required('Обовʼязкове поле'),
 });
 
 export const contactDataSchema = yup.object({
@@ -38,11 +32,13 @@ export const contactDataSchema = yup.object({
 export const contactsPageSchema = yup.object({
   name: yup
     .string()
-    .required("Ім'я є обов'язковим полем")
-    .matches(cyrillicOnlyRegex, "Ім'я може містити лише кириличні символи"),
+    .matches(/[а-яА-ЯёЁa-zA-Z]$/, 'Не може мати числові значення')
+    .min(2, 'Занадто коротке імʼя')
+    .max(70, 'Занадто довге імʼя')
+    .required('Обовʼязкове поле'),
   email: yup
     .string()
-    .email('Некоректний формат email')
+    .email('Невірний формат ел. пошти')
     .required("Email є обов'язковим полем"),
   message: yup
     .string()
