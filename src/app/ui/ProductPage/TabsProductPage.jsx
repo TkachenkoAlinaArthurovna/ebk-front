@@ -10,12 +10,33 @@ import AboutProduct from '@/app/ui/ProductPage/AboutProduct';
 import СharacteristicsProduct from '@/app/ui/ProductPage/СharacteristicsProduct';
 import DescriptionProduct from '@/app/ui/ProductPage/DescriptionProduct';
 import { StyledSection } from '@/app/ui/ProductPage/ProductPageStyles';
+import { current } from '@reduxjs/toolkit';
 
 const TabsProductPage = ({ currentProduct }) => {
   const { varieties } = currentProduct;
   const arrProducts = [currentProduct, ...varieties];
   const [mainProduct, setMainProduct] = useState(arrProducts[0]);
   const [value, setValue] = useState(0);
+  React.useEffect(() => {
+    const session = JSON.parse(sessionStorage.getItem('currentProduct'));
+
+    if (!session || session.length === 0) {
+      sessionStorage.setItem(
+        'currentProduct',
+        JSON.stringify([currentProduct]),
+      );
+    } else {
+      const findObj = session.find(
+        (obj) => JSON.stringify(obj) === JSON.stringify(currentProduct),
+      );
+      if (!findObj) {
+        sessionStorage.setItem(
+          'currentProduct',
+          JSON.stringify([...session, currentProduct]),
+        );
+      }
+    }
+  }, [currentProduct]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
