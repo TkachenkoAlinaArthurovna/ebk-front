@@ -2,7 +2,6 @@ import { Suspense } from 'react';
 import ProductPage from '@/app/ui/ProductPage';
 import { createLinkProduct } from '@/app/lib/createLinkProduct';
 import { createLinks } from '@/app/lib/createLinks';
-import SkeletonProductPage from '@/app/ui/SkeletonProductPage/SkeletonProductPage';
 
 export const dynamicParams = false;
 
@@ -86,6 +85,7 @@ export default async function Product({ params }) {
   const partsOfCategory = category.includes('%26')
     ? category.split('%26')
     : [category];
+  console.log(category);
   const currentProduct = await getProductId(partsOfCategory[0], product);
   return (
     <ProductPage

@@ -77,7 +77,7 @@ const Slider = ({
     listSlides = slides.map((slide, index) => (
       <SwiperSlide key={index}>
         <img
-          src={slide}
+          src={slide.picture}
           style={{
             width: '100%',
             borderRadius: '28px',
