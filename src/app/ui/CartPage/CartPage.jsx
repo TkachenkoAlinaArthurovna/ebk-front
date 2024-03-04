@@ -72,16 +72,15 @@ const CartPage = () => {
   const handleSubmit = () => {
     putUser(firstname, surname, email, phone, user);
     console.log('order');
-    // makeAnOrder(
-    //   firstname,
-    //   surname,
-    //   phone,
-    //   email,
-    //   initialValues.delivery,
-    //   initialValues.payment,
-    //   settlement.Present,
-    //   department,
-    // );
+    makeAnOrder();
+    // firstname,
+    // surname,
+    // phone,
+    // email,
+    // initialValues.delivery,
+    // initialValues.payment,
+    // settlement.Present,
+    // department,
   };
 
   return (

@@ -11,7 +11,7 @@ export default function Home() {
       <MainSlider />
       <CategoryBlock />
       <InfoBlock />
-      {/* <Tabs /> */}
+      <Tabs />
       <ReviewsBlock />
     </main>
   );
