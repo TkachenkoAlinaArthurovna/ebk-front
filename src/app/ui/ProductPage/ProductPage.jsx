@@ -13,7 +13,7 @@ const ProductPage = ({ currentProduct, partsOfCategory }) => {
         />
       </Content>
       <TabsProductPage currentProduct={currentProduct} />
-      {/* <SlidersProductPage /> */}
+      <SlidersProductPage currentProduct={currentProduct} />
     </>
   );
 };

@@ -18,21 +18,20 @@ const TabsProductPage = ({ currentProduct }) => {
   const [mainProduct, setMainProduct] = useState(arrProducts[0]);
   const [value, setValue] = useState(0);
   React.useEffect(() => {
-    const session = JSON.parse(sessionStorage.getItem('currentProduct'));
-
-    if (!session || session.length === 0) {
+    const sessionArr = JSON.parse(sessionStorage.getItem('currentProduct'));
+    if (!sessionArr || sessionArr.length === 0) {
       sessionStorage.setItem(
         'currentProduct',
         JSON.stringify([currentProduct]),
       );
     } else {
-      const findObj = session.find(
+      const findObj = sessionArr.find(
         (obj) => JSON.stringify(obj) === JSON.stringify(currentProduct),
       );
       if (!findObj) {
         sessionStorage.setItem(
           'currentProduct',
-          JSON.stringify([...session, currentProduct]),
+          JSON.stringify([...sessionArr, currentProduct]),
         );
       }
     }
