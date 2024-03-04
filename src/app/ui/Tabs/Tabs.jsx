@@ -6,6 +6,11 @@ import Slider from '@/app/ui/Slider';
 import { StyledTabs, StyledTab, StyledSection } from '@/app/ui/Tabs/TabsStyled';
 import CustomTabPanel from '@/app/ui/Tabs/CustomTabPanel';
 import { a11yProps } from '@/app/lib/helpers';
+import {
+  newProducts,
+  topProducts,
+  exclusiveProducts,
+} from '@/app/lib/tabsProducts';
 
 const Tabs = () => {
   const [value, setValue] = React.useState(0);
@@ -36,7 +41,7 @@ const Tabs = () => {
             spaceBetween="16px"
             slidesPerView="4"
             pagination={false}
-            products={true}
+            products={newProducts}
           />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
@@ -45,7 +50,7 @@ const Tabs = () => {
             spaceBetween="16px"
             slidesPerView="4"
             pagination={false}
-            products={true}
+            products={topProducts}
           />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
@@ -54,7 +59,7 @@ const Tabs = () => {
             spaceBetween="16px"
             slidesPerView="4"
             pagination={false}
-            products={true}
+            products={exclusiveProducts}
           />
         </CustomTabPanel>
       </Content>

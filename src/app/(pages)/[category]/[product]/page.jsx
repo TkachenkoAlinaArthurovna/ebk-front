@@ -79,7 +79,7 @@ async function getCategoryProducts(categoryId) {
 async function getProductId(category, product) {
   const products = await getCategoryIdProducts(category);
   const productCurrent = products.find(
-    (item) => createLinkProduct(item.name) === product,
+    (item) => createLinkProduct(item.name) === product.replace(/%2B/g, '+'),
   );
   const productId = productCurrent ? productCurrent._id : null;
   return getProduct(productId);
