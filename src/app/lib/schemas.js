@@ -45,3 +45,10 @@ export const contactsPageSchema = yup.object({
     .required("Повідомлення є обов'язковим полем")
     .max(200, 'Максимальна довжина повідомлення 200 символів'),
 });
+
+export const phoneSchema = yup.object({
+  phone: yup
+    .string()
+    .matches(/^\+380\d{9}$/, 'Невірний формат номеру')
+    .required('Обовʼязкове поле'),
+});

@@ -55,6 +55,7 @@ const StepCodeEnter = ({ phone, handleClose, setStep, setPhone }) => {
       .then((data) => {
         login(data.token);
         handleClose();
+        setStep(1);
       })
       .catch(() => {
         setIsError(true);

@@ -1,6 +1,8 @@
 import TextField from '@mui/material/TextField';
 import { StyledAuthButton } from '@/app/ui/AuthModal/AuthorizationStyles';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { phoneSchema } from '@/app/lib/schemas';
 
 const StepPhoneEnter = ({ setPhone, phone, setStep }) => {
   const defaultHelperText =
@@ -10,8 +12,10 @@ const StepPhoneEnter = ({ setPhone, phone, setStep }) => {
   const [isError, setIsError] = useState(false);
   const [isDisabled, setIsFieldDisabled] = useState(false);
 
-  const handlePhoneChange = (e) => {
+  const handlePhoneChange = (e, setFieldValue, setFieldTouched) => {
     phone = e.target.value;
+    setFieldValue('phone', phone); // Formik обновит значение поля
+    setFieldTouched('phone', true, false); // Отметить поле как "тронутое" для валидации
     setHelperText(defaultHelperText);
     setIsError(false);
     if (phone.length >= 13) {
@@ -19,14 +23,12 @@ const StepPhoneEnter = ({ setPhone, phone, setStep }) => {
     } else {
       setIsButtonDisabled(true);
     }
-
-    setPhone(phone);
   };
 
-  function handleNextStep() {
+  function handleNextStep(tempPhone) {
     setIsFieldDisabled(true);
     setIsButtonDisabled(true);
-    phone = phone.replace(/\D/g, '');
+    const phone = tempPhone.replace(/\D/g, '');
     const params = {
       phone: phone,
     };
@@ -58,30 +60,58 @@ const StepPhoneEnter = ({ setPhone, phone, setStep }) => {
       });
   }
 
+  const onSubmit = (value) => {
+    setPhone(value.phone);
+    handleNextStep(value.phone);
+  };
+
   return (
     <>
-      <TextField
-        sx={{ mb: 3 }}
-        label="Номер телефону"
-        id="auth-phone"
-        placeholder="+380"
-        defaultValue={phone}
-        onChange={handlePhoneChange}
-        helperText={helperText}
-        error={isError}
-        disabled={isDisabled}
-        fullWidth
-      />
-
-      <StyledAuthButton
-        variant="contained"
-        sx={{ p: 2 }}
-        fullWidth
-        disabled={isButtonDisabled}
-        onClick={handleNextStep}
+      <Formik
+        initialValues={{ phone: phone }}
+        validationSchema={phoneSchema}
+        onSubmit={onSubmit}
       >
-        Увійти
-      </StyledAuthButton>
+        {({ isValid, touched, setFieldValue, setFieldTouched }) => (
+          <Form>
+            <Field
+              as={TextField}
+              sx={{ mb: 2 }}
+              label="Номер телефону"
+              id="phone"
+              name="phone"
+              placeholder="+380"
+              helperText={helperText}
+              error={isError}
+              disabled={isDisabled}
+              onChange={(e) =>
+                handlePhoneChange(e, setFieldValue, setFieldTouched)
+              }
+              fullWidth
+            />
+            <ErrorMessage
+              name="phone"
+              component="div"
+              className="error"
+              style={{
+                color: '#dc362e',
+                marginBottom: '24px',
+                marginLeft: '14px',
+                fontSize: '0.75rem',
+              }}
+            />
+            <StyledAuthButton
+              type="submit"
+              variant="contained"
+              sx={{ p: 2 }}
+              fullWidth
+              disabled={!isValid || isButtonDisabled}
+            >
+              Увійти
+            </StyledAuthButton>
+          </Form>
+        )}
+      </Formik>
     </>
   );
 };
