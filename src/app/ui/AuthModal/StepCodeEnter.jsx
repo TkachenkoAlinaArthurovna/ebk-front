@@ -4,11 +4,11 @@ import {
   StyledAuthButton,
   StyledBackButton,
   StyledTimer,
-} from '@/app/ui/Header/AuthModal/AuthorizationStyles';
+} from '@/app/ui/AuthModal/AuthorizationStyles';
 import React, { useState } from 'react';
 import { useAuth } from '@/redux/contexts/AuthContext';
 
-const StepCodeEnter = ({ phone, handleClose, setStep, setPhone, isStub }) => {
+const StepCodeEnter = ({ phone, handleClose, setStep, setPhone }) => {
   const [code, setCode] = useState('');
   const [helperText, setHelperText] = useState(
     'Введіть код, який ми відправили на ваш номер',
@@ -29,22 +29,6 @@ const StepCodeEnter = ({ phone, handleClose, setStep, setPhone, isStub }) => {
   };
 
   const handleConfirmCode = () => {
-    // send to server after sms taken
-    // error mock
-
-    if (isStub) {
-      if (code !== phone.slice(-4)) {
-        setIsError(true);
-        setHelperText('Невірний код');
-        return;
-      }
-      const tempToken =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDdjNDA1ZDEzZTRjNjM1NjE3NmUzMiIsImlhdCI6MTcwODYzOTMyMn0.YlWSO1DKdzDJPNlLrNHh0xs0g8FJZ8J_hMP2lijMqK0';
-      login(tempToken);
-      handleClose();
-      return;
-    }
-
     phone = phone.replace(/\D/g, '');
     const params = {
       phone: phone,
@@ -84,10 +68,6 @@ const StepCodeEnter = ({ phone, handleClose, setStep, setPhone, isStub }) => {
 
   const handleResendCode = () => {
     setTimer(60);
-
-    if (isStub) {
-      return;
-    }
 
     phone = phone.replace(/\D/g, '');
     const params = {

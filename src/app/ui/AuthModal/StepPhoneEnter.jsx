@@ -1,8 +1,8 @@
 import TextField from '@mui/material/TextField';
-import { StyledAuthButton } from '@/app/ui/Header/AuthModal/AuthorizationStyles';
+import { StyledAuthButton } from '@/app/ui/AuthModal/AuthorizationStyles';
 import { useState } from 'react';
 
-const StepPhoneEnter = ({ setPhone, phone, setStep, isStub }) => {
+const StepPhoneEnter = ({ setPhone, phone, setStep }) => {
   const defaultHelperText =
     'Необхідно вірно вказати код країни +380. Приклад: +380 36 982 5874';
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -30,14 +30,6 @@ const StepPhoneEnter = ({ setPhone, phone, setStep, isStub }) => {
     const params = {
       phone: phone,
     };
-
-    // TODO: remove this block after server will be ready
-    if (isStub) {
-      setIsFieldDisabled(false);
-      setIsButtonDisabled(false);
-      setStep(2);
-      return;
-    }
 
     const options = {
       method: 'POST',

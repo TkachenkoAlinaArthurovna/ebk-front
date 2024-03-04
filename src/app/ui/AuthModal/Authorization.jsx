@@ -1,18 +1,28 @@
+'use client';
 import { Modal, Typography, Box } from '@mui/material';
-import { StyledModalContent } from '@/app/ui/Header/AuthModal/AuthorizationStyles';
-import { useState } from 'react';
-import StepPhoneEnter from '@/app/ui/Header/AuthModal/StepPhoneEnter';
-import StepCodeEnter from '@/app/ui/Header/AuthModal/StepCodeEnter';
+import { useDispatch, useSelector } from 'react-redux';
+import { StyledModalContent } from '@/app/ui/AuthModal/AuthorizationStyles';
+import React, { useState } from 'react';
+import StepPhoneEnter from '@/app/ui/AuthModal/StepPhoneEnter';
+import StepCodeEnter from '@/app/ui/AuthModal/StepCodeEnter';
+import { closeAuthModal } from '@/redux/slices/AuthModalSlice';
 
-const Authorization = ({ isOpen, handleClose, isStub }) => {
+const Authorization = () => {
   const [phone, setPhone] = useState('+380');
   const [step, setStep] = useState(1);
+
+  const isOpenAuthModal = useSelector(
+    (state) => state.authModal.isOpenModalAuth,
+  );
+
+  const dispatch = useDispatch();
+  const handleCloseAuthModal = () => dispatch(closeAuthModal());
 
   return (
     <>
       <Modal
-        open={isOpen}
-        onClose={handleClose}
+        open={isOpenAuthModal}
+        onClose={handleCloseAuthModal}
         aria-labelledby="modal-auth-title"
         aria-describedby="modal-modal-description"
       >
@@ -27,17 +37,15 @@ const Authorization = ({ isOpen, handleClose, isStub }) => {
                 setPhone={setPhone}
                 phone={phone}
                 setStep={setStep}
-                isStub={isStub}
               />
             )}
 
             {step === 2 && (
               <StepCodeEnter
                 phone={phone}
-                handleClose={handleClose}
+                handleClose={handleCloseAuthModal}
                 setStep={setStep}
                 setPhone={setPhone}
-                isStub={isStub}
               />
             )}
           </Box>
