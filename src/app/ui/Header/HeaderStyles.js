@@ -24,6 +24,23 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 // Header
 
+export const WrapperPhones = styled(Box)`
+  display: flex;
+  align-items: center;
+  position: relative;
+  @media (max-width: 1100px) {
+    display: none;
+  }
+`;
+
+export const WrapperIcon = styled(Box)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  left: 12px;
+`;
+
 export const StyledListItemText = styled(ListItemText)`
   width: 149px;
 `;
