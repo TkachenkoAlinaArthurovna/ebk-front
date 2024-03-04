@@ -5,7 +5,7 @@ import { styled, Box } from '@mui/material';
 export const StyledBox = styled(Box)`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   justify-content: ${({ justifyContent }) =>
     justifyContent ? `${justifyContent}` : 'center'};
   padding: ${({ padding }) => (padding ? `${padding}` : '10%')};
