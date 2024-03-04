@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import ProductCard from '@/app/ui/ProductCard';
-import { SwiperPrev, SwiperNext } from '@/app/ui/Slider/SliderStyles';
+import { SwiperPrev, SwiperNext, WrapperForProductCart } from '@/app/ui/Slider/SliderStyles';
 import { Box } from '@mui/material';
 
 import 'swiper/css';
@@ -87,9 +87,11 @@ const Slider = ({
     ));
   }
   if (products) {
-    listProducts = productsArr.map((product) => (
-      <SwiperSlide key={product.id}>
-        <ProductCard />
+    listProducts = products.map((product, index) => (
+      <SwiperSlide key={index}>
+        <WrapperForProductCart>
+          <ProductCard product={product} />
+        </WrapperForProductCart>
       </SwiperSlide>
     ));
   }
