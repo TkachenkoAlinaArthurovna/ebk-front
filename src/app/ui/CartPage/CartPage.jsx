@@ -1,74 +1,92 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import Link from 'next/link';
+import { useAuth } from '@/redux/contexts/AuthContext';
 import BreadCrumbs from '@/app/ui/BreadCrumbs/BreadCrumbs';
 import CartItem from '@/app/ui/CartPage/CartItem/CartItem';
 import Content from '@/app/ui/Content';
-import PageText from '@/app/ui/PageText';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import TextField from '@mui/material/TextField';
 import {
-  AccordionDetails,
-  AccordionSummary,
-  FormControlLabel,
-  ListItemText,
-  Radio,
-  RadioGroup,
-} from '@mui/material';
-import Checkbox from '@mui/material/Checkbox';
-import {
-  CartPageTitle,
-  StyledAccordion,
   StyledCartLayout,
-  StyledPriceWrapper,
   StyledOrderWrapper,
+  WrapperCartProducts,
+  Wrapper,
+} from '@/app/ui/CartPage/CartPageStyles';
+import {
   StyledCheckoutButton,
   StyledList,
   StyledListItem,
-  StyledTotalBox,
-  StyledTotalPrice,
-  StyledTotalText,
   StyledTermsTitle,
 } from '@/app/ui/CartPage/CartPageStyles';
-import { Field, Form, Formik, ErrorMessage } from 'formik';
-import { contactDataSchema } from '@/lib/schemas';
+import { Form, Formik, Field } from 'formik';
+import { contactDataSchema } from '@/app/lib/schemas';
 import EmptyCart from './EmptyCart/EmptyCart';
-import CartContactInfo from './CartContactInfo/CartContactInfo';
-import Delivery from '@/app/ui/CartPage/Delivery/Delivery';
+import Delivery from '@/app/ui/CartPage/Delivery';
+import UserInfo from '@/app/ui/CartPage/UserInfo';
+import Payment from '@/app/ui/CartPage/Payment';
+import Comment from '@/app/ui/CartPage/Comment';
+import Total from '@/app/ui/CartPage/Total';
+import Entry from '@/app/ui/CartPage/Entry';
+import { FormControlLabel, Box } from '@mui/material';
+import Checkbox from '@mui/material/Checkbox';
+import PageTitle from '@/app/ui/PageTitle';
+import { makeAnOrder } from '@/app/lib/makeAnOrder';
+import { getUserObj } from '@/app/lib/getUserObj';
+import { putUser } from '@/app/lib/putUser';
 
 const CartPage = () => {
+  const { isAuthorized, getUser } = useAuth();
+  const authorized = isAuthorized();
+  const user = authorized ? getUser() : null;
+  const token = authorized ? localStorage.getItem('token') : null;
+  const [firstname, setFirstname] = useState('');
+  const [surname, setSurname] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const selectedDelivery = useSelector(
+    (state) => state.delivery.selectedDelivery,
+  );
+  const selectedPayment = useSelector((state) => state.payment.selectedPayment);
+  const [settlement, setSettlement] = useState('');
+  const [department, setDepartment] = useState('');
+  const cartProducts = useSelector((state) => state.cart.cartProducts);
   const initialValues = {
-    lastname: '',
-    firstname: '',
-    phone: '',
-    email: '',
-    delivery: '',
-    payment: '',
+    firstname: firstname,
+    surname: surname,
+    phone: phone,
+    email: email,
+    delivery: selectedDelivery,
+    payment: selectedPayment,
     comment: '',
-    anotherPerson: false,
     doNotCall: false,
     termsAgreement: false,
-    termsAgreement: false,
   };
 
-  const cartProducts = useSelector((state) => state.cart.cartProducts);
-  const [products, setProducts] = useState(cartProducts);
+  useEffect(() => {
+    if (authorized) {
+      getUserObj(token, user, setFirstname, setSurname, setPhone, setEmail);
+    }
+  }, [authorized]);
 
-  const handleRemoveProduct = (code) => {
-    setProducts((prevProducts) =>
-      prevProducts.filter((product) => product.code !== code),
-    );
-  };
-
-  const handleSubmit = (values) => {
-    console.log(values);
+  const handleSubmit = () => {
+    putUser(firstname, surname, email, phone, user);
+    console.log('order');
+    makeAnOrder();
+    // firstname,
+    // surname,
+    // phone,
+    // email,
+    // initialValues.delivery,
+    // initialValues.payment,
+    // settlement.Present,
+    // department,
   };
 
   return (
     <Content>
       <BreadCrumbs />
-      {products.length === 0 ? (
+      {cartProducts.length === 0 ? (
         <EmptyCart />
       ) : (
         <Formik
@@ -82,146 +100,98 @@ const CartPage = () => {
             <Form>
               <StyledCartLayout>
                 <StyledOrderWrapper>
-                  <CartPageTitle>Кошик</CartPageTitle>
-                  {products.map((product) => (
-                    <CartItem product={product} key={product._id} />
-                  ))}
-                  <StyledAccordion defaultExpanded>
-                    <AccordionSummary
-                      sx={{ padding: '0' }}
-                      id="contact-info"
-                      aria-controls="contact-info-content"
-                      expandIcon={<ExpandMoreIcon />}
-                    >
-                      <CartPageTitle>Контактна інформація</CartPageTitle>
-                    </AccordionSummary>
-                    <AccordionDetails sx={{ padding: 0 }}>
-                      <CartContactInfo />
-                    </AccordionDetails>
-                  </StyledAccordion>
-                  <Delivery />
-                  <StyledAccordion defaultExpanded>
-                    <AccordionSummary
-                      sx={{ padding: '0' }}
-                      id="payment-info"
-                      aria-controls="payment-info-content"
-                      expandIcon={<ExpandMoreIcon />}
-                    >
-                      <CartPageTitle>Оплата</CartPageTitle>
-                    </AccordionSummary>
-                    <AccordionDetails sx={{ padding: 0 }}>
-                      <RadioGroup name="payment">
-                        <FormControlLabel
-                          value="Накладений платіж"
-                          control={<Field as={Radio} />}
-                          label="Накладений платіж"
-                        />
-                        <FormControlLabel
-                          value="Оплата на карту"
-                          control={<Field as={Radio} />}
-                          label="Оплата на карту"
-                        />
-                        <FormControlLabel
-                          value="Розрахунковий рахунок"
-                          control={<Field as={Radio} />}
-                          label="Розрахунковий рахунок"
-                        />
-                        <FormControlLabel
-                          value="Онлайн оплата"
-                          control={<Field as={Radio} />}
-                          label="Онлайн оплата"
-                        />
-                      </RadioGroup>
-                    </AccordionDetails>
-                  </StyledAccordion>
-                  <StyledAccordion defaultExpanded>
-                    <AccordionSummary
-                      sx={{ padding: '0' }}
-                      id="comment-info"
-                      aria-controls="comment-info-content"
-                      expandIcon={<ExpandMoreIcon />}
-                    >
-                      <CartPageTitle>
-                        Додати коментар до замовлення
-                      </CartPageTitle>
-                    </AccordionSummary>
-                    <AccordionDetails sx={{ padding: 0 }}>
-                      <Field
-                        as={TextField}
-                        label="Коментар"
-                        placeholder={'Маєте уточнення чи запитання?'}
-                        fullWidth
-                        InputLabelProps={{ shrink: true }}
-                        multiline
-                        rows={4}
-                        name={'comment'}
+                  <WrapperCartProducts>
+                    <Box sx={{ marginBottom: '20px' }}>
+                      <PageTitle>Кошик</PageTitle>
+                    </Box>
+                    {authorized ? null : <Entry />}
+                    {cartProducts.map((product) => (
+                      <CartItem
+                        product={product}
+                        key={product._id}
+                        type="cart"
                       />
-                      <ErrorMessage
-                        name={'comment'}
-                        component={'div'}
-                        style={{ color: '#dc362e' }}
-                      />
-                      <FormControlLabel
-                        sx={{ marginTop: '24px' }}
-                        control={<Checkbox />}
-                        name={'doNotCall'}
-                        label={'Не дзвонити для підтвердження замовлення'}
-                      />
-                    </AccordionDetails>
-                  </StyledAccordion>
+                    ))}
+                  </WrapperCartProducts>
+                  <Total
+                    dirty={dirty}
+                    isValid={isValid}
+                    cartProducts={cartProducts}
+                    settlement={settlement}
+                    department={department}
+                  />
                 </StyledOrderWrapper>
-                <StyledPriceWrapper>
-                  <CartPageTitle>Разом</CartPageTitle>
-                  <StyledTotalBox mt={3} mb={1}>
-                    <StyledTotalText>2 товари на суму</StyledTotalText>
-                    <PageText>25 998 ₴</PageText>
-                  </StyledTotalBox>
-                  <StyledTotalBox mb={3}>
-                    <StyledTotalText>Знижка</StyledTotalText>
-                    <PageText>25 998 ₴</PageText>
-                  </StyledTotalBox>
-                  <StyledTotalBox>
-                    <StyledTotalText>Загальна сума</StyledTotalText>
-                    <StyledTotalPrice>25 998 ₴</StyledTotalPrice>
-                  </StyledTotalBox>
-                  <StyledCheckoutButton
-                    type="submit"
-                    variant="contained"
-                    disabled={!dirty || !isValid}
-                  >
-                    Замовлення підтверджую
-                  </StyledCheckoutButton>
-                  <FormControlLabel
-                    sx={{ marginBottom: '14px' }}
-                    control={
-                      <Field
-                        type="checkbox"
-                        name="termsAgreement"
-                        as={Checkbox}
+                {authorized ? (
+                  <Wrapper>
+                    <UserInfo
+                      firstname={firstname}
+                      setFirstname={setFirstname}
+                      surname={surname}
+                      setSurname={setSurname}
+                      phone={phone}
+                      email={email}
+                      setEmail={setEmail}
+                    />
+                    <Delivery
+                      setSettlement={setSettlement}
+                      setDepartment={setDepartment}
+                    />
+                    <Payment />
+                    <Comment />
+                    <FormControlLabel
+                      sx={{ margin: '24px 0 0 0' }}
+                      control={<Checkbox sx={{ paddingLeft: 0 }} />}
+                      name={'doNotCall'}
+                      label={'Не дзвонити для підтвердження замовлення'}
+                    />
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        margin: '0 0 24px 3px',
+                        '@media (min-width: 1025px)': {
+                          display: 'none',
+                        },
+                      }}
+                    >
+                      <FormControlLabel
+                        sx={{ marginBottom: '14px' }}
+                        control={
+                          <Field
+                            type="checkbox"
+                            name="termsAgreement"
+                            as={Checkbox}
+                          />
+                        }
+                        label="З умовами ознайомлений та погоджуюсь*"
                       />
-                    }
-                    label="З умовами ознайомлений та погоджуюсь*"
-                  />
-                  <FormControlLabel
-                    sx={{ marginBottom: '14px' }}
-                    control={<Checkbox />}
-                    name={'termsAgreement'}
-                    label={'З умовами ознайомлений та погоджуюсь*'}
-                  />
-                  <StyledTermsTitle>
-                    Підтверджуючи замовлення, я приймаю умови:{' '}
-                  </StyledTermsTitle>
-                  <StyledList>
-                    <StyledListItem>
-                      <ListItemText>
-                        • положення про обробку персональних даних
-                      </ListItemText>
-                    </StyledListItem>
-                    <StyledListItem>
-                      <ListItemText>• угоди користувача</ListItemText>
-                    </StyledListItem>
-                  </StyledList>
-                </StyledPriceWrapper>
+                      <StyledTermsTitle>
+                        Підтверджуючи замовлення, я приймаю умови:{' '}
+                      </StyledTermsTitle>
+                      <StyledList>
+                        <StyledListItem>
+                          <Link href="/privacy-policy">
+                            • політики конфіденційності
+                          </Link>
+                        </StyledListItem>
+                      </StyledList>
+                    </Box>
+                  </Wrapper>
+                ) : null}
+                <StyledCheckoutButton
+                  sx={{
+                    '@media (min-width: 1025px)': {
+                      display: 'none',
+                    },
+                  }}
+                  type="submit"
+                  variant="contained"
+                  disabled={
+                    !dirty || !isValid || settlement == '' || department == ''
+                  }
+                >
+                  Замовлення підтверджую
+                </StyledCheckoutButton>
               </StyledCartLayout>
             </Form>
           )}

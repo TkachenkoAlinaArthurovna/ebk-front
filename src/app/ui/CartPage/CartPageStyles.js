@@ -9,43 +9,44 @@ import {
 
 export const StyledCartLayout = styled(Box)`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   margin-top: 32px;
   margin-bottom: 120px;
-  gap: 80px;
-  @media (max-width: 1100px) {
-    flex-direction: column-reverse;
-  }
 `;
 
 export const StyledPriceWrapper = styled(Box)`
   display: 'flex';
   flex-direction: 'column';
-  width: 40%;
-
-  @media (max-width: 1100px) {
+  width: 34%;
+  @media (max-width: 1024px) {
     width: 100%;
   }
 `;
 
 export const StyledOrderWrapper = styled(Box)`
   display: flex;
-  flex-direction: column;
-  width: 60%;
-
-  @media (max-width: 1100px) {
-    width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  @media (max-width: 1024px) {
+    flex-direction: column;
   }
 `;
 
 export const StyledTotalText = styled(Typography)`
-  font-size: 20px;
+  font-size: 16px;
 `;
 
 export const CartPageTitle = styled(Typography)`
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 500;
+  @media (max-width: 900px) {
+    font-size: 26px;
+  }
+
+  @media (max-width: 650px) {
+    font-size: 22px;
+  }
 `;
 
 export const StyledTotalBox = styled(Box)`
@@ -77,15 +78,15 @@ export const StyledCheckoutButton = styled(Button)`
   &:hover {
     background-color: #3ea39e;
   }
+  @media (max-width: 1200px) {
+    height: 44px;
+  }
 `;
 
 export const StyledTermsTitle = styled(Typography)`
+  margin-bottom: 16px;
   font-size: 16px;
   color: #6a6a6a;
-
-  @media (max-width: 768px) {
-    text-align: center;
-  }
 `;
 
 export const StyledList = styled(List)`
@@ -95,10 +96,6 @@ export const StyledList = styled(List)`
   margin: 0;
   list-style: disc !important;
   color: #6a6a6a;
-
-  @media (max-width: 768px) {
-    align-items: center;
-  }
 `;
 
 export const StyledListItem = styled(Box)`
@@ -114,5 +111,36 @@ export const StyledAccordion = styled(Accordion)`
 
   &::before {
     display: none;
+  }
+`;
+
+export const StyledButtonEntry = styled(Button)`
+  display: flex;
+  width: 138px;
+  padding: 10px 0;
+  @media (max-width: 1200px) {
+    height: 44px;
+  }
+  @media (max-width: 700px) {
+    width: 100%;
+    margin: 0 auto;
+  }
+`;
+
+export const WrapperCartProducts = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
+`;
+
+export const Wrapper = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  @media (max-width: 1024px) {
+    width: 100%;
   }
 `;

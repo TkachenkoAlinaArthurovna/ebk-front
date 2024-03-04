@@ -28,13 +28,13 @@ const TabsProductPage = ({ currentProduct }) => {
             aria-label="basic tabs example"
           >
             <StyledTab label="Про товар" {...a11yProps(0)} />
-            {currentProduct.params.length > 0 && (
+            {currentProduct.params && currentProduct.params.length > 0 && (
               <StyledTab label="Характеристики" {...a11yProps(1)} />
             )}
-            {currentProduct.params.length > 0 && (
+            {currentProduct.params && currentProduct.params.length > 0 && (
               <StyledTab label="Опис" {...a11yProps(2)} />
             )}
-            {currentProduct.params.length == 0 && (
+            {currentProduct.params && currentProduct.params.length == 0 && (
               <StyledTab label="Опис" {...a11yProps(1)} />
             )}
           </StyledTabs>
@@ -42,17 +42,17 @@ const TabsProductPage = ({ currentProduct }) => {
         <CustomTabPanel value={value} index={0}>
           <AboutProduct currentProduct={currentProduct} />
         </CustomTabPanel>
-        {currentProduct.params.length > 0 && (
+        {currentProduct.params && currentProduct.params.length > 0 && (
           <CustomTabPanel value={value} index={1}>
             <СharacteristicsProduct currentProduct={currentProduct} />
           </CustomTabPanel>
         )}
-        {currentProduct.params.length > 0 && (
+        {currentProduct.params && currentProduct.params.length > 0 && (
           <CustomTabPanel value={value} index={2}>
             <DescriptionProduct currentProduct={currentProduct} />
           </CustomTabPanel>
         )}
-        {currentProduct.params.length == 0 && (
+        {currentProduct.params && currentProduct.params.length == 0 && (
           <CustomTabPanel value={value} index={1}>
             <DescriptionProduct currentProduct={currentProduct} />
           </CustomTabPanel>

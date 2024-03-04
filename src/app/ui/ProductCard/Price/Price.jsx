@@ -36,7 +36,15 @@ const Price = ({ price, oldprice, fontSize, productPage }) => {
   if (!oldprice) {
     return (
       <WrapperBoxNew>
-        <Typography sx={{ fontSize: `${fontSize}px`, fontWeight: '500' }}>
+        <Typography
+          sx={{
+            fontSize: `${fontSize}px`,
+            fontWeight: '500',
+            '@media (max-width: 400px)': {
+              fontSize: '16px',
+            },
+          }}
+        >
           {formattedPriceUa} ₴
         </Typography>
       </WrapperBoxNew>
@@ -57,7 +65,12 @@ const Price = ({ price, oldprice, fontSize, productPage }) => {
           </Typography>
         </WrapperBoxOld>
         <WrapperBoxNew sx={{ color: '#DC362E' }}>
-          <Typography sx={{ fontSize: `${fontSize}px`, fontWeight: '500' }}>
+          <Typography
+            sx={{
+              fontSize: `${fontSize}px`,
+              fontWeight: '500',
+            }}
+          >
             {formattedPriceUa} ₴
           </Typography>
           {productPage && (

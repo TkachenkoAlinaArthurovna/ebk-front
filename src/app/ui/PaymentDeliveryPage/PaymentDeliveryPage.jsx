@@ -24,8 +24,8 @@ const PaymentDeliveryPage = () => {
             БЕЗ КОМІСІЙ ТА ПЕРЕПЛАТ. ШВИДКА ТА ЗРУЧНА ОПЛАТА ОНЛАЙН.
           </Typography>
           <Typography variant="body1" sx={{ margin: '16px 0' }}>
-            - Оплата на сайті, через платіжну систему Liqpay, після оформлення
-            замовлення.
+            - Оплата на сайті, через платіжну систему WayForPay, після
+            оформлення замовлення.
           </Typography>
           <Typography variant="h6">Накладений платіж Нова Пошта</Typography>
           <Typography variant="body1" sx={{ margin: '16px 0' }}>
@@ -113,7 +113,7 @@ const PaymentDeliveryPage = () => {
             забирається клієнтом з поштомату протягом 3 днів - вона автоматично
             переміщується на найближче відділення Нова Пошта.
           </Typography>
-          <Typography variant="h6">Укрпошта (відділення)</Typography>
+          {/* <Typography variant="h6">Укрпошта (відділення)</Typography>
           <Typography variant="body1">
             Доставка у відділення Укрпошти по Україні.
           </Typography>
@@ -145,7 +145,7 @@ const PaymentDeliveryPage = () => {
             ВАЖЛИВО: якщо посилка не забирається клієнтом з відділення поштової
             служби протягом 5 днів - вантаж автоматично повертається на наш
             склад.
-          </Typography>
+          </Typography> */}
         </Box>
       </WrapperPaymentDelivery>
     </Content>

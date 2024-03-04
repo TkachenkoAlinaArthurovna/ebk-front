@@ -39,6 +39,7 @@ import { useAuth } from '@/redux/contexts/AuthContext';
 import { MenuItem, Select } from '@mui/material';
 import Account from '@/app/ui/Header/Account';
 
+
 const Toolbar = ({ catalog }) => {
   const dispatch = useDispatch();
   const catalogLinks = createLinks(catalog.items);

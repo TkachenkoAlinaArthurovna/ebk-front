@@ -14,8 +14,10 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import ButtonMain from '@/app/ui/ButtonMain';
 import CartItem from '@/app/ui/CartPage/CartItem/CartItem';
+import { useResize } from '@/app/lib/helpers';
 
 const ModalCart = () => {
+  const [width] = useResize();
   const currentCard = useSelector((state) => state.cart.currentCard);
   const isOpenModalCart = useSelector(
     (state) => state.cartModal.isOpenModalCart,
@@ -24,7 +26,7 @@ const ModalCart = () => {
   const dispatch = useDispatch();
   const toggleModal = () => dispatch(toggleCartModal());
   const toggleCartProduct = () => {
-    dispatch(toggleCart({ currentCard: currentCard, action: 'plus' }));
+    dispatch(toggleCart({ currentCard: currentCard, action: 'plusToCart' }));
     dispatch(toggleCartModal());
   };
   return (
@@ -37,12 +39,15 @@ const ModalCart = () => {
           </StyledIconButton>
         </StyledWrapper>
         <StyledWrapperForProduct>
-          <CartItem product={currentCard} />
+          <CartItem product={currentCard} modal={true} />
         </StyledWrapperForProduct>
         <StyledWrapper>
-          <StyledButton>Продовжити покупки</StyledButton>
-          <ButtonMain width={'276px'} onClick={toggleCartProduct}>
-            Оформити замовлення
+          <StyledButton onClick={toggleModal}>Продовжити покупки</StyledButton>
+          <ButtonMain
+            width={width <= 600 ? '100%' : '276px'}
+            onClick={toggleCartProduct}
+          >
+            Додати до кошика
           </ButtonMain>
         </StyledWrapper>
       </StyledPaper>

@@ -12,7 +12,6 @@ import MenuDesktop from '@/app/ui/Header/MenuDesktop';
 import MenuTouchpad from '@/app/ui/Header/MenuTouchpad';
 import MenuMob from '@/app/ui/Header/MenuMob';
 import { useResize } from '@/app/lib/helpers';
-import { height } from '@mui/system';
 
 const Catalog = () => {
   const catalog = useSelector((state) => state.catalogLinks.catalogLinks);

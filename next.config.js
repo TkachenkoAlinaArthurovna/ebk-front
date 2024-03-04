@@ -14,6 +14,6 @@ const nextConfig = {
 
 module.exports = {
   images: {
-    domains: ['images.prom.ua'],
+    remotePatterns: [{ hostname: 'images.prom.ua' }],
   },
 };

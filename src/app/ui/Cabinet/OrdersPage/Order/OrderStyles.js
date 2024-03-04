@@ -41,21 +41,22 @@ export const StyledOrderInfo = styled(Typography)`
   width: 60%;
   font-size: 24px;
   font-weight: 400;
+  padding-right: 20px;
 
-  @media (max-width: 590px) {
-    font-size: 22px;
+  @media (max-width: 1100px) {
+    font-size: 20px;
   }
 
-  @media (max-width: 508px) {
-    font-size: 18px;
-  }
-
-  @media (max-width: 428px) {
+  @media (max-width: 940px) {
     font-size: 16px;
   }
 
-  @media (max-width: 428px) {
+  @media (max-width: 520px) {
     font-size: 14px;
+  }
+
+  @media (max-width: 460px) {
+    font-size: 12px;
   }
 `;
 
@@ -64,19 +65,19 @@ export const PaymentInfo = styled(Typography)`
   font-size: 24px;
   font-weight: 500;
 
-  @media (max-width: 590px) {
-    font-size: 22px;
+  @media (max-width: 1100px) {
+    font-size: 20px;
   }
 
-  @media (max-width: 508px) {
-    font-size: 18px;
-  }
-
-  @media (max-width: 428px) {
+  @media (max-width: 940px) {
     font-size: 16px;
   }
 
-  @media (max-width: 428px) {
+  @media (max-width: 520px) {
     font-size: 14px;
+  }
+
+  @media (max-width: 460px) {
+    font-size: 12px;
   }
 `;

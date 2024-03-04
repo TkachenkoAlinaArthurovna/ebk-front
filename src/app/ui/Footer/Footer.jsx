@@ -13,7 +13,6 @@ import {
 } from '@/app/ui/Footer/FooterStyles';
 import Link from 'next/link';
 import { Box, Typography } from '@mui/material';
-import Image from 'next/image';
 import Logo from '@/app/ui/Logo/Logo';
 
 const Footer = () => {
@@ -66,12 +65,15 @@ const Footer = () => {
               </Typography>
               <StyledList>
                 <StyledListItem>
-                  <Link href="mailto:bikeworld123@gmail.com">
-                    bikeworld123@gmail.com
+                  <Link href="mailto:ecobikemagazine@gmail.com">
+                    ecobikemagazine@gmail.com
                   </Link>
                 </StyledListItem>
                 <StyledListItem>
-                  <Link href="tel:+380 63 32 95 468">380 63 32 95 468</Link>
+                  <Link href="tel:+380505621868">+38 050 562 18 68</Link>
+                </StyledListItem>
+                <StyledListItem>
+                  <Link href="tel:+380965471606">+38 096 547 16 06</Link>
                 </StyledListItem>
               </StyledList>
             </FooterItemBox>
@@ -99,10 +101,12 @@ const Footer = () => {
               },
             }}
           >
-            <Box sx={{ marginBottom: '16px' }}>
-              <Link href="/privacy-policy">Політика конфеденційності</Link>
+            <Box sx={{ margin: '20px', textAlign: 'center' }}>
+              <Link href="/privacy-policy">Політика конфіденційності</Link>
             </Box>
-            <Box>© text 2023, All Rights Reserved</Box>
+            <Box sx={{ textAlign: 'center' }}>
+              eco-bike copyright © 2024 all rights reserved
+            </Box>
           </Box>
           <LogoContainerBottom>
             <Link href="/">

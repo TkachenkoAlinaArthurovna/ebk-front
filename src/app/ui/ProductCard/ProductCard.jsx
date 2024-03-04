@@ -24,7 +24,7 @@ import { createLinkProduct } from '@/app/lib/createLinkProduct';
 import { getColorValue } from '@/app/lib/getColorValue';
 
 const ProductCard = ({ product }) => {
-  const { name, picture, price, oldprice, params, _id } = product;
+  const { name, picture, price, oldprice, params, _id, categoryName } = product;
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites.favorites);
   const cartProducts = useSelector((state) => state.cart.cartProducts);
@@ -44,17 +44,27 @@ const ProductCard = ({ product }) => {
           href={
             pathnames.length == 1
               ? `/${pathnames[0]}/${link}`
-              : `/${pathnames[0]}/${pathnames[1]}/${pathnames[2]}/${link}`
+              : pathnames.length == 3
+                ? `/${pathnames[0]}/${pathnames[1]}/${pathnames[2]}/${link}`
+                : pathnames.length == 0
+                  ? `/${categoryName}/${link}`
+                  : null
           }
         >
           <Box
             sx={{
               height: '70%',
+              maxHeight: '200px',
               marginBottom: '10px',
+              '@media (max-width: 600px)': {
+                maxHeight: '190px',
+              },
               '@media (max-width: 500px)': {
+                maxHeight: '190px',
                 height: '60%',
               },
               '@media (max-width: 400px)': {
+                maxHeight: '120px',
                 height: '74%',
               },
             }}
