@@ -13,8 +13,7 @@ import MenuTouchpad from '@/app/ui/Header/MenuTouchpad';
 import MenuMob from '@/app/ui/Header/MenuMob';
 import { useResize } from '@/app/lib/helpers';
 
-const Catalog = () => {
-  const catalog = useSelector((state) => state.catalogLinks.catalogLinks);
+const Catalog = ({ catalog }) => {
   const isOpenModalMenu = useSelector(
     (state) => state.menuModal.isOpenModalMenu,
   );

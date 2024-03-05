@@ -16,6 +16,7 @@ export const Color = styled(Box)`
   margin-right: 8px;
   border-radius: 50%;
   box-shadow: 0px 0px 10px #d0d0d0;
+  cursor: pointer;
 `;
 
 export const WrapperColors = styled(Box)`

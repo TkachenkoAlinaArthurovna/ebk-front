@@ -8,12 +8,13 @@ import {
   StyledGridItem,
 } from '@/app/ui/ContactsPage/ContactsStyles';
 import ContactsForm from '@/app/ui/ContactsPage/ContactsForm';
+import Link from 'next/link';
 
 const ContactsPage = () => {
   return (
     <>
       <StyledGridContainer container spacing={2}>
-        <StyledGridItem item md={12} lg={4}>
+        <StyledGridItem item md={12} lg={5}>
           <Box sx={{ marginBottom: '32px' }}>
             <PageTitle>Контакти</PageTitle>
           </Box>
@@ -27,40 +28,52 @@ const ContactsPage = () => {
           >
             <Box>
               <StyledContact>
-                <Mail />
-                <PageText>veloplngbfh15@gmail.com</PageText>
+                <Mail width={'24px'} height={'24px'} />
+                <PageText>
+                  <Link href="mailto:ecobikemagazine@gmail.com">
+                    ecobikemagazine@gmail.com
+                  </Link>
+                </PageText>
               </StyledContact>
             </Box>
             <Box>
               <StyledContact>
-                <PhoneIcon />
-                <PageText>+380 256 145 255 23</PageText>
+                <PhoneIcon width={'24px'} height={'24px'} />
+                <PageText>
+                  <Link href="tel:+380505621868">+38 050 562 18 68</Link>
+                </PageText>
               </StyledContact>
             </Box>
             <Box>
               <StyledContact>
-                <PhoneIcon />
-                <PageText>+380 256 145 145 36</PageText>
+                <PhoneIcon width={'24px'} height={'24px'} />
+                <PageText>
+                  <Link href="tel:+380965471606">+38 096 547 16 06</Link>
+                </PageText>
               </StyledContact>
             </Box>
             <Box>
               <StyledContact>
-                <Home />
-                <PageText>Київ, Велика Васильківська 41</PageText>
+                <Box>
+                  <Home width={'24px'} height={'24px'} />
+                </Box>
+                <PageText>
+                  вулиця Льва Толстого, 39А, Харків, Харківська область, 61000
+                </PageText>
               </StyledContact>
             </Box>
             <Box>
               <StyledContact>
-                <Calendar />
-                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                  <PageText>Пн-Пт: з 9:00 до 18:00</PageText>
-                  <PageText>Сб-Нд: вихідний</PageText>
+                <Calendar width={'24px'} height={'24px'} />
+                <Box>
+                  <PageText>Пн-Сб: з 10:00 до 19:00</PageText>
+                  <PageText>Нд: з 10:00 до 17:00</PageText>
                 </Box>
               </StyledContact>
             </Box>
           </Box>
         </StyledGridItem>
-        <StyledGridItem item md={12} lg={8}>
+        <StyledGridItem item md={12} lg={7}>
           <Box sx={{ marginBottom: '32px' }}>
             <PageTitle>Напишіть нам</PageTitle>
           </Box>

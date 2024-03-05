@@ -246,3 +246,13 @@ export const SwiperNext = styled(Box)`
     }};
   }
 `;
+
+export const WrapperForProductCart = styled(Box)`
+  height: 420px;
+  @media (max-width: 500px) {
+    height: 380px;
+  }
+  @media (max-width: 400px) {
+    height: 340px;
+  }
+`;

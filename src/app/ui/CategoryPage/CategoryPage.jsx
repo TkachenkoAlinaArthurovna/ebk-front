@@ -43,21 +43,49 @@ export default function CategoryPage({
   const [vendors, setVendors] = useState({});
   const [totalPage, setTotalPage] = useState(1);
   const [width] = useResize();
-  const limit = width > 700 ? 9 : 10;
   const pathname = usePathname();
   const pathnames = pathname.split('/').filter((path) => path);
 
   const getProducts = async () => {
     try {
+      const limit = width > 700 ? 9 : 8;
+      let res;
+      const sort = sortParam ? `sort=${sortParam}&` : '';
+      res = await fetch(
+        `https://stage.eco-bike.com.ua/api/catalog/${categoryId}?${sort}page=${page}&limit=${limit}`,
+        { next: { revalidate: 3600 } },
+      );
+      if (res) {
+        const data = await res.json();
+        if (data) {
+          if (!price) {
+            setProducts(data.results);
+            const duplicateArray = data.vendors.map((vendor) => [
+              vendor,
+              vendor,
+            ]);
+            const vendorsObj = {
+              name: ['Vendor', 'Виробник'],
+              values: duplicateArray,
+            };
+            setVendors(vendorsObj);
+            setTotalPage(data.meta.totalPages);
+          }
+          setPriceRange(data.priceRange);
+          setParams(data.params);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getFilterProducts = async () => {
+    try {
+      const limit = width > 700 ? 9 : 8;
       let res;
       const sort = sortParam ? `sort=${sortParam}&` : '';
       const vendor = vendorParam ? `vendor=${vendorParam}&` : '';
-      if (!price && !filterParams) {
-        res = await fetch(
-          `https://stage.eco-bike.com.ua/api/catalog/${categoryId}?${sort}page=${page}&limit=${limit}`,
-          { next: { revalidate: 3600 } },
-        );
-      }
       if (price || filterParams) {
         res = await fetch(
           `https://stage.eco-bike.com.ua/api/catalog/${categoryId}${!filterParams == '' ? '/' + filterParams : ''}?${vendor}${sort}price=${price}&page=${page}&limit=${limit}`,
@@ -67,16 +95,19 @@ export default function CategoryPage({
       if (res) {
         const data = await res.json();
         if (data) {
-          setProducts(data.results);
-          setPriceRange(data.priceRange);
-          setParams(!filterParams ? data.params : data.productsParams);
-          const duplicateArray = data.vendors.map((vendor) => [vendor, vendor]);
-          const vendorsObj = {
-            name: ['Vendor', 'Виробник'],
-            values: duplicateArray,
-          };
-          setVendors(vendorsObj);
-          setTotalPage(data.meta.totalPages);
+          if (price) {
+            setProducts(data.results);
+            const duplicateArray = data.vendors.map((vendor) => [
+              vendor,
+              vendor,
+            ]);
+            const vendorsObj = {
+              name: ['Vendor', 'Виробник'],
+              values: duplicateArray,
+            };
+            setVendors(vendorsObj);
+            setTotalPage(data.meta.totalPages);
+          }
         }
       }
     } catch (error) {
@@ -86,6 +117,9 @@ export default function CategoryPage({
 
   useEffect(() => {
     getProducts();
+    if (price || filterParams) {
+      getFilterProducts();
+    }
   }, []);
 
   const [openDrawer, setOpenDrawer] = useState(false);
