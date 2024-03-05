@@ -16,6 +16,7 @@ import {
   StyledContentWrapper,
   StyledIconButton,
   StyledRightWrapper,
+  WrapperNoProducts,
 } from '@/app/ui/CategoryPage/CategoryPageStyles';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
@@ -202,12 +203,19 @@ export default function CategoryPage({
                 vendors={vendors}
                 categoryId={categoryId}
               />
-              <CategoryItems
-                products={products}
-                totalPage={totalPage}
-                categoryId={categoryId}
-                page={page}
-              />
+              {products.length > 0 && (
+                <CategoryItems
+                  products={products}
+                  totalPage={totalPage}
+                  categoryId={categoryId}
+                  page={page}
+                />
+              )}
+              {products.length == 0 && (
+                <WrapperNoProducts>
+                  По таким фільтрам товарів немає
+                </WrapperNoProducts>
+              )}
             </StyledContentWrapper>
           </StyledWrapper>
         </Content>

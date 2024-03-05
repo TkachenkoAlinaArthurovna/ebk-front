@@ -44,3 +44,12 @@ export const StyledRightWrapper = styled(Box)`
     justify-content: end;
   }
 `;
+
+export const WrapperNoProducts = styled(Box)`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  font-size: 20px;
+  color: #49beb7;
+`;
