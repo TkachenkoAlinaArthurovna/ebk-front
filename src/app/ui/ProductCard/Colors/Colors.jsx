@@ -38,7 +38,7 @@ const Colors = ({ arrProducts, mainProduct, setMainProduct }) => {
               }}
               sx={{
                 backgroundColor: `${color[1].value}`,
-                scale: `${color[0] == mainColor[0] ? '1' : '0.6'}`,
+                scale: `${mainColor && mainColor[0] && color[0] == mainColor[0] ? '1' : '0.6'}`,
               }}
             />
           );
@@ -52,7 +52,7 @@ const Colors = ({ arrProducts, mainProduct, setMainProduct }) => {
               }}
               sx={{
                 background: `linear-gradient(to right, ${color[1].value} 50%, ${color[2].value} 50%)`,
-                scale: `${color[0] == mainColor[0] ? '1' : '0.6'}`,
+                scale: `${mainColor && mainColor[0] && color[0] == mainColor[0] ? '1' : '0.6'}`,
               }}
             ></WrapperColors>
           );
