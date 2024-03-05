@@ -47,7 +47,7 @@ const SearchNew = () => {
   const updateSearchValue = useCallback(
     debounce((str) => {
       setSearchValue(str);
-    }, 500),
+    }, 300),
     [],
   );
 
@@ -69,7 +69,6 @@ const SearchNew = () => {
     const id = event.target.id;
     const { link } = catalogLinks.find((obj) => obj._id === id);
     const text = event.target.innerHTML;
-    console.log(link);
     const productName = createLinkProduct(text);
     router.push(`/${link}/${productName}`);
     setValue('');

@@ -81,17 +81,31 @@ const AboutProduct = ({ mainProduct, setMainProduct, arrProducts }) => {
             display: 'flex',
             justifyContent: 'end',
             marginTop: '16px',
+            '@media (max-width: 900px)': {
+              justifyContent: 'start',
+            },
           }}
         >
           <Typography sx={{ width: '200px', color: '#6a6a6a' }}>
             Артикул: {crmId}
           </Typography>
         </Box>
-        <Box sx={{ display: 'flex', justifyContent: 'end', marginTop: '16px' }}>
-          <Typography sx={{ width: '200px', color: '#6a6a6a' }}>
-            Виробник: {vendor}
-          </Typography>
-        </Box>
+        {vendor && (
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'end',
+              margin: '16px 0',
+              '@media (max-width: 900px)': {
+                justifyContent: 'start',
+              },
+            }}
+          >
+            <Typography sx={{ width: '200px', color: '#6a6a6a' }}>
+              Виробник: {vendor}
+            </Typography>
+          </Box>
+        )}
         <Colors
           arrProducts={arrProducts}
           mainProduct={mainProduct}

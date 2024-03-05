@@ -246,7 +246,6 @@ export const SwiperNext = styled(Box)`
     }};
   }
 `;
-
 export const WrapperForProductCart = styled(Box)`
   height: 420px;
   @media (max-width: 500px) {

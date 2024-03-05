@@ -51,7 +51,9 @@ const ProductCard = ({ product }) => {
                 ? `/${pathnames[0]}/${pathnames[1]}/${pathnames[2]}/${link}`
                 : pathnames.length == 0
                   ? `/${categoryName}/${link}`
-                  : null
+                  : pathnames.length == 2
+                    ? `/${createLinkProduct(mainProduct.category.name)}/${link}`
+                    : '/not-found'
           }
         >
           <Box
