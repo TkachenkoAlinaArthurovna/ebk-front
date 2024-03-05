@@ -36,7 +36,7 @@ const ProductPage = ({ currentProduct, partsOfCategory }) => {
       </Content>
       <TabsProductPage currentProduct={currentProduct} />
 
-      {width >= 1024 && filteredArr.length <= 4 && (
+      {width >= 1024 && filteredArr.length <= 4 && filteredArr.length > 1 && (
         <StyledSection as="section">
           <Content>
             <Box
@@ -56,27 +56,30 @@ const ProductPage = ({ currentProduct, partsOfCategory }) => {
         </StyledSection>
       )}
 
-      {width < 1024 && width >= 685 && filteredArr.length <= 3 && (
-        <StyledSection as="section">
-          <Content>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-            >
-              <Box sx={{ marginBottom: '24px' }}>
-                <PageTitle>Ви нещодавно переглядали</PageTitle>
+      {width < 1024 &&
+        width >= 685 &&
+        filteredArr.length <= 3 &&
+        filteredArr.length > 1 && (
+          <StyledSection as="section">
+            <Content>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              >
+                <Box sx={{ marginBottom: '24px' }}>
+                  <PageTitle>Ви нещодавно переглядали</PageTitle>
+                </Box>
+                <Box>
+                  <ViewedList products={filteredArr} />
+                </Box>
               </Box>
-              <Box>
-                <ViewedList products={filteredArr} />
-              </Box>
-            </Box>
-          </Content>
-        </StyledSection>
-      )}
+            </Content>
+          </StyledSection>
+        )}
 
-      {width < 685 && filteredArr.length <= 2 && (
+      {width < 685 && filteredArr.length <= 2 && filteredArr.length > 1 && (
         <StyledSection as="section">
           <Content>
             <Box
