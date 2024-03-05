@@ -24,8 +24,11 @@ import {
 import { createLinks } from '@/app/lib/createLinks';
 import Phones from '@/app/ui/Header/Phones';
 import Logo from '@/app/ui/Logo/Logo';
-import Authorization from '@/app/ui/Header/AuthModal/Authorization';
+import Authorization from '@/app/ui/AuthModal/Authorization';
+import { useAuth } from '@/redux/contexts/AuthContext';
+import { MenuItem, Select } from '@mui/material';
 import Account from '@/app/ui/Header/Account';
+import { openAuthModal } from '@/redux/slices/AuthModalSlice';
 
 const Toolbar = ({ catalog }) => {
   const dispatch = useDispatch();
@@ -46,14 +49,10 @@ const Toolbar = ({ catalog }) => {
 
   const toggleOpenCatalog = () => dispatch(toggleMenuModal());
 
-  const [isStub, setIsStub] = useState(false);
-
-  const [openAuthModal, setOpenAuth] = React.useState(false);
-  const handleOpenAuthModal = (isStub) => {
-    setIsStub(isStub);
-    setOpenAuth(true);
-  };
-  const handleCloseAuthModal = () => setOpenAuth(false);
+  const [openCatalog, setOpen] = React.useState(false);
+  const handleOpenCatalog = () => setOpen(true);
+  const handleCloseCatalog = () => setOpen(false);
+  const handleOpenAuthModal = () => dispatch(openAuthModal());
 
   return (
     <StyledToolbar disableGutters>
@@ -76,11 +75,7 @@ const Toolbar = ({ catalog }) => {
         Каталог
       </StyledButtonCatalog>
       <Catalog catalog={catalogLinks} />
-      <Authorization
-        isOpen={openAuthModal}
-        handleClose={handleCloseAuthModal}
-        isStub={isStub}
-      />
+
       <SearchNew />
       <Phones />
       <StyledBoxIcons>

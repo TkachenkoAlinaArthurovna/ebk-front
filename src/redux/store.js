@@ -20,6 +20,7 @@ import CategoryProductsSlice from '@/redux/slices/CategoryProductsSlice';
 import DeliverySlice from '@/redux/slices/DeliverySlice';
 import PaymentSlice from '@/redux/slices/PaymentSlice';
 import SearchProductSlice from '@/redux/slices/SearchProductSlice';
+import AuthModalSlice from '@/redux/slices/AuthModalSlice';
 
 export function createPersistStore() {
   const isServer = typeof window === 'undefined';
@@ -51,6 +52,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   menuModal: MenuModalSlice,
   cartModal: CartModalSlice,
+  authModal: AuthModalSlice,
   productFilter: ProductFilterSlice,
   favorites: FavoritesSlice,
   cart: CartSlice,
