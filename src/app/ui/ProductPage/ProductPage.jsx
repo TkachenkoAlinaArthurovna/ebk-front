@@ -9,9 +9,11 @@ import { StyledSection } from '@/app/ui/ProductPage/ProductPageStyles';
 import { Box } from '@mui/material';
 import PageTitle from '@/app/ui/PageTitle';
 import ViewedList from '@/app/ui/ProductPage/ViewedList';
+import { useResize } from '@/app/lib/helpers';
 
 const ProductPage = ({ currentProduct, partsOfCategory }) => {
   const [filteredArr, setFilteredArray] = useState([]);
+  const [width, height] = useResize();
 
   useEffect(() => {
     const sessionArr = JSON.parse(sessionStorage.getItem('currentProduct'));
@@ -24,7 +26,7 @@ const ProductPage = ({ currentProduct, partsOfCategory }) => {
       setFilteredArray(filterArr);
     }
   }, []);
-  // console.log(filteredArr)
+
   return (
     <>
       <Content>
@@ -35,7 +37,7 @@ const ProductPage = ({ currentProduct, partsOfCategory }) => {
       </Content>
       <TabsProductPage currentProduct={currentProduct} />
 
-      {filteredArr.length > 0 && filteredArr.length <= 4 && (
+      {width >= 1024 && filteredArr.length <= 4 && (
         <StyledSection as="section">
           <Content>
             <Box
@@ -45,7 +47,7 @@ const ProductPage = ({ currentProduct, partsOfCategory }) => {
               }}
             >
               <Box sx={{ marginBottom: '24px' }}>
-                <PageTitle>Переглянуті товари</PageTitle>
+                <PageTitle>Ви нещодавно переглядали</PageTitle>
               </Box>
               <Box>
                 <ViewedList products={filteredArr} />
@@ -55,7 +57,53 @@ const ProductPage = ({ currentProduct, partsOfCategory }) => {
         </StyledSection>
       )}
 
-      {filteredArr.length > 4 && (
+      {width < 1024 && width >= 685 && filteredArr.length <= 3 && (
+        <StyledSection as="section">
+          <Content>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              <Box sx={{ marginBottom: '24px' }}>
+                <PageTitle>Ви нещодавно переглядали</PageTitle>
+              </Box>
+              <Box>
+                <ViewedList products={filteredArr} />
+              </Box>
+            </Box>
+          </Content>
+        </StyledSection>
+      )}
+
+      {width < 685 && filteredArr.length <= 2 && (
+        <StyledSection as="section">
+          <Content>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              <Box sx={{ marginBottom: '24px' }}>
+                <PageTitle>Ви нещодавно переглядали</PageTitle>
+              </Box>
+              <Box>
+                <ViewedList products={filteredArr} />
+              </Box>
+            </Box>
+          </Content>
+        </StyledSection>
+      )}
+
+      {width >= 1024 && filteredArr.length > 4 && (
+        <SlidersProductPage filteredArr={filteredArr} />
+      )}
+      {width < 1024 && width >= 685 && filteredArr.length > 3 && (
+        <SlidersProductPage filteredArr={filteredArr} />
+      )}
+      {width < 685 && filteredArr.length > 2 && (
         <SlidersProductPage filteredArr={filteredArr} />
       )}
     </>

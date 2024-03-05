@@ -5,7 +5,6 @@ import { Box, Typography } from '@mui/material';
 import Slider from '@/app/ui/Slider';
 import Content from '@/app/ui/Content';
 
-
 const SlidersProductPage = ({ filteredArr }) => {
   return (
     <StyledSection as="section">
@@ -17,7 +16,7 @@ const SlidersProductPage = ({ filteredArr }) => {
           }}
         >
           <Box sx={{ marginBottom: '24px' }}>
-            <PageTitle>Переглянуті товари</PageTitle>
+            <PageTitle>Ви нещодавно переглядали</PageTitle>
           </Box>
           <Box>
             <Slider

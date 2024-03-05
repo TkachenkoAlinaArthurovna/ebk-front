@@ -122,7 +122,7 @@ const Slider = ({
     swiperConfig = {
       slidesPerView: 4,
       breakpoints: {
-        300: {
+        0: {
           slidesPerView: 2,
         },
         685: {
