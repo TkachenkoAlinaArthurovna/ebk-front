@@ -26,7 +26,6 @@ const ProductPage = ({ currentProduct, partsOfCategory }) => {
       setFilteredArray(filterArr);
     }
   }, []);
-
   return (
     <>
       <Content>
