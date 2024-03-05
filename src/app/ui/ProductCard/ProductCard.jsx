@@ -25,7 +25,7 @@ import { createLinkProduct } from '@/app/lib/createLinkProduct';
 
 const ProductCard = ({ product }) => {
   const { categoryName, varieties } = product;
-  const arrProducts = [product, ...varieties];
+  const arrProducts = varieties ? [product, ...varieties] : [product];
   const [mainProduct, setMainProduct] = useState(arrProducts[0]);
   const dispatch = useDispatch();
 
