@@ -1,6 +1,6 @@
 import productColors from '@/app/lib/productColors';
 
-export const getColorValue = (params) => {
+export const getColorValue = (params, _id) => {
   if (params) {
     for (const param of params) {
       if (param.name.includes('Color')) {
@@ -10,7 +10,8 @@ export const getColorValue = (params) => {
             (color) => color.name.toLowerCase() === colorName[index],
           );
         });
-        return colorArr ? colorArr : null;
+        const colorIdArr = [_id, ...colorArr];
+        return colorArr ? colorIdArr : null;
       }
     }
   }
