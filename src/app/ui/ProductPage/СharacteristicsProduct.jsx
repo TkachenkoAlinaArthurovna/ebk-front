@@ -17,8 +17,8 @@ import { StyledIconFavoriteButton } from '@/app/ui/ProductPage/ProductPageStyles
 import Price from '@/app/ui/ProductCard/Price';
 import ButtonMain from '@/app/ui/ButtonMain';
 
-const СharacteristicsProduct = ({ currentProduct }) => {
-  const { name, picture, params, price, oldprice } = currentProduct;
+const СharacteristicsProduct = ({ mainProduct }) => {
+  const { name, picture, params, price, oldprice, crmId } = mainProduct;
   const mainPicture = (picture) => {
     if (picture && picture.length >= 1) {
       return picture[0];
@@ -50,7 +50,7 @@ const СharacteristicsProduct = ({ currentProduct }) => {
         <StyledRight>
           <Box sx={{ marginBottom: '16px' }}>
             <StyleTypographyName>{name}</StyleTypographyName>
-            <Typography sx={{ color: '#6A6A6A' }}>Код: id</Typography>
+            <Typography sx={{ color: '#6A6A6A' }}>Артикул: {crmId}</Typography>
           </Box>
           <Box
             sx={{
@@ -84,7 +84,7 @@ const СharacteristicsProduct = ({ currentProduct }) => {
               startIcon={<ShoppingCartIcon />}
               onClick={() => {
                 dispatch(toggleCartModal());
-                dispatch(setCurrentCard(currentProduct));
+                dispatch(setCurrentCard(mainProduct));
               }}
             >
               Купити
