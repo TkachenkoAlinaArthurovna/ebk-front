@@ -16,14 +16,14 @@ const InfoPagesMenu = ({ cabinet }) => {
     { href: '/about', label: 'Про нас' },
     { href: '/support', label: 'Підтримка' },
     { href: '/contacts', label: 'Контакти' },
-    { href: '/reviews', label: 'Відгуки' },
+    // { href: '/reviews', label: 'Відгуки' },
   ];
 
   const linksForCabinet = [
     { href: '/cabinet/personal-information', label: 'Особиста інформація' },
     { href: '/cabinet/orders', label: 'Мої замовлення' },
     { href: '/cabinet/favorites', label: 'Обране' },
-    { href: '/cabinet/reviews', label: 'Мої відгуки' },
+    // { href: '/cabinet/reviews', label: 'Мої відгуки' },
   ];
 
   const linksLayout = links.map((link) => (
@@ -44,7 +44,7 @@ const InfoPagesMenu = ({ cabinet }) => {
         </Link>
       ))}
       <StyledListItemButton onClick={() => console.log('Exit')}>
-      <ListItemText>Вихід</ListItemText>
+        <ListItemText>Вихід</ListItemText>
       </StyledListItemButton>
     </>
   );

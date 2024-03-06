@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleMenuModal } from '@/redux/slices/MenuModalSlice';
 import { setCatalogLinks } from '@/redux/slices/CatalogLinksSlice';
+import { setFavorites } from '@/redux/slices/FavoritesSlice';
 import Link from 'next/link';
 import IconButtonMenu from '@/app/ui/Header/IconButtonMenu';
 import IconButton from '@mui/material/IconButton';
@@ -38,9 +39,38 @@ const Toolbar = ({ catalog }) => {
   const authorized = isAuthorized();
   const user = authorized ? getUser() : null;
   const token = authorized ? localStorage.getItem('token') : null;
+
   const dispatch = useDispatch();
+
   const cartProducts = useSelector((state) => state.cart.cartProducts);
   const catalogLinks = createLinks(catalog.items);
+
+  const favorites = useSelector((state) => state.favorites.favorites);
+
+  const getAllFavorites = async (userId, token) => {
+    try {
+      const url = `https://stage.eco-bike.com.ua/api/favorites/user/${userId}`;
+      const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data) {
+          dispatch(setFavorites(data));
+        }
+      }
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    if (authorized) {
+      const favorites = getAllFavorites(user.id, token);
+    }
+  }, [authorized]);
 
   useEffect(() => {
     if (authorized) {
@@ -69,9 +99,6 @@ const Toolbar = ({ catalog }) => {
 
   const toggleOpenCatalog = () => dispatch(toggleMenuModal());
 
-  // const [openCatalog, setOpen] = React.useState(false);
-  // const handleOpenCatalog = () => setOpen(true);
-  // const handleCloseCatalog = () => setOpen(false);
   const handleOpenAuthModal = () => dispatch(openAuthModal());
 
   return (
@@ -99,15 +126,17 @@ const Toolbar = ({ catalog }) => {
       <SearchNew />
       <Phones />
       <StyledBoxIcons>
-        <StyledLinkFavorite href="cabinet/favorites">
-          <IconButton>
-            <Badge badgeContent={null} color="error">
-              <FavoriteBorderIcon
-                sx={{ width: '24px', height: '24px', color: '#252A31' }}
-              />
-            </Badge>
-          </IconButton>
-        </StyledLinkFavorite>
+        {authorized && (
+          <StyledLinkFavorite href="/cabinet/favorites">
+            <IconButton>
+              <Badge badgeContent={favorites.length} color="primary">
+                <FavoriteBorderIcon
+                  sx={{ width: '24px', height: '24px', color: '#252A31' }}
+                />
+              </Badge>
+            </IconButton>
+          </StyledLinkFavorite>
+        )}
         <StyledLinkCart href="/cart">
           <IconButton>
             <Badge badgeContent={cartProducts.length} color="primary">

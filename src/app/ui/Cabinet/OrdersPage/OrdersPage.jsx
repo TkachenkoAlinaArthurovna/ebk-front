@@ -24,12 +24,12 @@ const OrdersPage = () => {
             <Order />
           </OrdersList>
           <ButtonBox>
-            <StyledButton
+            {/* <StyledButton
               endIcon={<ArrowDownwardIcon />}
               onClick={() => console.log('Load more')}
             >
               Показати ще
-            </StyledButton>
+            </StyledButton> */}
           </ButtonBox>
         </OrdersWrapper>
       </Wrapper>

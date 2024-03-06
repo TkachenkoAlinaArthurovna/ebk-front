@@ -85,7 +85,6 @@ export default async function Product({ params }) {
   const partsOfCategory = category.includes('%26')
     ? category.split('%26')
     : [category];
-  console.log(category);
   const currentProduct = await getProductId(partsOfCategory[0], product);
   return (
     <ProductPage

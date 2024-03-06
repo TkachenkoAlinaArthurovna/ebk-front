@@ -18,11 +18,6 @@ import {
 import Logo from '@/app/ui/Logo/Logo';
 import { useAuth } from '@/redux/contexts/AuthContext';
 
-const navigation = [
-  { id: 2, title: 'Кошик', path: '/cart' },
-  { id: 3, title: 'Обране', path: 'cabinet/favorites' },
-];
-
 const navigationMain = [
   { id: 5, title: 'Про нас', path: '/about' },
   { id: 11, title: 'Підтримка', path: '/support' },
@@ -40,6 +35,7 @@ const SideBar = ({
   const { isAuthorized } = useAuth();
 
   const cartProducts = useSelector((state) => state.cart.cartProducts);
+  const favorites = useSelector((state) => state.favorites.favorites);
 
   const handleOpenAuthModalStub = () => {
     handleOpenAuthModal(true);
@@ -101,33 +97,37 @@ const SideBar = ({
               <ListItemText primary="Каталог товарів" />
             </ListItemButton>
           </ListItem>
-          {navigation.map(({ id, title, path }) => (
-            <ListItem key={id} disablePadding>
+          <ListItem disablePadding>
+            <ListItemButton
+              sx={{ padding: '10px 24px 10px 16px', borderRadius: '28px' }}
+              disableGutters
+              href={'/cart'}
+            >
+              <ShoppingCartIcon
+                sx={{ width: '20px', height: '20px', marginRight: '12px' }}
+              />
+
+              <ListItemText primary={'Кошик'} />
+              <Typography>{cartProducts.length}</Typography>
+            </ListItemButton>
+          </ListItem>
+          {isAuthorized() && (
+            <ListItem disablePadding>
               <ListItemButton
                 sx={{ padding: '10px 24px 10px 16px', borderRadius: '28px' }}
                 disableGutters
-                href={path}
+                href={'/cabinet/favorites'}
               >
-                {path === '/cart' ? (
-                  <ShoppingCartIcon
-                    sx={{ width: '20px', height: '20px', marginRight: '12px' }}
-                  />
-                ) : null}
-                {path === 'cabinet/favorites' ? (
-                  <FavoriteBorderIcon
-                    sx={{ width: '20px', height: '20px', marginRight: '12px' }}
-                  />
-                ) : null}
-                <ListItemText primary={title} />
-                {path === '/cart' ? (
-                  <Typography>{cartProducts.length}</Typography>
-                ) : null}
-                {path === 'cabinet/favorites' ? (
-                  <Typography>{id}</Typography>
-                ) : null}
+                <FavoriteBorderIcon
+                  sx={{ width: '20px', height: '20px', marginRight: '12px' }}
+                />
+
+                <ListItemText primary={'Обране'} />
+
+                <Typography>{favorites.length}</Typography>
               </ListItemButton>
             </ListItem>
-          ))}
+          )}
           {navigationMain.map(({ id, title, path }) => (
             <ListItem key={id} disablePadding>
               <ListItemButton

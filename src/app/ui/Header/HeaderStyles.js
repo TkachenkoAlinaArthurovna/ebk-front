@@ -47,7 +47,7 @@ export const StyledListItemText = styled(ListItemText)`
 
 export const StyledBoxIcons = styled(Box)`
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
   width: 120px;
 `;
 

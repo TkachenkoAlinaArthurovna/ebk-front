@@ -20,9 +20,6 @@ export const ProductList = styled(Box)`
   @media (max-width: 1200px) {
     grid-template-columns: repeat(2, 1fr);
   }
-  @media (max-width: 400px) {
-    grid-template-columns: repeat(1, 1fr);
-  }
 `;
 
 export const StyledPagination = styled(MuiPagination)`

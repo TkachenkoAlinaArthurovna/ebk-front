@@ -12,7 +12,6 @@ import ViewedList from '@/app/ui/ProductPage/ViewedList';
 import { useResize } from '@/app/lib/helpers';
 
 const ProductPage = ({ currentProduct, partsOfCategory }) => {
-  console.log(currentProduct);
   const [filteredArr, setFilteredArray] = useState([]);
   const [width, height] = useResize();
 
