@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import ListItem from '@mui/material/ListItem';
@@ -27,7 +28,7 @@ const navigationMain = [
   { id: 11, title: 'Підтримка', path: '/support' },
   { id: 9, title: 'Доставка і оплата', path: '/payment-delivery' },
   { id: 6, title: 'Контакти', path: '/contacts' },
-  { id: 7, title: 'Відгуки', path: '/reviews' },
+  // { id: 7, title: 'Відгуки', path: '/reviews' },
 ];
 
 const SideBar = ({
@@ -37,6 +38,8 @@ const SideBar = ({
   handleOpenAuthModal,
 }) => {
   const { isAuthorized } = useAuth();
+
+  const cartProducts = useSelector((state) => state.cart.cartProducts);
 
   const handleOpenAuthModalStub = () => {
     handleOpenAuthModal(true);
@@ -61,7 +64,6 @@ const SideBar = ({
               display: 'flex',
               justifyContent: 'center',
               flexDirection: 'column',
-              marginBottom: '24px',
             }}
           >
             <Box
@@ -83,7 +85,7 @@ const SideBar = ({
           </Box>
         )}
 
-        <Box>
+        <Box sx={{ marginTop: '24px' }}>
           <ListItem disablePadding>
             <ListItemButton
               sx={{ padding: '10px 24px 10px 16px', borderRadius: '28px' }}
@@ -117,7 +119,9 @@ const SideBar = ({
                   />
                 ) : null}
                 <ListItemText primary={title} />
-                {path === '/cart' ? <Typography>{id}</Typography> : null}
+                {path === '/cart' ? (
+                  <Typography>{cartProducts.length}</Typography>
+                ) : null}
                 {path === 'cabinet/favorites' ? (
                   <Typography>{id}</Typography>
                 ) : null}

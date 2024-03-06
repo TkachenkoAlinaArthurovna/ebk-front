@@ -2,54 +2,40 @@ import { Suspense } from 'react';
 import ProductPage from '@/app/ui/ProductPage';
 import { createLinkProduct } from '@/app/lib/createLinkProduct';
 import { createLinks } from '@/app/lib/createLinks';
-import SkeletonProductPage from '@/app/ui/SkeletonProductPage/SkeletonProductPage';
 
-export async function generateMetadata({ params, searchParams }, parent) {
-  const { category, product } = params;
+export const dynamicParams = false;
 
-  const partsOfCategory = category.includes('%26')
-    ? category.split('%26')
-    : [category];
-  const currentProduct = await getProductId(partsOfCategory[0], product);
-
-  return {
-    title: currentProduct.name,
-  };
+async function getProducts() {
+  const res = await fetch(`https://stage.eco-bike.com.ua/api/products/all`, {
+    next: { revalidate: 0 },
+  });
+  const data = await res.json();
+  return data;
 }
 
-// export const dynamicParams = false;
+async function getCategory(id) {
+  const res = await fetch('https://stage.eco-bike.com.ua/api/categories', {
+    next: { revalidate: 0 },
+  });
+  const data = await res.json();
+  const category = data.items.find((item) => item._id === id);
+  return category ? createLinkProduct(category.name) : null;
+}
 
-// async function getProducts() {
-//   const res = await fetch(`https://stage.eco-bike.com.ua/api/products/all`, {
-//     next: { revalidate: 3600 },
-//   });
-//   const data = await res.json();
-//   return data;
-// }
-
-// async function getCategory(id) {
-//   const res = await fetch('https://stage.eco-bike.com.ua/api/categories', {
-//     next: { revalidate: 3600 },
-//   });
-//   const data = await res.json();
-//   const category = data.items.find((item) => item._id === id);
-//   return category ? createLinkProduct(category.name) : null;
-// }
-
-// export async function generateStaticParams() {
-//   const products = await getProducts();
-//   const staticParams = await Promise.all(
-//     products.map(async (product) => {
-//       const category = await getCategory(product.category);
-//       const productLink = createLinkProduct(product.name);
-//       return {
-//         category: category,
-//         product: productLink,
-//       };
-//     }),
-//   );
-//   return staticParams;
-// }
+export async function generateStaticParams() {
+  const products = await getProducts();
+  const staticParams = await Promise.all(
+    products.map(async (product) => {
+      const category = await getCategory(product.category);
+      const productLink = createLinkProduct(product.name);
+      return {
+        category: category,
+        product: productLink,
+      };
+    }),
+  );
+  return staticParams;
+}
 
 async function getCategories() {
   const res = await fetch('https://stage.eco-bike.com.ua/api/categories', {
@@ -79,7 +65,7 @@ async function getCategoryProducts(categoryId) {
 async function getProductId(category, product) {
   const products = await getCategoryIdProducts(category);
   const productCurrent = products.find(
-    (item) => createLinkProduct(item.name) === product,
+    (item) => createLinkProduct(item.name) === product.replace(/%2B/g, '+'),
   );
   const productId = productCurrent ? productCurrent._id : null;
   return getProduct(productId);
@@ -99,6 +85,7 @@ export default async function Product({ params }) {
   const partsOfCategory = category.includes('%26')
     ? category.split('%26')
     : [category];
+  console.log(category);
   const currentProduct = await getProductId(partsOfCategory[0], product);
   return (
     <ProductPage

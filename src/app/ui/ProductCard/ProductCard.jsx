@@ -1,4 +1,5 @@
 import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleCartModal } from '@/redux/slices/CartModalSlice';
 import { setCurrentCard } from '@/redux/slices/CartSlice';
@@ -21,20 +22,22 @@ import {
 import { Box } from '@mui/material';
 import getImageForProductCard from '@/app/lib/getImageForProductCard';
 import { createLinkProduct } from '@/app/lib/createLinkProduct';
-import { getColorValue } from '@/app/lib/getColorValue';
 
 const ProductCard = ({ product }) => {
-  const { name, picture, price, oldprice, params, _id } = product;
+  const { categoryName, varieties } = product;
+  const arrProducts = varieties ? [product, ...varieties] : [product];
+  const [mainProduct, setMainProduct] = useState(arrProducts[0]);
   const dispatch = useDispatch();
+
   const favorites = useSelector((state) => state.favorites.favorites);
   const cartProducts = useSelector((state) => state.cart.cartProducts);
   const arrId = cartProducts.map((item) => item._id);
   const pathname = usePathname();
   const pathnames = pathname.split('/').filter((path) => path);
-  const link = createLinkProduct(name);
+  const link = createLinkProduct(mainProduct.name);
 
   const toggleFavoritesProduct = () => {
-    dispatch(toggleFavorites(_id));
+    dispatch(toggleFavorites(mainProduct._id));
   };
 
   return (
@@ -44,27 +47,39 @@ const ProductCard = ({ product }) => {
           href={
             pathnames.length == 1
               ? `/${pathnames[0]}/${link}`
-              : `/${pathnames[0]}/${pathnames[1]}/${pathnames[2]}/${link}`
+              : pathnames.length == 3
+                ? `/${pathnames[0]}/${pathnames[1]}/${pathnames[2]}/${link}`
+                : pathnames.length == 0
+                  ? `/${categoryName}/${link}`
+                  : pathnames.length == 2
+                    ? `/${createLinkProduct(mainProduct.category.name)}/${link}`
+                    : '/not-found'
           }
         >
           <Box
             sx={{
-              height: '70%',
+              height: '68%',
+              maxHeight: '200px',
               marginBottom: '10px',
+              '@media (max-width: 600px)': {
+                maxHeight: '190px',
+              },
               '@media (max-width: 500px)': {
+                maxHeight: '190px',
                 height: '60%',
               },
               '@media (max-width: 400px)': {
+                maxHeight: '120px',
                 height: '74%',
               },
             }}
           >
             <CardMedia
               component="img"
-              alt={`${name}`}
+              alt={`${mainProduct.name}`}
               image={
-                picture
-                  ? getImageForProductCard(picture)
+                mainProduct.picture
+                  ? getImageForProductCard(mainProduct.picture)
                   : '/images/noimageavailable.png'
               }
               sx={{
@@ -74,19 +89,27 @@ const ProductCard = ({ product }) => {
               }}
             />
           </Box>
-          <Title>{name}</Title>
+          <Title>{mainProduct.name}</Title>
         </StyledLink>
       </StyledCardLink>
       <StyledCardContent>
-        <Colors colors={getColorValue(params)} />
-        <Price price={price} oldprice={oldprice} fontSize={22} />
+        <Colors
+          arrProducts={arrProducts}
+          mainProduct={mainProduct}
+          setMainProduct={setMainProduct}
+        />
+        <Price
+          price={mainProduct.price}
+          oldprice={mainProduct.oldprice}
+          fontSize={22}
+        />
         <StyledIconButton
           onClick={() => {
             dispatch(toggleCartModal());
-            dispatch(setCurrentCard(product));
+            dispatch(setCurrentCard(mainProduct));
           }}
         >
-          {arrId.includes(_id) ? (
+          {arrId.includes(mainProduct._id) ? (
             <ShoppingCartIcon
               color="primary"
               sx={{ width: '24px', height: '24px' }}
@@ -96,7 +119,7 @@ const ProductCard = ({ product }) => {
           )}
         </StyledIconButton>
         <StyledIconFavoriteButton onClick={toggleFavoritesProduct}>
-          {favorites.includes(_id) ? (
+          {favorites.includes(mainProduct._id) ? (
             <FavoriteIcon
               color="primary"
               sx={{ width: '24px', height: '24px' }}

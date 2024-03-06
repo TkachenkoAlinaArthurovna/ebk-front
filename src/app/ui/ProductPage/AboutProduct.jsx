@@ -6,10 +6,9 @@ import {
   WrapperAboutProduct,
   WrapperSlider,
   WrapperContent,
-  WrapperColor,
-  Color,
   StyledIconFavoriteButton,
 } from '@/app/ui/ProductPage/ProductPageStyles';
+import Colors from '@/app/ui/ProductCard/Colors';
 import Slider from '@/app/ui/Slider';
 import PageTitle from '@/app/ui/PageTitle';
 import Price from '@/app/ui/ProductCard/Price';
@@ -18,10 +17,9 @@ import FavoriteIcon from '@mui/icons-material/FavoriteBorder';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Delivery from '@/app/ui/ProductPage/Delivery';
 import Pay from '@/app/ui/ProductPage/Pay';
-import { getColorValue } from '@/app/lib/getColorValue';
 
-const AboutProduct = ({ currentProduct }) => {
-  const { name, picture, params, price, oldprice } = currentProduct;
+const AboutProduct = ({ mainProduct, setMainProduct, arrProducts }) => {
+  const { name, picture, price, oldprice, crmId, vendor } = mainProduct;
   const dispatch = useDispatch();
 
   return (
@@ -78,21 +76,41 @@ const AboutProduct = ({ currentProduct }) => {
       </Box>
       <WrapperContent>
         <PageTitle>{name}</PageTitle>
-        <Box sx={{ display: 'flex', justifyContent: 'end', marginTop: '16px' }}>
-          <Typography sx={{ color: '#6a6a6a' }}>id</Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'end',
+            marginTop: '16px',
+            '@media (max-width: 900px)': {
+              justifyContent: 'start',
+            },
+          }}
+        >
+          <Typography sx={{ width: '200px', color: '#6a6a6a' }}>
+            Артикул: {crmId}
+          </Typography>
         </Box>
-        {getColorValue(params) && (
-          <WrapperColor>
-            <Typography sx={{ color: '#6a6a6a', marginBottom: '16px' }}>
-              Доступні варіанти товару:
+        {vendor && (
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'end',
+              margin: '16px 0',
+              '@media (max-width: 900px)': {
+                justifyContent: 'start',
+              },
+            }}
+          >
+            <Typography sx={{ width: '200px', color: '#6a6a6a' }}>
+              Виробник: {vendor}
             </Typography>
-            <Box
-              sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'nowrap' }}
-            >
-              <Color sx={{ backgroundColor: `${getColorValue(params)}` }} />
-            </Box>
-          </WrapperColor>
+          </Box>
         )}
+        <Colors
+          arrProducts={arrProducts}
+          mainProduct={mainProduct}
+          setMainProduct={setMainProduct}
+        />
         <Box sx={{ marginBottom: '32px' }}>
           <Price
             price={price}
@@ -114,7 +132,7 @@ const AboutProduct = ({ currentProduct }) => {
             startIcon={<ShoppingCartIcon />}
             onClick={() => {
               dispatch(toggleCartModal());
-              dispatch(setCurrentCard(currentProduct));
+              dispatch(setCurrentCard(mainProduct));
             }}
           >
             Купити

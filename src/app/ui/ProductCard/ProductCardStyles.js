@@ -11,6 +11,7 @@ import Link from 'next/link';
 export const StyledCard = styled(Card)`
   position: relative;
   max-width: 300;
+  height: 100%;
   max-height: 420px;
   display: flex;
   flex-direction: column;
@@ -38,9 +39,6 @@ export const StyledIconButton = styled(IconButton)`
   @media (max-width: 800px) {
     right: 12px;
   }
-  @media (max-width: 400px) {
-    bottom: 18px;
-  }
 `;
 
 export const StyledIconFavoriteButton = styled(IconButton)`
@@ -57,12 +55,13 @@ export const StyledIconFavoriteButton = styled(IconButton)`
     bottom: 70px;
   }
   @media (max-width: 400px) {
-    bottom: 64px;
+    top: 4px;
+    left: 4px;
   }
 `;
 
 export const Title = styled(Typography)`
-  height: 84px;
+  height: 98px;
   margin: 0 14px;
   font-size: 18px;
   font-weight: 500;
@@ -78,10 +77,11 @@ export const Title = styled(Typography)`
     font-size: 16px;
   }
   @media (max-width: 500px) {
+    height: 90px;
     margin: 0 6px;
   }
   @media (max-width: 400px) {
-    height: 66px;
+    height: 80px;
   }
 `;
 

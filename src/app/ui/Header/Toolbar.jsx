@@ -6,42 +6,33 @@ import { setCatalogLinks } from '@/redux/slices/CatalogLinksSlice';
 import Link from 'next/link';
 import IconButtonMenu from '@/app/ui/Header/IconButtonMenu';
 import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Badge from '@mui/material/Badge';
-import SearchComponent from '@/app/ui/Header/SearchComponent';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import CloseIcon from '@mui/icons-material/Close';
 import Catalog from '@/app/ui/Header/Catalog';
 import SearchNew from '@/app/ui/Header/SearchNew';
-import Box from '@mui/material/Box';
-import ListItemButton from '@mui/material/ListItemButton';
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ListItemText from '@mui/material/ListItemText';
 import {
   StyledButtonCatalog,
   StyledToolbar,
   StyledLogoBox,
   StyledBoxIcons,
   StyledLinkFavorite,
-  StyledLinkCabinet,
   StyledLinkCart,
   StyledShoppingCartIcon,
 } from '@/app/ui/Header/HeaderStyles';
 import { createLinks } from '@/app/lib/createLinks';
 import Phones from '@/app/ui/Header/Phones';
 import Logo from '@/app/ui/Logo/Logo';
-import Authorization from '@/app/ui/Header/AuthModal/Authorization';
+import Authorization from '@/app/ui/AuthModal/Authorization';
 import { useAuth } from '@/redux/contexts/AuthContext';
 import { MenuItem, Select } from '@mui/material';
 import Account from '@/app/ui/Header/Account';
-
+import { openAuthModal } from '@/redux/slices/AuthModalSlice';
 
 const Toolbar = ({ catalog }) => {
   const dispatch = useDispatch();
+  const cartProducts = useSelector((state) => state.cart.cartProducts);
   const catalogLinks = createLinks(catalog.items);
   useEffect(() => {
     dispatch(setCatalogLinks(catalogLinks));
@@ -61,15 +52,7 @@ const Toolbar = ({ catalog }) => {
   const [openCatalog, setOpen] = React.useState(false);
   const handleOpenCatalog = () => setOpen(true);
   const handleCloseCatalog = () => setOpen(false);
-
-  const [isStub, setIsStub] = useState(false);
-
-  const [openAuthModal, setOpenAuth] = React.useState(false);
-  const handleOpenAuthModal = (isStub) => {
-    setIsStub(isStub);
-    setOpenAuth(true);
-  };
-  const handleCloseAuthModal = () => setOpenAuth(false);
+  const handleOpenAuthModal = () => dispatch(openAuthModal());
 
   return (
     <StyledToolbar disableGutters>
@@ -92,11 +75,7 @@ const Toolbar = ({ catalog }) => {
         Каталог
       </StyledButtonCatalog>
       <Catalog catalog={catalogLinks} />
-      <Authorization
-        isOpen={openAuthModal}
-        handleClose={handleCloseAuthModal}
-        isStub={isStub}
-      />
+
       <SearchNew />
       <Phones />
       <StyledBoxIcons>
@@ -111,7 +90,7 @@ const Toolbar = ({ catalog }) => {
         </StyledLinkFavorite>
         <StyledLinkCart href="/cart">
           <IconButton>
-            <Badge badgeContent={5} color="error">
+            <Badge badgeContent={cartProducts.length} color="primary">
               <StyledShoppingCartIcon />
             </Badge>
           </IconButton>

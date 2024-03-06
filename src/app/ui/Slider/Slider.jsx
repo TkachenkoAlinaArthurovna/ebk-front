@@ -1,32 +1,26 @@
 'use client';
 
-import { useRef } from 'react';
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import ProductCard from '@/app/ui/ProductCard';
-import { SwiperPrev, SwiperNext, WrapperForProductCart } from '@/app/ui/Slider/SliderStyles';
+import {
+  SwiperPrev,
+  SwiperNext,
+  WrapperForProductCart,
+} from '@/app/ui/Slider/SliderStyles';
 import { Box } from '@mui/material';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { reviewsBlockData as reviewsData } from '@/app/lib/mockData';
 import CustomerReview from '@/app/ui/Homepage/ReviewsBlock/CustomerReview';
-
-const productsArr = [
-  { id: 1 },
-  { id: 2 },
-  { id: 3 },
-  { id: 4 },
-  { id: 5 },
-  { id: 6 },
-];
+import Link from 'next/link';
 
 const Slider = ({
   autoplay,
   speed = 1000,
   spaceBetween,
-  slidesPerView,
   pagination,
   products,
   slides,
@@ -76,13 +70,25 @@ const Slider = ({
   if (slides) {
     listSlides = slides.map((slide, index) => (
       <SwiperSlide key={index}>
-        <img
-          src={slide}
-          style={{
-            width: '100%',
-            borderRadius: '28px',
-          }}
-        ></img>
+        {slide.link !== '' ? (
+          <Link href="/hirski-elektrovelosypedy/elektrovelosyped-fantom-27.5-48v-500w-10-ah">
+            <img
+              src={slide.picture}
+              style={{
+                width: '100%',
+                borderRadius: '28px',
+              }}
+            ></img>
+          </Link>
+        ) : (
+          <img
+            src={slide.picture}
+            style={{
+              width: '100%',
+              borderRadius: '28px',
+            }}
+          ></img>
+        )}
       </SwiperSlide>
     ));
   }
@@ -116,7 +122,7 @@ const Slider = ({
     swiperConfig = {
       slidesPerView: 4,
       breakpoints: {
-        300: {
+        0: {
           slidesPerView: 2,
         },
         685: {

@@ -1,5 +1,7 @@
 import NotFoundInfo from '@/app/ui/NotFoundInfo';
 
-export default function NotFound() {
+const NotFound = () => {
   return <NotFoundInfo />;
-}
+};
+
+export default NotFound;

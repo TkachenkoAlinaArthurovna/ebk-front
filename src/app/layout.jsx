@@ -10,6 +10,8 @@ import Wrapper from '@/app/ui/Wrapper';
 import Providers from '@/redux/Provider';
 import { Box } from '@mui/material';
 import ModalCart from '@/app/ui/ModalCart';
+import Authorization from '@/app/ui/AuthModal/Authorization';
+import React from 'react';
 
 export const metadata = {
   title: 'Електровелосипеди Eco-bike Інтернет магазин електровелосипедів',
@@ -28,6 +30,7 @@ const getCategories = () =>
 
 export default async function RootLayout({ children }) {
   const catalog = await getCategories();
+
   return (
     <html lang="en">
       <AppTheme>
@@ -36,7 +39,9 @@ export default async function RootLayout({ children }) {
             <Wrapper>
               <Header catalog={catalog} />
               <Box sx={{ flex: '1 1 auto' }}>
-                {children} <ModalCart />
+                {children}
+                <ModalCart />
+                <Authorization />
               </Box>
               <Footer />
             </Wrapper>
