@@ -77,26 +77,11 @@ export const StyledShoppingCartIcon = styled(ShoppingCartIcon)`
   }
 `;
 
-export const StyledLinkCart = styled(Link)`
-  @media (max-width: 400px) {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translate(0, -50%);
-  }
-`;
+export const StyledLinkCart = styled(Link)``;
 
-export const StyledLinkCabinet = styled(Link)`
-  @media (max-width: 400px) {
-    display: none;
-  }
-`;
+export const StyledLinkCabinet = styled(Link)``;
 
-export const StyledLinkFavorite = styled(Link)`
-  @media (max-width: 400px) {
-    display: none;
-  }
-`;
+export const StyledLinkFavorite = styled(Link)``;
 
 export const StyledToolbar = styled(Toolbar)`
   display: flex;
