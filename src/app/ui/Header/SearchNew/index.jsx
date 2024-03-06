@@ -10,18 +10,18 @@ import {
   cleareSearchedProducts,
 } from '@/redux/slices/SearchProductSlice';
 import { createLinkProduct } from '@/app/lib/createLinkProduct';
-import HourglassTopIcon from '@mui/icons-material/HourglassTop';
+import Link from 'next/link';
+import { Typography } from '@mui/material';
 
 const SearchNew = () => {
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
   const [searchValue, setSearchValue] = useState('');
   const inputRef = useRef();
-  const router = useRouter();
   const { catalogLinks } = useSelector((state) => state.catalogLinks);
   const { searchedProducts } = useSelector((state) => state.search);
   const [openList, setOpenList] = useState(true);
-
+  const [isResponce, setIsResponce] = useState(false);
   const getProducts = async () => {
     try {
       let res;
@@ -36,7 +36,11 @@ const SearchNew = () => {
       if (res) {
         const data = await res.json();
         if (data) {
+          setIsResponce(false);
           dispatch(setSearchedProducts(data.results));
+        }
+        if (data.results.length === 0) {
+          setIsResponce(true);
         }
       }
     } catch (err) {
@@ -47,15 +51,16 @@ const SearchNew = () => {
   const updateSearchValue = useCallback(
     debounce((str) => {
       setSearchValue(str);
-    }, 300),
+    }, 500),
     [],
   );
 
   const onChangeInput = (event) => {
     setValue(event.target.value);
     updateSearchValue(event.target.value);
-    if (value === '') {
+    if (event.target.value.length <= 1 && isResponce === true) {
       dispatch(cleareSearchedProducts());
+      setIsResponce(false);
     }
   };
 
@@ -63,16 +68,12 @@ const SearchNew = () => {
     setValue('');
     dispatch(cleareSearchedProducts());
     inputRef.current.focus();
+    setIsResponce(false);
   };
 
-  const onClickProduct = (event) => {
-    const id = event.target.id;
-    const { link } = catalogLinks.find((obj) => obj._id === id);
-    const text = event.target.innerHTML;
-    const productName = createLinkProduct(text);
-    router.push(`/${link}/${productName}`);
-    setValue('');
-    setSearchValue('');
+  const onClickProduct = () => {
+    // setValue('');
+    // setSearchValue('');
     dispatch(cleareSearchedProducts());
   };
 
@@ -91,6 +92,17 @@ const SearchNew = () => {
     }
   });
 
+  const categoryLink = (object) => {
+    const objWithLink = catalogLinks.find((obj) => obj._id === object.category);
+    if (objWithLink && objWithLink.link) {
+      const { link } = objWithLink;
+      return link;
+    }
+  };
+  const productLink = ({ name }) => {
+    const productName = createLinkProduct(name);
+    return productName;
+  };
   return (
     <Search>
       <div className={styles.root}>
@@ -113,7 +125,8 @@ const SearchNew = () => {
           {value.length > 1 && searchedProducts && openList && (
             <ul className={styles.list}>
               {searchedProducts.map((obj) => (
-                <li
+                <Link
+                  href={`/${categoryLink(obj)}/${productLink(obj)}`}
                   className={styles.item}
                   onClick={onClickProduct}
                   key={obj._id}
@@ -129,9 +142,12 @@ const SearchNew = () => {
                   )}
 
                   <p id={obj.category}>{obj.name}</p>
-                </li>
+                </Link>
               ))}
             </ul>
+          )}
+          {isResponce && (
+            <ul className={styles.noresults}>Немає результатів</ul>
           )}
           {value && (
             <svg

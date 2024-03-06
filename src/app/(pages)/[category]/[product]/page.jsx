@@ -5,22 +5,22 @@ import { createLinks } from '@/app/lib/createLinks';
 
 export const dynamicParams = false;
 
-async function getProducts() {
-  const res = await fetch(`https://stage.eco-bike.com.ua/api/products/all`, {
-    next: { revalidate: 0 },
-  });
-  const data = await res.json();
-  return data;
-}
+// async function getProducts() {
+//   const res = await fetch(`https://stage.eco-bike.com.ua/api/products/all`, {
+//     next: { revalidate: 0 },
+//   });
+//   const data = await res.json();
+//   return data;
+// }
 
-async function getCategory(id) {
-  const res = await fetch('https://stage.eco-bike.com.ua/api/categories', {
-    next: { revalidate: 0 },
-  });
-  const data = await res.json();
-  const category = data.items.find((item) => item._id === id);
-  return category ? createLinkProduct(category.name) : null;
-}
+// async function getCategory(id) {
+//   const res = await fetch('https://stage.eco-bike.com.ua/api/categories', {
+//     next: { revalidate: 0 },
+//   });
+//   const data = await res.json();
+//   const category = data.items.find((item) => item._id === id);
+//   return category ? createLinkProduct(category.name) : null;
+// }
 
 // export async function generateStaticParams() {
 //   const products = await getProducts();
