@@ -51,7 +51,7 @@ const SearchNew = () => {
   const updateSearchValue = useCallback(
     debounce((str) => {
       setSearchValue(str);
-    }, 300),
+    }, 500),
     [],
   );
 
