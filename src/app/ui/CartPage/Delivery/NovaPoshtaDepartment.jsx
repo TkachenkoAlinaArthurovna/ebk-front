@@ -8,7 +8,11 @@ import { FormControlLabel, Radio, Autocomplete } from '@mui/material';
 import { Field } from 'formik';
 import useDebounce from '@/app/lib/useDebounce';
 
-const NovaPoshtaDepartment = ({ setSettlement, setDepartment }) => {
+const NovaPoshtaDepartment = ({
+  setSettlement,
+  setDepartment,
+  setFilteredDepartments,
+}) => {
   const selectedDelivery = useSelector(
     (state) => state.delivery.selectedDelivery,
   );
@@ -92,6 +96,7 @@ const NovaPoshtaDepartment = ({ setSettlement, setDepartment }) => {
               '9a68df70-0267-42a8-bb5c-37f427e36ee4',
             ].includes(obj.TypeOfWarehouse),
           );
+          setFilteredDepartments(filteredDepartments);
           const description = filteredDepartments.map((obj) => obj.Description);
           setDepartments(description);
         }

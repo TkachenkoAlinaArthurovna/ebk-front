@@ -12,6 +12,7 @@ import ViewedList from '@/app/ui/ProductPage/ViewedList';
 import { useResize } from '@/app/lib/helpers';
 
 const ProductPage = ({ currentProduct, partsOfCategory }) => {
+  console.log(currentProduct);
   const [filteredArr, setFilteredArray] = useState([]);
   const [width, height] = useResize();
 
@@ -36,7 +37,7 @@ const ProductPage = ({ currentProduct, partsOfCategory }) => {
       </Content>
       <TabsProductPage currentProduct={currentProduct} />
 
-      {width >= 1024 && filteredArr.length <= 4 && filteredArr.length > 1 && (
+      {width >= 1024 && filteredArr.length <= 4 && filteredArr.length > 0 && (
         <StyledSection as="section">
           <Content>
             <Box
@@ -59,7 +60,7 @@ const ProductPage = ({ currentProduct, partsOfCategory }) => {
       {width < 1024 &&
         width >= 685 &&
         filteredArr.length <= 3 &&
-        filteredArr.length > 1 && (
+        filteredArr.length > 0 && (
           <StyledSection as="section">
             <Content>
               <Box
@@ -79,7 +80,7 @@ const ProductPage = ({ currentProduct, partsOfCategory }) => {
           </StyledSection>
         )}
 
-      {width < 685 && filteredArr.length <= 2 && filteredArr.length > 1 && (
+      {width < 685 && filteredArr.length <= 2 && filteredArr.length > 0 && (
         <StyledSection as="section">
           <Content>
             <Box

@@ -24,16 +24,36 @@ import {
 import { createLinks } from '@/app/lib/createLinks';
 import Phones from '@/app/ui/Header/Phones';
 import Logo from '@/app/ui/Logo/Logo';
-import Authorization from '@/app/ui/AuthModal/Authorization';
 import { useAuth } from '@/redux/contexts/AuthContext';
-import { MenuItem, Select } from '@mui/material';
 import Account from '@/app/ui/Header/Account';
 import { openAuthModal } from '@/redux/slices/AuthModalSlice';
+import { transformItemsArray } from '@/app/lib/transformItemsArray';
+import { postCart } from '@/app/lib/postCart';
+import { getCart } from '@/app/lib/getCart';
+import { deleteCartProduct } from '@/app/lib/deleteCartProduct';
+import { addCartProduct } from '@/app/lib/addCartProduct';
 
 const Toolbar = ({ catalog }) => {
+  const { isAuthorized, getUser } = useAuth();
+  const authorized = isAuthorized();
+  const user = authorized ? getUser() : null;
+  const token = authorized ? localStorage.getItem('token') : null;
   const dispatch = useDispatch();
   const cartProducts = useSelector((state) => state.cart.cartProducts);
   const catalogLinks = createLinks(catalog.items);
+
+  useEffect(() => {
+    if (authorized) {
+      const transformCartProducts = transformItemsArray(cartProducts);
+      // console.log(transformCartProducts);
+      // postCart(token, transformCartProducts);
+      // getCart(token);
+      // deleteCartProduct(token, '65e7cf1bbcd8f75ff3f1f9bc');
+      // addCartProduct(token, '65e7cf1bbcd8f75ff3f1f9bc');
+      // console.log('done');
+    }
+  }, [authorized]);
+
   useEffect(() => {
     dispatch(setCatalogLinks(catalogLinks));
   }, [catalogLinks]);
@@ -49,9 +69,9 @@ const Toolbar = ({ catalog }) => {
 
   const toggleOpenCatalog = () => dispatch(toggleMenuModal());
 
-  const [openCatalog, setOpen] = React.useState(false);
-  const handleOpenCatalog = () => setOpen(true);
-  const handleCloseCatalog = () => setOpen(false);
+  // const [openCatalog, setOpen] = React.useState(false);
+  // const handleOpenCatalog = () => setOpen(true);
+  // const handleCloseCatalog = () => setOpen(false);
   const handleOpenAuthModal = () => dispatch(openAuthModal());
 
   return (
