@@ -7,7 +7,7 @@ export const StyledWrapper = styled(Stack)`
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  text-align: center;
+  /* text-align: center; */
   height: 100%;
 `;
 
