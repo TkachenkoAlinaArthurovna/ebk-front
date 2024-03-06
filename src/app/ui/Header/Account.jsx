@@ -12,11 +12,13 @@ import { useAuth } from '@/redux/contexts/AuthContext';
 
 const Account = ({ handleOpenAuthModal }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+  const open = Boolean(anchorEl) && document.body.contains(anchorEl);
   const handleClick = (event) => {
-    if (event.currentTarget) {
-      setAnchorEl(event.currentTarget);
-    }
+    setAnchorEl((prevAnchorEl) =>
+      document.body.contains(event.currentTarget)
+        ? event.currentTarget
+        : prevAnchorEl,
+    );
   };
   const handleClose = () => {
     setAnchorEl(null);
@@ -68,7 +70,7 @@ const Account = ({ handleOpenAuthModal }) => {
             <MenuItem onClick={handleClose}>
               <Link href="/cabinet/personal-information">Кабінет</Link>
             </MenuItem>
-            <MenuItem onClick={logout}>Logout</MenuItem>
+            <MenuItem onClick={logout}>Вихід</MenuItem>
           </Menu>
         </Box>
       )}

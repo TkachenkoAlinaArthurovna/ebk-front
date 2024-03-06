@@ -8,8 +8,10 @@ import {
 } from '@/app/ui/InfoPagesMenu/InfoPagesMenuStyles';
 import { usePathname } from 'next/navigation';
 import { ListItemText } from '@mui/material';
+import { useAuth } from '@/redux/contexts/AuthContext';
 
 const InfoPagesMenu = ({ cabinet }) => {
+  const { logout } = useAuth();
   const path = usePathname();
 
   const links = [
@@ -43,7 +45,7 @@ const InfoPagesMenu = ({ cabinet }) => {
           </StyledListItemButton>
         </Link>
       ))}
-      <StyledListItemButton onClick={() => console.log('Exit')}>
+      <StyledListItemButton onClick={logout}>
         <ListItemText>Вихід</ListItemText>
       </StyledListItemButton>
     </>
