@@ -22,20 +22,20 @@ async function getCategory(id) {
   return category ? createLinkProduct(category.name) : null;
 }
 
-export async function generateStaticParams() {
-  const products = await getProducts();
-  const staticParams = await Promise.all(
-    products.map(async (product) => {
-      const category = await getCategory(product.category);
-      const productLink = createLinkProduct(product.name);
-      return {
-        category: category,
-        product: productLink,
-      };
-    }),
-  );
-  return staticParams;
-}
+// export async function generateStaticParams() {
+//   const products = await getProducts();
+//   const staticParams = await Promise.all(
+//     products.map(async (product) => {
+//       const category = await getCategory(product.category);
+//       const productLink = createLinkProduct(product.name);
+//       return {
+//         category: category,
+//         product: productLink,
+//       };
+//     }),
+//   );
+//   return staticParams;
+// }
 
 async function getCategories() {
   const res = await fetch('https://stage.eco-bike.com.ua/api/categories', {
