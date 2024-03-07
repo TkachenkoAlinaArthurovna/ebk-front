@@ -28,17 +28,10 @@ import { addFavorites } from '@/app/lib/addFavorites';
 import { getAllFavorites } from '@/app/lib/getAllFavorites';
 
 const ProductCard = ({ product }) => {
+  const dispatch = useDispatch();
   const { categoryName, varieties } = product;
   const arrProducts = varieties ? [product, ...varieties] : [product];
   const [mainProduct, setMainProduct] = useState(arrProducts[0]);
-
-  const dispatch = useDispatch();
-
-  const { isAuthorized, getUser } = useAuth();
-  const authorized = isAuthorized();
-  const user = authorized ? getUser() : null;
-  const token = authorized ? localStorage.getItem('token') : null;
-
   const favorites = useSelector((state) => state.favorites.favorites);
   const categories = useSelector((state) => state.catalogLinks.catalogLinks);
   const cartProducts = useSelector((state) => state.cart.cartProducts);
@@ -46,6 +39,13 @@ const ProductCard = ({ product }) => {
   const pathname = usePathname();
   const pathnames = pathname.split('/').filter((path) => path);
   const link = createLinkProduct(mainProduct.name);
+  const [favoritesFlag, setFavoritesFlag] = useState(
+    checkProductIdInArray(mainProduct.crmId, favorites) ? true : false,
+  );
+  const { isAuthorized, getUser } = useAuth();
+  const authorized = isAuthorized();
+  const user = authorized ? getUser() : null;
+  const token = authorized ? localStorage.getItem('token') : null;
   const favoritesCategoryName = findLinkByCategoryId(
     product.categoryId,
     categories,
@@ -172,6 +172,7 @@ const ProductCard = ({ product }) => {
         {authorized && (
           <StyledIconFavoriteButton
             onClick={async () => {
+              setFavoritesFlag(!favoritesFlag);
               try {
                 const isProductInFavorites = checkProductIdInArray(
                   mainProduct.crmId,
@@ -191,7 +192,7 @@ const ProductCard = ({ product }) => {
               }
             }}
           >
-            {checkProductIdInArray(mainProduct.crmId, favorites) ? (
+            {favoritesFlag ? (
               <FavoriteIcon
                 color="primary"
                 sx={{ width: '24px', height: '24px' }}
