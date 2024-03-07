@@ -1,6 +1,7 @@
 'use client';
 import * as React from 'react';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { StyledTabs, StyledTab } from '@/app/ui/Tabs/TabsStyled';
 import CustomTabPanel from '@/app/ui/Tabs/CustomTabPanel';
 import { Box } from '@mui/material';
@@ -17,6 +18,21 @@ const TabsProductPage = ({ currentProduct }) => {
   const arrProducts = [currentProduct, ...varieties];
   const [mainProduct, setMainProduct] = useState(arrProducts[0]);
   const [value, setValue] = useState(0);
+  const favorites = useSelector((state) => state.favorites.favorites);
+  const [favoritesFlag, setFavoritesFlag] = useState(
+    checkProductIdInArray(mainProduct.crmId, favorites) ? true : false,
+  );
+
+  function checkProductIdInArray(productId, arrayOfObjects) {
+    for (let i = 0; i < arrayOfObjects.length; i++) {
+      const obj = arrayOfObjects[i];
+      if (obj.product && obj.product.crmId === productId) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   React.useEffect(() => {
     const sessionArr = JSON.parse(sessionStorage.getItem('currentProduct'));
     if (!sessionArr || sessionArr.length === 0) {
@@ -68,21 +84,35 @@ const TabsProductPage = ({ currentProduct }) => {
             arrProducts={arrProducts}
             mainProduct={mainProduct}
             setMainProduct={setMainProduct}
+            favoritesFlag={favoritesFlag}
+            setFavoritesFlag={setFavoritesFlag}
           />
         </CustomTabPanel>
         {mainProduct.params && mainProduct.params.length > 0 && (
           <CustomTabPanel value={value} index={1}>
-            <СharacteristicsProduct mainProduct={mainProduct} />
+            <СharacteristicsProduct
+              mainProduct={mainProduct}
+              favoritesFlag={favoritesFlag}
+              setFavoritesFlag={setFavoritesFlag}
+            />
           </CustomTabPanel>
         )}
         {mainProduct.params && mainProduct.params.length > 0 && (
           <CustomTabPanel value={value} index={2}>
-            <DescriptionProduct mainProduct={mainProduct} />
+            <DescriptionProduct
+              mainProduct={mainProduct}
+              favoritesFlag={favoritesFlag}
+              setFavoritesFlag={setFavoritesFlag}
+            />
           </CustomTabPanel>
         )}
         {mainProduct.params && mainProduct.params.length == 0 && (
           <CustomTabPanel value={value} index={1}>
-            <DescriptionProduct mainProduct={mainProduct} />
+            <DescriptionProduct
+              mainProduct={mainProduct}
+              favoritesFlag={favoritesFlag}
+              setFavoritesFlag={setFavoritesFlag}
+            />
           </CustomTabPanel>
         )}
       </Content>

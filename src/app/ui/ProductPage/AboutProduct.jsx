@@ -23,7 +23,13 @@ import { addFavorites } from '@/app/lib/addFavorites';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-const AboutProduct = ({ mainProduct, setMainProduct, arrProducts }) => {
+const AboutProduct = ({
+  mainProduct,
+  setMainProduct,
+  arrProducts,
+  favoritesFlag,
+  setFavoritesFlag,
+}) => {
   const { name, picture, price, oldprice, crmId, vendor } = mainProduct;
   const favorites = useSelector((state) => state.favorites.favorites);
   const dispatch = useDispatch();
@@ -179,6 +185,7 @@ const AboutProduct = ({ mainProduct, setMainProduct, arrProducts }) => {
           {authorized && (
             <StyledIconFavoriteButton
               onClick={async () => {
+                setFavoritesFlag(!favoritesFlag);
                 try {
                   const isProductInFavorites = checkProductIdInArray(
                     mainProduct.crmId,
@@ -198,7 +205,7 @@ const AboutProduct = ({ mainProduct, setMainProduct, arrProducts }) => {
                 }
               }}
             >
-              {checkProductIdInArray(mainProduct.crmId, favorites) ? (
+              {favoritesFlag ? (
                 <FavoriteIcon
                   color="primary"
                   sx={{ width: '24px', height: '24px' }}

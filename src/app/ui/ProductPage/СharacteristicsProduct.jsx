@@ -1,9 +1,10 @@
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useAuth } from '@/redux/contexts/AuthContext';
 import { toggleCartModal } from '@/redux/slices/CartModalSlice';
 import { setCurrentCard } from '@/redux/slices/CartSlice';
+import { setFavorites } from '@/redux/slices/FavoritesSlice';
 import { Box, List, Typography, Grid } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import FavoriteIcon from '@mui/icons-material/FavoriteBorder';
 import {
   StyledWrapper,
   StyledImg,
@@ -16,9 +17,24 @@ import {
 import { StyledIconFavoriteButton } from '@/app/ui/ProductPage/ProductPageStyles';
 import Price from '@/app/ui/ProductCard/Price';
 import ButtonMain from '@/app/ui/ButtonMain';
+import { deleteFavorites } from '@/app/lib/deleteFavorites';
+import { addFavorites } from '@/app/lib/addFavorites';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-const СharacteristicsProduct = ({ mainProduct }) => {
+const СharacteristicsProduct = ({
+  mainProduct,
+  favoritesFlag,
+  setFavoritesFlag,
+}) => {
   const { name, picture, params, price, oldprice, crmId } = mainProduct;
+  const favorites = useSelector((state) => state.favorites.favorites);
+  const dispatch = useDispatch();
+  const { isAuthorized, getUser } = useAuth();
+  const authorized = isAuthorized();
+  const user = authorized ? getUser() : null;
+  const token = authorized ? localStorage.getItem('token') : null;
+
   const mainPicture = (picture) => {
     if (picture && picture.length >= 1) {
       return picture[0];
@@ -27,8 +43,38 @@ const СharacteristicsProduct = ({ mainProduct }) => {
       return picture;
     }
   };
-  const dispatch = useDispatch();
+
   const toggleCart = () => dispatch(toggleCartModal());
+
+  function checkProductIdInArray(productId, arrayOfObjects) {
+    for (let i = 0; i < arrayOfObjects.length; i++) {
+      const obj = arrayOfObjects[i];
+      if (obj.product && obj.product.crmId === productId) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  const getAllFavorites = async (userId, token) => {
+    try {
+      const url = `https://stage.eco-bike.com.ua/api/favorites/user/${userId}`;
+      const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data) {
+          dispatch(setFavorites(data));
+        }
+      }
+    } catch (error) {}
+  };
+
   return (
     <Box>
       <StyledWrapper>
@@ -89,9 +135,42 @@ const СharacteristicsProduct = ({ mainProduct }) => {
             >
               Купити
             </ButtonMain>
-            <StyledIconFavoriteButton>
-              <FavoriteIcon sx={{ width: '24px', height: '24px' }} />
-            </StyledIconFavoriteButton>
+            {authorized && (
+              <StyledIconFavoriteButton
+                onClick={async () => {
+                  setFavoritesFlag(!favoritesFlag);
+                  try {
+                    const isProductInFavorites = checkProductIdInArray(
+                      mainProduct.crmId,
+                      favorites,
+                    );
+                    if (isProductInFavorites) {
+                      await deleteFavorites(user.id, mainProduct._id, token);
+                    } else {
+                      await addFavorites(user.id, mainProduct._id, token);
+                    }
+                    await getAllFavorites(user.id, token);
+                  } catch (error) {
+                    console.error(
+                      'Помилка під час виконання операції з улюбленими елементами:',
+                      error,
+                    );
+                  }
+                }}
+              >
+                {favoritesFlag ? (
+                  <FavoriteIcon
+                    color="primary"
+                    sx={{ width: '24px', height: '24px' }}
+                  />
+                ) : (
+                  <FavoriteBorderIcon
+                    color="primary"
+                    sx={{ width: '24px', height: '24px' }}
+                  />
+                )}
+              </StyledIconFavoriteButton>
+            )}
           </Box>
         </StyledRight>
       </StyledWrapper>
