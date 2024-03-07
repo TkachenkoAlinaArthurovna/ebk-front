@@ -33,51 +33,53 @@ export const StyledAccordionDetails = styled(AccordionDetails)`
 
 export const OrderInfoBlock = styled(Box)`
   display: flex;
+  align-items: center;
   width: 100%;
   border-bottom: 1px solid #b5b5b5;
 `;
 
 export const StyledOrderInfo = styled(Typography)`
-  width: 60%;
-  font-size: 24px;
+  width: 54%;
+  font-size: 20px;
   font-weight: 400;
   padding-right: 20px;
 
   @media (max-width: 1100px) {
-    font-size: 20px;
+    font-size: 18px;
   }
 
-  @media (max-width: 940px) {
+  @media (max-width: 900px) {
+    width: 50%;
     font-size: 16px;
   }
 
-  @media (max-width: 520px) {
+  @media (max-width: 500px) {
     font-size: 14px;
   }
 
-  @media (max-width: 460px) {
+  @media (max-width: 400px) {
     font-size: 12px;
   }
 `;
 
 export const PaymentInfo = styled(Typography)`
   width: 20%;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 500;
 
   @media (max-width: 1100px) {
-    font-size: 20px;
+    font-size: 18px;
   }
 
-  @media (max-width: 940px) {
+  @media (max-width: 900px) {
     font-size: 16px;
   }
 
-  @media (max-width: 520px) {
+  @media (max-width: 500px) {
     font-size: 14px;
   }
 
-  @media (max-width: 460px) {
+  @media (max-width: 400px) {
     font-size: 12px;
   }
 `;

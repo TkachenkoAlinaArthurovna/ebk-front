@@ -4,6 +4,7 @@ import { Box, styled, Typography } from '@mui/material';
 
 export const Wrapper = styled(Box)`
   display: flex;
+  justify-content: space-between;
   margin-bottom: 16px;
   width: 100%;
 
@@ -16,7 +17,7 @@ export const ItemInfoBlock = styled(Box)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 60%;
+  width: 76%;
   padding-right: 30px;
 
   @media (max-width: 350px) {
@@ -26,9 +27,9 @@ export const ItemInfoBlock = styled(Box)`
 
 export const ItemPriceBlock = styled(Box)`
   display: flex;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
-  width: 40%;
+  width: 20%;
 `;
 
 export const Image = styled(Box)`
@@ -111,4 +112,5 @@ export const OldPrice = styled(Typography)`
 export const NameImageBlock = styled(Box)`
   display: flex;
   align-items: center;
+  width: 70%;
 `;

@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeCartProducts } from '@/redux/slices/CartSlice';
 import Link from 'next/link';
 import { useAuth } from '@/redux/contexts/AuthContext';
 import BreadCrumbs from '@/app/ui/BreadCrumbs/BreadCrumbs';
@@ -34,8 +35,10 @@ import PageTitle from '@/app/ui/PageTitle';
 import { makeAnOrder } from '@/app/lib/makeAnOrder';
 import { getUserObj } from '@/app/lib/getUserObj';
 import { putUser } from '@/app/lib/putUser';
+import Success from '@/app/ui/CartPage/Success/Success';
 
 const CartPage = () => {
+  const dispatch = useDispatch();
   const { isAuthorized, getUser } = useAuth();
   const authorized = isAuthorized();
   const user = authorized ? getUser() : null;
@@ -50,6 +53,7 @@ const CartPage = () => {
   const selectedPayment = useSelector((state) => state.payment.selectedPayment);
   const [settlement, setSettlement] = useState('');
   const [department, setDepartment] = useState('');
+  const [filteredDepartments, setFilteredDepartments] = useState('');
   const cartProducts = useSelector((state) => state.cart.cartProducts);
   const initialValues = {
     firstname: firstname,
@@ -62,6 +66,7 @@ const CartPage = () => {
     doNotCall: false,
     termsAgreement: false,
   };
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     if (authorized) {
@@ -71,23 +76,56 @@ const CartPage = () => {
 
   const handleSubmit = () => {
     putUser(firstname, surname, email, phone, user);
-    console.log('order');
-    makeAnOrder();
-    // firstname,
-    // surname,
-    // phone,
-    // email,
-    // initialValues.delivery,
-    // initialValues.payment,
-    // settlement.Present,
-    // department,
+    const cityRefAndRef = findCityRefAndRefByDescription(
+      department,
+      filteredDepartments,
+    );
+    const products = transformObjectsArray(cartProducts);
+    makeAnOrder(
+      token,
+      firstname,
+      surname,
+      phone,
+      email,
+      initialValues.delivery,
+      initialValues.payment,
+      settlement.Present,
+      department,
+      cityRefAndRef,
+      products,
+    );
+    dispatch(removeCartProducts());
+    setSuccess(true);
   };
+
+  function findCityRefAndRefByDescription(description, objectsArray) {
+    for (const obj of objectsArray) {
+      if (obj.Description === description) {
+        return { CityRef: obj.CityRef, Ref: obj.Ref };
+      }
+    }
+    return null;
+  }
+
+  function transformObjectsArray(objectsArray) {
+    return objectsArray.map((obj) => ({
+      id: obj.crmId,
+      name: obj.name,
+      costPerItem: obj.price,
+      amount: obj.count,
+      description: '',
+      discount: '',
+      sku: obj.vendorCode,
+    }));
+  }
 
   return (
     <Content>
       <BreadCrumbs />
-      {cartProducts.length === 0 ? (
+      {cartProducts.length === 0 && success == false ? (
         <EmptyCart />
+      ) : cartProducts.length === 0 && success == true ? (
+        <Success />
       ) : (
         <Formik
           initialValues={initialValues}
@@ -135,6 +173,7 @@ const CartPage = () => {
                     <Delivery
                       setSettlement={setSettlement}
                       setDepartment={setDepartment}
+                      setFilteredDepartments={setFilteredDepartments}
                     />
                     <Payment />
                     <Comment />

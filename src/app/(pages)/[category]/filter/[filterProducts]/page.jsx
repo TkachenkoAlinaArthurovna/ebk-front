@@ -1,6 +1,7 @@
 import CategoryPage from '@/app/ui/CategoryPage';
 import { createLinks } from '@/app/lib/createLinks';
 import { dollar } from '@/app/lib/dollar';
+import { modifyPrice } from '@/app/lib/modifyPrice';
 
 export async function generateMetadata({ params, searchParams }, parent) {
   const { category } = params;
@@ -126,7 +127,7 @@ export default async function Category({ params }) {
       categoryId={categoryId}
       filterParams={filterParams}
       sortParam={sort}
-      price={price}
+      price={modifyPrice(price)}
       page={page}
       vendorParam={vendor.charAt(0).toUpperCase() + vendor.slice(1)}
     />

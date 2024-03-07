@@ -1,28 +1,71 @@
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useAuth } from '@/redux/contexts/AuthContext';
 import { toggleCartModal } from '@/redux/slices/CartModalSlice';
 import { setCurrentCard } from '@/redux/slices/CartSlice';
+import { setFavorites } from '@/redux/slices/FavoritesSlice';
 import { Box, Typography } from '@mui/material';
 import {
   WrapperAboutProduct,
   WrapperSlider,
   WrapperContent,
-  WrapperColor,
-  Color,
   StyledIconFavoriteButton,
 } from '@/app/ui/ProductPage/ProductPageStyles';
+import Colors from '@/app/ui/ProductCard/Colors';
 import Slider from '@/app/ui/Slider';
 import PageTitle from '@/app/ui/PageTitle';
 import Price from '@/app/ui/ProductCard/Price';
 import ButtonMain from '@/app/ui/ButtonMain';
-import FavoriteIcon from '@mui/icons-material/FavoriteBorder';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Delivery from '@/app/ui/ProductPage/Delivery';
 import Pay from '@/app/ui/ProductPage/Pay';
-import { getColorValue } from '@/app/lib/getColorValue';
+import { deleteFavorites } from '@/app/lib/deleteFavorites';
+import { addFavorites } from '@/app/lib/addFavorites';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-const AboutProduct = ({ currentProduct }) => {
-  const { name, picture, params, price, oldprice } = currentProduct;
+const AboutProduct = ({
+  mainProduct,
+  setMainProduct,
+  arrProducts,
+  favoritesFlag,
+  setFavoritesFlag,
+}) => {
+  const { name, picture, price, oldprice, crmId, vendor } = mainProduct;
+  const favorites = useSelector((state) => state.favorites.favorites);
   const dispatch = useDispatch();
+  const { isAuthorized, getUser } = useAuth();
+  const authorized = isAuthorized();
+  const user = authorized ? getUser() : null;
+  const token = authorized ? localStorage.getItem('token') : null;
+
+  function checkProductIdInArray(productId, arrayOfObjects) {
+    for (let i = 0; i < arrayOfObjects.length; i++) {
+      const obj = arrayOfObjects[i];
+      if (obj.product && obj.product.crmId === productId) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  const getAllFavorites = async (userId, token) => {
+    try {
+      const url = `https://stage.eco-bike.com.ua/api/favorites/user/${userId}`;
+      const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data) {
+          dispatch(setFavorites(data));
+        }
+      }
+    } catch (error) {}
+  };
 
   return (
     <WrapperAboutProduct>
@@ -78,21 +121,41 @@ const AboutProduct = ({ currentProduct }) => {
       </Box>
       <WrapperContent>
         <PageTitle>{name}</PageTitle>
-        <Box sx={{ display: 'flex', justifyContent: 'end', marginTop: '16px' }}>
-          <Typography sx={{ color: '#6a6a6a' }}>id</Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'end',
+            marginTop: '16px',
+            '@media (max-width: 900px)': {
+              justifyContent: 'start',
+            },
+          }}
+        >
+          <Typography sx={{ width: '200px', color: '#6a6a6a' }}>
+            Артикул: {crmId}
+          </Typography>
         </Box>
-        {getColorValue(params) && (
-          <WrapperColor>
-            <Typography sx={{ color: '#6a6a6a', marginBottom: '16px' }}>
-              Доступні варіанти товару:
+        {vendor && (
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'end',
+              margin: '16px 0',
+              '@media (max-width: 900px)': {
+                justifyContent: 'start',
+              },
+            }}
+          >
+            <Typography sx={{ width: '200px', color: '#6a6a6a' }}>
+              Виробник: {vendor}
             </Typography>
-            <Box
-              sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'nowrap' }}
-            >
-              <Color sx={{ backgroundColor: `${getColorValue(params)}` }} />
-            </Box>
-          </WrapperColor>
+          </Box>
         )}
+        <Colors
+          arrProducts={arrProducts}
+          mainProduct={mainProduct}
+          setMainProduct={setMainProduct}
+        />
         <Box sx={{ marginBottom: '32px' }}>
           <Price
             price={price}
@@ -114,14 +177,47 @@ const AboutProduct = ({ currentProduct }) => {
             startIcon={<ShoppingCartIcon />}
             onClick={() => {
               dispatch(toggleCartModal());
-              dispatch(setCurrentCard(currentProduct));
+              dispatch(setCurrentCard(mainProduct));
             }}
           >
             Купити
           </ButtonMain>
-          <StyledIconFavoriteButton>
-            <FavoriteIcon sx={{ width: '24px', height: '24px' }} />
-          </StyledIconFavoriteButton>
+          {authorized && (
+            <StyledIconFavoriteButton
+              onClick={async () => {
+                setFavoritesFlag(!favoritesFlag);
+                try {
+                  const isProductInFavorites = checkProductIdInArray(
+                    mainProduct.crmId,
+                    favorites,
+                  );
+                  if (isProductInFavorites) {
+                    await deleteFavorites(user.id, mainProduct._id, token);
+                  } else {
+                    await addFavorites(user.id, mainProduct._id, token);
+                  }
+                  await getAllFavorites(user.id, token);
+                } catch (error) {
+                  console.error(
+                    'Помилка під час виконання операції з улюбленими елементами:',
+                    error,
+                  );
+                }
+              }}
+            >
+              {favoritesFlag ? (
+                <FavoriteIcon
+                  color="primary"
+                  sx={{ width: '24px', height: '24px' }}
+                />
+              ) : (
+                <FavoriteBorderIcon
+                  color="primary"
+                  sx={{ width: '24px', height: '24px' }}
+                />
+              )}
+            </StyledIconFavoriteButton>
+          )}
         </Box>
         <Delivery bike={true} />
         <Pay></Pay>

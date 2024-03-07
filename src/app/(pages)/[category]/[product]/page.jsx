@@ -2,26 +2,12 @@ import { Suspense } from 'react';
 import ProductPage from '@/app/ui/ProductPage';
 import { createLinkProduct } from '@/app/lib/createLinkProduct';
 import { createLinks } from '@/app/lib/createLinks';
-import SkeletonProductPage from '@/app/ui/SkeletonProductPage/SkeletonProductPage';
 
-export async function generateMetadata({ params, searchParams }, parent) {
-  const { category, product } = params;
-
-  const partsOfCategory = category.includes('%26')
-    ? category.split('%26')
-    : [category];
-  const currentProduct = await getProductId(partsOfCategory[0], product);
-
-  return {
-    title: currentProduct.name,
-  };
-}
-
-// export const dynamicParams = false;
+export const dynamicParams = false;
 
 // async function getProducts() {
 //   const res = await fetch(`https://stage.eco-bike.com.ua/api/products/all`, {
-//     next: { revalidate: 3600 },
+//     next: { revalidate: 0 },
 //   });
 //   const data = await res.json();
 //   return data;
@@ -29,7 +15,7 @@ export async function generateMetadata({ params, searchParams }, parent) {
 
 // async function getCategory(id) {
 //   const res = await fetch('https://stage.eco-bike.com.ua/api/categories', {
-//     next: { revalidate: 3600 },
+//     next: { revalidate: 0 },
 //   });
 //   const data = await res.json();
 //   const category = data.items.find((item) => item._id === id);
@@ -79,7 +65,7 @@ async function getCategoryProducts(categoryId) {
 async function getProductId(category, product) {
   const products = await getCategoryIdProducts(category);
   const productCurrent = products.find(
-    (item) => createLinkProduct(item.name) === product.replace(/%2B/g, '+'),
+    (item) => createLinkProduct(item.name) == product.replace(/%2B/g, '+'),
   );
   const productId = productCurrent ? productCurrent._id : null;
   return getProduct(productId);
@@ -100,6 +86,7 @@ export default async function Product({ params }) {
     ? category.split('%26')
     : [category];
   const currentProduct = await getProductId(partsOfCategory[0], product);
+
   return (
     <ProductPage
       currentProduct={currentProduct}

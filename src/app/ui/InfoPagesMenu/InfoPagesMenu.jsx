@@ -8,22 +8,24 @@ import {
 } from '@/app/ui/InfoPagesMenu/InfoPagesMenuStyles';
 import { usePathname } from 'next/navigation';
 import { ListItemText } from '@mui/material';
+import { useAuth } from '@/redux/contexts/AuthContext';
 
 const InfoPagesMenu = ({ cabinet }) => {
+  const { logout } = useAuth();
   const path = usePathname();
 
   const links = [
     { href: '/about', label: 'Про нас' },
     { href: '/support', label: 'Підтримка' },
     { href: '/contacts', label: 'Контакти' },
-    { href: '/reviews', label: 'Відгуки' },
+    // { href: '/reviews', label: 'Відгуки' },
   ];
 
   const linksForCabinet = [
     { href: '/cabinet/personal-information', label: 'Особиста інформація' },
     { href: '/cabinet/orders', label: 'Мої замовлення' },
     { href: '/cabinet/favorites', label: 'Обране' },
-    { href: '/cabinet/reviews', label: 'Мої відгуки' },
+    // { href: '/cabinet/reviews', label: 'Мої відгуки' },
   ];
 
   const linksLayout = links.map((link) => (
@@ -43,8 +45,8 @@ const InfoPagesMenu = ({ cabinet }) => {
           </StyledListItemButton>
         </Link>
       ))}
-      <StyledListItemButton onClick={() => console.log('Exit')}>
-      <ListItemText>Вихід</ListItemText>
+      <StyledListItemButton onClick={logout}>
+        <ListItemText>Вихід</ListItemText>
       </StyledListItemButton>
     </>
   );

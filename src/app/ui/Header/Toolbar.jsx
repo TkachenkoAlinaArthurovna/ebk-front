@@ -3,46 +3,88 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleMenuModal } from '@/redux/slices/MenuModalSlice';
 import { setCatalogLinks } from '@/redux/slices/CatalogLinksSlice';
+import { setFavorites } from '@/redux/slices/FavoritesSlice';
 import Link from 'next/link';
 import IconButtonMenu from '@/app/ui/Header/IconButtonMenu';
 import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Badge from '@mui/material/Badge';
-import SearchComponent from '@/app/ui/Header/SearchComponent';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import CloseIcon from '@mui/icons-material/Close';
 import Catalog from '@/app/ui/Header/Catalog';
 import SearchNew from '@/app/ui/Header/SearchNew';
-import Box from '@mui/material/Box';
-import ListItemButton from '@mui/material/ListItemButton';
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ListItemText from '@mui/material/ListItemText';
 import {
   StyledButtonCatalog,
   StyledToolbar,
   StyledLogoBox,
   StyledBoxIcons,
   StyledLinkFavorite,
-  StyledLinkCabinet,
   StyledLinkCart,
   StyledShoppingCartIcon,
 } from '@/app/ui/Header/HeaderStyles';
 import { createLinks } from '@/app/lib/createLinks';
 import Phones from '@/app/ui/Header/Phones';
 import Logo from '@/app/ui/Logo/Logo';
-import Authorization from '@/app/ui/Header/AuthModal/Authorization';
 import { useAuth } from '@/redux/contexts/AuthContext';
-import { MenuItem, Select } from '@mui/material';
 import Account from '@/app/ui/Header/Account';
-
+import { openAuthModal } from '@/redux/slices/AuthModalSlice';
+import { transformItemsArray } from '@/app/lib/transformItemsArray';
+import { postCart } from '@/app/lib/postCart';
+import { getCart } from '@/app/lib/getCart';
+import { deleteCartProduct } from '@/app/lib/deleteCartProduct';
+import { addCartProduct } from '@/app/lib/addCartProduct';
 
 const Toolbar = ({ catalog }) => {
+  const { isAuthorized, getUser } = useAuth();
+  const authorized = isAuthorized();
+  const user = authorized ? getUser() : null;
+  const token = authorized ? localStorage.getItem('token') : null;
   const dispatch = useDispatch();
+  const cartProducts = useSelector((state) => state.cart.cartProducts);
   const catalogLinks = createLinks(catalog.items);
+  const favorites = useSelector((state) => state.favorites.favorites);
+
+  const getAllFavorites = async (userId, token) => {
+    try {
+      const url = `https://stage.eco-bike.com.ua/api/favorites/user/${userId}`;
+      const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data) {
+          dispatch(setFavorites(data));
+        }
+      }
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    if (authorized) {
+      const favorites = getAllFavorites(user.id, token);
+    }
+  }, [authorized]);
+
+  useEffect(() => {
+    if (authorized) {
+      // if(cartProducts.length !== 0) {
+      //   cartProducts.map((product) => {
+      //     addCartProduct(token, product._id);
+      //   })
+      // }
+      // const transformCartProducts = transformItemsArray(cartProducts);
+      // postCart(token, transformCartProducts);
+      // getCart(token);
+      // deleteCartProduct(token, '65e7cf1bbcd8f75ff3f1f99a');
+      // addCartProduct(token, '65e92094bcd8f75ff3f2964a');
+      // console.log('done');
+    }
+  }, [authorized]);
+
   useEffect(() => {
     dispatch(setCatalogLinks(catalogLinks));
   }, [catalogLinks]);
@@ -58,18 +100,7 @@ const Toolbar = ({ catalog }) => {
 
   const toggleOpenCatalog = () => dispatch(toggleMenuModal());
 
-  const [openCatalog, setOpen] = React.useState(false);
-  const handleOpenCatalog = () => setOpen(true);
-  const handleCloseCatalog = () => setOpen(false);
-
-  const [isStub, setIsStub] = useState(false);
-
-  const [openAuthModal, setOpenAuth] = React.useState(false);
-  const handleOpenAuthModal = (isStub) => {
-    setIsStub(isStub);
-    setOpenAuth(true);
-  };
-  const handleCloseAuthModal = () => setOpenAuth(false);
+  const handleOpenAuthModal = () => dispatch(openAuthModal());
 
   return (
     <StyledToolbar disableGutters>
@@ -92,26 +123,24 @@ const Toolbar = ({ catalog }) => {
         Каталог
       </StyledButtonCatalog>
       <Catalog catalog={catalogLinks} />
-      <Authorization
-        isOpen={openAuthModal}
-        handleClose={handleCloseAuthModal}
-        isStub={isStub}
-      />
+
       <SearchNew />
       <Phones />
       <StyledBoxIcons>
-        <StyledLinkFavorite href="cabinet/favorites">
-          <IconButton>
-            <Badge badgeContent={null} color="error">
-              <FavoriteBorderIcon
-                sx={{ width: '24px', height: '24px', color: '#252A31' }}
-              />
-            </Badge>
-          </IconButton>
-        </StyledLinkFavorite>
+        {authorized && (
+          <StyledLinkFavorite href="/cabinet/favorites">
+            <IconButton>
+              <Badge badgeContent={favorites.length} color="primary">
+                <FavoriteBorderIcon
+                  sx={{ width: '24px', height: '24px', color: '#252A31' }}
+                />
+              </Badge>
+            </IconButton>
+          </StyledLinkFavorite>
+        )}
         <StyledLinkCart href="/cart">
           <IconButton>
-            <Badge badgeContent={5} color="error">
+            <Badge badgeContent={cartProducts.length} color="primary">
               <StyledShoppingCartIcon />
             </Badge>
           </IconButton>

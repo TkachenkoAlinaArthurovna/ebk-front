@@ -24,18 +24,28 @@
   }
 }
 .list {
-  // border: 1px solid #d4d4d4;
   background-color: #fbfbfb;
   border-radius: 6px;
   position: absolute;
   top: 56px;
-  // background-color: #fff;
   z-index: 10;
   width: 100%;
   max-height: 440px;
   overflow: auto;
   @media (max-width: 700px) {
-    top: 50px;
+    top: 52px;
+  }
+}
+.noresults {
+  padding: 15px;
+  background-color: #fbfbfb;
+  border-radius: 6px;
+  position: absolute;
+  top: 56px;
+  z-index: 10;
+  width: 100%;
+  @media (max-width: 700px) {
+    top: 52px;
   }
 }
 .none {

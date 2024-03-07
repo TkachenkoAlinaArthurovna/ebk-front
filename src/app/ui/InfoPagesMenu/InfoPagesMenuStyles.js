@@ -25,7 +25,7 @@ export const StyledListItemButton = styled(ListItemButton)`
 `;
 
 export const StyledListWrapper = styled(Box)`
-  width: 30%;
+  width: 40%;
 
   @media (max-width: 700px) {
     width: 100%;

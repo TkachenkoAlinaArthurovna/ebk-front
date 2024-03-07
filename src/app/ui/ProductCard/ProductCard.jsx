@@ -1,8 +1,10 @@
 import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useAuth } from '@/redux/contexts/AuthContext';
 import { toggleCartModal } from '@/redux/slices/CartModalSlice';
 import { setCurrentCard } from '@/redux/slices/CartSlice';
-import { toggleFavorites } from '@/redux/slices/FavoritesSlice';
+import { setFavorites } from '@/redux/slices/FavoritesSlice';
 import CardMedia from '@mui/material/CardMedia';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -21,20 +23,70 @@ import {
 import { Box } from '@mui/material';
 import getImageForProductCard from '@/app/lib/getImageForProductCard';
 import { createLinkProduct } from '@/app/lib/createLinkProduct';
-import { getColorValue } from '@/app/lib/getColorValue';
+import { deleteFavorites } from '@/app/lib/deleteFavorites';
+import { addFavorites } from '@/app/lib/addFavorites';
+import { getAllFavorites } from '@/app/lib/getAllFavorites';
 
 const ProductCard = ({ product }) => {
-  const { name, picture, price, oldprice, params, _id, categoryName } = product;
   const dispatch = useDispatch();
+  const { categoryName, varieties } = product;
+  const arrProducts = varieties ? [product, ...varieties] : [product];
+  const [mainProduct, setMainProduct] = useState(arrProducts[0]);
   const favorites = useSelector((state) => state.favorites.favorites);
+  const categories = useSelector((state) => state.catalogLinks.catalogLinks);
   const cartProducts = useSelector((state) => state.cart.cartProducts);
   const arrId = cartProducts.map((item) => item._id);
   const pathname = usePathname();
   const pathnames = pathname.split('/').filter((path) => path);
-  const link = createLinkProduct(name);
+  const link = createLinkProduct(mainProduct.name);
+  const [favoritesFlag, setFavoritesFlag] = useState(
+    checkProductIdInArray(mainProduct.crmId, favorites) ? true : false,
+  );
+  const { isAuthorized, getUser } = useAuth();
+  const authorized = isAuthorized();
+  const user = authorized ? getUser() : null;
+  const token = authorized ? localStorage.getItem('token') : null;
+  const favoritesCategoryName = findLinkByCategoryId(
+    product.categoryId,
+    categories,
+  );
 
-  const toggleFavoritesProduct = () => {
-    dispatch(toggleFavorites(_id));
+  function findLinkByCategoryId(categoryId, arrayOfObjects) {
+    for (let i = 0; i < arrayOfObjects.length; i++) {
+      if (arrayOfObjects[i].id === categoryId) {
+        return arrayOfObjects[i].link;
+      }
+    }
+    return null;
+  }
+
+  function checkProductIdInArray(productId, arrayOfObjects) {
+    for (let i = 0; i < arrayOfObjects.length; i++) {
+      const obj = arrayOfObjects[i];
+      if (obj.product && obj.product.crmId === productId) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  const getAllFavorites = async (userId, token) => {
+    try {
+      const url = `https://stage.eco-bike.com.ua/api/favorites/user/${userId}`;
+      const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data) {
+          dispatch(setFavorites(data));
+        }
+      }
+    } catch (error) {}
   };
 
   return (
@@ -48,12 +100,16 @@ const ProductCard = ({ product }) => {
                 ? `/${pathnames[0]}/${pathnames[1]}/${pathnames[2]}/${link}`
                 : pathnames.length == 0
                   ? `/${categoryName}/${link}`
-                  : null
+                  : pathnames.length == 2 && pathnames[1] !== 'favorites'
+                    ? `/${createLinkProduct(product.category.name)}/${link}`
+                    : pathnames.length == 2 && pathnames[1] == 'favorites'
+                      ? `/${favoritesCategoryName}/${link}`
+                      : '/not-found'
           }
         >
           <Box
             sx={{
-              height: '70%',
+              height: '68%',
               maxHeight: '200px',
               marginBottom: '10px',
               '@media (max-width: 600px)': {
@@ -71,10 +127,10 @@ const ProductCard = ({ product }) => {
           >
             <CardMedia
               component="img"
-              alt={`${name}`}
+              alt={`${mainProduct.name}`}
               image={
-                picture
-                  ? getImageForProductCard(picture)
+                mainProduct.picture
+                  ? getImageForProductCard(mainProduct.picture)
                   : '/images/noimageavailable.png'
               }
               sx={{
@@ -84,19 +140,27 @@ const ProductCard = ({ product }) => {
               }}
             />
           </Box>
-          <Title>{name}</Title>
+          <Title>{mainProduct.name}</Title>
         </StyledLink>
       </StyledCardLink>
       <StyledCardContent>
-        <Colors colors={getColorValue(params)} />
-        <Price price={price} oldprice={oldprice} fontSize={22} />
+        <Colors
+          arrProducts={arrProducts}
+          mainProduct={mainProduct}
+          setMainProduct={setMainProduct}
+        />
+        <Price
+          price={mainProduct.price}
+          oldprice={mainProduct.oldprice}
+          fontSize={22}
+        />
         <StyledIconButton
           onClick={() => {
             dispatch(toggleCartModal());
-            dispatch(setCurrentCard(product));
+            dispatch(setCurrentCard(mainProduct));
           }}
         >
-          {arrId.includes(_id) ? (
+          {arrId.includes(mainProduct._id) ? (
             <ShoppingCartIcon
               color="primary"
               sx={{ width: '24px', height: '24px' }}
@@ -105,19 +169,42 @@ const ProductCard = ({ product }) => {
             <ShoppingCartIcon sx={{ width: '24px', height: '24px' }} />
           )}
         </StyledIconButton>
-        <StyledIconFavoriteButton onClick={toggleFavoritesProduct}>
-          {favorites.includes(_id) ? (
-            <FavoriteIcon
-              color="primary"
-              sx={{ width: '24px', height: '24px' }}
-            />
-          ) : (
-            <FavoriteBorderIcon
-              color="primary"
-              sx={{ width: '24px', height: '24px' }}
-            />
-          )}
-        </StyledIconFavoriteButton>
+        {authorized && (
+          <StyledIconFavoriteButton
+            onClick={async () => {
+              setFavoritesFlag(!favoritesFlag);
+              try {
+                const isProductInFavorites = checkProductIdInArray(
+                  mainProduct.crmId,
+                  favorites,
+                );
+                if (isProductInFavorites) {
+                  await deleteFavorites(user.id, mainProduct._id, token);
+                } else {
+                  await addFavorites(user.id, mainProduct._id, token);
+                }
+                const updatedFavorites = await getAllFavorites(user.id, token);
+              } catch (error) {
+                console.error(
+                  'Помилка під час виконання операції з улюбленими елементами:',
+                  error,
+                );
+              }
+            }}
+          >
+            {favoritesFlag ? (
+              <FavoriteIcon
+                color="primary"
+                sx={{ width: '24px', height: '24px' }}
+              />
+            ) : (
+              <FavoriteBorderIcon
+                color="primary"
+                sx={{ width: '24px', height: '24px' }}
+              />
+            )}
+          </StyledIconFavoriteButton>
+        )}
       </StyledCardContent>
     </StyledCard>
   );

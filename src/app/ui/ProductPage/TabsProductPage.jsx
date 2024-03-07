@@ -1,5 +1,7 @@
 'use client';
 import * as React from 'react';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { StyledTabs, StyledTab } from '@/app/ui/Tabs/TabsStyled';
 import CustomTabPanel from '@/app/ui/Tabs/CustomTabPanel';
 import { Box } from '@mui/material';
@@ -9,9 +11,47 @@ import AboutProduct from '@/app/ui/ProductPage/AboutProduct';
 import СharacteristicsProduct from '@/app/ui/ProductPage/СharacteristicsProduct';
 import DescriptionProduct from '@/app/ui/ProductPage/DescriptionProduct';
 import { StyledSection } from '@/app/ui/ProductPage/ProductPageStyles';
+import { current } from '@reduxjs/toolkit';
 
 const TabsProductPage = ({ currentProduct }) => {
-  const [value, setValue] = React.useState(0);
+  const { varieties } = currentProduct;
+  const arrProducts = [currentProduct, ...varieties];
+  const [mainProduct, setMainProduct] = useState(arrProducts[0]);
+  const [value, setValue] = useState(0);
+  const favorites = useSelector((state) => state.favorites.favorites);
+  const [favoritesFlag, setFavoritesFlag] = useState(
+    checkProductIdInArray(mainProduct.crmId, favorites) ? true : false,
+  );
+
+  function checkProductIdInArray(productId, arrayOfObjects) {
+    for (let i = 0; i < arrayOfObjects.length; i++) {
+      const obj = arrayOfObjects[i];
+      if (obj.product && obj.product.crmId === productId) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  React.useEffect(() => {
+    const sessionArr = JSON.parse(sessionStorage.getItem('currentProduct'));
+    if (!sessionArr || sessionArr.length === 0) {
+      sessionStorage.setItem(
+        'currentProduct',
+        JSON.stringify([currentProduct]),
+      );
+    } else {
+      const findObj = sessionArr.find(
+        (obj) => JSON.stringify(obj) === JSON.stringify(currentProduct),
+      );
+      if (!findObj) {
+        sessionStorage.setItem(
+          'currentProduct',
+          JSON.stringify([...sessionArr, currentProduct]),
+        );
+      }
+    }
+  }, [currentProduct]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -40,21 +80,39 @@ const TabsProductPage = ({ currentProduct }) => {
           </StyledTabs>
         </Box>
         <CustomTabPanel value={value} index={0}>
-          <AboutProduct currentProduct={currentProduct} />
+          <AboutProduct
+            arrProducts={arrProducts}
+            mainProduct={mainProduct}
+            setMainProduct={setMainProduct}
+            favoritesFlag={favoritesFlag}
+            setFavoritesFlag={setFavoritesFlag}
+          />
         </CustomTabPanel>
-        {currentProduct.params && currentProduct.params.length > 0 && (
+        {mainProduct.params && mainProduct.params.length > 0 && (
           <CustomTabPanel value={value} index={1}>
-            <СharacteristicsProduct currentProduct={currentProduct} />
+            <СharacteristicsProduct
+              mainProduct={mainProduct}
+              favoritesFlag={favoritesFlag}
+              setFavoritesFlag={setFavoritesFlag}
+            />
           </CustomTabPanel>
         )}
-        {currentProduct.params && currentProduct.params.length > 0 && (
+        {mainProduct.params && mainProduct.params.length > 0 && (
           <CustomTabPanel value={value} index={2}>
-            <DescriptionProduct currentProduct={currentProduct} />
+            <DescriptionProduct
+              mainProduct={mainProduct}
+              favoritesFlag={favoritesFlag}
+              setFavoritesFlag={setFavoritesFlag}
+            />
           </CustomTabPanel>
         )}
-        {currentProduct.params && currentProduct.params.length == 0 && (
+        {mainProduct.params && mainProduct.params.length == 0 && (
           <CustomTabPanel value={value} index={1}>
-            <DescriptionProduct currentProduct={currentProduct} />
+            <DescriptionProduct
+              mainProduct={mainProduct}
+              favoritesFlag={favoritesFlag}
+              setFavoritesFlag={setFavoritesFlag}
+            />
           </CustomTabPanel>
         )}
       </Content>

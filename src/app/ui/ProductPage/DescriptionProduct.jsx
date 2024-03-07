@@ -1,9 +1,10 @@
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useAuth } from '@/redux/contexts/AuthContext';
 import { toggleCartModal } from '@/redux/slices/CartModalSlice';
 import { setCurrentCard } from '@/redux/slices/CartSlice';
+import { setFavorites } from '@/redux/slices/FavoritesSlice';
 import { Box, Typography, Grid } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import FavoriteIcon from '@mui/icons-material/FavoriteBorder';
 import {
   StyledImg,
   StyledWrapper,
@@ -15,10 +16,24 @@ import {
 import { StyledIconFavoriteButton } from '@/app/ui/ProductPage/ProductPageStyles';
 import Price from '@/app/ui/ProductCard/Price';
 import ButtonMain from '@/app/ui/ButtonMain';
+import { deleteFavorites } from '@/app/lib/deleteFavorites';
+import { addFavorites } from '@/app/lib/addFavorites';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-const DescriptionProduct = ({ currentProduct }) => {
-  const { name, picture, description, price, oldprice } = currentProduct;
+const DescriptionProduct = ({
+  mainProduct,
+  favoritesFlag,
+  setFavoritesFlag,
+}) => {
+  const { name, picture, description, price, oldprice, crmId } = mainProduct;
+  const favorites = useSelector((state) => state.favorites.favorites);
   const dispatch = useDispatch();
+  const { isAuthorized, getUser } = useAuth();
+  const authorized = isAuthorized();
+  const user = authorized ? getUser() : null;
+  const token = authorized ? localStorage.getItem('token') : null;
+
   const mainPicture = (picture) => {
     if (picture && picture.length >= 1) {
       return picture[0];
@@ -26,6 +41,35 @@ const DescriptionProduct = ({ currentProduct }) => {
     if (!Array.isArray(picture)) {
       return picture;
     }
+  };
+
+  function checkProductIdInArray(productId, arrayOfObjects) {
+    for (let i = 0; i < arrayOfObjects.length; i++) {
+      const obj = arrayOfObjects[i];
+      if (obj.product && obj.product.crmId === productId) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  const getAllFavorites = async (userId, token) => {
+    try {
+      const url = `https://stage.eco-bike.com.ua/api/favorites/user/${userId}`;
+      const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data) {
+          dispatch(setFavorites(data));
+        }
+      }
+    } catch (error) {}
   };
 
   return (
@@ -42,7 +86,7 @@ const DescriptionProduct = ({ currentProduct }) => {
         <StyledRight>
           <Box sx={{ marginBottom: '16px' }}>
             <StyleTypographyName>{name}</StyleTypographyName>
-            <Typography sx={{ color: '#6A6A6A' }}>Код: id</Typography>
+            <Typography sx={{ color: '#6A6A6A' }}>Артикул: {crmId}</Typography>
           </Box>
           <Box
             sx={{
@@ -76,14 +120,47 @@ const DescriptionProduct = ({ currentProduct }) => {
               startIcon={<ShoppingCartIcon />}
               onClick={() => {
                 dispatch(toggleCartModal());
-                dispatch(setCurrentCard(currentProduct));
+                dispatch(setCurrentCard(mainProduct));
               }}
             >
               Купити
             </ButtonMain>
-            <StyledIconFavoriteButton>
-              <FavoriteIcon sx={{ width: '24px', height: '24px' }} />
-            </StyledIconFavoriteButton>
+            {authorized && (
+              <StyledIconFavoriteButton
+                onClick={async () => {
+                  setFavoritesFlag(!favoritesFlag);
+                  try {
+                    const isProductInFavorites = checkProductIdInArray(
+                      mainProduct.crmId,
+                      favorites,
+                    );
+                    if (isProductInFavorites) {
+                      await deleteFavorites(user.id, mainProduct._id, token);
+                    } else {
+                      await addFavorites(user.id, mainProduct._id, token);
+                    }
+                    await getAllFavorites(user.id, token);
+                  } catch (error) {
+                    console.error(
+                      'Помилка під час виконання операції з улюбленими елементами:',
+                      error,
+                    );
+                  }
+                }}
+              >
+                {favoritesFlag ? (
+                  <FavoriteIcon
+                    color="primary"
+                    sx={{ width: '24px', height: '24px' }}
+                  />
+                ) : (
+                  <FavoriteBorderIcon
+                    color="primary"
+                    sx={{ width: '24px', height: '24px' }}
+                  />
+                )}
+              </StyledIconFavoriteButton>
+            )}
           </Box>
         </StyledRight>
       </StyledWrapper>

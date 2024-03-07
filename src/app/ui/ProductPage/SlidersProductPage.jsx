@@ -1,10 +1,11 @@
+'use client';
 import PageTitle from '@/app/ui/PageTitle';
 import { StyledSection } from '@/app/ui/ProductPage/ProductPageStyles';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Slider from '@/app/ui/Slider';
 import Content from '@/app/ui/Content';
 
-const SlidersProductPage = () => {
+const SlidersProductPage = ({ filteredArr }) => {
   return (
     <StyledSection as="section">
       <Content>
@@ -15,7 +16,7 @@ const SlidersProductPage = () => {
           }}
         >
           <Box sx={{ marginBottom: '24px' }}>
-            <PageTitle>Схожі товари</PageTitle>
+            <PageTitle>Ви нещодавно переглядали</PageTitle>
           </Box>
           <Box>
             <Slider
@@ -23,9 +24,7 @@ const SlidersProductPage = () => {
               spaceBetween="16px"
               slidesPerView="4"
               pagination={false}
-              products={true}
-              prevtype={'reviews'}
-              nexttype={'reviews'}
+              products={filteredArr}
             />
           </Box>
         </Box>

@@ -1,27 +1,46 @@
 'use client';
 
 import React from 'react';
+import { useState, useEffect } from 'react';
+import { useAuth } from '@/redux/contexts/AuthContext';
 import CartContactInfo from '@/app/ui/CartPage/CartContactInfo/CartContactInfo';
 import PageTitle from '@/app/ui/PageTitle';
 import { Form, Formik } from 'formik';
-// import { contactDataSchema } from '@/lib/schemas';
+import { contactDataSchema } from '@/app/lib/schemas';
 import {
   Wrapper,
   ButtonBox,
   StyledButton,
   FormContainer,
 } from '@/app/ui/Cabinet/UserInfo/UserInfoStyles';
+import { getUserObj } from '@/app/lib/getUserObj';
+import { putUser } from '@/app/lib/putUser';
 
 const UserInfo = () => {
+  const { isAuthorized, getUser } = useAuth();
+  const authorized = isAuthorized();
+  const user = authorized ? getUser() : null;
+  const token = authorized ? localStorage.getItem('token') : null;
+  const [firstname, setFirstname] = useState('');
+  const [surname, setSurname] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+
   const initialValues = {
-    lastname: '',
-    firstname: '',
-    phone: '',
-    email: '',
+    firstname: firstname,
+    surname: surname,
+    phone: phone,
+    email: email,
   };
 
-  const handleSubmit = (values) => {
-    console.log(values);
+  useEffect(() => {
+    if (authorized) {
+      getUserObj(token, user, setFirstname, setSurname, setPhone, setEmail);
+    }
+  }, [authorized]);
+
+  const handleSubmit = () => {
+    putUser(firstname, surname, email, phone, user);
   };
 
   return (
@@ -31,15 +50,25 @@ const UserInfo = () => {
         <Formik
           initialValues={initialValues}
           onSubmit={handleSubmit}
-          // validationSchema={contactDataSchema}
+          validationSchema={contactDataSchema}
           validateOnMount
           enableReinitialize
         >
-          {() => (
+          {({}) => (
             <Form>
-              <CartContactInfo />
+              <CartContactInfo
+                firstname={firstname}
+                setFirstname={setFirstname}
+                surname={surname}
+                setSurname={setSurname}
+                phone={phone}
+                email={email}
+                setEmail={setEmail}
+              />
               <ButtonBox>
-                <StyledButton type="submit">Зберегти зміни</StyledButton>
+                <StyledButton type="submit" onClick={handleSubmit}>
+                  Зберегти зміни
+                </StyledButton>
               </ButtonBox>
             </Form>
           )}

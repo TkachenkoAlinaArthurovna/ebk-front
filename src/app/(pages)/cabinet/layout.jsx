@@ -13,10 +13,9 @@ export default function InfoPagesLayout({ children }) {
       <BreadCrumbs />
       <StyledPagesLayout>
         <InfoPagesMenu cabinet={true} />
-        {/* <StyledPageContent> */}
         <Box
           sx={{
-            width: '70%',
+            width: '60%',
             '@media (max-width: 700px)': {
               width: '100%',
             },
@@ -24,8 +23,6 @@ export default function InfoPagesLayout({ children }) {
         >
           {children}
         </Box>
-        {/* {children} */}
-        {/* </StyledPageContent> */}
       </StyledPagesLayout>
     </Content>
   );

@@ -89,6 +89,9 @@ const ProductFilter = ({
   };
 
   const filterParams = paramsForCategory.map(({ name, values }) => {
+    if (name[0] == 'Color') {
+      return;
+    }
     return <FilterParam key={name[0]} paramName={name} paramValues={values} />;
   });
 

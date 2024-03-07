@@ -12,7 +12,7 @@ import NovaPoshtaDepartment from '@/app/ui/CartPage/Delivery/NovaPoshtaDepartmen
 import NovaPoshtaPostmachines from '@/app/ui/CartPage/Delivery/NovaPoshtaPostmachines';
 import Ukrposhta from '@/app/ui/CartPage/Delivery/Ukrposhta';
 
-const Delivery = ({ setSettlement, setDepartment }) => {
+const Delivery = ({ setSettlement, setDepartment, setFilteredDepartments }) => {
   const dispatch = useDispatch();
   const selectedDelivery = useSelector(
     (state) => state.delivery.selectedDelivery,
@@ -37,10 +37,12 @@ const Delivery = ({ setSettlement, setDepartment }) => {
           <NovaPoshtaDepartment
             setSettlement={setSettlement}
             setDepartment={setDepartment}
+            setFilteredDepartments={setFilteredDepartments}
           />
           <NovaPoshtaPostmachines
             setSettlement={setSettlement}
             setDepartment={setDepartment}
+            setFilteredDepartments={setFilteredDepartments}
           />
           {/* <Ukrposhta /> */}
         </RadioGroup>

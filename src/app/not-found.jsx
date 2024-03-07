@@ -1,5 +1,5 @@
-import NotFoundInfo from "@/app/ui/NotFoundInfo";
+import NotFoundInfo from '@/app/ui/NotFoundInfo';
 
 export default function NotFound() {
-  return <NotFoundInfo/>;
+  return <NotFoundInfo />;
 }

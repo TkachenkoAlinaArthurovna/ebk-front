@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { AccordionSummary } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -34,9 +35,15 @@ const FilterParam = ({ paramName, paramValues }) => {
   const hasMatch = checkedFilters.some((item1) =>
     paramValue.some((item2) => item1.paramValue === item2.props.paramValue),
   );
+
+  const [expanded, setExpanded] = useState(hasMatch ? true : false);
+
   return (
     <StyledAccordionBox>
-      <StyledAccordion defaultExpanded={hasMatch ? true : false}>
+      <StyledAccordion
+        expanded={expanded}
+        onChange={() => setExpanded(!expanded)}
+      >
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <StyledAccordionTitle>{paramName[1]}</StyledAccordionTitle>
         </AccordionSummary>

@@ -8,16 +8,11 @@ const FavoritesSlice = createSlice({
   name: 'favorites',
   initialState,
   reducers: {
-    toggleFavorites: (state, action) => {
-      const index = state.favorites.indexOf(action.payload);
-      if (index === -1) {
-        state.favorites.push(action.payload);
-      } else {
-        state.favorites.splice(index, 1);
-      }
+    setFavorites: (state, action) => {
+      state.favorites = action.payload;
     },
   },
 });
 
-export const { toggleFavorites } = FavoritesSlice.actions;
+export const { setFavorites } = FavoritesSlice.actions;
 export default FavoritesSlice.reducer;

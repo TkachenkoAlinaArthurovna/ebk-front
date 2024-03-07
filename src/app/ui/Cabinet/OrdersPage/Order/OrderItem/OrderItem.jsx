@@ -13,24 +13,43 @@ import {
   OldPrice,
   NameImageBlock,
 } from '@/app/ui/Cabinet/OrdersPage/Order/OrderItem/OrderItemStyles';
+import { dollar } from '@/app/lib/dollar';
 
-const OrderItem = () => {
+const OrderItem = ({ product }) => {
+  const totalUa = Math.ceil(product.price * dollar);
+
+  const formatNumberWithSpaces = (number) => {
+    const numString = String(number);
+    let formattedNumber = '';
+    let count = 0;
+
+    for (let i = numString.length - 1; i >= 0; i--) {
+      count++;
+      formattedNumber = numString[i] + formattedNumber;
+      if (count === 3 && i !== 0) {
+        formattedNumber = ' ' + formattedNumber;
+        count = 0;
+      }
+    }
+
+    return formattedNumber;
+  };
   return (
     <Wrapper>
       <ItemInfoBlock>
         <NameImageBlock>
-          <Image />
           <ItemNameBlock>
-            <ItemName variant="h5">Велосипед “Ardis Messina”</ItemName>
-            <ItemArticle variant="subtitle1">Код: 200604769</ItemArticle>
+            <ItemName variant="h5">{product.text}</ItemName>
+            <ItemArticle variant="subtitle1">
+              Код: {product.parameter}
+            </ItemArticle>
           </ItemNameBlock>
         </NameImageBlock>
-        <Quantity>1</Quantity>
+        <Quantity>{product.amount}</Quantity>
       </ItemInfoBlock>
       <ItemPriceBlock>
         <PriceBlock>
-          <Price>12 999 ₴</Price>
-          <OldPrice>12 999 ₴</OldPrice>
+          <Price>{formatNumberWithSpaces(totalUa)} ₴</Price>
         </PriceBlock>
       </ItemPriceBlock>
     </Wrapper>
