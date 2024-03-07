@@ -56,6 +56,7 @@ const SearchNew = () => {
   );
 
   const onChangeInput = (event) => {
+    dispatch(cleareSearchedProducts());
     setValue(event.target.value);
     updateSearchValue(event.target.value);
     if (event.target.value.length <= 1 && isResponce === true) {

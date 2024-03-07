@@ -1,6 +1,6 @@
 export const addCartProduct = async (token, productId) => {
   try {
-    const url = `https://stage.eco-bike.com.ua/api/cart`;
+    const url = `https://stage.eco-bike.com.ua/api/cart/add`;
     const requestBody = {
       id: productId,
     };

@@ -39,12 +39,9 @@ const Toolbar = ({ catalog }) => {
   const authorized = isAuthorized();
   const user = authorized ? getUser() : null;
   const token = authorized ? localStorage.getItem('token') : null;
-
   const dispatch = useDispatch();
-
   const cartProducts = useSelector((state) => state.cart.cartProducts);
   const catalogLinks = createLinks(catalog.items);
-
   const favorites = useSelector((state) => state.favorites.favorites);
 
   const getAllFavorites = async (userId, token) => {
@@ -74,12 +71,16 @@ const Toolbar = ({ catalog }) => {
 
   useEffect(() => {
     if (authorized) {
-      const transformCartProducts = transformItemsArray(cartProducts);
-      // console.log(transformCartProducts);
+      // if(cartProducts.length !== 0) {
+      //   cartProducts.map((product) => {
+      //     addCartProduct(token, product._id);
+      //   })
+      // }
+      // const transformCartProducts = transformItemsArray(cartProducts);
       // postCart(token, transformCartProducts);
       // getCart(token);
-      // deleteCartProduct(token, '65e7cf1bbcd8f75ff3f1f9bc');
-      // addCartProduct(token, '65e7cf1bbcd8f75ff3f1f9bc');
+      // deleteCartProduct(token, '65e7cf1bbcd8f75ff3f1f99a');
+      // addCartProduct(token, '65e92094bcd8f75ff3f2964a');
       // console.log('done');
     }
   }, [authorized]);
