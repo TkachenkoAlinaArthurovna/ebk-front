@@ -86,6 +86,7 @@ export default async function Product({ params }) {
     ? category.split('%26')
     : [category];
   const currentProduct = await getProductId(partsOfCategory[0], product);
+
   return (
     <ProductPage
       currentProduct={currentProduct}

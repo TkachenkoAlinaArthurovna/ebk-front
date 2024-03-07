@@ -40,16 +40,30 @@ const ProductCard = ({ product }) => {
   const token = authorized ? localStorage.getItem('token') : null;
 
   const favorites = useSelector((state) => state.favorites.favorites);
+  const categories = useSelector((state) => state.catalogLinks.catalogLinks);
   const cartProducts = useSelector((state) => state.cart.cartProducts);
   const arrId = cartProducts.map((item) => item._id);
   const pathname = usePathname();
   const pathnames = pathname.split('/').filter((path) => path);
   const link = createLinkProduct(mainProduct.name);
+  const favoritesCategoryName = findLinkByCategoryId(
+    product.categoryId,
+    categories,
+  );
+
+  function findLinkByCategoryId(categoryId, arrayOfObjects) {
+    for (let i = 0; i < arrayOfObjects.length; i++) {
+      if (arrayOfObjects[i].id === categoryId) {
+        return arrayOfObjects[i].link;
+      }
+    }
+    return null;
+  }
 
   function checkProductIdInArray(productId, arrayOfObjects) {
     for (let i = 0; i < arrayOfObjects.length; i++) {
       const obj = arrayOfObjects[i];
-      if (obj.product && obj.product._id === productId) {
+      if (obj.product && obj.product.crmId === productId) {
         return true;
       }
     }
@@ -86,9 +100,11 @@ const ProductCard = ({ product }) => {
                 ? `/${pathnames[0]}/${pathnames[1]}/${pathnames[2]}/${link}`
                 : pathnames.length == 0
                   ? `/${categoryName}/${link}`
-                  : pathnames.length == 2
-                    ? `/${createLinkProduct(mainProduct.category.name)}/${link}`
-                    : '/not-found'
+                  : pathnames.length == 2 && pathnames[1] !== 'favorites'
+                    ? `/${createLinkProduct(product.category.name)}/${link}`
+                    : pathnames.length == 2 && pathnames[1] == 'favorites'
+                      ? `/${favoritesCategoryName}/${link}`
+                      : '/not-found'
           }
         >
           <Box
@@ -158,7 +174,7 @@ const ProductCard = ({ product }) => {
             onClick={async () => {
               try {
                 const isProductInFavorites = checkProductIdInArray(
-                  mainProduct._id,
+                  mainProduct.crmId,
                   favorites,
                 );
                 if (isProductInFavorites) {
@@ -175,7 +191,7 @@ const ProductCard = ({ product }) => {
               }
             }}
           >
-            {checkProductIdInArray(mainProduct._id, favorites) ? (
+            {checkProductIdInArray(mainProduct.crmId, favorites) ? (
               <FavoriteIcon
                 color="primary"
                 sx={{ width: '24px', height: '24px' }}
