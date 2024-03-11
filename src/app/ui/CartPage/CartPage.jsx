@@ -155,8 +155,7 @@ const CartPage = () => {
                       <PageTitle>Кошик</PageTitle>
                     </Box>
                     {loading && <LoadingCartItem />}
-                    {authorized && userCartProducts.length == 0 && <Entry />}
-                    {!authorized && cartProducts.length == 0 && <Entry />}
+                    {!authorized && <Entry />}
                     {authorized
                       ? userCartProducts.map((product, index) => (
                           <CartItem
