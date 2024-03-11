@@ -74,6 +74,7 @@ const ContactsForm = () => {
                 rows={4}
                 placeholder="Ваше повідомлення"
                 fullWidth
+                spellCheck={false}
               />
               <ErrorMessage
                 name="message"

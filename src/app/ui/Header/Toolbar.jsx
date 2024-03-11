@@ -109,7 +109,7 @@ const Toolbar = ({ catalog }) => {
         getCart(token, setUserCartProducts, dispatch);
       }
     }
-  }, [cartProducts]);
+  }, [authorized, cartProducts]);
 
   useEffect(() => {
     dispatch(setCatalogLinks(catalogLinks));

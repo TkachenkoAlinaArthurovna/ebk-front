@@ -128,16 +128,18 @@ const CartPage = () => {
     }));
   }
 
-  useEffect(() => {
-    if (authorized && token) {
-      if (cartProducts.length !== 0) {
-        cartProducts.map((product) => {
-          addCartProduct(token, product.crmId);
-          dispatch(toggleCart({ currentCard: product, action: 'remove' }));
-        });
-      }
-    }
-  }, [authorized]);
+  // useEffect(() => {
+  //   if (authorized && token) {
+  //     if (cartProducts.length !== 0) {
+  //       setLoading(true);
+  //       cartProducts.map((product) => {
+  //         addCartProduct(token, product.crmId);
+  //         dispatch(toggleCart({ currentCard: product, action: 'remove' }));
+  //       });
+  //     }
+  //     setLoading(false);
+  //   }
+  // }, [authorized]);
 
   useEffect(() => {
     if (authorized && token) {
@@ -145,7 +147,7 @@ const CartPage = () => {
         getCart(token, setUserCartProducts, dispatch, setLoading);
       }
     }
-  }, [authorized]);
+  }, [authorized, cartProducts]);
 
   return (
     <Content>
