@@ -40,6 +40,7 @@ import { getCart } from '@/app/lib/getCart';
 import LoadingCartItem from '@/app/ui/CartPage/LoadingCartItem';
 import { setUserCartProducts } from '@/redux/slices/UserCartSlice';
 import { deleteAllCart } from '@/app/lib/deleteAllCart';
+import { addCartProduct } from '@/app/lib/addCartProduct';
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -125,6 +126,25 @@ const CartPage = () => {
       sku: obj.product.vendorCode,
     }));
   }
+
+  useEffect(() => {
+    if (authorized && token) {
+      if (cartProducts.length !== 0) {
+        cartProducts.map((product) => {
+          addCartProduct(token, product.crmId);
+          dispatch(toggleCart({ currentCard: product, action: 'remove' }));
+        });
+      }
+    }
+  }, [authorized]);
+
+  useEffect(() => {
+    if (authorized && token) {
+      if (cartProducts.length == 0) {
+        getCart(token, setUserCartProducts, dispatch);
+      }
+    }
+  }, [authorized]);
 
   return (
     <Content>
