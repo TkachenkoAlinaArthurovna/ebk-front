@@ -1,6 +1,6 @@
 export const addFavorites = async (userId, productId, token) => {
   try {
-    const url = `https://stage.eco-bike.com.ua/api/favorites/create`;
+    const url = `https://stage.eco-bike.com.ua/api/favorites`;
     const requestBody = {
       user: userId,
       product: productId,

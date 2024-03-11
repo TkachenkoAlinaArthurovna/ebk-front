@@ -16,21 +16,67 @@ import {
 } from '@/app/ui/CartPage/CartItem/CartItemStyles';
 import getImageForProductCard from '@/app/lib/getImageForProductCard';
 import Price from '@/app/ui/ProductCard/Price';
+import { useAuth } from '@/redux/contexts/AuthContext';
+import { deleteCartProduct } from '@/app/lib/deleteCartProduct';
+import { addCartProduct } from '@/app/lib/addCartProduct';
+import { deleteTotalCartProduct } from '@/app/lib/deleteTotalCartProduct';
+import { setUserCartProducts } from '@/redux/slices/UserCartSlice';
+import { removeUserCartProducts } from '@/redux/slices/UserCartSlice';
+import { getCart } from '@/app/lib/getCart';
 
-const CartItem = ({ product, modal, type }) => {
-  const { picture, price, oldprice, count, crmId } = product;
+const CartItem = ({ product, modal, type, userCartProducts = false }) => {
+  const { isAuthorized, getUser } = useAuth();
+  const authorized = isAuthorized();
+  const token = authorized ? localStorage.getItem('token') : null;
+
+  const { name, picture, price, oldprice, count, crmId } = userCartProducts
+    ? product.product
+    : product;
+
+  const quantity = userCartProducts ? product.quantity : null;
+
   const dispatch = useDispatch();
 
   const removeCartProduct = () => {
     dispatch(toggleCart({ currentCard: product, action: 'remove' }));
   };
 
+  const removeUserCartProduct = () => {
+    deleteTotalCartProduct(token, crmId)
+      .then(() => {
+        getCart(token, setUserCartProducts, dispatch);
+      })
+      .catch((error) => {
+        console.error('Error adding product to cart:', error);
+      });
+  };
+
   const minusCartProduct = () => {
     dispatch(toggleCart({ currentCard: product, action: 'minus' }));
   };
 
+  const minusUserCartProduct = () => {
+    deleteCartProduct(token, crmId)
+      .then(() => {
+        getCart(token, setUserCartProducts, dispatch);
+      })
+      .catch((error) => {
+        console.error('Error adding product to cart:', error);
+      });
+  };
+
   const plusCartProduct = () => {
     dispatch(toggleCart({ currentCard: product, action: 'plus' }));
+  };
+
+  const plusUserCartProduct = () => {
+    addCartProduct(token, crmId)
+      .then(() => {
+        getCart(token, setUserCartProducts, dispatch);
+      })
+      .catch((error) => {
+        console.error('Error adding product to cart:', error);
+      });
   };
 
   return (
@@ -45,7 +91,7 @@ const CartItem = ({ product, modal, type }) => {
                   ? getImageForProductCard(picture)
                   : '/images/noimageavailable.png'
               }
-              alt={product.name}
+              alt={name}
               style={{
                 height: '100%',
                 width: 'auto',
@@ -54,7 +100,7 @@ const CartItem = ({ product, modal, type }) => {
             ></Box>
           </StyledImageWrapper>
           <Box sx={{ marginBottom: '16px' }}>
-            <StyledCartItemText>{product.name}</StyledCartItemText>
+            <StyledCartItemText>{name}</StyledCartItemText>
             <PageText color={'#6A6A6A'}>Код: {crmId}</PageText>
           </Box>
         </CartProductWrapper>
@@ -63,12 +109,23 @@ const CartItem = ({ product, modal, type }) => {
             <StyledButtonGroup>
               <StyledButton
                 variant="text"
-                onClick={count === 1 ? removeCartProduct : minusCartProduct}
+                onClick={
+                  count == 1 || quantity == 1
+                    ? authorized
+                      ? removeUserCartProduct
+                      : removeCartProduct
+                    : authorized
+                      ? minusUserCartProduct
+                      : minusCartProduct
+                }
               >
                 -
               </StyledButton>
-              <PageText>{count}</PageText>
-              <StyledButton variant="text" onClick={plusCartProduct}>
+              <PageText>{quantity ? quantity : count}</PageText>
+              <StyledButton
+                variant="text"
+                onClick={authorized ? plusUserCartProduct : plusCartProduct}
+              >
                 +
               </StyledButton>
             </StyledButtonGroup>
@@ -79,7 +136,7 @@ const CartItem = ({ product, modal, type }) => {
       {modal ? null : (
         <DeleteButtonWrapper>
           <StyledButton
-            onClick={removeCartProduct}
+            onClick={authorized ? removeUserCartProduct : removeCartProduct}
             sx={{
               '&:hover': {
                 color: 'red',

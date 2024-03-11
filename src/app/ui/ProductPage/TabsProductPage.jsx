@@ -11,7 +11,7 @@ import AboutProduct from '@/app/ui/ProductPage/AboutProduct';
 import СharacteristicsProduct from '@/app/ui/ProductPage/СharacteristicsProduct';
 import DescriptionProduct from '@/app/ui/ProductPage/DescriptionProduct';
 import { StyledSection } from '@/app/ui/ProductPage/ProductPageStyles';
-import { current } from '@reduxjs/toolkit';
+import { checkProductIdInArray } from '@/app/lib/checkProductIdInArray';
 
 const TabsProductPage = ({ currentProduct }) => {
   const { varieties } = currentProduct;
@@ -22,16 +22,6 @@ const TabsProductPage = ({ currentProduct }) => {
   const [favoritesFlag, setFavoritesFlag] = useState(
     checkProductIdInArray(mainProduct.crmId, favorites) ? true : false,
   );
-
-  function checkProductIdInArray(productId, arrayOfObjects) {
-    for (let i = 0; i < arrayOfObjects.length; i++) {
-      const obj = arrayOfObjects[i];
-      if (obj.product && obj.product.crmId === productId) {
-        return true;
-      }
-    }
-    return false;
-  }
 
   React.useEffect(() => {
     const sessionArr = JSON.parse(sessionStorage.getItem('currentProduct'));

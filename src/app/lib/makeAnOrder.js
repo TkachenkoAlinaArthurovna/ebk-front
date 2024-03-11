@@ -10,12 +10,14 @@ export const makeAnOrder = async (
   department,
   cityRefAndRef,
   products,
+  comment,
+  doNotCall,
 ) => {
   const formData = {
     // form: '3Dzdp27OAOk1KxVAaSDDq_UZGndqVduZGpn21Uz1IXzef9hip4NQqCzHY',
     getResultData: '1',
     products: products,
-    comment: '',
+    comment: doNotCall ? `Не дзвонити!${comment}` : comment,
     fName: firstname,
     lName: surname,
     mName: '',

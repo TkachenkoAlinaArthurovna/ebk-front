@@ -5,6 +5,7 @@ export const getUserObj = async (
   setSurname,
   setPhone,
   setEmail,
+  dispatch,
 ) => {
   try {
     const url = `https://stage.eco-bike.com.ua/api/users/${user.id}`;
@@ -18,10 +19,16 @@ export const getUserObj = async (
     if (res.ok) {
       const data = await res.json();
       if (data) {
-        data.name ? setFirstname(data.name) : '';
-        data.surname ? setSurname(data.surname) : '';
-        data.phone ? setPhone('+' + data.phone) : '';
-        data.email ? setEmail(data.email) : '';
+        data.name
+          ? dispatch(setFirstname(data.name))
+          : dispatch(setFirstname(''));
+        data.surname
+          ? dispatch(setSurname(data.surname))
+          : dispatch(setSurname(''));
+        data.phone
+          ? dispatch(setPhone('+' + data.phone))
+          : dispatch(setPhone(''));
+        data.email ? dispatch(setEmail(data.email)) : dispatch(setEmail(''));
       }
     }
   } catch (error) {

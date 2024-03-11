@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField';
 import { StyledButton } from '@/app/ui/ContactsPage/ContactsStyles';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { contactsPageSchema } from '@/app/lib/schemas';
+import { sendMail } from '@/app/lib/sendMail';
 
 const ContactsForm = () => {
   const initialValues = {
@@ -14,9 +15,9 @@ const ContactsForm = () => {
     message: '',
   };
 
-  const onSubmit = (values) => {
-    // Поки що значення в консоль
-    console.log(values);
+  const onSubmit = (value, { resetForm }) => {
+    sendMail(value.name, value.email, value.message);
+    resetForm();
   };
 
   return (
@@ -73,6 +74,7 @@ const ContactsForm = () => {
                 rows={4}
                 placeholder="Ваше повідомлення"
                 fullWidth
+                spellCheck={false}
               />
               <ErrorMessage
                 name="message"

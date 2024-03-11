@@ -5,6 +5,7 @@ import { useAuth } from '@/redux/contexts/AuthContext';
 import { toggleCartModal } from '@/redux/slices/CartModalSlice';
 import { setCurrentCard } from '@/redux/slices/CartSlice';
 import { setFavorites } from '@/redux/slices/FavoritesSlice';
+import { setFavoritesMeta } from '@/redux/slices/FavoritesSlice';
 import CardMedia from '@mui/material/CardMedia';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -26,8 +27,13 @@ import { createLinkProduct } from '@/app/lib/createLinkProduct';
 import { deleteFavorites } from '@/app/lib/deleteFavorites';
 import { addFavorites } from '@/app/lib/addFavorites';
 import { getAllFavorites } from '@/app/lib/getAllFavorites';
+import { checkProductIdInArray } from '@/app/lib/checkProductIdInArray';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, heart = true }) => {
+  const { isAuthorized, getUser } = useAuth();
+  const authorized = isAuthorized();
+  const user = authorized ? getUser() : null;
+  const token = authorized ? localStorage.getItem('token') : null;
   const dispatch = useDispatch();
   const { categoryName, varieties } = product;
   const arrProducts = varieties ? [product, ...varieties] : [product];
@@ -35,22 +41,22 @@ const ProductCard = ({ product }) => {
   const favorites = useSelector((state) => state.favorites.favorites);
   const categories = useSelector((state) => state.catalogLinks.catalogLinks);
   const cartProducts = useSelector((state) => state.cart.cartProducts);
-  const arrId = cartProducts.map((item) => item._id);
+  const userCartProducts = useSelector(
+    (state) => state.userCart.userCartProducts,
+  );
+  const arrId = authorized
+    ? userCartProducts.map((item) => item.product.crmId)
+    : cartProducts.map((item) => item.crmId);
   const pathname = usePathname();
   const pathnames = pathname.split('/').filter((path) => path);
   const link = createLinkProduct(mainProduct.name);
   const [favoritesFlag, setFavoritesFlag] = useState(
     checkProductIdInArray(mainProduct.crmId, favorites) ? true : false,
   );
-  const { isAuthorized, getUser } = useAuth();
-  const authorized = isAuthorized();
-  const user = authorized ? getUser() : null;
-  const token = authorized ? localStorage.getItem('token') : null;
   const favoritesCategoryName = findLinkByCategoryId(
     product.categoryId,
     categories,
   );
-
   function findLinkByCategoryId(categoryId, arrayOfObjects) {
     for (let i = 0; i < arrayOfObjects.length; i++) {
       if (arrayOfObjects[i].id === categoryId) {
@@ -59,35 +65,6 @@ const ProductCard = ({ product }) => {
     }
     return null;
   }
-
-  function checkProductIdInArray(productId, arrayOfObjects) {
-    for (let i = 0; i < arrayOfObjects.length; i++) {
-      const obj = arrayOfObjects[i];
-      if (obj.product && obj.product.crmId === productId) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  const getAllFavorites = async (userId, token) => {
-    try {
-      const url = `https://stage.eco-bike.com.ua/api/favorites/user/${userId}`;
-      const res = await fetch(url, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-      if (res.ok) {
-        const data = await res.json();
-        if (data) {
-          dispatch(setFavorites(data));
-        }
-      }
-    } catch (error) {}
-  };
 
   return (
     <StyledCard>
@@ -160,7 +137,7 @@ const ProductCard = ({ product }) => {
             dispatch(setCurrentCard(mainProduct));
           }}
         >
-          {arrId.includes(mainProduct._id) ? (
+          {arrId.includes(mainProduct.crmId) ? (
             <ShoppingCartIcon
               color="primary"
               sx={{ width: '24px', height: '24px' }}
@@ -169,7 +146,7 @@ const ProductCard = ({ product }) => {
             <ShoppingCartIcon sx={{ width: '24px', height: '24px' }} />
           )}
         </StyledIconButton>
-        {authorized && (
+        {authorized && heart && (
           <StyledIconFavoriteButton
             onClick={async () => {
               setFavoritesFlag(!favoritesFlag);
@@ -183,7 +160,13 @@ const ProductCard = ({ product }) => {
                 } else {
                   await addFavorites(user.id, mainProduct._id, token);
                 }
-                const updatedFavorites = await getAllFavorites(user.id, token);
+                await getAllFavorites(
+                  user.id,
+                  token,
+                  setFavorites,
+                  setFavoritesMeta,
+                  dispatch,
+                );
               } catch (error) {
                 console.error(
                   'Помилка під час виконання операції з улюбленими елементами:',

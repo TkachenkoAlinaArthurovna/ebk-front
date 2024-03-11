@@ -2,7 +2,7 @@ export const deleteCartProduct = async (token, productId) => {
   try {
     const url = `https://stage.eco-bike.com.ua/api/cart`;
     const requestBody = {
-      id: productId,
+      crmId: productId,
     };
     const res = await fetch(url, {
       method: 'DELETE',
@@ -15,7 +15,6 @@ export const deleteCartProduct = async (token, productId) => {
     if (res.ok) {
       const data = await res.json();
       if (data) {
-        console.log(data);
       }
     }
   } catch (error) {}

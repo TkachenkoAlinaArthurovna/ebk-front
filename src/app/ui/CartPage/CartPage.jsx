@@ -36,6 +36,12 @@ import { makeAnOrder } from '@/app/lib/makeAnOrder';
 import { getUserObj } from '@/app/lib/getUserObj';
 import { putUser } from '@/app/lib/putUser';
 import Success from '@/app/ui/CartPage/Success/Success';
+import { getCart } from '@/app/lib/getCart';
+import LoadingCartItem from '@/app/ui/CartPage/LoadingCartItem';
+import { setUserCartProducts } from '@/redux/slices/UserCartSlice';
+import { deleteAllCart } from '@/app/lib/deleteAllCart';
+import { addCartProduct } from '@/app/lib/addCartProduct';
+import { toggleCart } from '@/redux/slices/CartSlice';
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -43,10 +49,12 @@ const CartPage = () => {
   const authorized = isAuthorized();
   const user = authorized ? getUser() : null;
   const token = authorized ? localStorage.getItem('token') : null;
-  const [firstname, setFirstname] = useState('');
-  const [surname, setSurname] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
+  const firstname = useSelector((state) => state.user.firstname);
+  const surname = useSelector((state) => state.user.surname);
+  const phone = useSelector((state) => state.user.phone);
+  const email = useSelector((state) => state.user.email);
+  const [comment, setComment] = useState('');
+  const [doNotCall, setDoNotCall] = useState(false);
   const selectedDelivery = useSelector(
     (state) => state.delivery.selectedDelivery,
   );
@@ -54,7 +62,11 @@ const CartPage = () => {
   const [settlement, setSettlement] = useState('');
   const [department, setDepartment] = useState('');
   const [filteredDepartments, setFilteredDepartments] = useState('');
+  const userCartProducts = useSelector(
+    (state) => state.userCart.userCartProducts,
+  );
   const cartProducts = useSelector((state) => state.cart.cartProducts);
+  const [loading, setLoading] = useState(false);
   const initialValues = {
     firstname: firstname,
     surname: surname,
@@ -62,17 +74,11 @@ const CartPage = () => {
     email: email,
     delivery: selectedDelivery,
     payment: selectedPayment,
-    comment: '',
-    doNotCall: false,
+    comment: comment,
+    doNotCall: doNotCall,
     termsAgreement: false,
   };
   const [success, setSuccess] = useState(false);
-
-  useEffect(() => {
-    if (authorized) {
-      getUserObj(token, user, setFirstname, setSurname, setPhone, setEmail);
-    }
-  }, [authorized]);
 
   const handleSubmit = () => {
     putUser(firstname, surname, email, phone, user);
@@ -80,7 +86,7 @@ const CartPage = () => {
       department,
       filteredDepartments,
     );
-    const products = transformObjectsArray(cartProducts);
+    const products = transformObjectsArray(userCartProducts);
     makeAnOrder(
       token,
       firstname,
@@ -93,9 +99,12 @@ const CartPage = () => {
       department,
       cityRefAndRef,
       products,
+      comment,
+      doNotCall,
     );
     dispatch(removeCartProducts());
     setSuccess(true);
+    deleteAllCart(token);
   };
 
   function findCityRefAndRefByDescription(description, objectsArray) {
@@ -109,22 +118,48 @@ const CartPage = () => {
 
   function transformObjectsArray(objectsArray) {
     return objectsArray.map((obj) => ({
-      id: obj.crmId,
-      name: obj.name,
-      costPerItem: obj.price,
-      amount: obj.count,
+      id: obj.product.crmId,
+      name: obj.product.name,
+      costPerItem: obj.product.price,
+      amount: obj.quantity,
       description: '',
       discount: '',
-      sku: obj.vendorCode,
+      sku: obj.product.vendorCode,
     }));
   }
+
+  // useEffect(() => {
+  //   if (authorized && token) {
+  //     if (cartProducts.length !== 0) {
+  //       setLoading(true);
+  //       cartProducts.map((product) => {
+  //         addCartProduct(token, product.crmId);
+  //         dispatch(toggleCart({ currentCard: product, action: 'remove' }));
+  //       });
+  //     }
+  //     setLoading(false);
+  //   }
+  // }, [authorized]);
+
+  useEffect(() => {
+    if (authorized && token) {
+      if (cartProducts.length == 0) {
+        getCart(token, setUserCartProducts, dispatch, setLoading);
+      }
+    }
+  }, [authorized, cartProducts]);
 
   return (
     <Content>
       <BreadCrumbs />
-      {cartProducts.length === 0 && success == false ? (
+      {cartProducts.length === 0 &&
+      success == false &&
+      userCartProducts.length === 0 &&
+      loading == false ? (
         <EmptyCart />
-      ) : cartProducts.length === 0 && success == true ? (
+      ) : cartProducts.length === 0 &&
+        success == true &&
+        userCartProducts.length === 0 ? (
         <Success />
       ) : (
         <Formik
@@ -142,46 +177,50 @@ const CartPage = () => {
                     <Box sx={{ marginBottom: '20px' }}>
                       <PageTitle>Кошик</PageTitle>
                     </Box>
-                    {authorized ? null : <Entry />}
-                    {cartProducts.map((product) => (
-                      <CartItem
-                        product={product}
-                        key={product._id}
-                        type="cart"
-                      />
-                    ))}
+                    {loading && <LoadingCartItem />}
+                    {!authorized && <Entry />}
+                    {authorized
+                      ? userCartProducts.map((product, index) => (
+                          <CartItem
+                            product={product}
+                            key={index}
+                            type="cart"
+                            userCartProducts={true}
+                          />
+                        ))
+                      : cartProducts.map((product) => (
+                          <CartItem
+                            product={product}
+                            key={product._id}
+                            type="cart"
+                          />
+                        ))}
                   </WrapperCartProducts>
                   <Total
                     dirty={dirty}
                     isValid={isValid}
-                    cartProducts={cartProducts}
+                    cartProducts={authorized ? userCartProducts : cartProducts}
                     settlement={settlement}
                     department={department}
+                    authorized={authorized}
                   />
                 </StyledOrderWrapper>
                 {authorized ? (
                   <Wrapper>
-                    <UserInfo
-                      firstname={firstname}
-                      setFirstname={setFirstname}
-                      surname={surname}
-                      setSurname={setSurname}
-                      phone={phone}
-                      email={email}
-                      setEmail={setEmail}
-                    />
+                    <UserInfo />
                     <Delivery
                       setSettlement={setSettlement}
                       setDepartment={setDepartment}
                       setFilteredDepartments={setFilteredDepartments}
                     />
                     <Payment />
-                    <Comment />
+                    <Comment comment={comment} setComment={setComment} />
                     <FormControlLabel
                       sx={{ margin: '24px 0 0 0' }}
                       control={<Checkbox sx={{ paddingLeft: 0 }} />}
                       name={'doNotCall'}
                       label={'Не дзвонити для підтвердження замовлення'}
+                      onChange={() => setDoNotCall(!doNotCall)}
                     />
                     <Box
                       sx={{

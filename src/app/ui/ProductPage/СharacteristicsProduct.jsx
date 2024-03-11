@@ -3,7 +3,8 @@ import { useAuth } from '@/redux/contexts/AuthContext';
 import { toggleCartModal } from '@/redux/slices/CartModalSlice';
 import { setCurrentCard } from '@/redux/slices/CartSlice';
 import { setFavorites } from '@/redux/slices/FavoritesSlice';
-import { Box, List, Typography, Grid } from '@mui/material';
+import { setFavoritesMeta } from '@/redux/slices/FavoritesSlice';
+import { Box, List, Typography } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {
   StyledWrapper,
@@ -21,6 +22,8 @@ import { deleteFavorites } from '@/app/lib/deleteFavorites';
 import { addFavorites } from '@/app/lib/addFavorites';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { getAllFavorites } from '@/app/lib/getAllFavorites';
+import { checkProductIdInArray } from '@/app/lib/checkProductIdInArray';
 
 const СharacteristicsProduct = ({
   mainProduct,
@@ -42,37 +45,6 @@ const СharacteristicsProduct = ({
     if (!Array.isArray(picture)) {
       return picture;
     }
-  };
-
-  const toggleCart = () => dispatch(toggleCartModal());
-
-  function checkProductIdInArray(productId, arrayOfObjects) {
-    for (let i = 0; i < arrayOfObjects.length; i++) {
-      const obj = arrayOfObjects[i];
-      if (obj.product && obj.product.crmId === productId) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  const getAllFavorites = async (userId, token) => {
-    try {
-      const url = `https://stage.eco-bike.com.ua/api/favorites/user/${userId}`;
-      const res = await fetch(url, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-      if (res.ok) {
-        const data = await res.json();
-        if (data) {
-          dispatch(setFavorites(data));
-        }
-      }
-    } catch (error) {}
   };
 
   return (
@@ -149,7 +121,13 @@ const СharacteristicsProduct = ({
                     } else {
                       await addFavorites(user.id, mainProduct._id, token);
                     }
-                    await getAllFavorites(user.id, token);
+                    await getAllFavorites(
+                      user.id,
+                      token,
+                      setFavorites,
+                      setFavoritesMeta,
+                      dispatch,
+                    );
                   } catch (error) {
                     console.error(
                       'Помилка під час виконання операції з улюбленими елементами:',

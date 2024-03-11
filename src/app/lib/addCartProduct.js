@@ -2,7 +2,7 @@ export const addCartProduct = async (token, productId) => {
   try {
     const url = `https://stage.eco-bike.com.ua/api/cart/add`;
     const requestBody = {
-      id: productId,
+      crmId: productId,
     };
     const res = await fetch(url, {
       method: 'POST',
@@ -15,7 +15,6 @@ export const addCartProduct = async (token, productId) => {
     if (res.ok) {
       const data = await res.json();
       if (data) {
-        console.log(data);
       }
     }
   } catch (error) {}

@@ -21,6 +21,9 @@ import DeliverySlice from '@/redux/slices/DeliverySlice';
 import PaymentSlice from '@/redux/slices/PaymentSlice';
 import SearchProductSlice from '@/redux/slices/SearchProductSlice';
 import AuthModalSlice from '@/redux/slices/AuthModalSlice';
+import UserInfoSlice from '@/redux/slices/UserInfoSlice';
+import UserOrdersSlice from '@/redux/slices/UserOrdersSlice';
+import UserCartSlice from '@/redux/slices/UserCartSlice';
 
 export function createPersistStore() {
   const isServer = typeof window === 'undefined';
@@ -61,6 +64,9 @@ const rootReducer = combineReducers({
   delivery: DeliverySlice,
   payment: PaymentSlice,
   search: SearchProductSlice,
+  user: UserInfoSlice,
+  orders: UserOrdersSlice,
+  userCart: UserCartSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

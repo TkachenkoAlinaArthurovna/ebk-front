@@ -1,9 +1,8 @@
-export const deleteFavorites = async (userId, productId, token) => {
+export const deleteTotalCartProduct = async (token, productId) => {
   try {
-    const url = `https://stage.eco-bike.com.ua/api/favorites`;
+    const url = `https://stage.eco-bike.com.ua/api/cart/items`;
     const requestBody = {
-      user: userId,
-      product: productId,
+      crmId: productId,
     };
     const res = await fetch(url, {
       method: 'DELETE',

@@ -33,8 +33,11 @@ const SideBar = ({
   handleOpenAuthModal,
 }) => {
   const { isAuthorized } = useAuth();
-
+  const authorized = isAuthorized();
   const cartProducts = useSelector((state) => state.cart.cartProducts);
+  const userCartProducts = useSelector(
+    (state) => state.userCart.userCartProducts,
+  );
   const favorites = useSelector((state) => state.favorites.favorites);
 
   const handleOpenAuthModalStub = () => {
@@ -108,7 +111,9 @@ const SideBar = ({
               />
 
               <ListItemText primary={'Кошик'} />
-              <Typography>{cartProducts.length}</Typography>
+              <Typography>
+                {authorized ? userCartProducts.length : cartProducts.length}
+              </Typography>
             </ListItemButton>
           </ListItem>
           {isAuthorized() && (

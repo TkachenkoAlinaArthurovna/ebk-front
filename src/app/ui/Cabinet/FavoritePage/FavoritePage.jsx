@@ -22,7 +22,7 @@ const FavoritePage = () => {
   const favorites = useSelector((state) => state.favorites.favorites);
 
   const favoriteProducts = favorites.map((product) => (
-    <ProductCard key={product._id} product={product.product} />
+    <ProductCard key={product._id} product={product} />
   ));
 
   return (
