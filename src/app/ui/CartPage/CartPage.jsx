@@ -142,7 +142,7 @@ const CartPage = () => {
   useEffect(() => {
     if (authorized && token) {
       if (cartProducts.length == 0) {
-        getCart(token, setUserCartProducts, dispatch);
+        getCart(token, setUserCartProducts, dispatch, setLoading);
       }
     }
   }, [authorized]);
