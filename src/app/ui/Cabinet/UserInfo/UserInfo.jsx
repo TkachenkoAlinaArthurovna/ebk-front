@@ -13,18 +13,18 @@ import {
   StyledButton,
   FormContainer,
 } from '@/app/ui/Cabinet/UserInfo/UserInfoStyles';
-import { getUserObj } from '@/app/lib/getUserObj';
 import { putUser } from '@/app/lib/putUser';
+import { useSelector } from 'react-redux';
 
 const UserInfo = () => {
   const { isAuthorized, getUser } = useAuth();
   const authorized = isAuthorized();
   const user = authorized ? getUser() : null;
   const token = authorized ? localStorage.getItem('token') : null;
-  const [firstname, setFirstname] = useState('');
-  const [surname, setSurname] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
+  const firstname = useSelector((state) => state.user.firstname);
+  const surname = useSelector((state) => state.user.surname);
+  const phone = useSelector((state) => state.user.phone);
+  const email = useSelector((state) => state.user.email);
 
   const initialValues = {
     firstname: firstname,
@@ -32,12 +32,6 @@ const UserInfo = () => {
     phone: phone,
     email: email,
   };
-
-  useEffect(() => {
-    if (authorized) {
-      getUserObj(token, user, setFirstname, setSurname, setPhone, setEmail);
-    }
-  }, [authorized]);
 
   const handleSubmit = () => {
     putUser(firstname, surname, email, phone, user);
@@ -58,12 +52,9 @@ const UserInfo = () => {
             <Form>
               <CartContactInfo
                 firstname={firstname}
-                setFirstname={setFirstname}
                 surname={surname}
-                setSurname={setSurname}
                 phone={phone}
                 email={email}
-                setEmail={setEmail}
               />
               <ButtonBox>
                 <StyledButton type="submit" onClick={handleSubmit}>

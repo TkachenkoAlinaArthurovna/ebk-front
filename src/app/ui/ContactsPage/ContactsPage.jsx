@@ -76,6 +76,16 @@ const ContactsPage = () => {
         <StyledGridItem item md={12} lg={7}>
           <Box sx={{ marginBottom: '32px' }}>
             <PageTitle>Напишіть нам</PageTitle>
+            <Box
+              sx={{
+                marginTop: '10px',
+                '@media (max-width: 700px)': {
+                  textAlign: 'center',
+                },
+              }}
+            >
+              <PageText>Ми зв'яжемось з вами найближчим часом!</PageText>
+            </Box>
           </Box>
           <ContactsForm></ContactsForm>
         </StyledGridItem>

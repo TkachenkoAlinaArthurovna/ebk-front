@@ -4,6 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toggleMenuModal } from '@/redux/slices/MenuModalSlice';
 import { setCatalogLinks } from '@/redux/slices/CatalogLinksSlice';
 import { setFavorites } from '@/redux/slices/FavoritesSlice';
+import { setFavoritesMeta } from '@/redux/slices/FavoritesSlice';
+import { setOrders } from '@/redux/slices/UserOrdersSlice';
+import { toggleCart } from '@/redux/slices/CartSlice';
+import {
+  setFirstname,
+  setSurname,
+  setPhone,
+  setEmail,
+} from '@/redux/slices/UserInfoSlice';
+import { setUserCartProducts } from '@/redux/slices/UserCartSlice';
 import Link from 'next/link';
 import IconButtonMenu from '@/app/ui/Header/IconButtonMenu';
 import IconButton from '@mui/material/IconButton';
@@ -33,6 +43,9 @@ import { postCart } from '@/app/lib/postCart';
 import { getCart } from '@/app/lib/getCart';
 import { deleteCartProduct } from '@/app/lib/deleteCartProduct';
 import { addCartProduct } from '@/app/lib/addCartProduct';
+import { getAllFavorites } from '@/app/lib/getAllFavorites';
+import { getUserObj } from '@/app/lib/getUserObj';
+import { getUserOrders } from '@/app/lib/getUserOrders';
 
 const Toolbar = ({ catalog }) => {
   const { isAuthorized, getUser } = useAuth();
@@ -40,50 +53,63 @@ const Toolbar = ({ catalog }) => {
   const user = authorized ? getUser() : null;
   const token = authorized ? localStorage.getItem('token') : null;
   const dispatch = useDispatch();
+  const userCartProducts = useSelector(
+    (state) => state.userCart.userCartProducts,
+  );
   const cartProducts = useSelector((state) => state.cart.cartProducts);
   const catalogLinks = createLinks(catalog.items);
   const favorites = useSelector((state) => state.favorites.favorites);
+  const userPhone = useSelector((state) => state.user.phone);
 
-  const getAllFavorites = async (userId, token) => {
-    try {
-      const url = `https://stage.eco-bike.com.ua/api/favorites/user/${userId}`;
-      const res = await fetch(url, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-      if (res.ok) {
-        const data = await res.json();
-        if (data) {
-          dispatch(setFavorites(data));
-        }
+  useEffect(() => {
+    if (authorized) {
+      getAllFavorites(user.id, token, setFavorites, setFavoritesMeta, dispatch);
+    }
+  }, [authorized]);
+
+  useEffect(() => {
+    if (authorized) {
+      getUserObj(
+        token,
+        user,
+        setFirstname,
+        setSurname,
+        setPhone,
+        setEmail,
+        dispatch,
+      );
+    } else {
+      dispatch(setFirstname(''));
+      dispatch(setSurname(''));
+      dispatch(setPhone(''));
+      dispatch(setEmail(''));
+    }
+  }, [authorized]);
+
+  useEffect(() => {
+    if (userPhone && token) {
+      getUserOrders(token, userPhone, setOrders, dispatch);
+    }
+  }, [userPhone, token]);
+
+  useEffect(() => {
+    if (authorized && token) {
+      if (cartProducts.length !== 0) {
+        cartProducts.map((product) => {
+          addCartProduct(token, product.crmId);
+          dispatch(toggleCart({ currentCard: product, action: 'remove' }));
+        });
       }
-    } catch (error) {}
-  };
-
-  useEffect(() => {
-    if (authorized) {
-      const favorites = getAllFavorites(user.id, token);
     }
   }, [authorized]);
 
   useEffect(() => {
-    if (authorized) {
-      // if(cartProducts.length !== 0) {
-      //   cartProducts.map((product) => {
-      //     addCartProduct(token, product._id);
-      //   })
-      // }
-      // const transformCartProducts = transformItemsArray(cartProducts);
-      // postCart(token, transformCartProducts);
-      // getCart(token);
-      // deleteCartProduct(token, '65e7cf1bbcd8f75ff3f1f99a');
-      // addCartProduct(token, '65e92094bcd8f75ff3f2964a');
-      // console.log('done');
+    if (authorized && token) {
+      if (cartProducts.length == 0) {
+        getCart(token, setUserCartProducts, dispatch);
+      }
     }
-  }, [authorized]);
+  }, [cartProducts]);
 
   useEffect(() => {
     dispatch(setCatalogLinks(catalogLinks));
@@ -140,7 +166,12 @@ const Toolbar = ({ catalog }) => {
         )}
         <StyledLinkCart href="/cart">
           <IconButton>
-            <Badge badgeContent={cartProducts.length} color="primary">
+            <Badge
+              badgeContent={
+                authorized ? userCartProducts.length : cartProducts.length
+              }
+              color="primary"
+            >
               <StyledShoppingCartIcon />
             </Badge>
           </IconButton>

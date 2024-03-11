@@ -1,4 +1,10 @@
-export const getAllFavorites = async (userId, token, setFavorites) => {
+export const getAllFavorites = async (
+  userId,
+  token,
+  setFavorites,
+  setFavoritesMeta,
+  dispatch,
+) => {
   try {
     const url = `https://stage.eco-bike.com.ua/api/favorites/user/${userId}`;
     const res = await fetch(url, {
@@ -11,7 +17,8 @@ export const getAllFavorites = async (userId, token, setFavorites) => {
     if (res.ok) {
       const data = await res.json();
       if (data) {
-        setFavorites(data);
+        dispatch(setFavorites(data.items));
+        dispatch(setFavoritesMeta(data.meta));
       }
     }
   } catch (error) {}

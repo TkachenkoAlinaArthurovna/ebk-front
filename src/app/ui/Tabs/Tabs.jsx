@@ -42,6 +42,7 @@ const Tabs = () => {
             slidesPerView="4"
             pagination={false}
             products={newProducts}
+            heart={false}
           />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
@@ -51,6 +52,7 @@ const Tabs = () => {
             slidesPerView="4"
             pagination={false}
             products={topProducts}
+            heart={false}
           />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
@@ -60,6 +62,7 @@ const Tabs = () => {
             slidesPerView="4"
             pagination={false}
             products={exclusiveProducts}
+            heart={false}
           />
         </CustomTabPanel>
       </Content>

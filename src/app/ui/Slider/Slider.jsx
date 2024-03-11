@@ -28,6 +28,7 @@ const Slider = ({
   slidesProductPage,
   prevtype,
   nexttype,
+  heart,
 }) => {
   const [swiper, setSwiper] = useState();
   let listProducts;
@@ -96,7 +97,7 @@ const Slider = ({
     listProducts = products.map((product, index) => (
       <SwiperSlide key={index}>
         <WrapperForProductCart>
-          <ProductCard product={product} />
+          <ProductCard product={product} heart={heart} />
         </WrapperForProductCart>
       </SwiperSlide>
     ));

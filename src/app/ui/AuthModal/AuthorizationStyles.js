@@ -1,4 +1,4 @@
-import { styled } from '@mui/system';
+import { styled, width } from '@mui/system';
 import { Box, Button } from '@mui/material';
 
 export const StyledModalContent = styled(Box)(({ theme }) => ({
@@ -11,6 +11,16 @@ export const StyledModalContent = styled(Box)(({ theme }) => ({
   boxShadow: 24,
   padding: '40px',
   borderRadius: '28px',
+  '@media (max-width: 500px)': {
+    width: 'auto',
+    left: '22px',
+    right: '22px',
+    transform: 'translate(0, -50%)',
+  },
+  '@media (max-width: 414px)': {
+    left: '14px',
+    right: '14px',
+  },
 }));
 
 export const StyledAuthButton = styled(Button)`

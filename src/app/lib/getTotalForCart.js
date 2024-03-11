@@ -25,6 +25,14 @@ export const sumPrices = (cartProducts) => {
   return formatNumberWithSpaces(Math.ceil(totalPrice * dollar));
 };
 
+export const sumUserPrices = (cartProducts) => {
+  let totalPrice = 0;
+  cartProducts.forEach((product) => {
+    totalPrice += product.product.price * product.quantity;
+  });
+  return formatNumberWithSpaces(Math.ceil(totalPrice * dollar));
+};
+
 export const sumOldPrices = (cartProducts) => {
   let totalOldPrice = 0;
   cartProducts.forEach((product) => {
@@ -37,10 +45,30 @@ export const sumOldPrices = (cartProducts) => {
   return formatNumberWithSpaces(Math.ceil(totalOldPrice * dollar));
 };
 
+export const sumUserOldPrices = (cartProducts) => {
+  let totalOldPrice = 0;
+  cartProducts.forEach((product) => {
+    if (product.product.oldprice) {
+      totalOldPrice += product.product.oldprice * product.quantity;
+    } else {
+      totalOldPrice += product.product.price * product.quantity;
+    }
+  });
+  return formatNumberWithSpaces(Math.ceil(totalOldPrice * dollar));
+};
+
 export const getProductsQuantity = (cartProducts) => {
   let totalQuantity = 0;
   cartProducts.forEach((product) => {
     totalQuantity += product.count;
+  });
+  return totalQuantity;
+};
+
+export const getUserProductsQuantity = (cartProducts) => {
+  let totalQuantity = 0;
+  cartProducts.forEach((product) => {
+    totalQuantity += product.quantity;
   });
   return totalQuantity;
 };

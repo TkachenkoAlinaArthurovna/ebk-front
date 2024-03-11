@@ -1,5 +1,11 @@
-export const getCart = async (token) => {
+export const getCart = async (
+  token,
+  setUserCartProducts,
+  dispatch,
+  setLoading,
+) => {
   try {
+    setLoading && setLoading(true);
     const url = `https://stage.eco-bike.com.ua/api/cart`;
     const res = await fetch(url, {
       method: 'GET',
@@ -11,10 +17,16 @@ export const getCart = async (token) => {
     if (res.ok) {
       const data = await res.json();
       if (data) {
-        console.log(data);
+        dispatch(setUserCartProducts(data.items));
+        setLoading && setLoading(false);
+      } else {
+        if (res.status === 404) {
+          dispatch(setUserCartProducts([]));
+        }
       }
     }
   } catch (error) {
     console.log(error);
+    setLoading && setLoading(false);
   }
 };

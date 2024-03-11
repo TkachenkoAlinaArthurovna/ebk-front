@@ -18,12 +18,24 @@ import {
 import { Field } from 'formik';
 import {
   sumPrices,
+  sumUserPrices,
   sumOldPrices,
+  sumUserOldPrices,
   getProductsQuantity,
+  getUserProductsQuantity,
 } from '@/app/lib/getTotalForCart';
 
-const Total = ({ dirty, isValid, cartProducts, settlement, department }) => {
-  const quantity = getProductsQuantity(cartProducts);
+const Total = ({
+  dirty,
+  isValid,
+  cartProducts,
+  settlement,
+  department,
+  authorized,
+}) => {
+  const quantity = authorized
+    ? getUserProductsQuantity(cartProducts)
+    : getProductsQuantity(cartProducts);
   const wordProduct = () => {
     if (quantity == 1) {
       return 'товар';
@@ -35,8 +47,12 @@ const Total = ({ dirty, isValid, cartProducts, settlement, department }) => {
       return 'товарів';
     }
   };
-  const oldPrices = sumOldPrices(cartProducts);
-  const prices = sumPrices(cartProducts);
+  const oldPrices = authorized
+    ? sumUserOldPrices(cartProducts)
+    : sumOldPrices(cartProducts);
+  const prices = authorized
+    ? sumUserPrices(cartProducts)
+    : sumPrices(cartProducts);
   const discount = oldPrices.replace(/\s/g, '') - prices.replace(/\s/g, '');
 
   return (

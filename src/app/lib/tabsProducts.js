@@ -8,6 +8,7 @@ export const newProducts = [
     price: 812,
     params: [{ name: ['Color', 'Колір'], value: ['Beige', 'Бежевий'] }],
     _id: '65e3da9bb10bdad747be8855',
+    crmId: '1858147137',
   },
   // {
   //   name: 'Триколісний грузовий Електровелосипед 500W 48V 10Ah з фарою та дзеркалами',
@@ -27,6 +28,7 @@ export const newProducts = [
     price: 300,
     params: [],
     _id: '65e3da9bb10bdad747be8818',
+    crmId: '1809823859',
   },
   {
     categoryName: 'kontrolery',
@@ -37,6 +39,7 @@ export const newProducts = [
     price: 170,
     params: [],
     _id: '65e3da9bb10bdad747be87ec',
+    crmId: '1809834677',
   },
   {
     categoryName: 'hirski-elektrovelosypedy',
@@ -47,6 +50,7 @@ export const newProducts = [
     price: 1157,
     params: [{ name: ['Color', 'Колір'], value: ['White', 'Білий'] }],
     _id: '65e3da9bb10bdad747be882d',
+    crmId: '1856897047',
   },
   {
     categoryName: 'akumuliatory',
@@ -57,6 +61,7 @@ export const newProducts = [
     price: 300,
     params: [],
     _id: '65e3da9bb10bdad747be8818',
+    crmId: '1809823859',
   },
 ];
 
@@ -70,6 +75,7 @@ export const topProducts = [
     price: 683,
     params: [{ name: ['Color', 'Колір'], value: ['Black', 'Чорний'] }],
     _id: '65e3da9bb10bdad747be8853',
+    crmId: '1814342916',
   },
   {
     categoryName: 'miski-elektrovelosypedy',
@@ -78,6 +84,7 @@ export const topProducts = [
     price: 732,
     params: [{ name: ['Color', 'Колір'], value: ['Red', 'Червоний'] }],
     _id: '65e3da9bb10bdad747be884f',
+    crmId: '1830442306',
   },
   {
     categoryName: 'miski-elektrovelosypedy',
@@ -88,6 +95,7 @@ export const topProducts = [
     price: 920,
     params: [{ name: ['Color', 'Колір'], value: ['Brown', 'Коричневий'] }],
     _id: '65e3da9bb10bdad747be8849',
+    crmId: '1810488191',
   },
   {
     categoryName: 'miski-elektrovelosypedy',
@@ -98,6 +106,7 @@ export const topProducts = [
     price: 690,
     params: [{ name: ['Color', 'Колір'], value: ['Cream', 'Кремовий'] }],
     _id: '65e3da9bb10bdad747be8854',
+    crmId: '1815404814',
   },
   {
     categoryName: 'akumuliatory',
@@ -108,6 +117,7 @@ export const topProducts = [
     price: 300,
     params: [],
     _id: '65e3da9bb10bdad747be8818',
+    crmId: '1809823859',
   },
 ];
 
@@ -123,6 +133,7 @@ export const exclusiveProducts = [
       { name: ['Color', 'Колір'], value: ['Black/Yellow', 'Чорний/Жовтий'] },
     ],
     _id: '65e3da9bb10bdad747be8844',
+    crmId: '1888504931',
   },
   {
     categoryName: 'fatbike',
@@ -133,6 +144,7 @@ export const exclusiveProducts = [
     price: 1080,
     params: [{ name: ['Color', 'Колір'], value: ['Black', 'Чорний'] }],
     _id: '65e3da9bb10bdad747be8845',
+    crmId: '1884750986',
   },
   {
     categoryName: 'hirski-elektrovelosypedy',
@@ -145,6 +157,7 @@ export const exclusiveProducts = [
       { name: ['Color', 'Колір'], value: ['Black/Red', 'Чорний/Червоний'] },
     ],
     _id: '65e3da9bb10bdad747be882f',
+    crmId: '1829445704',
   },
   {
     categoryName: 'hirski-elektrovelosypedy',
@@ -157,6 +170,7 @@ export const exclusiveProducts = [
       { name: ['Color', 'Колір'], value: ['Black/Blue', 'Чорний/Синій'] },
     ],
     _id: '65e3da9bb10bdad747be882b',
+    crmId: '1875771022',
   },
   {
     categoryName: 'akumuliatory',
@@ -167,5 +181,6 @@ export const exclusiveProducts = [
     price: 300,
     params: [],
     _id: '65e3da9bb10bdad747be8818',
+    crmId: '1809823859',
   },
 ];

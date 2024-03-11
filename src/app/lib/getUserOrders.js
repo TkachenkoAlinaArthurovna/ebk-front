@@ -1,8 +1,8 @@
-export const getUserOrders = async (token, phone) => {
+export const getUserOrders = async (token, userPhone, setOrders, dispatch) => {
   try {
     const url = `https://stage.eco-bike.com.ua/api/orders/all`;
     const requestBody = {
-      phone: phone,
+      phone: userPhone.replace('+', ''),
     };
     const res = await fetch(url, {
       method: 'POST',
@@ -15,7 +15,7 @@ export const getUserOrders = async (token, phone) => {
     if (res.ok) {
       const data = await res.json();
       if (data) {
-        console.log(data);
+        dispatch(setOrders(data.data));
       }
     }
   } catch (error) {

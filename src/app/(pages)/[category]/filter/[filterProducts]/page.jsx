@@ -1,7 +1,6 @@
 import CategoryPage from '@/app/ui/CategoryPage';
 import { createLinks } from '@/app/lib/createLinks';
 import { dollar } from '@/app/lib/dollar';
-import { modifyPrice } from '@/app/lib/modifyPrice';
 
 export async function generateMetadata({ params, searchParams }, parent) {
   const { category } = params;
@@ -47,15 +46,23 @@ const extractPriceFromString = (filterProducts) => {
   let result = '';
   if (endIndex !== -1) {
     const prices = filterProducts.substring(0, endIndex).split('-');
-    const dividedPrices = prices.map((price) =>
-      Math.floor(parseInt(price) / dollar),
-    );
+    const dividedPrices = prices.map((price, index) => {
+      if (index === 0) {
+        return Math.floor(parseInt(price) / dollar);
+      } else if (index === 1) {
+        return Math.ceil(parseInt(price) / dollar);
+      }
+    });
     result = dividedPrices.join('-');
   } else {
     const prices = filterProducts.split('-');
-    const dividedPrices = prices.map((price) =>
-      Math.floor(parseInt(price) / dollar),
-    );
+    const dividedPrices = prices.map((price, index) => {
+      if (index === 0) {
+        return Math.floor(parseInt(price) / dollar);
+      } else if (index === 1) {
+        return Math.ceil(parseInt(price) / dollar);
+      }
+    });
     result = dividedPrices.join('-');
   }
   return result;
@@ -127,7 +134,7 @@ export default async function Category({ params }) {
       categoryId={categoryId}
       filterParams={filterParams}
       sortParam={sort}
-      price={modifyPrice(price)}
+      price={price}
       page={page}
       vendorParam={vendor.charAt(0).toUpperCase() + vendor.slice(1)}
     />
