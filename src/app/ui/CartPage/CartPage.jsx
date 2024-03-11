@@ -41,6 +41,7 @@ import LoadingCartItem from '@/app/ui/CartPage/LoadingCartItem';
 import { setUserCartProducts } from '@/redux/slices/UserCartSlice';
 import { deleteAllCart } from '@/app/lib/deleteAllCart';
 import { addCartProduct } from '@/app/lib/addCartProduct';
+import { toggleCart } from '@/redux/slices/CartSlice';
 
 const CartPage = () => {
   const dispatch = useDispatch();
