@@ -1,5 +1,6 @@
 'use client';
 
+import React, {useState, useEffect} from 'react';
 import Content from '@/app/ui/Content';
 import {
   FooterItemBox,
@@ -14,8 +15,19 @@ import {
 import Link from 'next/link';
 import { Box, Typography } from '@mui/material';
 import Logo from '@/app/ui/Logo/Logo';
+import DevModal from '@/app/ui/Footer/DevModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { openDevModal } from '@/redux/slices/DevModalSlice';
 
 const Footer = () => {
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const dispatch = useDispatch();
+  const handleOpenDevModal = () => dispatch(openDevModal());
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
+  }, []);
+
   return (
     <>
       <StyledContainer as="footer">
@@ -105,7 +117,7 @@ const Footer = () => {
               <Link href="/privacy-policy">Політика конфіденційності</Link>
             </Box>
             <Box sx={{ textAlign: 'center' }}>
-              eco-bike copyright © 2024 all rights reserved
+              eco-bike copyright <span onClick={handleOpenDevModal}>©</span> {currentYear} all rights reserved
             </Box>
           </Box>
           <LogoContainerBottom>
@@ -115,6 +127,7 @@ const Footer = () => {
           </LogoContainerBottom>
         </Content>
       </StyledContainer>
+      <DevModal/>
     </>
   );
 };
