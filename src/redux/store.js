@@ -24,6 +24,7 @@ import AuthModalSlice from '@/redux/slices/AuthModalSlice';
 import UserInfoSlice from '@/redux/slices/UserInfoSlice';
 import UserOrdersSlice from '@/redux/slices/UserOrdersSlice';
 import UserCartSlice from '@/redux/slices/UserCartSlice';
+import DevModalSlice from '@/redux/slices/DevModalSlice';
 
 export function createPersistStore() {
   const isServer = typeof window === 'undefined';
@@ -67,6 +68,7 @@ const rootReducer = combineReducers({
   user: UserInfoSlice,
   orders: UserOrdersSlice,
   userCart: UserCartSlice,
+  devModal: DevModalSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
