@@ -14,13 +14,23 @@ import Authorization from '@/app/ui/AuthModal/Authorization';
 import React from 'react';
 
 export const metadata = {
-  title: 'Електровелосипеди Eco-bike Інтернет магазин електровелосипедів',
+  title: 'Eco-bike Інтернет магазин електровелосипедів',
   description:
     'Електровелосипеди, запчастини для електровелосипедів, запчастини для велосипедів, комплекти для електровелосипедів, акумулятори, мотори, мотор-колеса',
   link: ' href="./output.css" rel="stylesheet"',
   icons: {
     icon: ['/logo.svg'],
   },
+  scripts: `
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-483D18BZ0N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+  
+      gtag('config', 'G-483D18BZ0N');
+    </script>
+  `,
 };
 
 const getCategories = () =>
