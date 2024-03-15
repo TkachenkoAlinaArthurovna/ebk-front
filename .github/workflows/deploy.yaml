@@ -1,3 +1,8 @@
+name: Deploy Next.js App from GitHub to Contabo VPS
+on:
+  push:
+    branches:
+      - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
