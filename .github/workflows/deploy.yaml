@@ -29,6 +29,7 @@ jobs:
             cd /home/frontend
             chown -R root:root ./ebk-front
             cd ebk-front
+            nvm use 18.19.0
             node -v
             npm -v
             # npm i
