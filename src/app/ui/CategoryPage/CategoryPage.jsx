@@ -1,8 +1,12 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { usePathname } from 'next/navigation';
+import { notFound, usePathname } from 'next/navigation';
+
 import { resetFilters } from '@/redux/slices/ProductFilterSlice';
+
+import { useResize } from '@/app/lib/helpers';
+
 import Content from '@/app/ui/Content';
 import PageTitle from '@/app/ui/PageTitle';
 import SelectedFilters from '@/app/ui/CategoryPage/SelectedFilters';
@@ -21,12 +25,12 @@ import {
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import BreadCrumbsDynamic from '@/app/ui/BreadCrumbsDynamic';
-import { useResize } from '@/app/lib/helpers';
 import SkeletonCategoryPage from '@/app/ui/SkeletonCategoryPage/SkeletonCategoryPage';
 import SkeletonBreadCrumbs from '@/app/ui/Skeletons/SkeletonBreadCrumbs';
 import SkeletonPageTitle from '@/app/ui/Skeletons/SkeletonPageTitle';
 import SkeletonCategoryItems from '@/app/ui/Skeletons/SkeletonCategoryItems';
 import SkeletonProductFilter from '@/app/ui/Skeletons/SkeletonProductFilter';
+import NotFound from '@/app/not-found';
 
 export default function CategoryPage({
   partsOfCategory,
@@ -46,9 +50,11 @@ export default function CategoryPage({
   const [width] = useResize();
   const pathname = usePathname();
   const pathnames = pathname.split('/').filter((path) => path);
+  const [loading, setLoading] = useState(false);
 
   const getProducts = async () => {
     try {
+      setLoading(true);
       const limit = width > 700 ? 9 : 8;
       let res;
       const sort = sortParam ? `sort=${sortParam}&` : '';
@@ -56,7 +62,7 @@ export default function CategoryPage({
         `https://stage.eco-bike.com.ua/api/catalog/${categoryId}?${sort}page=${page}&limit=${limit}`,
         { next: { revalidate: 3600 } },
       );
-      if (res) {
+      if (res.ok) {
         const data = await res.json();
         if (data) {
           if (!price) {
@@ -75,14 +81,19 @@ export default function CategoryPage({
           setPriceRange(data.priceRange);
           setParams(data.params);
         }
+      } else {
+        notFound();
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
   const getFilterProducts = async () => {
     try {
+      setLoading(true);
       const limit = width > 700 ? 9 : 8;
       let res;
       const sort = sortParam ? `sort=${sortParam}&` : '';
@@ -93,7 +104,7 @@ export default function CategoryPage({
           { next: { revalidate: 3600 } },
         );
       }
-      if (res) {
+      if (res.ok) {
         const data = await res.json();
         if (data) {
           if (price) {
@@ -110,11 +121,21 @@ export default function CategoryPage({
             setTotalPage(data.meta.totalPages);
           }
         }
+      } else {
+        notFound();
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (products) {
+      setLoading(false);
+    }
+  }, [products]);
 
   useEffect(() => {
     getProducts();
@@ -140,7 +161,7 @@ export default function CategoryPage({
 
   return (
     <>
-      {!products && (
+      {!products && loading == true && (
         <Content>
           <StyledWrapper>
             <SkeletonBreadCrumbs />
@@ -165,6 +186,7 @@ export default function CategoryPage({
           </StyledWrapper>
         </Content>
       )}
+      {!products && loading == false && <NotFound />}
       {products && (
         <Content>
           <StyledWrapper>

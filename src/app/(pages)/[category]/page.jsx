@@ -1,7 +1,5 @@
-import { Suspense } from 'react';
 import CategoryPage from '@/app/ui/CategoryPage';
 import { createLinks } from '@/app/lib/createLinks';
-import SkeletonCategoryPage from '@/app/ui/SkeletonCategoryPage/SkeletonCategoryPage';
 
 export async function generateMetadata({ params, searchParams }, parent) {
   const { category } = params;
@@ -16,16 +14,21 @@ export async function generateMetadata({ params, searchParams }, parent) {
       ? categoryName.charAt(0).toUpperCase() +
         categoryName.slice(1).toLowerCase()
       : '',
+    description: `${
+      categoryName
+        ? categoryName.charAt(0).toUpperCase() +
+          categoryName.slice(1).toLowerCase()
+        : ''
+    } | Eco-bike | Електровелосипеди | Швидка доставка по Україні | Гарантії | Знижки і акції`,
   };
 }
 
-// export const dynamicParams = false;
-// export async function generateStaticParams() {
-//   const categoriesLinks = await getCategories();
-//   return categoriesLinks.map((category) => ({
-//     category: category.link,
-//   }));
-// }
+export async function generateStaticParams() {
+  const categoriesLinks = await getCategories();
+  return categoriesLinks.map((category) => ({
+    category: category.link,
+  }));
+}
 
 async function getCategories() {
   const res = await fetch('https://stage.eco-bike.com.ua/api/categories', {
