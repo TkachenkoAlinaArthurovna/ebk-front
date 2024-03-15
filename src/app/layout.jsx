@@ -21,16 +21,6 @@ export const metadata = {
   icons: {
     icon: ['/logo.svg'],
   },
-  scripts: `
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-483D18BZ0N"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-  
-      gtag('config', 'G-483D18BZ0N');
-    </script>
-  `,
 };
 
 const getCategories = () =>
