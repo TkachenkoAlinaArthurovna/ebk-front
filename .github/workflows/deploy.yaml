@@ -7,6 +7,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.12.0'
+
       - name: Checkout Latest Repo
         uses: actions/checkout@v4
 
@@ -18,11 +23,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           source: '.'
           target: '/home/frontend/ebk-front'
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
 
       - name: Run commands on VPS
         uses: appleboy/ssh-action@master
