@@ -11,6 +11,9 @@ const UserCartSlice = createSlice({
     setUserCartProducts(state, action) {
       state.userCartProducts = action.payload;
     },
+    removeUserCartProducts(state, action) {
+      state.userCartProducts = [];
+    },
   },
 });
 

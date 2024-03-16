@@ -23,21 +23,14 @@ export const metadata = {
   },
 };
 
-const getCategories = () =>
-  fetch('https://stage.eco-bike.com.ua/api/categories', {
-    next: { revalidate: 3600 },
-  }).then((response) => response.json());
-
 export default async function RootLayout({ children }) {
-  const catalog = await getCategories();
-
   return (
     <html lang="en">
       <AppTheme>
         <body>
           <Providers>
             <Wrapper>
-              <Header catalog={catalog} />
+              <Header />
               <Box sx={{ flex: '1 1 auto' }}>
                 {children}
                 <ModalCart />
