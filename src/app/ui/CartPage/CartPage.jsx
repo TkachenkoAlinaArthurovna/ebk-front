@@ -61,6 +61,7 @@ const CartPage = () => {
   const userCartProducts = useSelector(
     (state) => state.userCart.userCartProducts,
   );
+
   const cartProducts = useSelector((state) => state.cart.cartProducts);
   const firstname = useSelector((state) => state.user.firstname);
   const surname = useSelector((state) => state.user.surname);
@@ -95,8 +96,8 @@ const CartPage = () => {
   const createObjForPostPayment = () => {
     const date = Date.now();
     const amountProducts = sumUserPrices(userCartProducts).replace(/\s/g, '');
-    const arrProductName = userCartProducts.map((cartProduct) =>
-      cartProduct.product.name.replace(/"/g, '&'),
+    const arrProductName = userCartProducts.map(
+      (cartProduct) => cartProduct.product.crmId,
     );
     const arrProductCount = userCartProducts.map(
       (cartProduct) => cartProduct.quantity,
@@ -126,30 +127,30 @@ const CartPage = () => {
     );
     const products = transformObjectsArray(userCartProducts);
 
-    if (initialValues.payment == 'Накладений платіж Нова Пошта') {
-      makeAnOrder(
-        token,
-        firstname,
-        surname,
-        phone,
-        email,
-        initialValues.delivery,
-        initialValues.payment,
-        settlement.Present,
-        department,
-        cityRefAndRef,
-        products,
-        comment,
-        doNotCall,
-      );
-      dispatch(removeCartProducts());
-      deleteAllCart(token);
-      setSuccess(true);
-    }
-    if (initialValues.payment == 'Visa/Mastercard • Google Pay • Apple Pay') {
-      postPayment(token, objForPostPayment);
-      setIsOpenModalPayment(true);
-    }
+    // if (initialValues.payment == 'Накладений платіж Нова Пошта') {
+    //   makeAnOrder(
+    //     token,
+    //     firstname,
+    //     surname,
+    //     phone,
+    //     email,
+    //     initialValues.delivery,
+    //     initialValues.payment,
+    //     settlement.Present,
+    //     department,
+    //     cityRefAndRef,
+    //     products,
+    //     comment,
+    //     doNotCall,
+    //   );
+    //   dispatch(removeCartProducts());
+    //   deleteAllCart(token);
+    //   setSuccess(true);
+    // }
+    // if (initialValues.payment == 'Visa/Mastercard • Google Pay • Apple Pay') {
+    //   postPayment(token, objForPostPayment);
+    //   setIsOpenModalPayment(true);
+    // }
   };
 
   function findCityRefAndRefByDescription(description, objectsArray) {

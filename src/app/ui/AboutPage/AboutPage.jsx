@@ -27,7 +27,7 @@ const AboutPage = () => {
         комплектуючих до них. Наша команда підібрала максимально сумісні та
         якісні комплектуючі, з якими не буде жодних проблем.
       </PageText>
-      <WrapperImg>
+      {/* <WrapperImg>
         <Image
           src={'/images/about-us-img.png'}
           alt={'about-us-img'}
@@ -36,7 +36,7 @@ const AboutPage = () => {
           priority={true}
           style={{ borderRadius: '28px', objectFit: 'cover' }}
         />
-      </WrapperImg>
+      </WrapperImg> */}
       <PageTitle>Наші переваги</PageTitle>
       <WrapperGrid>
         <ShadowBox $padding="30px">
