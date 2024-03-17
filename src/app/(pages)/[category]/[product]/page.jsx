@@ -21,7 +21,6 @@ async function getProducts() {
     next: { revalidate: 3600 },
   });
   const data = await res.json();
-  console.log(data);
   return data;
 }
 
@@ -54,7 +53,6 @@ async function getCategories() {
     next: { revalidate: 3600 },
   });
   const data = await res.json();
-  console.log(createLinks(data.items));
   return createLinks(data.items);
 }
 

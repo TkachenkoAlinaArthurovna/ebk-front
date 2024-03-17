@@ -255,3 +255,38 @@ export const WrapperForProductCart = styled(Box)`
     height: 340px;
   }
 `;
+
+export const WrapperSlide = styled(Box)`
+  position: relative;
+  height: 452px;
+  @media (max-width: 1300px) {
+    height: 420px;
+  }
+  @media (max-width: 1200px) {
+    height: 380px;
+  }
+  @media (max-width: 1100px) {
+    height: 346px;
+  }
+  @media (max-width: 1000px) {
+    height: 310px;
+  }
+  @media (max-width: 900px) {
+    height: 274px;
+  }
+  @media (max-width: 800px) {
+    height: 256px;
+  }
+  @media (max-width: 700px) {
+    height: 220px;
+  }
+  @media (max-width: 600px) {
+    height: 184px;
+  }
+  @media (max-width: 500px) {
+    height: 154px;
+  }
+  @media (max-width: 400px) {
+    height: 118px;
+  }
+`;

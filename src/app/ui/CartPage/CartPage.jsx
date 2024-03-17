@@ -8,6 +8,7 @@ import { Form, Formik, Field } from 'formik';
 import { useAuth } from '@/redux/contexts/AuthContext';
 import { removeCartProducts } from '@/redux/slices/CartSlice';
 import { removeUserCartProducts } from '@/redux/slices/UserCartSlice';
+import { setUserCartProducts } from '@/redux/slices/UserCartSlice';
 
 import BreadCrumbs from '@/app/ui/BreadCrumbs/BreadCrumbs';
 import CartItem from '@/app/ui/CartPage/CartItem/CartItem';
@@ -94,8 +95,8 @@ const CartPage = () => {
   const createObjForPostPayment = () => {
     const date = Date.now();
     const amountProducts = sumUserPrices(userCartProducts).replace(/\s/g, '');
-    const arrProductName = userCartProducts.map(
-      (cartProduct) => cartProduct.product.name,
+    const arrProductName = userCartProducts.map((cartProduct) =>
+      cartProduct.product.name.replace(/"/g, '&'),
     );
     const arrProductCount = userCartProducts.map(
       (cartProduct) => cartProduct.quantity,
@@ -146,7 +147,7 @@ const CartPage = () => {
       setSuccess(true);
     }
     if (initialValues.payment == 'Visa/Mastercard • Google Pay • Apple Pay') {
-      // postPayment(token, objForPostPayment);
+      postPayment(token, objForPostPayment);
       setIsOpenModalPayment(true);
     }
   };
@@ -179,6 +180,12 @@ const CartPage = () => {
       }
     }
   }, [authorized]);
+
+  useEffect(() => {
+    if (success == true) {
+      getCart(token, setUserCartProducts, dispatch);
+    }
+  }, [success]);
 
   return (
     <>

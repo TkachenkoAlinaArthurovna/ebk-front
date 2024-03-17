@@ -1,8 +1,10 @@
 'use client';
+
+import { slides } from '@/app/lib/slides';
+
 import Slider from '@/app/ui/Slider';
 import Content from '@/app/ui/Content/Content';
 import { StyledSection } from '@/app/ui/Homepage/MainSlider/MainSliderStyled';
-import { slides } from '@/app/lib/slides';
 
 const MainSlider = () => {
   return (

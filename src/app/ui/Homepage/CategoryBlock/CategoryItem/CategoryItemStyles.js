@@ -30,7 +30,11 @@ export const StyledContainer = styled(Stack)`
 `;
 
 export const StyledWrapper = styled(Box)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  margin: 0 auto;
 `;
 
 export const StyledImage = styled(Box)`
@@ -39,8 +43,40 @@ export const StyledImage = styled(Box)`
 `;
 
 export const StyledImageWrapper = styled(Box)`
-  width: 100%;
-  height: 70%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 200px;
+  @media (max-width: 1300px) {
+    width: 180px;
+    height: 180px;
+  }
+  @media (max-width: 1200px) {
+    width: 170px;
+    height: 170px;
+  }
+  @media (max-width: 1100px) {
+    width: 130px;
+    height: 130px;
+  }
+  @media (max-width: 800px) {
+    width: 100px;
+    height: 100px;
+  }
+  @media (max-width: 650px) {
+    width: 150px;
+    height: 150px;
+  }
+  @media (max-width: 500px) {
+    width: 120px;
+    height: 120px;
+  }
+  @media (max-width: 400px) {
+    width: 100px;
+    height: 100px;
+  }
 `;
 
 export const StyledName = styled(Typography)`

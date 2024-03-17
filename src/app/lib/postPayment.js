@@ -3,12 +3,12 @@ export const postPayment = async (token, obj) => {
     const url = `https://stage.eco-bike.com.ua/api/payments/create`;
     const requestBody = {
       orderDate: obj.orderDate,
-      amount: obj.orderDate,
-      currency: obj.orderDate,
-      productName: obj.orderDate,
-      productCount: obj.orderDate,
-      productPrice: obj.orderDate,
-      accountId: obj.orderDate,
+      amount: obj.amount,
+      currency: obj.currency,
+      productName: obj.productName,
+      productCount: obj.productCount,
+      productPrice: obj.productPrice,
+      accountId: obj.accountId,
     };
     const res = await fetch(url, {
       method: 'POST',

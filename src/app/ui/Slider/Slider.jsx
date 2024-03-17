@@ -3,19 +3,23 @@
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import Link from 'next/link';
+import Image from 'next/image';
+
 import ProductCard from '@/app/ui/ProductCard';
 import {
   SwiperPrev,
   SwiperNext,
   WrapperForProductCart,
+  WrapperSlide,
 } from '@/app/ui/Slider/SliderStyles';
 import { Box } from '@mui/material';
+import CustomerReview from '@/app/ui/Homepage/ReviewsBlock/CustomerReview';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
+
 import { reviewsBlockData as reviewsData } from '@/app/lib/mockData';
-import CustomerReview from '@/app/ui/Homepage/ReviewsBlock/CustomerReview';
-import Link from 'next/link';
 
 const Slider = ({
   autoplay,
@@ -72,23 +76,35 @@ const Slider = ({
     listSlides = slides.map((slide, index) => (
       <SwiperSlide key={index}>
         {slide.link !== '' ? (
-          <Link href="/hirski-elektrovelosypedy/elektrovelosyped-fantom-27.5-48v-500w-10-ah">
-            <img
-              src={slide.picture}
-              style={{
-                width: '100%',
-                borderRadius: '28px',
-              }}
-            ></img>
+          <Link href={slide.link}>
+            <WrapperSlide>
+              <Image
+                priority={index == 0 ? true : false}
+                alt={'bike'}
+                src={slide.picture}
+                sizes="100vw"
+                fill
+                style={{
+                  objectFit: 'cover',
+                  borderRadius: '28px',
+                }}
+              ></Image>
+            </WrapperSlide>
           </Link>
         ) : (
-          <img
-            src={slide.picture}
-            style={{
-              width: '100%',
-              borderRadius: '28px',
-            }}
-          ></img>
+          <WrapperSlide>
+            <Image
+              priority={index == 0 ? true : false}
+              alt={'bike'}
+              src={slide.picture}
+              sizes="100vw"
+              fill
+              style={{
+                objectFit: 'cover',
+                borderRadius: '28px',
+              }}
+            ></Image>
+          </WrapperSlide>
         )}
       </SwiperSlide>
     ));
