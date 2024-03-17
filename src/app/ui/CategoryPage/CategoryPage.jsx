@@ -25,7 +25,6 @@ import {
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import BreadCrumbsDynamic from '@/app/ui/BreadCrumbsDynamic';
-import SkeletonCategoryPage from '@/app/ui/SkeletonCategoryPage/SkeletonCategoryPage';
 import SkeletonBreadCrumbs from '@/app/ui/Skeletons/SkeletonBreadCrumbs';
 import SkeletonPageTitle from '@/app/ui/Skeletons/SkeletonPageTitle';
 import SkeletonCategoryItems from '@/app/ui/Skeletons/SkeletonCategoryItems';
