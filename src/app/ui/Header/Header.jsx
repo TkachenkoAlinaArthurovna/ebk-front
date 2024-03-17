@@ -3,11 +3,11 @@ import Content from '@/app/ui/Content/Content';
 import Toolbar from '@/app/ui/Header/Toolbar';
 import { StyledAppBar } from '@/app/ui/Header/HeaderStyles';
 
-export default function Header({ catalog }) {
+export default function Header() {
   return (
     <StyledAppBar position="static" color="white">
       <Content>
-        <Toolbar catalog={catalog} />
+        <Toolbar />
       </Content>
     </StyledAppBar>
   );

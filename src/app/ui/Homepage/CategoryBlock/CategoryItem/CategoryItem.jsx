@@ -1,4 +1,6 @@
 import React from 'react';
+import Image from 'next/image';
+
 import ShadowBox from '@/app/ui/ShadowBox/ShadowBox';
 import {
   StyledLink,
@@ -16,7 +18,15 @@ const CategoryItem = ({ name, img, url }) => {
         <StyledWrapper>
           <StyledContainer>
             <StyledImageWrapper>
-              <StyledImage component="img" alt={name} src={img} />
+              <Image
+                alt={name}
+                src={img}
+                fill
+                sizes="100%"
+                style={{
+                  objectFit: 'contain',
+                }}
+              />
             </StyledImageWrapper>
             <StyledName variant="subtitle1">{name}</StyledName>
           </StyledContainer>

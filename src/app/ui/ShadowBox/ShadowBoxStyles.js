@@ -13,6 +13,7 @@ export const StyledBox = styled(Box)`
   box-sizing: border-box;
   border-radius: 28px;
   border: 1px solid transparent;
+  width: 100%;
   height: 100%;
 
   @media (max-width: 1304px) {

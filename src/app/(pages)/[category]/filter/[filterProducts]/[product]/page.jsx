@@ -10,7 +10,8 @@ export async function generateMetadata({ params, searchParams }, parent) {
   const currentProduct = await getProductId(partsOfCategory[0], product);
 
   return {
-    title: currentProduct.name,
+    title: currentProduct ? currentProduct.name : '',
+    description: `${currentProduct ? currentProduct.name : ''} | Eco-bike | Електровелосипеди | Швидка доставка по Україні | Гарантії | Знижки і акції`,
   };
 }
 
@@ -41,9 +42,11 @@ async function getCategoryProducts(categoryId) {
 
 async function getProductId(category, product) {
   const products = await getCategoryIdProducts(category);
-  const productCurrent = products.find(
-    (item) => createLinkProduct(item.name) === product,
-  );
+  const productCurrent = products
+    ? products.find(
+        (item) => createLinkProduct(item.name) == product.replace(/%2B/g, '+'),
+      )
+    : null;
   const productId = productCurrent ? productCurrent._id : null;
   return getProduct(productId);
 }
@@ -53,8 +56,12 @@ async function getProduct(productId) {
     `https://stage.eco-bike.com.ua/api/products/${productId}`,
     { next: { revalidate: 3600 } },
   );
-  const data = await res.json();
-  return data;
+  if (res.ok) {
+    const data = await res.json();
+    return data;
+  } else {
+    return null;
+  }
 }
 
 export default async function Product({ params }) {

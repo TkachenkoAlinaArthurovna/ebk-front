@@ -11,9 +11,16 @@ export async function generateMetadata({ params, searchParams }, parent) {
   const categoryName = await getCategoryName(partsOfCategory[0]);
 
   return {
-    title:
-      categoryName.charAt(0).toUpperCase() +
-      categoryName.slice(1).toLowerCase(),
+    title: categoryName
+      ? categoryName.charAt(0).toUpperCase() +
+        categoryName.slice(1).toLowerCase()
+      : '',
+    description: `${
+      categoryName
+        ? categoryName.charAt(0).toUpperCase() +
+          categoryName.slice(1).toLowerCase()
+        : ''
+    } | Eco-bike | Електровелосипеди | Швидка доставка по Україні | Гарантії | Знижки і акції`,
   };
 }
 
@@ -128,8 +135,10 @@ export default async function Category({ params }) {
     <CategoryPage
       partsOfCategory={partsOfCategory}
       categoryName={
-        categoryName.charAt(0).toUpperCase() +
-        categoryName.slice(1).toLowerCase()
+        categoryName
+          ? categoryName.charAt(0).toUpperCase() +
+            categoryName.slice(1).toLowerCase()
+          : ''
       }
       categoryId={categoryId}
       filterParams={filterParams}

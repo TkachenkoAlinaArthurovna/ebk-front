@@ -1,6 +1,15 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Link from 'next/link';
+
+import { createLinks } from '@/app/lib/createLinks';
+import { getCart } from '@/app/lib/getCart';
+import { addCartProduct } from '@/app/lib/addCartProduct';
+import { getAllFavorites } from '@/app/lib/getAllFavorites';
+import { getUserObj } from '@/app/lib/getUserObj';
+import { getUserOrders } from '@/app/lib/getUserOrders';
+
 import { toggleMenuModal } from '@/redux/slices/MenuModalSlice';
 import { setCatalogLinks } from '@/redux/slices/CatalogLinksSlice';
 import { setFavorites } from '@/redux/slices/FavoritesSlice';
@@ -14,7 +23,9 @@ import {
   setEmail,
 } from '@/redux/slices/UserInfoSlice';
 import { setUserCartProducts } from '@/redux/slices/UserCartSlice';
-import Link from 'next/link';
+import { useAuth } from '@/redux/contexts/AuthContext';
+import { openAuthModal } from '@/redux/slices/AuthModalSlice';
+
 import IconButtonMenu from '@/app/ui/Header/IconButtonMenu';
 import IconButton from '@mui/material/IconButton';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -32,43 +43,60 @@ import {
   StyledLinkCart,
   StyledShoppingCartIcon,
 } from '@/app/ui/Header/HeaderStyles';
-import { createLinks } from '@/app/lib/createLinks';
 import Phones from '@/app/ui/Header/Phones';
 import Logo from '@/app/ui/Logo/Logo';
-import { useAuth } from '@/redux/contexts/AuthContext';
 import Account from '@/app/ui/Header/Account';
-import { openAuthModal } from '@/redux/slices/AuthModalSlice';
-import { transformItemsArray } from '@/app/lib/transformItemsArray';
-import { postCart } from '@/app/lib/postCart';
-import { getCart } from '@/app/lib/getCart';
-import { deleteCartProduct } from '@/app/lib/deleteCartProduct';
-import { addCartProduct } from '@/app/lib/addCartProduct';
-import { getAllFavorites } from '@/app/lib/getAllFavorites';
-import { getUserObj } from '@/app/lib/getUserObj';
-import { getUserOrders } from '@/app/lib/getUserOrders';
 
-const Toolbar = ({ catalog }) => {
+const Toolbar = () => {
   const { isAuthorized, getUser } = useAuth();
   const authorized = isAuthorized();
   const user = authorized ? getUser() : null;
   const token = authorized ? localStorage.getItem('token') : null;
+
   const dispatch = useDispatch();
+  const catalogLinks = useSelector((state) => state.catalogLinks.catalogLinks);
   const userCartProducts = useSelector(
     (state) => state.userCart.userCartProducts,
   );
   const cartProducts = useSelector((state) => state.cart.cartProducts);
-  const catalogLinks = createLinks(catalog.items);
   const favorites = useSelector((state) => state.favorites.favorites);
   const userPhone = useSelector((state) => state.user.phone);
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const toggleDrawer = () => {
+    setOpenDrawer(!openDrawer);
+  };
+  const isOpenModalMenu = useSelector(
+    (state) => state.menuModal.isOpenModalMenu,
+  );
+  const toggleOpenCatalog = () => dispatch(toggleMenuModal());
+  const handleOpenAuthModal = () => dispatch(openAuthModal());
+
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const response = await fetch(
+          'https://stage.eco-bike.com.ua/api/categories',
+          {
+            next: { revalidate: 3600 },
+          },
+        );
+        if (response.ok) {
+          const data = await response.json();
+          dispatch(setCatalogLinks(createLinks(data.items)));
+        } else {
+          throw new Error('Ошибка при загрузке категорий');
+        }
+      } catch (error) {
+        console.error('Произошла ошибка:', error);
+      }
+    };
+
+    getCategories();
+  }, []);
 
   useEffect(() => {
     if (authorized) {
       getAllFavorites(user.id, token, setFavorites, setFavoritesMeta, dispatch);
-    }
-  }, [authorized]);
-
-  useEffect(() => {
-    if (authorized) {
       getUserObj(
         token,
         user,
@@ -78,6 +106,12 @@ const Toolbar = ({ catalog }) => {
         setEmail,
         dispatch,
       );
+      if (cartProducts.length !== 0) {
+        cartProducts.map((product) => {
+          addCartProduct(token, product.crmId);
+          dispatch(toggleCart({ currentCard: product, action: 'remove' }));
+        });
+      }
     } else {
       dispatch(setFirstname(''));
       dispatch(setSurname(''));
@@ -94,39 +128,11 @@ const Toolbar = ({ catalog }) => {
 
   useEffect(() => {
     if (authorized && token) {
-      if (cartProducts.length !== 0) {
-        cartProducts.map((product) => {
-          addCartProduct(token, product.crmId);
-          dispatch(toggleCart({ currentCard: product, action: 'remove' }));
-        });
-      }
-    }
-  }, [authorized]);
-
-  useEffect(() => {
-    if (authorized && token) {
       if (cartProducts.length == 0) {
         getCart(token, setUserCartProducts, dispatch);
       }
     }
   }, [authorized, cartProducts]);
-
-  useEffect(() => {
-    dispatch(setCatalogLinks(catalogLinks));
-  }, [catalogLinks]);
-
-  const [openDrawer, setOpenDrawer] = useState(false);
-  const toggleDrawer = () => {
-    setOpenDrawer(!openDrawer);
-  };
-
-  const isOpenModalMenu = useSelector(
-    (state) => state.menuModal.isOpenModalMenu,
-  );
-
-  const toggleOpenCatalog = () => dispatch(toggleMenuModal());
-
-  const handleOpenAuthModal = () => dispatch(openAuthModal());
 
   return (
     <StyledToolbar disableGutters>

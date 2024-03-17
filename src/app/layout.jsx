@@ -21,33 +21,16 @@ export const metadata = {
   icons: {
     icon: ['/logo.svg'],
   },
-  scripts: `
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-483D18BZ0N"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-  
-      gtag('config', 'G-483D18BZ0N');
-    </script>
-  `,
 };
 
-const getCategories = () =>
-  fetch('https://stage.eco-bike.com.ua/api/categories', {
-    next: { revalidate: 3600 },
-  }).then((response) => response.json());
-
 export default async function RootLayout({ children }) {
-  const catalog = await getCategories();
-
   return (
     <html lang="en">
       <AppTheme>
         <body>
           <Providers>
             <Wrapper>
-              <Header catalog={catalog} />
+              <Header />
               <Box sx={{ flex: '1 1 auto' }}>
                 {children}
                 <ModalCart />

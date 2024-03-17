@@ -16,7 +16,7 @@ const devList = [
     members: [
       'Mykola Kovalchuk',
       'Anton Petrenko',
-      'Artem Grechuk',
+      'Artem Hrechuk',
       'Ihor Kulinsky',
     ],
   },
