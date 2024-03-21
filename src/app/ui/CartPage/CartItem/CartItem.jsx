@@ -1,5 +1,21 @@
 import { useDispatch } from 'react-redux';
+
 import { toggleCart } from '@/redux/slices/CartSlice';
+import {
+  removeUserCartProducts,
+  addUserCartProduct,
+  subtractUserCartProduct,
+} from '@/redux/slices/UserCartSlice';
+import { useAuth } from '@/redux/contexts/AuthContext';
+import { setUserCartProducts } from '@/redux/slices/UserCartSlice';
+
+import getImageForProductCard from '@/app/lib/getImageForProductCard';
+import { deleteCartProduct } from '@/app/lib/deleteCartProduct';
+import { addCartProduct } from '@/app/lib/addCartProduct';
+import { deleteTotalCartProduct } from '@/app/lib/deleteTotalCartProduct';
+import { getCart } from '@/app/lib/getCart';
+import { setLoading } from '@/redux/slices/LoadingSlice';
+
 import { Box } from '@mui/material';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import PageText from '@/app/ui/PageText';
@@ -14,17 +30,15 @@ import {
   WrapperPlusMinusPrice,
   Wrapper,
 } from '@/app/ui/CartPage/CartItem/CartItemStyles';
-import getImageForProductCard from '@/app/lib/getImageForProductCard';
 import Price from '@/app/ui/ProductCard/Price';
-import { useAuth } from '@/redux/contexts/AuthContext';
-import { deleteCartProduct } from '@/app/lib/deleteCartProduct';
-import { addCartProduct } from '@/app/lib/addCartProduct';
-import { deleteTotalCartProduct } from '@/app/lib/deleteTotalCartProduct';
-import { setUserCartProducts } from '@/redux/slices/UserCartSlice';
-import { removeUserCartProducts } from '@/redux/slices/UserCartSlice';
-import { getCart } from '@/app/lib/getCart';
 
-const CartItem = ({ product, modal, type, userCartProducts = false }) => {
+const CartItem = ({
+  product,
+  modal,
+  type,
+  userCartProducts = false,
+  paymentModal = false,
+}) => {
   const { isAuthorized, getUser } = useAuth();
   const authorized = isAuthorized();
   const token = authorized ? localStorage.getItem('token') : null;
@@ -42,12 +56,13 @@ const CartItem = ({ product, modal, type, userCartProducts = false }) => {
   };
 
   const removeUserCartProduct = () => {
+    dispatch(removeUserCartProducts(crmId));
     deleteTotalCartProduct(token, crmId)
       .then(() => {
         getCart(token, setUserCartProducts, dispatch);
       })
       .catch((error) => {
-        console.error('Error adding product to cart:', error);
+        console.error('Error remove product from cart:', error);
       });
   };
 
@@ -56,12 +71,13 @@ const CartItem = ({ product, modal, type, userCartProducts = false }) => {
   };
 
   const minusUserCartProduct = () => {
+    dispatch(subtractUserCartProduct(crmId));
     deleteCartProduct(token, crmId)
       .then(() => {
         getCart(token, setUserCartProducts, dispatch);
       })
       .catch((error) => {
-        console.error('Error adding product to cart:', error);
+        console.error('Error delete product from cart:', error);
       });
   };
 
@@ -70,6 +86,7 @@ const CartItem = ({ product, modal, type, userCartProducts = false }) => {
   };
 
   const plusUserCartProduct = () => {
+    dispatch(addUserCartProduct(crmId));
     addCartProduct(token, crmId)
       .then(() => {
         getCart(token, setUserCartProducts, dispatch);
@@ -105,6 +122,11 @@ const CartItem = ({ product, modal, type, userCartProducts = false }) => {
           </Box>
         </CartProductWrapper>
         <WrapperPlusMinusPrice type={type}>
+          {paymentModal ? (
+            <Box sx={{ minWidth: '50px' }}>
+              <PageText>{quantity} шт.</PageText>
+            </Box>
+          ) : null}
           {modal ? null : (
             <StyledButtonGroup>
               <StyledButton

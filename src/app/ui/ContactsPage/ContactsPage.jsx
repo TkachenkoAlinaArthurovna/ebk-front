@@ -27,6 +27,22 @@ const ContactsPage = () => {
             }}
           >
             <Box>
+              <PageText>ФОП Волков Юрій Юрійович;</PageText>
+            </Box>
+            <Box>
+              <PageText>ЄДРПОУ 3026018634;</PageText>
+            </Box>
+            <Box>
+              <StyledContact>
+                <Box>
+                  <Home width={'24px'} height={'24px'} />
+                </Box>
+                <PageText>
+                  вулиця Льва Толстого, 39А, Харків, Харківська область, 61000
+                </PageText>
+              </StyledContact>
+            </Box>
+            <Box>
               <StyledContact>
                 <Mail width={'24px'} height={'24px'} />
                 <PageText>
@@ -49,16 +65,6 @@ const ContactsPage = () => {
                 <PhoneIcon width={'24px'} height={'24px'} />
                 <PageText>
                   <Link href="tel:+380965471606">+38 096 547 16 06</Link>
-                </PageText>
-              </StyledContact>
-            </Box>
-            <Box>
-              <StyledContact>
-                <Box>
-                  <Home width={'24px'} height={'24px'} />
-                </Box>
-                <PageText>
-                  вулиця Льва Толстого, 39А, Харків, Харківська область, 61000
                 </PageText>
               </StyledContact>
             </Box>

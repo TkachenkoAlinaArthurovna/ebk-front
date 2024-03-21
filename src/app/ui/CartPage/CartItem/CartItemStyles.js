@@ -17,10 +17,13 @@ export const CartItemWrapper = styled(Box)`
       switch (type) {
         case 'modal':
           return 'column';
+        case 'modal-cart':
+          return 'column';
         case 'cart':
           return 'column';
       }
     }};
+    /* flex-direction: column; */
   }
 `;
 
@@ -30,6 +33,16 @@ export const CartProductWrapper = styled(Box)`
   flex-direction: row;
   justify-content: start;
   align-items: center;
+  @media (max-width: 700px) {
+    width: ${({ type }) => {
+      switch (type) {
+        case 'modal':
+          return '100%';
+        case 'modal-cart':
+          return '100%';
+      }
+    }};
+  }
   @media (max-width: 600px) {
     width: ${({ type }) => {
       switch (type) {
@@ -43,12 +56,24 @@ export const CartProductWrapper = styled(Box)`
       switch (type) {
         case 'modal':
           return 'column-reverse';
+        case 'modal-cart':
+          return 'column-reverse';
       }
     }};
     align-items: ${({ type }) => {
       switch (type) {
         case 'modal':
           return 'start';
+        case 'modal-cart':
+          return 'start';
+      }
+    }};
+  }
+  @media (max-width: 500px) {
+    margin-bottom: ${({ type }) => {
+      switch (type) {
+        case 'modal-cart':
+          return '10px';
       }
     }};
   }
@@ -112,6 +137,8 @@ export const WrapperPlusMinusPrice = styled(Box)`
       switch (type) {
         case 'modal':
           return '100%';
+        case 'modal-cart':
+          return '100%';
         case 'cart':
           return '100%';
       }
@@ -154,6 +181,8 @@ export const Wrapper = styled(Box)`
   }};
   margin-bottom: ${({ type }) => {
     switch (type) {
+      case 'modal-cart':
+        return '16px';
       case 'cart':
         return '16px';
     }

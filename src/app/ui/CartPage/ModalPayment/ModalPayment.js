@@ -1,36 +1,44 @@
-'use client';
+import { useDispatch } from 'react-redux';
+
+import { setDataForPaymentModal } from '@/redux/slices/DataForPaymentModalSlice';
+
+import { dollar } from '@/app/lib/dollar';
+import { sumUserPrices } from '@/app/lib/getTotalForCart';
 
 import { Modal } from '@mui/material';
-import {
-  StyledWrapper,
-  StyledPaper,
-  StyledTitle,
-  StyledIconButton,
-  StyledWrapperForProduct,
-  StyledButton,
-} from '@/app/ui/CartPage/ModalPayment/ModalPaymentStyles';
-import CartItem from '@/app/ui/CartPage/CartItem/CartItem';
-
 import CloseIcon from '@mui/icons-material/Close';
 import { Box } from '@mui/material';
 
-import { dollar } from '@/app/lib/dollar';
+import {
+  StyledWrapper,
+  StyledPaper,
+  StyledIconButton,
+  StyledButton,
+  WrapperProducts,
+  WrapperTotal,
+  StyledTotalPrice,
+  StyledTotalText,
+} from '@/app/ui/CartPage/ModalPayment/ModalPaymentStyles';
+import CartItem from '@/app/ui/CartPage/CartItem/CartItem';
 
 const ModalPayment = ({
-  isOpenModalPayment,
-  setIsOpenModalPayment,
+  dataForOrder,
+  setDataForOrder,
   objForPostPayment,
   firstname,
   surname,
   userCartProducts,
+  dataForPaymentModal,
 }) => {
+  const dispatch = useDispatch();
+  const prices = sumUserPrices(userCartProducts);
   const renderProductNameInputs = () => {
     return userCartProducts.map((item, index) => (
       <input
         key={index}
         type="hidden"
         name="productName[]"
-        value={item.product.name}
+        value={item.product.name.replace(/"/g, '')}
       />
     ));
   };
@@ -57,11 +65,27 @@ const ModalPayment = ({
     ));
   };
 
+  const productCarts = userCartProducts.map((product) => {
+    return (
+      <CartItem
+        key={product.product.crmId}
+        product={product}
+        modal={true}
+        type={'modal-cart'}
+        userCartProducts={true}
+        paymentModal={true}
+      />
+    );
+  });
+
   return (
     <Modal
-      open={isOpenModalPayment}
+      open={dataForOrder.isOpenModalPayment}
       onClose={() => {
-        setIsOpenModalPayment(false);
+        dispatch(setDataForPaymentModal(''));
+        setDataForOrder((prev) => {
+          return { ...prev, isOpenModalPayment: false };
+        });
       }}
     >
       <StyledPaper>
@@ -69,16 +93,27 @@ const ModalPayment = ({
           <Box></Box>
           <StyledIconButton
             onClick={() => {
-              setIsOpenModalPayment(false);
+              dispatch(setDataForPaymentModal(''));
+              setDataForOrder((prev) => {
+                return { ...prev, isOpenModalPayment: false };
+              });
             }}
           >
             <CloseIcon />
           </StyledIconButton>
         </StyledWrapper>
+        <WrapperProducts>{productCarts}</WrapperProducts>
+        <WrapperTotal>
+          <StyledTotalText>Загальна сума:</StyledTotalText>
+          <StyledTotalPrice>{prices} ₴</StyledTotalPrice>
+        </WrapperTotal>
         <StyledWrapper>
           <StyledButton
             onClick={() => {
-              setIsOpenModalPayment(false);
+              dispatch(setDataForPaymentModal(''));
+              setDataForOrder((prev) => {
+                return { ...prev, isOpenModalPayment: false };
+              });
             }}
           >
             Повернутись до корзини
@@ -87,6 +122,7 @@ const ModalPayment = ({
             method="post"
             action="https://secure.wayforpay.com/pay"
             acceptCharset="utf-8"
+            className="payment-form"
           >
             <input type="hidden" name="merchantAccount" value="test_merch_n1" />
             <input
@@ -94,22 +130,20 @@ const ModalPayment = ({
               name="merchantDomainName"
               value="https://eco-bike.com.ua"
             />
-            {/* Підпис запиту */}
             <input
               type="hidden"
               name="merchantSignature"
-              value={`${'merchantSignature'}`}
+              value={`${dataForPaymentModal.merchantSignature ? dataForPaymentModal.merchantSignature : null}`}
             />
-            <input
+            {/* <input
               type="hidden"
               name="returnUrl"
               value="https://eco-bike.com.ua"
-            />
-            {/* Унікальний номер замовлення в системі торговця */}
+            /> */}
             <input
               type="hidden"
               name="orderReference"
-              value={`${'orderReference'}`}
+              value={`${dataForPaymentModal.orderReference}`}
             />
             <input
               type="hidden"
@@ -130,12 +164,18 @@ const ModalPayment = ({
               name="clientAccountId"
               value={`${objForPostPayment.accountId}`}
             />
-            <input
+            {/* <input
               type="hidden"
               name="clientFirstName"
               value={`${firstname}`}
+              // value={`Artem`}
             />
-            <input type="hidden" name="clientLastName" value={`${surname}`} />
+            <input
+              type="hidden"
+              name="clientLastName"
+              value={`${surname}`}
+              // value={`H`}
+            /> */}
             <button type="submit" className="button-payment">
               Перейти до оплати
             </button>

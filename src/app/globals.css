@@ -154,3 +154,12 @@ pre {
     height: 43px;
   }
 }
+
+@media (max-width: 700px) {
+  .payment-form {
+    width: 100%;
+  }
+  .button-payment {
+    width: 100%;
+  }
+}

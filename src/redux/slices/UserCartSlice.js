@@ -12,11 +12,33 @@ const UserCartSlice = createSlice({
       state.userCartProducts = action.payload;
     },
     removeUserCartProducts(state, action) {
-      state.userCartProducts = [];
+      state.userCartProducts = state.userCartProducts.filter(
+        (item) => item.product.crmId !== action.payload,
+      );
+    },
+    addUserCartProduct(state, action) {
+      for (let i = 0; i < state.userCartProducts.length; i++) {
+        if (state.userCartProducts[i].product.crmId === action.payload) {
+          state.userCartProducts[i].quantity += 1;
+          return;
+        }
+      }
+    },
+    subtractUserCartProduct(state, action) {
+      for (let i = 0; i < state.userCartProducts.length; i++) {
+        if (state.userCartProducts[i].product.crmId === action.payload) {
+          state.userCartProducts[i].quantity -= 1;
+          return;
+        }
+      }
     },
   },
 });
 
-export const { setUserCartProducts, removeUserCartProducts } =
-  UserCartSlice.actions;
+export const {
+  setUserCartProducts,
+  removeUserCartProducts,
+  addUserCartProduct,
+  subtractUserCartProduct,
+} = UserCartSlice.actions;
 export default UserCartSlice.reducer;

@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  firstname: '',
-  surname: '',
-  phone: '',
-  email: '',
+  userInfo: {
+    firstname: '',
+    surname: '',
+    phone: '',
+    email: '',
+  },
 };
 
 const UserInfoSlice = createSlice({
@@ -12,16 +14,16 @@ const UserInfoSlice = createSlice({
   initialState,
   reducers: {
     setFirstname: (state, action) => {
-      state.firstname = action.payload;
+      state.userInfo.firstname = action.payload;
     },
     setSurname: (state, action) => {
-      state.surname = action.payload;
+      state.userInfo.surname = action.payload;
     },
     setPhone: (state, action) => {
-      state.phone = action.payload;
+      state.userInfo.phone = action.payload;
     },
     setEmail: (state, action) => {
-      state.email = action.payload;
+      state.userInfo.email = action.payload;
     },
   },
 });

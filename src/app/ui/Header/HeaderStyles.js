@@ -28,8 +28,13 @@ export const WrapperPhones = styled(Box)`
   display: flex;
   align-items: center;
   position: relative;
-  @media (max-width: 1100px) {
-    display: none;
+  @media (max-width: 700px) {
+    position: absolute;
+    right: 120px;
+  }
+  @media (max-width: 400px) {
+    position: absolute;
+    right: 110px;
   }
 `;
 
@@ -64,9 +69,16 @@ export const StyledLogoBox = styled(Box)`
     position: absolute;
     left: 51px;
     top: 0;
-  }
-  @media (max-width: 700px) {
     height: 56px;
+  }
+  @media (max-width: 600px) {
+    top: -4px;
+  }
+  @media (max-width: 400px) {
+    width: 100px;
+  }
+  @media (max-width: 380px) {
+    width: 80px;
   }
 `;
 

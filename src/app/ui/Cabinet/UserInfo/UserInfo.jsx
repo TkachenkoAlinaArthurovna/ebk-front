@@ -21,20 +21,23 @@ const UserInfo = () => {
   const authorized = isAuthorized();
   const user = authorized ? getUser() : null;
   const token = authorized ? localStorage.getItem('token') : null;
-  const firstname = useSelector((state) => state.user.firstname);
-  const surname = useSelector((state) => state.user.surname);
-  const phone = useSelector((state) => state.user.phone);
-  const email = useSelector((state) => state.user.email);
+  const userInfo = useSelector((state) => state.user.userInfo);
 
   const initialValues = {
-    firstname: firstname,
-    surname: surname,
-    phone: phone,
-    email: email,
+    firstname: userInfo.firstname,
+    surname: userInfo.surname,
+    phone: userInfo.phone,
+    email: userInfo.email,
   };
 
   const handleSubmit = () => {
-    putUser(firstname, surname, email, phone, user);
+    putUser(
+      userInfo.firstname,
+      userInfo.surname,
+      userInfo.email,
+      userInfo.phone,
+      user,
+    );
   };
 
   return (
@@ -50,12 +53,7 @@ const UserInfo = () => {
         >
           {({}) => (
             <Form>
-              <CartContactInfo
-                firstname={firstname}
-                surname={surname}
-                phone={phone}
-                email={email}
-              />
+              <CartContactInfo />
               <ButtonBox>
                 <StyledButton type="submit" onClick={handleSubmit}>
                   Зберегти зміни

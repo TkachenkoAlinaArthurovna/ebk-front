@@ -44,8 +44,11 @@ const PaymentDeliveryPage = () => {
         </Box>
         <Box>
           <Typography variant="h6">Нова Пошта (відділення)</Typography>
-          <Typography variant="body1">
+          <Typography variant="body1" sx={{ margin: '16px 0' }}>
             Доставка у відділення Нова Пошта по Україні.
+          </Typography>
+          <Typography variant="body1" sx={{ margin: '16px 0' }}>
+            Зазвичай доставка займає 1-3 дні.
           </Typography>
           <Typography variant="body1" sx={{ margin: '16px 0' }}>
             Увага! Ретельно перевіряйте замовлення при отриманні! У разі
@@ -77,9 +80,12 @@ const PaymentDeliveryPage = () => {
             комплекті з велосипедом).
           </Typography>
           <Typography variant="h6">Нова Пошта (поштомат)</Typography>
-          <Typography variant="body1">
+          <Typography variant="body1" sx={{ margin: '16px 0' }}>
             Отримай своє замовлення 24/7 у найближчому поштоматі Нова Пошта, по
             Україні та Києву.
+          </Typography>
+          <Typography variant="body1" sx={{ margin: '16px 0' }}>
+            Зазвичай доставка займає 1-3 дні.
           </Typography>
           <Typography variant="h6">
             Вартість доставки замовлення у поштомати Нова Пошта:

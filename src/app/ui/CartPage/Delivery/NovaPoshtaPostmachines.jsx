@@ -8,11 +8,7 @@ import { FormControlLabel, Radio, Autocomplete } from '@mui/material';
 import { Field } from 'formik';
 import useDebounce from '@/app/lib/useDebounce';
 
-const NovaPoshtaPostmachines = ({
-  setSettlement,
-  setDepartment,
-  setFilteredDepartments,
-}) => {
+const NovaPoshtaPostmachines = ({ setDataForOrder }) => {
   const selectedDelivery = useSelector(
     (state) => state.delivery.selectedDelivery,
   );
@@ -94,7 +90,9 @@ const NovaPoshtaPostmachines = ({
               '95dc212d-479c-4ffb-a8ab-8c1b9073d0bc',
             ].includes(obj.TypeOfWarehouse),
           );
-          setFilteredDepartments(filteredPostmachines);
+          setDataForOrder((prev) => {
+            return { ...prev, filteredDepartments: filteredPostmachines };
+          });
           const description = filteredPostmachines.map(
             (obj) => obj.Description,
           );
@@ -117,8 +115,9 @@ const NovaPoshtaPostmachines = ({
       const settlement = arrAddresses.find(
         (obj) => obj.Present == selectedSettlement,
       );
-      setSettlement(settlement);
-      setDepartment('');
+      setDataForOrder((prev) => {
+        return { ...prev, settlement: settlement, department: '' };
+      });
       getPostmachines(settlement.DeliveryCity);
     }
   }, [selectedSettlement]);
@@ -169,7 +168,9 @@ const NovaPoshtaPostmachines = ({
               <TextField {...params} label="Виберіть поштомат" />
             )}
             onChange={(event, newValue) => {
-              setDepartment(newValue);
+              setDataForOrder((prev) => {
+                return { ...prev, department: newValue };
+              });
               setSelectedPostmachines(newValue);
             }}
           />

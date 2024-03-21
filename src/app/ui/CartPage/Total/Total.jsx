@@ -25,14 +25,7 @@ import {
   getUserProductsQuantity,
 } from '@/app/lib/getTotalForCart';
 
-const Total = ({
-  dirty,
-  isValid,
-  cartProducts,
-  settlement,
-  department,
-  authorized,
-}) => {
+const Total = ({ dirty, isValid, cartProducts, dataForOrder, authorized }) => {
   const quantity = authorized
     ? getUserProductsQuantity(cartProducts)
     : getProductsQuantity(cartProducts);
@@ -86,7 +79,12 @@ const Total = ({
         }}
         type="submit"
         variant="contained"
-        disabled={!dirty || !isValid || settlement == '' || department == ''}
+        disabled={
+          !dirty ||
+          !isValid ||
+          dataForOrder.settlement == '' ||
+          dataForOrder.department == ''
+        }
       >
         Замовлення підтверджую
       </StyledCheckoutButton>
