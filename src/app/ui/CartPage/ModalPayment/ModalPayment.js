@@ -133,13 +133,13 @@ const ModalPayment = ({
             <input
               type="hidden"
               name="merchantSignature"
-              value={`${dataForPaymentModal.merchantSignature ? dataForPaymentModal.merchantSignature.hash : null}`}
+              value={`${dataForPaymentModal.merchantSignature ? dataForPaymentModal.merchantSignature : null}`}
             />
-            <input
+            {/* <input
               type="hidden"
               name="returnUrl"
-              value="https://ebk-front.vercel.app/output"
-            />
+              value="https://eco-bike.com.ua"
+            /> */}
             <input
               type="hidden"
               name="orderReference"
