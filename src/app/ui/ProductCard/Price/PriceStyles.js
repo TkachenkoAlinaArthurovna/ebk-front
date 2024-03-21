@@ -15,6 +15,12 @@ export const WrapperBoxNew = styled(Box)`
   font-size: 22px;
   font-weight: 600;
   line-height: 28px;
+  justify-content: ${({ type }) => {
+    switch (type) {
+      case 'productCard':
+        return 'start';
+    }
+  }};
   @media (max-width: 1100px) {
     width: 40%;
   }

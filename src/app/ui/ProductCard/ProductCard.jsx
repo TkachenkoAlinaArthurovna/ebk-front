@@ -130,6 +130,7 @@ const ProductCard = ({ product, heart = true }) => {
           price={mainProduct.price}
           oldprice={mainProduct.oldprice}
           fontSize={22}
+          type={'productCard'}
         />
         <StyledIconButton
           onClick={() => {

@@ -8,7 +8,7 @@ import {
 import { Typography } from '@mui/material';
 import { dollar } from '@/app/lib/dollar';
 
-const Price = ({ price, oldprice, fontSize, productPage }) => {
+const Price = ({ price, oldprice, fontSize, productPage, type }) => {
   const currencyRate = dollar;
   const priceUa = Math.ceil(price * currencyRate);
   const oldPriceUa = Math.ceil(oldprice * currencyRate);
@@ -35,7 +35,7 @@ const Price = ({ price, oldprice, fontSize, productPage }) => {
 
   if (!oldprice) {
     return (
-      <WrapperBoxNew>
+      <WrapperBoxNew type={type}>
         <Typography
           sx={{
             fontSize: `${fontSize}px`,
