@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Box } from '@mui/material';
 import Content from '@/app/ui/Content';
 
-const Output = () => {
+const OutputPage = () => {
   const [status, setStatus] = useState('Pending');
 
   const dataForPaymentModal = useSelector(
@@ -35,4 +35,4 @@ const Output = () => {
   return <Content>{status}</Content>;
 };
 
-export default Output;
+export default OutputPage;

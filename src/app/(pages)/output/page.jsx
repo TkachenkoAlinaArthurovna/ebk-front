@@ -1,4 +1,4 @@
-import Output from '@/app/ui/Output';
+import OutputPage from '@/app/ui/OutputPage';
 export default function Output() {
-  return <Output></Output>;
+  return <OutputPage></OutputPage>;
 }
