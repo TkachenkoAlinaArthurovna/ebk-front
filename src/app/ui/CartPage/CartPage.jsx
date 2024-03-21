@@ -9,6 +9,7 @@ import { useAuth } from '@/redux/contexts/AuthContext';
 import { removeCartProducts } from '@/redux/slices/CartSlice';
 import { removeUserCartProducts } from '@/redux/slices/UserCartSlice';
 import { setUserCartProducts } from '@/redux/slices/UserCartSlice';
+import { setDataForPaymentModal } from '@/redux/slices/DataForPaymentModalSlice';
 
 import BreadCrumbs from '@/app/ui/BreadCrumbs/BreadCrumbs';
 import CartItem from '@/app/ui/CartPage/CartItem/CartItem';
@@ -18,14 +19,12 @@ import {
   StyledOrderWrapper,
   WrapperCartProducts,
   Wrapper,
-} from '@/app/ui/CartPage/CartPageStyles';
-import {
   StyledCheckoutButton,
   StyledList,
   StyledListItem,
   StyledTermsTitle,
+  WrapperForLoading,
 } from '@/app/ui/CartPage/CartPageStyles';
-
 import EmptyCart from './EmptyCart/EmptyCart';
 import Delivery from '@/app/ui/CartPage/Delivery';
 import UserInfo from '@/app/ui/CartPage/UserInfo';
@@ -39,6 +38,7 @@ import LoadingCartItem from '@/app/ui/CartPage/LoadingCartItem';
 import ModalPayment from '@/app/ui/CartPage/ModalPayment';
 import { FormControlLabel, Box } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import { contactDataSchema } from '@/app/lib/schemas';
 import { postPayment } from '@/app/lib/postPayment';
@@ -48,8 +48,7 @@ import { putUser } from '@/app/lib/putUser';
 import { makeAnOrder } from '@/app/lib/makeAnOrder';
 import { getUserObj } from '@/app/lib/getUserObj';
 import { getCart } from '@/app/lib/getCart';
-import { sumUserPrices } from '@/app/lib/getTotalForCart';
-import { dollar } from '@/app/lib/dollar';
+import { createObjForPostPayment } from '@/app/lib/createObjForPostPayment';
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -61,96 +60,86 @@ const CartPage = () => {
   const userCartProducts = useSelector(
     (state) => state.userCart.userCartProducts,
   );
-
   const cartProducts = useSelector((state) => state.cart.cartProducts);
-  const firstname = useSelector((state) => state.user.firstname);
-  const surname = useSelector((state) => state.user.surname);
-  const phone = useSelector((state) => state.user.phone);
-  const email = useSelector((state) => state.user.email);
+  const userInfo = useSelector((state) => state.user.userInfo);
   const selectedDelivery = useSelector(
     (state) => state.delivery.selectedDelivery,
   );
   const selectedPayment = useSelector((state) => state.payment.selectedPayment);
   const loading = useSelector((state) => state.loading.loading);
+  const dataForPaymentModal = useSelector(
+    (state) => state.dataForPaymentModal.dataForPaymentModal,
+  );
 
-  const [comment, setComment] = useState('');
-  const [doNotCall, setDoNotCall] = useState(false);
-  const [settlement, setSettlement] = useState('');
-  const [department, setDepartment] = useState('');
-  const [filteredDepartments, setFilteredDepartments] = useState('');
-  const [success, setSuccess] = useState(false);
-  const [isOpenModalPayment, setIsOpenModalPayment] = useState(false);
+  const [dataForOrder, setDataForOrder] = useState({
+    comment: '',
+    doNotCall: false,
+    settlement: '',
+    department: '',
+    filteredDepartments: '',
+    success: false,
+    isOpenModalPayment: false,
+  });
+
+  const [loadingPostPayment, setLoadingPostPayment] = useState(false);
+
+  const [activeObjForPostPayment, setActiveObjForPostPayment] = useState('');
 
   const initialValues = {
-    firstname: firstname,
-    surname: surname,
-    phone: phone,
-    email: email,
+    firstname: userInfo.firstname,
+    surname: userInfo.surname,
+    phone: userInfo.phone,
+    email: userInfo.email,
     delivery: selectedDelivery,
     payment: selectedPayment,
-    comment: comment,
-    doNotCall: doNotCall,
+    comment: dataForOrder.comment,
+    doNotCall: dataForOrder.doNotCall,
     termsAgreement: false,
   };
 
-  const createObjForPostPayment = () => {
-    const date = Date.now();
-    const amountProducts = sumUserPrices(userCartProducts).replace(/\s/g, '');
-    const arrProductName = userCartProducts.map(
-      (cartProduct) => cartProduct.product.crmId,
-    );
-    const arrProductCount = userCartProducts.map(
-      (cartProduct) => cartProduct.quantity,
-    );
-    const productPrice = userCartProducts.map((cartProduct) =>
-      Math.ceil(cartProduct.product.price * dollar),
-    );
-
-    return {
-      orderDate: date,
-      amount: amountProducts,
-      currency: 'UAH',
-      productName: arrProductName,
-      productCount: arrProductCount,
-      productPrice: productPrice,
-      accountId: user ? user.id : null,
-    };
-  };
-
-  const objForPostPayment = createObjForPostPayment();
+  const objForPostPayment = createObjForPostPayment(userCartProducts, user);
 
   const handleSubmit = () => {
-    putUser(firstname, surname, email, phone, user);
+    putUser(
+      userInfo.firstname,
+      userInfo.surname,
+      userInfo.email,
+      userInfo.phone,
+      user,
+    );
     const cityRefAndRef = findCityRefAndRefByDescription(
-      department,
-      filteredDepartments,
+      dataForOrder.department,
+      dataForOrder.filteredDepartments,
     );
     const products = transformObjectsArray(userCartProducts);
 
-    // if (initialValues.payment == 'Накладений платіж Нова Пошта') {
-    //   makeAnOrder(
-    //     token,
-    //     firstname,
-    //     surname,
-    //     phone,
-    //     email,
-    //     initialValues.delivery,
-    //     initialValues.payment,
-    //     settlement.Present,
-    //     department,
-    //     cityRefAndRef,
-    //     products,
-    //     comment,
-    //     doNotCall,
-    //   );
-    //   dispatch(removeCartProducts());
-    //   deleteAllCart(token);
-    //   setSuccess(true);
-    // }
-    // if (initialValues.payment == 'Visa/Mastercard • Google Pay • Apple Pay') {
-    //   postPayment(token, objForPostPayment);
-    //   setIsOpenModalPayment(true);
-    // }
+    if (initialValues.payment == 'Накладений платіж Нова Пошта') {
+      makeAnOrder(
+        token,
+        userInfo.firstname,
+        userInfo.surname,
+        userInfo.phone,
+        userInfo.email,
+        initialValues.delivery,
+        initialValues.payment,
+        dataForOrder.settlement.Present,
+        dataForOrder.department,
+        cityRefAndRef,
+        products,
+        dataForOrder.comment,
+        dataForOrder.doNotCall,
+      );
+      dispatch(removeCartProducts());
+      deleteAllCart(token);
+      setDataForOrder((prev) => {
+        return { ...prev, success: true };
+      });
+    }
+    if (initialValues.payment == 'Visa/Mastercard • Google Pay • Apple Pay') {
+      setLoadingPostPayment(true);
+      setActiveObjForPostPayment(objForPostPayment);
+      postPayment(token, objForPostPayment, dispatch, setDataForPaymentModal);
+    }
   };
 
   function findCityRefAndRefByDescription(description, objectsArray) {
@@ -183,21 +172,35 @@ const CartPage = () => {
   }, [authorized]);
 
   useEffect(() => {
-    if (success == true) {
+    if (dataForOrder.success == true) {
       getCart(token, setUserCartProducts, dispatch);
     }
-  }, [success]);
+  }, [dataForOrder.success]);
+
+  useEffect(() => {
+    if (dataForPaymentModal !== '') {
+      setLoadingPostPayment(false);
+      setDataForOrder((prev) => {
+        return { ...prev, isOpenModalPayment: true };
+      });
+    }
+  }, [dataForPaymentModal]);
 
   return (
     <>
+      {loadingPostPayment && (
+        <WrapperForLoading>
+          <CircularProgress />
+        </WrapperForLoading>
+      )}
       <Content>
         <BreadCrumbs />
         {cartProducts.length === 0 &&
         userCartProducts.length === 0 &&
-        success == false &&
+        dataForOrder.success == false &&
         loading == false ? (
           <EmptyCart />
-        ) : success == true ? (
+        ) : dataForOrder.success == true ? (
           <Success />
         ) : (
           <Formik
@@ -241,27 +244,32 @@ const CartPage = () => {
                       cartProducts={
                         authorized ? userCartProducts : cartProducts
                       }
-                      settlement={settlement}
-                      department={department}
+                      dataForOrder={dataForOrder}
                       authorized={authorized}
                     />
                   </StyledOrderWrapper>
                   {authorized ? (
                     <Wrapper>
                       <UserInfo />
-                      <Delivery
-                        setSettlement={setSettlement}
-                        setDepartment={setDepartment}
-                        setFilteredDepartments={setFilteredDepartments}
-                      />
+                      <Delivery setDataForOrder={setDataForOrder} />
                       <Payment />
-                      <Comment comment={comment} setComment={setComment} />
+                      <Comment
+                        dataForOrder={dataForOrder}
+                        setDataForOrder={setDataForOrder}
+                      />
                       <FormControlLabel
                         sx={{ margin: '24px 0 0 0' }}
                         control={<Checkbox sx={{ paddingLeft: 0 }} />}
                         name={'doNotCall'}
                         label={'Не дзвонити для підтвердження замовлення'}
-                        onChange={() => setDoNotCall(!doNotCall)}
+                        onChange={() =>
+                          setDataForOrder((prev) => {
+                            return {
+                              ...prev,
+                              doNotCall: !dataForOrder.doNotCall,
+                            };
+                          })
+                        }
                       />
                       <Box
                         sx={{
@@ -306,7 +314,10 @@ const CartPage = () => {
                     type="submit"
                     variant="contained"
                     disabled={
-                      !dirty || !isValid || settlement == '' || department == ''
+                      !dirty ||
+                      !isValid ||
+                      dataForOrder.settlement == '' ||
+                      dataForOrder.department == ''
                     }
                   >
                     Замовлення підтверджую
@@ -318,12 +329,13 @@ const CartPage = () => {
         )}
       </Content>
       <ModalPayment
-        isOpenModalPayment={isOpenModalPayment}
-        setIsOpenModalPayment={setIsOpenModalPayment}
-        objForPostPayment={objForPostPayment}
-        firstname={firstname}
-        surname={surname}
+        dataForOrder={dataForOrder}
+        setDataForOrder={setDataForOrder}
+        objForPostPayment={activeObjForPostPayment}
+        firstname={userInfo.firstname}
+        surname={userInfo.surname}
         userCartProducts={userCartProducts}
+        dataForPaymentModal={dataForPaymentModal}
       />
     </>
   );

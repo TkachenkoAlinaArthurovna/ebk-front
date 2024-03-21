@@ -12,6 +12,8 @@ export const StyledPaper = styled(Paper)`
   display: flex;
   flex-direction: column;
   width: 800px;
+  max-height: 80vh;
+  min-height: 400px;
   padding: 36px;
   border: none;
   border-radius: 24px;
@@ -71,7 +73,65 @@ export const StyledButton = styled(Button)`
   @media (max-width: 1200px) {
     height: 43px;
   }
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
     display: none;
+  }
+`;
+
+export const WrapperProducts = styled(Box)`
+  /* width */
+  ::-webkit-scrollbar {
+    width: 2px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #49beb7;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  height: 100%;
+  min-height: 100px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+  padding-right: 10px;
+`;
+
+export const WrapperTotal = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: end;
+  align-items: end;
+  margin-bottom: 40px;
+`;
+
+export const StyledTotalPrice = styled(Typography)`
+  font-size: 22px;
+  line-height: 22px;
+  font-weight: 500;
+  @media (max-width: 400px) {
+    font-size: 18px;
+    line-height: 18px;
+  }
+`;
+
+export const StyledTotalText = styled(Typography)`
+  margin-right: 10px;
+  font-size: 20px;
+  line-height: 22px;
+  @media (max-width: 400px) {
+    font-size: 18px;
+    line-height: 18px;
   }
 `;

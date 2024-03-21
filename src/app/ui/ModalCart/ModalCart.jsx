@@ -37,10 +37,10 @@ const ModalCart = () => {
     dispatch(toggleCartModal());
   };
   const toggleUserCartProduct = () => {
+    dispatch(toggleCartModal());
     addCartProduct(token, currentCard.crmId)
       .then(() => {
         getCart(token, setUserCartProducts, dispatch);
-        dispatch(toggleCartModal());
       })
       .catch((error) => {
         console.error('Error adding product to cart:', error);
@@ -56,7 +56,7 @@ const ModalCart = () => {
           </StyledIconButton>
         </StyledWrapper>
         <StyledWrapperForProduct>
-          <CartItem product={currentCard} modal={true} />
+          <CartItem product={currentCard} modal={true} type="modal" />
         </StyledWrapperForProduct>
         <StyledWrapper>
           <StyledButton onClick={toggleModal}>Продовжити покупки</StyledButton>

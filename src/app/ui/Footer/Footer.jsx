@@ -1,6 +1,6 @@
 'use client';
 
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Content from '@/app/ui/Content';
 import {
   FooterItemBox,
@@ -51,9 +51,9 @@ const Footer = () => {
                 <StyledListItem>
                   <Link href="/contacts">Контакти</Link>
                 </StyledListItem>
-                <StyledListItem>
+                {/* <StyledListItem>
                   <Link href="/reviews">Відгуки</Link>
-                </StyledListItem>
+                </StyledListItem> */}
               </StyledList>
             </FooterItemBox>
 
@@ -117,7 +117,8 @@ const Footer = () => {
               <Link href="/privacy-policy">Політика конфіденційності</Link>
             </Box>
             <Box sx={{ textAlign: 'center' }}>
-              eco-bike copyright <span onClick={handleOpenDevModal}>©</span> {currentYear} all rights reserved
+              eco-bike copyright <span onClick={handleOpenDevModal}>©</span>{' '}
+              {currentYear} all rights reserved
             </Box>
           </Box>
           <LogoContainerBottom>
@@ -127,7 +128,7 @@ const Footer = () => {
           </LogoContainerBottom>
         </Content>
       </StyledContainer>
-      <DevModal/>
+      <DevModal />
     </>
   );
 };

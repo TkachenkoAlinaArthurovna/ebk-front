@@ -5,7 +5,7 @@ export const getCart = async (
   setLoading,
 ) => {
   try {
-    setLoading && setLoading(true);
+    setLoading && dispatch(setLoading(true));
     const url = `https://stage.eco-bike.com.ua/api/cart`;
     const res = await fetch(url, {
       method: 'GET',
@@ -18,7 +18,7 @@ export const getCart = async (
       const data = await res.json();
       if (data) {
         dispatch(setUserCartProducts(data.items));
-        setLoading && setLoading(false);
+        setLoading && dispatch(setLoading(false));
       } else {
         if (res.status === 404) {
           dispatch(setUserCartProducts([]));
@@ -27,6 +27,6 @@ export const getCart = async (
     }
   } catch (error) {
     console.log(error);
-    setLoading && setLoading(false);
+    setLoading && dispatch(setLoading(false));
   }
 };

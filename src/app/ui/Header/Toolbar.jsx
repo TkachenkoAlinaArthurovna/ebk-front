@@ -25,6 +25,7 @@ import {
 import { setUserCartProducts } from '@/redux/slices/UserCartSlice';
 import { useAuth } from '@/redux/contexts/AuthContext';
 import { openAuthModal } from '@/redux/slices/AuthModalSlice';
+import { setLoading } from '@/redux/slices/LoadingSlice';
 
 import IconButtonMenu from '@/app/ui/Header/IconButtonMenu';
 import IconButton from '@mui/material/IconButton';
@@ -72,6 +73,7 @@ const Toolbar = () => {
   const handleOpenAuthModal = () => dispatch(openAuthModal());
 
   useEffect(() => {
+    dispatch(setCatalogLinks([]));
     const getCategories = async () => {
       try {
         const response = await fetch(
@@ -129,7 +131,7 @@ const Toolbar = () => {
   useEffect(() => {
     if (authorized && token) {
       if (cartProducts.length == 0) {
-        getCart(token, setUserCartProducts, dispatch);
+        getCart(token, setUserCartProducts, dispatch, setLoading);
       }
     }
   }, [authorized, cartProducts]);

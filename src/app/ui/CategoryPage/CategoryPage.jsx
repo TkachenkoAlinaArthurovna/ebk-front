@@ -1,11 +1,13 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { notFound, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 import { resetFilters } from '@/redux/slices/ProductFilterSlice';
 
 import { useResize } from '@/app/lib/helpers';
+import { getProducts } from '@/app/lib/getProducts';
+import { getFilterProducts } from '@/app/lib/getFilterProducts';
 
 import Content from '@/app/ui/Content';
 import PageTitle from '@/app/ui/PageTitle';
@@ -51,85 +53,6 @@ export default function CategoryPage({
   const pathnames = pathname.split('/').filter((path) => path);
   const [loading, setLoading] = useState(false);
 
-  const getProducts = async () => {
-    try {
-      setLoading(true);
-      const limit = width > 700 ? 9 : 8;
-      let res;
-      const sort = sortParam ? `sort=${sortParam}&` : '';
-      res = await fetch(
-        `https://stage.eco-bike.com.ua/api/catalog/${categoryId}?${sort}page=${page}&limit=${limit}`,
-        { next: { revalidate: 3600 } },
-      );
-      if (res.ok) {
-        const data = await res.json();
-        if (data) {
-          if (!price) {
-            setProducts(data.results);
-            const duplicateArray = data.vendors.map((vendor) => [
-              vendor,
-              vendor,
-            ]);
-            const vendorsObj = {
-              name: ['Vendor', 'Виробник'],
-              values: duplicateArray,
-            };
-            setVendors(vendorsObj);
-            setTotalPage(data.meta.totalPages);
-          }
-          setPriceRange(data.priceRange);
-          setParams(data.params);
-        }
-      } else {
-        notFound();
-        setLoading(false);
-      }
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
-
-  const getFilterProducts = async () => {
-    try {
-      setLoading(true);
-      const limit = width > 700 ? 9 : 8;
-      let res;
-      const sort = sortParam ? `sort=${sortParam}&` : '';
-      const vendor = vendorParam ? `vendor=${vendorParam}&` : '';
-      if (price || filterParams) {
-        res = await fetch(
-          `https://stage.eco-bike.com.ua/api/catalog/${categoryId}${!filterParams == '' ? '/' + filterParams : ''}?${vendor}${sort}price=${price}&page=${page}&limit=${limit}`,
-          { next: { revalidate: 3600 } },
-        );
-      }
-      if (res.ok) {
-        const data = await res.json();
-        if (data) {
-          if (price) {
-            setProducts(data.results);
-            const duplicateArray = data.vendors.map((vendor) => [
-              vendor,
-              vendor,
-            ]);
-            const vendorsObj = {
-              name: ['Vendor', 'Виробник'],
-              values: duplicateArray,
-            };
-            setVendors(vendorsObj);
-            setTotalPage(data.meta.totalPages);
-          }
-        }
-      } else {
-        notFound();
-        setLoading(false);
-      }
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
     if (products) {
       setLoading(false);
@@ -137,9 +60,33 @@ export default function CategoryPage({
   }, [products]);
 
   useEffect(() => {
-    getProducts();
+    getProducts(
+      categoryId,
+      page,
+      setLoading,
+      width,
+      sortParam,
+      price,
+      setProducts,
+      setVendors,
+      setTotalPage,
+      setPriceRange,
+      setParams,
+    );
     if (price || filterParams) {
-      getFilterProducts();
+      getFilterProducts(
+        categoryId,
+        page,
+        setLoading,
+        width,
+        sortParam,
+        vendorParam,
+        price,
+        filterParams,
+        setProducts,
+        setVendors,
+        setTotalPage,
+      );
     }
   }, []);
 

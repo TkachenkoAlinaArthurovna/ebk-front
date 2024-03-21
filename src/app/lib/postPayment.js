@@ -1,4 +1,10 @@
-export const postPayment = async (token, obj) => {
+export const postPayment = async (
+  token,
+  obj,
+  dispatch,
+  setDataForPaymentModal,
+) => {
+  console.log(obj);
   try {
     const url = `https://stage.eco-bike.com.ua/api/payments/create`;
     const requestBody = {
@@ -8,7 +14,7 @@ export const postPayment = async (token, obj) => {
       productName: obj.productName,
       productCount: obj.productCount,
       productPrice: obj.productPrice,
-      accountId: obj.accountId,
+      clientAccountId: obj.accountId,
     };
     const res = await fetch(url, {
       method: 'POST',
@@ -21,7 +27,7 @@ export const postPayment = async (token, obj) => {
     if (res.ok) {
       const data = await res.json();
       if (data) {
-        console.log(data);
+        dispatch(setDataForPaymentModal(data));
       }
     }
   } catch (error) {}

@@ -14,7 +14,7 @@ import {
 } from '@/app/ui/CartPage/CartPageStyles';
 import { Field, ErrorMessage } from 'formik';
 
-const Comment = ({ comment, setComment }) => {
+const Comment = ({ dataForOrder, setDataForOrder }) => {
   return (
     <StyledAccordion>
       <AccordionSummary
@@ -30,8 +30,12 @@ const Comment = ({ comment, setComment }) => {
           as={TextField}
           label="Коментар"
           placeholder={'Маєте уточнення чи запитання?'}
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
+          value={dataForOrder.comment}
+          onChange={(e) =>
+            setDataForOrder((prev) => {
+              return { ...prev, comment: e.target.value };
+            })
+          }
           fullWidth
           InputLabelProps={{ shrink: true }}
           multiline

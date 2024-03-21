@@ -4,15 +4,22 @@ import { styled } from '@mui/system';
 import Box from '@mui/system/Box';
 
 export const WrapperBoxNew = styled(Box)`
+  width: 30%;
+  min-width: 100px;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: center;
+  justify-content: end;
   font-family: 'Roboto';
   font-size: 22px;
   font-weight: 600;
   line-height: 28px;
-  @media (max-width: 480px) {
+  @media (max-width: 1100px) {
+    width: 40%;
+  }
+  @media (max-width: 500px) {
+    width: 30%;
     font-size: 18px;
   }
   @media (max-width: 380px) {

@@ -7,6 +7,7 @@ import { styled, Select } from '@mui/material';
 import Link from 'next/link';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import { WrapperPhones, WrapperIcon } from '@/app/ui/Header/HeaderStyles';
+import { useResize } from '@/app/lib/helpers';
 
 export const StyledSelect = styled(Select)`
   border-radius: 8px;
@@ -27,13 +28,14 @@ export const StyledFormControl = styled(FormControl)`
   margin: 1;
   min-width: 190px;
   border: 0;
-  @media (max-width: 1023px) {
-    display: none;
+  @media (max-width: 1100px) {
+    min-width: 0px;
   }
 `;
 
 const Phones = () => {
-  const [view, setView] = useState('popular');
+  const [width, height] = useResize();
+  const [view, setView] = useState('+38 050 562 18 68');
 
   const handleChange = (event) => {
     setView(event.target.value);
@@ -45,7 +47,7 @@ const Phones = () => {
         <LocalPhoneIcon />
       </WrapperIcon>
 
-      <StyledFormControl sx={{ m: 1, minWidth: 190, border: 0 }} size="small">
+      <StyledFormControl>
         <StyledSelect
           IconComponent={ExpandMore}
           sx={{
@@ -59,11 +61,12 @@ const Phones = () => {
           value={view}
           label="View"
           onChange={handleChange}
+          renderValue={width > 1100 ? () => view : () => null}
         >
-          <MenuItem value="popular">
+          <MenuItem value="+38 050 562 18 68">
             <Link href="tel:+380505621868">+38 050 562 18 68</Link>
           </MenuItem>
-          <MenuItem value="price-low">
+          <MenuItem value="+38 096 547 16 06">
             <Link href="tel:+380965471606">+38 096 547 16 06</Link>
           </MenuItem>
         </StyledSelect>

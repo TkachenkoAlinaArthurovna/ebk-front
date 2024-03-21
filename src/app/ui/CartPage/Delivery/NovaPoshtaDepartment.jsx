@@ -8,20 +8,18 @@ import { FormControlLabel, Radio, Autocomplete } from '@mui/material';
 import { Field } from 'formik';
 import useDebounce from '@/app/lib/useDebounce';
 
-const NovaPoshtaDepartment = ({
-  setSettlement,
-  setDepartment,
-  setFilteredDepartments,
-}) => {
+const NovaPoshtaDepartment = ({ setDataForOrder }) => {
   const selectedDelivery = useSelector(
     (state) => state.delivery.selectedDelivery,
   );
+
   const [selectedSettlement, setSelectedSettlement] = useState('');
   const [selectedDepartment, setSelectedDepartment] = useState();
-  const debouncedSelectedSettlement = useDebounce(selectedSettlement, 1000);
   const [settlements, setSettlements] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [arrAddresses, setArrAddresses] = useState([]);
+
+  const debouncedSelectedSettlement = useDebounce(selectedSettlement, 1000);
 
   const getSettlements = async (selectedSettlement) => {
     try {
@@ -96,7 +94,9 @@ const NovaPoshtaDepartment = ({
               '9a68df70-0267-42a8-bb5c-37f427e36ee4',
             ].includes(obj.TypeOfWarehouse),
           );
-          setFilteredDepartments(filteredDepartments);
+          setDataForOrder((prev) => {
+            return { ...prev, filteredDepartments: filteredDepartments };
+          });
           const description = filteredDepartments.map((obj) => obj.Description);
           setDepartments(description);
         }
@@ -120,8 +120,9 @@ const NovaPoshtaDepartment = ({
       const settlement = arrAddresses.find(
         (obj) => obj.Present == selectedSettlement,
       );
-      setSettlement(settlement);
-      setDepartment('');
+      setDataForOrder((prev) => {
+        return { ...prev, settlement: settlement, department: '' };
+      });
       getDepartments(settlement.DeliveryCity);
     }
   }, [selectedSettlement]);
@@ -172,7 +173,9 @@ const NovaPoshtaDepartment = ({
               <TextField {...params} label="Виберіть відділення" />
             )}
             onChange={(event, newValue) => {
-              setDepartment(newValue);
+              setDataForOrder((prev) => {
+                return { ...prev, department: newValue };
+              });
               setSelectedDepartment(newValue);
             }}
           />

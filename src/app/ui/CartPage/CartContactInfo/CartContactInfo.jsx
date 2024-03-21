@@ -9,10 +9,7 @@ import TextField from '@mui/material/TextField';
 import { Field, ErrorMessage } from 'formik';
 
 const CartContactInfo = ({}) => {
-  const firstname = useSelector((state) => state.user.firstname);
-  const surname = useSelector((state) => state.user.surname);
-  const phone = useSelector((state) => state.user.phone);
-  const email = useSelector((state) => state.user.email);
+  const userInfo = useSelector((state) => state.user.userInfo);
   const dispatch = useDispatch();
 
   return (
@@ -22,7 +19,7 @@ const CartContactInfo = ({}) => {
           as={TextField}
           label="Прізвище"
           placeholder="Введіть своє прізвище"
-          value={surname}
+          value={userInfo.surname}
           onChange={(e) => dispatch(setSurname(e.target.value))}
           fullWidth
           InputLabelProps={{ shrink: true }}
@@ -40,7 +37,7 @@ const CartContactInfo = ({}) => {
           as={TextField}
           label="Ім'я"
           placeholder="Введіть своє ім'я"
-          value={firstname}
+          value={userInfo.firstname}
           onChange={(e) => dispatch(setFirstname(e.target.value))}
           fullWidth
           InputLabelProps={{ shrink: true }}
@@ -59,7 +56,7 @@ const CartContactInfo = ({}) => {
           type="text"
           readOnly="readOnly"
           label="Телефон"
-          value={phone}
+          value={userInfo.phone}
           placeholder="+38"
           fullWidth
           InputLabelProps={{ shrink: true }}
@@ -77,7 +74,7 @@ const CartContactInfo = ({}) => {
           as={TextField}
           label="Ел. пошта"
           placeholder="Введіть свою ел. пошту"
-          value={email}
+          value={userInfo.email}
           onChange={(e) => dispatch(setEmail(e.target.value))}
           fullWidth
           InputLabelProps={{ shrink: true }}
