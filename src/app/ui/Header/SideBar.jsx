@@ -21,6 +21,7 @@ import { useAuth } from '@/redux/contexts/AuthContext';
 const navigationMain = [
   { id: 5, title: 'Про нас', path: '/about' },
   { id: 11, title: 'Підтримка', path: '/support' },
+  { id: 8, title: 'Обмін та повернення', path: '/return' },
   { id: 9, title: 'Доставка і оплата', path: '/payment-delivery' },
   { id: 6, title: 'Контакти', path: '/contacts' },
   // { id: 7, title: 'Відгуки', path: '/reviews' },
