@@ -135,11 +135,11 @@ const ModalPayment = ({
               name="merchantSignature"
               value={`${dataForPaymentModal.merchantSignature ? dataForPaymentModal.merchantSignature : null}`}
             />
-            {/* <input
+            <input
               type="hidden"
               name="returnUrl"
               value="https://eco-bike.com.ua"
-            /> */}
+            />
             <input
               type="hidden"
               name="orderReference"

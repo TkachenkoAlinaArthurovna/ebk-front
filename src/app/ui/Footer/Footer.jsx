@@ -66,6 +66,9 @@ const Footer = () => {
                   <Link href="/payment-delivery">Оплата та доставка</Link>
                 </StyledListItem>
                 <StyledListItem>
+                  <Link href="/return">Обмін та повернення</Link>
+                </StyledListItem>
+                <StyledListItem>
                   <Link href="/support">Підтримка</Link>
                 </StyledListItem>
               </StyledList>
