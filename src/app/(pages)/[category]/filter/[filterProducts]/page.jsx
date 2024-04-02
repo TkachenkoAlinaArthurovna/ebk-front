@@ -26,7 +26,7 @@ export async function generateMetadata({ params, searchParams }, parent) {
 
 async function getCategories() {
   const res = await fetch('https://stage.eco-bike.com.ua/api/categories', {
-    next: { revalidate: 3600 },
+    next: { revalidate: 0 },
   });
   const data = await res.json();
   return createLinks(data.items);
