@@ -278,15 +278,27 @@ export const WrapperSlide = styled(Box)`
     height: 256px;
   }
   @media (max-width: 700px) {
-    height: 220px;
+    height: 230px;
+  }
+  @media (max-width: 650px) {
+    height: 210px;
   }
   @media (max-width: 600px) {
-    height: 184px;
+    height: 190px;
+  }
+  @media (max-width: 550px) {
+    height: 170px;
   }
   @media (max-width: 500px) {
-    height: 154px;
+    height: 160px;
+  }
+  @media (max-width: 450px) {
+    height: 140px;
   }
   @media (max-width: 400px) {
-    height: 118px;
+    height: 130px;
+  }
+  @media (max-width: 350px) {
+    height: 120px;
   }
 `;

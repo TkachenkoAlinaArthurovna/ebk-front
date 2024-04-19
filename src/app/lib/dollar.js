@@ -1,1 +1,1 @@
-export const dollar = 38;
+export const dollar = 40;

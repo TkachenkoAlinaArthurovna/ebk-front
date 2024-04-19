@@ -1,8 +1,10 @@
 export const slides = [
   {
     picture: '/images/bike_banner_1.jpg',
-    link: '/hirski-elektrovelosypedy/elektrovelosyped-fantom-27.5-48v-500w-10-ah',
+    link: 'http://localhost:3000/miski-elektrovelosypedy&page=2/elektrovelosyped-electric-cubic-26-500w-10ah-aliuminiievyi',
   },
-  { picture: '/images/bike_banner_2.jpg', link: '' },
-  { picture: '/images/bike_banner_3.jpg', link: '' },
+  {
+    picture: '/images/bike_banner_1.jpg',
+    link: 'http://localhost:3000/miski-elektrovelosypedy&page=2/elektrovelosyped-electric-cubic-26-500w-10ah-aliuminiievyi',
+  },
 ];

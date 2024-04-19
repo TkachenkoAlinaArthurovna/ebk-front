@@ -124,7 +124,11 @@ const ModalPayment = ({
             acceptCharset="utf-8"
             className="payment-form"
           >
-            <input type="hidden" name="merchantAccount" value="test_merch_n1" />
+            <input
+              type="hidden"
+              name="merchantAccount"
+              value="Eco_bike_com_ua"
+            />
             <input
               type="hidden"
               name="merchantDomainName"
@@ -135,11 +139,11 @@ const ModalPayment = ({
               name="merchantSignature"
               value={`${dataForPaymentModal.merchantSignature ? dataForPaymentModal.merchantSignature : null}`}
             />
-            <input
+            {/* <input
               type="hidden"
               name="returnUrl"
               value="https://eco-bike.com.ua"
-            />
+            /> */}
             <input
               type="hidden"
               name="orderReference"
