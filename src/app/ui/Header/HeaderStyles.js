@@ -30,11 +30,7 @@ export const WrapperPhones = styled(Box)`
   position: relative;
   @media (max-width: 700px) {
     position: absolute;
-    right: 120px;
-  }
-  @media (max-width: 400px) {
-    position: absolute;
-    right: 110px;
+    right: 90px;
   }
 `;
 

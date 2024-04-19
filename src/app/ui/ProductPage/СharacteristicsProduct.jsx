@@ -87,6 +87,7 @@ const СharacteristicsProduct = ({
               oldprice={oldprice}
               fontSize={28}
               productPage={true}
+              type={'productCard'}
             />
           </Box>
           <Box

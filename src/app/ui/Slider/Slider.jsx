@@ -210,22 +210,23 @@ const Slider = ({
         )}
       </Swiper>
       {slides && (
-        <>
-          <SwiperPrev
-            onClick={() => swiper.slidePrev()}
-            swipertype="main"
-            component="img"
-            alt="prev"
-            src="/images/swiper/prev.png"
-          />
-          <SwiperNext
-            onClick={() => swiper.slideNext()}
-            swipertype="main"
-            component="img"
-            alt="next"
-            src="/images/swiper/next.png"
-          />
-        </>
+        <></>
+        // <>
+        //   <SwiperPrev
+        //     onClick={() => swiper.slidePrev()}
+        //     swipertype="main"
+        //     component="img"
+        //     alt="prev"
+        //     src="/images/swiper/prev.png"
+        //   />
+        //   <SwiperNext
+        //     onClick={() => swiper.slideNext()}
+        //     swipertype="main"
+        //     component="img"
+        //     alt="next"
+        //     src="/images/swiper/next.png"
+        //   />
+        // </>
       )}
 
       {(products || reviews) && (
