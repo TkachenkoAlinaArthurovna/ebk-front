@@ -136,6 +136,21 @@ const CartPage = () => {
       });
     }
     if (initialValues.payment == 'Visa/Mastercard • Google Pay • Apple Pay') {
+      makeAnOrder(
+        token,
+        userInfo.firstname,
+        userInfo.surname,
+        userInfo.phone,
+        userInfo.email,
+        initialValues.delivery,
+        initialValues.payment,
+        dataForOrder.settlement.Present,
+        dataForOrder.department,
+        cityRefAndRef,
+        products,
+        dataForOrder.comment,
+        dataForOrder.doNotCall,
+      );
       setLoadingPostPayment(true);
       setActiveObjForPostPayment(objForPostPayment);
       postPayment(token, objForPostPayment, dispatch, setDataForPaymentModal);
