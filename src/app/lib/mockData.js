@@ -7,7 +7,7 @@ export const categoryBlockData = [
   {
     name: 'Fatbike',
     img: 'fatbike.jpg',
-    url: '/fat-bike',
+    url: '/fatbike',
   },
   {
     name: 'Міські',
