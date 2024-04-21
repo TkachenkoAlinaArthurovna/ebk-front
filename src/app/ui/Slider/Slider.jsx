@@ -231,7 +231,7 @@ const Slider = ({
 
       {(products || reviews) && (
         <>
-          <SwiperPrev
+          {/* <SwiperPrev
             onClick={() => swiper.slidePrev()}
             swipertype="section"
             prevtype={prevtype ? prevtype : products ? 'products' : 'reviews'}
@@ -246,7 +246,7 @@ const Slider = ({
             component="img"
             alt="next"
             src="/images/swiper/next.png"
-          />
+          /> */}
         </>
       )}
     </>

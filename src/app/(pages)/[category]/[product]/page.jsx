@@ -75,6 +75,7 @@ async function getCategoryProducts(categoryId) {
 
 async function getProductId(category, product) {
   const products = await getCategoryIdProducts(category);
+
   const productCurrent = products
     ? products.find(
         (item) => createLinkProduct(item.name) == product.replace(/%2B/g, '+'),
@@ -99,6 +100,7 @@ async function getProduct(productId) {
 
 export default async function Product({ params }) {
   const { category, product } = params;
+
   const partsOfCategory = category.includes('%26')
     ? category.split('%26')
     : [category];
