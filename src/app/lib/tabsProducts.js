@@ -134,10 +134,10 @@ export const exclusiveProducts = [
     categoryName: 'fatbike',
     name: 'Електровелосипед 26-4.0 FAT BIKE AVALON 1200W 13Ah 48V',
     picture: [
-      'https://images.prom.ua/4655286062_elektrovelosiped-26-40-fat.jpg',
+      'https://images.prom.ua/4615085846_elektrovelosiped-26-40-fat.jpg',
     ],
-    price: 1080,
-    params: [{ name: ['Color', 'Колір'], value: ['Black', 'Чорний'] }],
-    crmId: '1884750986',
+    price: 1060,
+    params: [],
+    crmId: '1873524447',
   },
 ];
