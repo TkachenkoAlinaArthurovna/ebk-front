@@ -7,7 +7,6 @@ const initialState = {
     settlement: '',
     department: '',
     filteredDepartments: '',
-    success: false,
     isOpenModalPayment: false,
   },
 };
