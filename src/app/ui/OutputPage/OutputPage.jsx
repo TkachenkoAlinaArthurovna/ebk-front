@@ -1,6 +1,7 @@
 'use client';
 
-import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { removeCartProducts } from '@/redux/slices/CartSlice';
 import { setDataForOrder } from '@/redux/slices/DataForOrderSlice';
