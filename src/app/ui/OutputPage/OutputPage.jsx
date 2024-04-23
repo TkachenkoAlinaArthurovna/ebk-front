@@ -61,6 +61,12 @@ const OutputPage = () => {
         });
       dispatch(removeCartProducts());
       setSuccess(true);
+      dispatch(
+        setDataForOrder({
+          valueName: 'isOpenModalPayment',
+          value: false,
+        }),
+      );
     }
   }, [token, userInfo, dataForOrder]);
 
