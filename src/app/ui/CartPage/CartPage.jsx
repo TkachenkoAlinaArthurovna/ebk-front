@@ -73,15 +73,7 @@ const CartPage = () => {
   );
   const dataForOrder = useSelector((state) => state.dataForOrder.dataForOrder);
 
-  // const [dataForOrder, setDataForOrder] = useState({
-  //   comment: '',
-  //   doNotCall: false,
-  //   settlement: '',
-  //   department: '',
-  //   filteredDepartments: '',
-  //   success: false,
-  //   isOpenModalPayment: false,
-  // });
+  const [success, setSuccess] = useState(false);
 
   const [loadingPostPayment, setLoadingPostPayment] = useState(false);
 
@@ -136,7 +128,7 @@ const CartPage = () => {
       // setDataForOrder((prev) => {
       //   return { ...prev, success: true };
       // });
-      dispatch(setDataForOrder({ valueName: 'success', value: true }));
+      setSuccess(true);
     }
     if (initialValues.payment == 'Visa/Mastercard • Google Pay • Apple Pay') {
       setLoadingPostPayment(true);
@@ -175,10 +167,10 @@ const CartPage = () => {
   }, [authorized]);
 
   useEffect(() => {
-    if (dataForOrder.success == true) {
+    if (success == true) {
       getCart(token, setUserCartProducts, dispatch);
     }
-  }, [dataForOrder.success]);
+  }, [success]);
 
   useEffect(() => {
     if (dataForPaymentModal !== '') {
@@ -203,10 +195,12 @@ const CartPage = () => {
         <BreadCrumbs />
         {cartProducts.length === 0 &&
         userCartProducts.length === 0 &&
-        dataForOrder.success == false &&
+        success == false &&
         loading == false ? (
           <EmptyCart />
-        ) : dataForOrder.success == true ? (
+        ) : cartProducts.length === 0 &&
+          userCartProducts.length === 0 &&
+          success == true ? (
           <Success />
         ) : (
           <Formik
