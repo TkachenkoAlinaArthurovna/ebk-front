@@ -60,7 +60,7 @@ const OutputPage = () => {
   }
 
   useEffect(() => {
-    if (token) {
+    if (token && cityRefAndRef) {
       makeAnOrder(
         token,
         userInfo.firstname,
@@ -80,7 +80,7 @@ const OutputPage = () => {
       deleteAllCart(token);
       dispatch(setDataForOrder({ valueName: 'success', value: true }));
     }
-  }, [authorized, token]);
+  }, [authorized, token, cityRefAndRef]);
 
   return (
     <Content>
