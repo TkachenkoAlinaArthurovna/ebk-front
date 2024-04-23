@@ -5,11 +5,13 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { removeCartProducts } from '@/redux/slices/CartSlice';
 import { setDataForOrder } from '@/redux/slices/DataForOrderSlice';
+import { setUserCartProducts } from '@/redux/slices/UserCartSlice';
 
 import { useAuth } from '@/redux/contexts/AuthContext';
 
 import { makeAnOrder } from '@/app/lib/makeAnOrder';
 import { deleteAllCart } from '@/app/lib/deleteAllCart';
+import { getCart } from '@/app/lib/getCart';
 
 import Content from '@/app/ui/Content';
 import Success from '@/app/ui/CartPage/Success/Success';
@@ -50,9 +52,14 @@ const OutputPage = () => {
         dataForOrder.comment,
         dataForOrder.doNotCall,
       );
+      deleteAllCart(token)
+        .then(() => {
+          getCart(token, setUserCartProducts, dispatch);
+        })
+        .catch((error) => {
+          console.error('Error remove product from cart:', error);
+        });
       dispatch(removeCartProducts());
-      deleteAllCart(token);
-      dispatch(setDataForOrder({ valueName: 'success', value: true }));
       setSuccess(true);
     }
   }, [token, userInfo, dataForOrder]);
