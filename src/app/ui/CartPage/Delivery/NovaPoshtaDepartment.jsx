@@ -1,6 +1,6 @@
 'use client';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import DeliveryItem from '@/app/ui/CartPage/DeliveryItem/DeliveryItem';
 import TextField from '@mui/material/TextField';
@@ -9,6 +9,7 @@ import { Field } from 'formik';
 import useDebounce from '@/app/lib/useDebounce';
 
 const NovaPoshtaDepartment = ({ setDataForOrder }) => {
+  const dispatch = useDispatch();
   const selectedDelivery = useSelector(
     (state) => state.delivery.selectedDelivery,
   );
@@ -94,9 +95,15 @@ const NovaPoshtaDepartment = ({ setDataForOrder }) => {
               '9a68df70-0267-42a8-bb5c-37f427e36ee4',
             ].includes(obj.TypeOfWarehouse),
           );
-          setDataForOrder((prev) => {
-            return { ...prev, filteredDepartments: filteredDepartments };
-          });
+          // setDataForOrder((prev) => {
+          //   return { ...prev, filteredDepartments: filteredDepartments };
+          // });
+          dispatch(
+            setDataForOrder({
+              valueName: 'filteredDepartments',
+              value: filteredDepartments,
+            }),
+          );
           const description = filteredDepartments.map((obj) => obj.Description);
           setDepartments(description);
         }
@@ -120,9 +127,11 @@ const NovaPoshtaDepartment = ({ setDataForOrder }) => {
       const settlement = arrAddresses.find(
         (obj) => obj.Present == selectedSettlement,
       );
-      setDataForOrder((prev) => {
-        return { ...prev, settlement: settlement, department: '' };
-      });
+      // setDataForOrder((prev) => {
+      //   return { ...prev, settlement: settlement, department: '' };
+      // });
+      dispatch(setDataForOrder({ valueName: 'settlement', value: settlement }));
+      dispatch(setDataForOrder({ valueName: 'department', value: '' }));
       getDepartments(settlement.DeliveryCity);
     }
   }, [selectedSettlement]);
@@ -173,9 +182,15 @@ const NovaPoshtaDepartment = ({ setDataForOrder }) => {
               <TextField {...params} label="Виберіть відділення" />
             )}
             onChange={(event, newValue) => {
-              setDataForOrder((prev) => {
-                return { ...prev, department: newValue };
-              });
+              // setDataForOrder((prev) => {
+              //   return { ...prev, department: newValue };
+              // });
+              dispatch(
+                setDataForOrder({
+                  valueName: 'department',
+                  value: newValue,
+                }),
+              );
               setSelectedDepartment(newValue);
             }}
           />

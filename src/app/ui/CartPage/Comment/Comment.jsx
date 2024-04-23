@@ -1,5 +1,7 @@
 'use client';
 
+import { useDispatch } from 'react-redux';
+
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TextField from '@mui/material/TextField';
 import {
@@ -15,6 +17,7 @@ import {
 import { Field, ErrorMessage } from 'formik';
 
 const Comment = ({ dataForOrder, setDataForOrder }) => {
+  const dispatch = useDispatch();
   return (
     <StyledAccordion>
       <AccordionSummary
@@ -32,9 +35,12 @@ const Comment = ({ dataForOrder, setDataForOrder }) => {
           placeholder={'Маєте уточнення чи запитання?'}
           value={dataForOrder.comment}
           onChange={(e) =>
-            setDataForOrder((prev) => {
-              return { ...prev, comment: e.target.value };
-            })
+            // setDataForOrder((prev) => {
+            //   return { ...prev, comment: e.target.value };
+            // })
+            dispatch(
+              setDataForOrder({ valueName: 'comment', value: e.target.value }),
+            )
           }
           fullWidth
           InputLabelProps={{ shrink: true }}

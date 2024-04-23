@@ -1,40 +1,89 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { getPaymentOutput } from '@/app/lib/getPaymentOutput';
+import { removeCartProducts } from '@/redux/slices/CartSlice';
+import { setDataForOrder } from '@/redux/slices/DataForOrderSlice';
+
+import { useAuth } from '@/redux/contexts/AuthContext';
+
+import { makeAnOrder } from '@/app/lib/makeAnOrder';
+import { deleteAllCart } from '@/app/lib/deleteAllCart';
 
 import Link from 'next/link';
 import { Box } from '@mui/material';
 import Content from '@/app/ui/Content';
+import Success from '@/app/ui/CartPage/Success/Success';
 
 const OutputPage = () => {
-  const [status, setStatus] = useState('Pending');
+  const dispatch = useDispatch();
+  const { isAuthorized, getUser } = useAuth();
+  const authorized = isAuthorized();
+  const token = authorized ? localStorage.getItem('token') : null;
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const userCartProducts = useSelector(
+    (state) => state.userCart.userCartProducts,
+  );
+  const selectedDelivery = useSelector(
+    (state) => state.delivery.selectedDelivery,
+  );
+  const selectedPayment = useSelector((state) => state.payment.selectedPayment);
+  const dataForOrder = useSelector((state) => state.dataForOrder.dataForOrder);
 
-  const dataForPaymentModal = useSelector(
-    (state) => state.dataForPaymentModal.dataForPaymentModal,
+  const products = transformObjectsArray(userCartProducts);
+
+  const cityRefAndRef = findCityRefAndRefByDescription(
+    dataForOrder.department,
+    dataForOrder.filteredDepartments,
   );
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      getPaymentOutput(token, dataForPaymentModal.orderReference, setStatus)
-        .then((status) => {
-          if (status === 'Decline' || status === 'Approved') {
-            clearInterval(intervalId);
-          }
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-          clearInterval(intervalId);
-        });
-    }, 2000);
+  function transformObjectsArray(objectsArray) {
+    return objectsArray.map((obj) => ({
+      id: obj.product.crmId,
+      name: obj.product.name,
+      costPerItem: obj.product.price,
+      amount: obj.quantity,
+      description: '',
+      discount: '',
+      sku: obj.product.vendorCode,
+    }));
+  }
 
-    return () => {
-      clearInterval(intervalId);
-    };
+  function findCityRefAndRefByDescription(description, objectsArray) {
+    for (const obj of objectsArray) {
+      if (obj.Description === description) {
+        return { CityRef: obj.CityRef, Ref: obj.Ref };
+      }
+    }
+    return null;
+  }
+
+  useEffect(() => {
+    makeAnOrder(
+      token,
+      userInfo.firstname,
+      userInfo.surname,
+      userInfo.phone,
+      userInfo.email,
+      selectedDelivery,
+      selectedPayment,
+      dataForOrder.settlement.Present,
+      dataForOrder.department,
+      cityRefAndRef,
+      products,
+      dataForOrder.comment,
+      dataForOrder.doNotCall,
+    );
+    dispatch(removeCartProducts());
+    deleteAllCart(token);
+    dispatch(setDataForOrder({ valueName: 'success', value: true }));
   }, []);
 
-  return <Content>{status}</Content>;
+  return (
+    <Content>
+      <Success />
+    </Content>
+  );
 };
 
 export default OutputPage;
