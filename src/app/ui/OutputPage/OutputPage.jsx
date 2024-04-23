@@ -60,25 +60,27 @@ const OutputPage = () => {
   }
 
   useEffect(() => {
-    makeAnOrder(
-      token,
-      userInfo.firstname,
-      userInfo.surname,
-      userInfo.phone,
-      userInfo.email,
-      selectedDelivery,
-      selectedPayment,
-      dataForOrder.settlement.Present,
-      dataForOrder.department,
-      cityRefAndRef,
-      products,
-      dataForOrder.comment,
-      dataForOrder.doNotCall,
-    );
-    dispatch(removeCartProducts());
-    deleteAllCart(token);
-    dispatch(setDataForOrder({ valueName: 'success', value: true }));
-  }, []);
+    if (token && cityRefAndRef) {
+      makeAnOrder(
+        token,
+        userInfo.firstname,
+        userInfo.surname,
+        userInfo.phone,
+        userInfo.email,
+        selectedDelivery,
+        selectedPayment,
+        dataForOrder.settlement.Present,
+        dataForOrder.department,
+        cityRefAndRef,
+        products,
+        dataForOrder.comment,
+        dataForOrder.doNotCall,
+      );
+      dispatch(removeCartProducts());
+      deleteAllCart(token);
+      dispatch(setDataForOrder({ valueName: 'success', value: true }));
+    }
+  }, [authorized, token, cityRefAndRef]);
 
   return (
     <Content>
