@@ -22,45 +22,14 @@ const OutputPage = () => {
   const authorized = isAuthorized();
   const token = authorized ? localStorage.getItem('token') : null;
   const userInfo = useSelector((state) => state.user.userInfo);
-  const userCartProducts = useSelector(
-    (state) => state.userCart.userCartProducts,
-  );
   const selectedDelivery = useSelector(
     (state) => state.delivery.selectedDelivery,
   );
   const selectedPayment = useSelector((state) => state.payment.selectedPayment);
   const dataForOrder = useSelector((state) => state.dataForOrder.dataForOrder);
 
-  const products = transformObjectsArray(userCartProducts);
-
-  const cityRefAndRef = findCityRefAndRefByDescription(
-    dataForOrder.department,
-    dataForOrder.filteredDepartments,
-  );
-
-  function transformObjectsArray(objectsArray) {
-    return objectsArray.map((obj) => ({
-      id: obj.product.crmId,
-      name: obj.product.name,
-      costPerItem: obj.product.price,
-      amount: obj.quantity,
-      description: '',
-      discount: '',
-      sku: obj.product.vendorCode,
-    }));
-  }
-
-  function findCityRefAndRefByDescription(description, objectsArray) {
-    for (const obj of objectsArray) {
-      if (obj.Description === description) {
-        return { CityRef: obj.CityRef, Ref: obj.Ref };
-      }
-    }
-    return null;
-  }
-
   useEffect(() => {
-    if (token && cityRefAndRef) {
+    if (token) {
       makeAnOrder(
         token,
         userInfo.firstname,
@@ -71,8 +40,8 @@ const OutputPage = () => {
         selectedPayment,
         dataForOrder.settlement.Present,
         dataForOrder.department,
-        cityRefAndRef,
-        products,
+        dataForOrder.cityRefAndRef,
+        dataForOrder.products,
         dataForOrder.comment,
         dataForOrder.doNotCall,
       );
@@ -80,7 +49,7 @@ const OutputPage = () => {
       deleteAllCart(token);
       dispatch(setDataForOrder({ valueName: 'success', value: true }));
     }
-  }, [authorized, token, cityRefAndRef]);
+  }, [token]);
 
   return (
     <Content>

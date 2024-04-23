@@ -125,12 +125,13 @@ const CartPage = () => {
       );
       dispatch(removeCartProducts());
       deleteAllCart(token);
-      // setDataForOrder((prev) => {
-      //   return { ...prev, success: true };
-      // });
       setSuccess(true);
     }
     if (initialValues.payment == 'Visa/Mastercard • Google Pay • Apple Pay') {
+      dispatch(
+        setDataForOrder({ valueName: 'cityRefAndRef', value: cityRefAndRef }),
+      );
+      dispatch(setDataForOrder({ valueName: 'products', value: products }));
       setLoadingPostPayment(true);
       setActiveObjForPostPayment(objForPostPayment);
       postPayment(token, objForPostPayment, dispatch, setDataForPaymentModal);
@@ -175,9 +176,6 @@ const CartPage = () => {
   useEffect(() => {
     if (dataForPaymentModal !== '') {
       setLoadingPostPayment(false);
-      // setDataForOrder((prev) => {
-      //   return { ...prev, isOpenModalPayment: true };
-      // });
       dispatch(
         setDataForOrder({ valueName: 'isOpenModalPayment', value: true }),
       );
@@ -263,12 +261,6 @@ const CartPage = () => {
                         name={'doNotCall'}
                         label={'Не дзвонити для підтвердження замовлення'}
                         onChange={() =>
-                          // setDataForOrder((prev) => {
-                          //   return {
-                          //     ...prev,
-                          //     doNotCall: !dataForOrder.doNotCall,
-                          //   };
-                          // })
                           dispatch(
                             setDataForOrder({
                               valueName: 'doNotCall',

@@ -8,6 +8,8 @@ const initialState = {
     department: '',
     filteredDepartments: '',
     isOpenModalPayment: false,
+    cityRefAndRef: {},
+    products: [],
   },
 };
 
