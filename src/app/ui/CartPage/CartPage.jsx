@@ -10,6 +10,7 @@ import { removeCartProducts } from '@/redux/slices/CartSlice';
 import { removeUserCartProducts } from '@/redux/slices/UserCartSlice';
 import { setUserCartProducts } from '@/redux/slices/UserCartSlice';
 import { setDataForPaymentModal } from '@/redux/slices/DataForPaymentModalSlice';
+import { setDataForOrder } from '@/redux/slices/DataForOrderSlice';
 
 import BreadCrumbs from '@/app/ui/BreadCrumbs/BreadCrumbs';
 import CartItem from '@/app/ui/CartPage/CartItem/CartItem';
@@ -70,16 +71,17 @@ const CartPage = () => {
   const dataForPaymentModal = useSelector(
     (state) => state.dataForPaymentModal.dataForPaymentModal,
   );
+  const dataForOrder = useSelector((state) => state.dataForOrder.dataForOrder);
 
-  const [dataForOrder, setDataForOrder] = useState({
-    comment: '',
-    doNotCall: false,
-    settlement: '',
-    department: '',
-    filteredDepartments: '',
-    success: false,
-    isOpenModalPayment: false,
-  });
+  // const [dataForOrder, setDataForOrder] = useState({
+  //   comment: '',
+  //   doNotCall: false,
+  //   settlement: '',
+  //   department: '',
+  //   filteredDepartments: '',
+  //   success: false,
+  //   isOpenModalPayment: false,
+  // });
 
   const [loadingPostPayment, setLoadingPostPayment] = useState(false);
 
@@ -131,26 +133,12 @@ const CartPage = () => {
       );
       dispatch(removeCartProducts());
       deleteAllCart(token);
-      setDataForOrder((prev) => {
-        return { ...prev, success: true };
-      });
+      // setDataForOrder((prev) => {
+      //   return { ...prev, success: true };
+      // });
+      dispatch(setDataForOrder({ valueName: 'success', value: true }));
     }
     if (initialValues.payment == 'Visa/Mastercard • Google Pay • Apple Pay') {
-      makeAnOrder(
-        token,
-        userInfo.firstname,
-        userInfo.surname,
-        userInfo.phone,
-        userInfo.email,
-        initialValues.delivery,
-        initialValues.payment,
-        dataForOrder.settlement.Present,
-        dataForOrder.department,
-        cityRefAndRef,
-        products,
-        dataForOrder.comment,
-        dataForOrder.doNotCall,
-      );
       setLoadingPostPayment(true);
       setActiveObjForPostPayment(objForPostPayment);
       postPayment(token, objForPostPayment, dispatch, setDataForPaymentModal);
@@ -195,9 +183,12 @@ const CartPage = () => {
   useEffect(() => {
     if (dataForPaymentModal !== '') {
       setLoadingPostPayment(false);
-      setDataForOrder((prev) => {
-        return { ...prev, isOpenModalPayment: true };
-      });
+      // setDataForOrder((prev) => {
+      //   return { ...prev, isOpenModalPayment: true };
+      // });
+      dispatch(
+        setDataForOrder({ valueName: 'isOpenModalPayment', value: true }),
+      );
     }
   }, [dataForPaymentModal]);
 
@@ -278,12 +269,18 @@ const CartPage = () => {
                         name={'doNotCall'}
                         label={'Не дзвонити для підтвердження замовлення'}
                         onChange={() =>
-                          setDataForOrder((prev) => {
-                            return {
-                              ...prev,
-                              doNotCall: !dataForOrder.doNotCall,
-                            };
-                          })
+                          // setDataForOrder((prev) => {
+                          //   return {
+                          //     ...prev,
+                          //     doNotCall: !dataForOrder.doNotCall,
+                          //   };
+                          // })
+                          dispatch(
+                            setDataForOrder({
+                              valueName: 'doNotCall',
+                              value: !dataForOrder.doNotCall,
+                            }),
+                          )
                         }
                       />
                       <Box

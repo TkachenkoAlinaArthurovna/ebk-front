@@ -1,6 +1,6 @@
 'use client';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import DeliveryItem from '@/app/ui/CartPage/DeliveryItem/DeliveryItem';
 import TextField from '@mui/material/TextField';
@@ -9,6 +9,7 @@ import { Field } from 'formik';
 import useDebounce from '@/app/lib/useDebounce';
 
 const NovaPoshtaPostmachines = ({ setDataForOrder }) => {
+  const dispatch = useDispatch();
   const selectedDelivery = useSelector(
     (state) => state.delivery.selectedDelivery,
   );
@@ -90,9 +91,15 @@ const NovaPoshtaPostmachines = ({ setDataForOrder }) => {
               '95dc212d-479c-4ffb-a8ab-8c1b9073d0bc',
             ].includes(obj.TypeOfWarehouse),
           );
-          setDataForOrder((prev) => {
-            return { ...prev, filteredDepartments: filteredPostmachines };
-          });
+          // setDataForOrder((prev) => {
+          //   return { ...prev, filteredDepartments: filteredPostmachines };
+          // });
+          dispatch(
+            setDataForOrder({
+              valueName: 'filteredDepartments',
+              value: filteredDepartments,
+            }),
+          );
           const description = filteredPostmachines.map(
             (obj) => obj.Description,
           );
@@ -115,9 +122,11 @@ const NovaPoshtaPostmachines = ({ setDataForOrder }) => {
       const settlement = arrAddresses.find(
         (obj) => obj.Present == selectedSettlement,
       );
-      setDataForOrder((prev) => {
-        return { ...prev, settlement: settlement, department: '' };
-      });
+      // setDataForOrder((prev) => {
+      //   return { ...prev, settlement: settlement, department: '' };
+      // });
+      dispatch(setDataForOrder({ valueName: 'settlement', value: settlement }));
+      dispatch(setDataForOrder({ valueName: 'department', value: '' }));
       getPostmachines(settlement.DeliveryCity);
     }
   }, [selectedSettlement]);
@@ -168,9 +177,15 @@ const NovaPoshtaPostmachines = ({ setDataForOrder }) => {
               <TextField {...params} label="Виберіть поштомат" />
             )}
             onChange={(event, newValue) => {
-              setDataForOrder((prev) => {
-                return { ...prev, department: newValue };
-              });
+              // setDataForOrder((prev) => {
+              //   return { ...prev, department: newValue };
+              // });
+              dispatch(
+                setDataForOrder({
+                  valueName: 'department',
+                  value: newValue,
+                }),
+              );
               setSelectedPostmachines(newValue);
             }}
           />

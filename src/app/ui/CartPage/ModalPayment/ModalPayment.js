@@ -83,9 +83,12 @@ const ModalPayment = ({
       open={dataForOrder.isOpenModalPayment}
       onClose={() => {
         dispatch(setDataForPaymentModal(''));
-        setDataForOrder((prev) => {
-          return { ...prev, isOpenModalPayment: false };
-        });
+        // setDataForOrder((prev) => {
+        //   return { ...prev, isOpenModalPayment: false };
+        // });
+        dispatch(
+          setDataForOrder({ valueName: 'isOpenModalPayment', value: false }),
+        );
       }}
     >
       <StyledPaper>
@@ -94,9 +97,15 @@ const ModalPayment = ({
           <StyledIconButton
             onClick={() => {
               dispatch(setDataForPaymentModal(''));
-              setDataForOrder((prev) => {
-                return { ...prev, isOpenModalPayment: false };
-              });
+              // setDataForOrder((prev) => {
+              //   return { ...prev, isOpenModalPayment: false };
+              // });
+              dispatch(
+                setDataForOrder({
+                  valueName: 'isOpenModalPayment',
+                  value: false,
+                }),
+              );
             }}
           >
             <CloseIcon />
@@ -111,9 +120,15 @@ const ModalPayment = ({
           <StyledButton
             onClick={() => {
               dispatch(setDataForPaymentModal(''));
-              setDataForOrder((prev) => {
-                return { ...prev, isOpenModalPayment: false };
-              });
+              // setDataForOrder((prev) => {
+              //   return { ...prev, isOpenModalPayment: false };
+              // });
+              dispatch(
+                setDataForOrder({
+                  valueName: 'isOpenModalPayment',
+                  value: false,
+                }),
+              );
             }}
           >
             Повернутись до корзини
@@ -139,6 +154,7 @@ const ModalPayment = ({
               name="merchantSignature"
               value={`${dataForPaymentModal.merchantSignature ? dataForPaymentModal.merchantSignature : null}`}
             />
+            <input type="hidden" name="language" value="UA" />
             {/* <input
               type="hidden"
               name="returnUrl"
