@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { removeCartProducts } from '@/redux/slices/CartSlice';
@@ -11,8 +11,6 @@ import { useAuth } from '@/redux/contexts/AuthContext';
 import { makeAnOrder } from '@/app/lib/makeAnOrder';
 import { deleteAllCart } from '@/app/lib/deleteAllCart';
 
-import Link from 'next/link';
-import { Box } from '@mui/material';
 import Content from '@/app/ui/Content';
 import Success from '@/app/ui/CartPage/Success/Success';
 
@@ -28,8 +26,15 @@ const OutputPage = () => {
   const selectedPayment = useSelector((state) => state.payment.selectedPayment);
   const dataForOrder = useSelector((state) => state.dataForOrder.dataForOrder);
 
+  const [success, setSuccess] = useState(false);
+
   useEffect(() => {
-    if (token) {
+    if (
+      token &&
+      userInfo.phone != '' &&
+      dataForOrder.settlement != '' &&
+      success == false
+    ) {
       makeAnOrder(
         token,
         userInfo.firstname,
@@ -48,8 +53,9 @@ const OutputPage = () => {
       dispatch(removeCartProducts());
       deleteAllCart(token);
       dispatch(setDataForOrder({ valueName: 'success', value: true }));
+      setSuccess(true);
     }
-  }, [token]);
+  }, [token, userInfo, dataForOrder]);
 
   return (
     <Content>
