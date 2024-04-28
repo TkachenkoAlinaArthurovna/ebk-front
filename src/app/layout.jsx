@@ -12,6 +12,7 @@ import { Box } from '@mui/material';
 import ModalCart from '@/app/ui/ModalCart';
 import Authorization from '@/app/ui/AuthModal/Authorization';
 import React from 'react';
+import GoogleTag from '@/app/ui/GoogleTag/GoogleTag';
 
 export const metadata = {
   title: 'Eco-bike Інтернет магазин електровелосипедів',
@@ -26,6 +27,7 @@ export const metadata = {
 export default async function RootLayout({ children }) {
   return (
     <html lang="en">
+      <GoogleTag></GoogleTag>
       <AppTheme>
         <body>
           <Providers>
