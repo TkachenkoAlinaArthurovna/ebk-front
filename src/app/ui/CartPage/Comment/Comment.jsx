@@ -19,7 +19,7 @@ import { Field, ErrorMessage } from 'formik';
 const Comment = ({ dataForOrder, setDataForOrder }) => {
   const dispatch = useDispatch();
   return (
-    <StyledAccordion>
+    <StyledAccordion defaultExpanded>
       <AccordionSummary
         sx={{ padding: '0' }}
         id="comment-info"

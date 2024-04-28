@@ -20,7 +20,7 @@ const Payment = ({}) => {
   const dispatch = useDispatch();
   const selectedPayment = useSelector((state) => state.payment.selectedPayment);
   return (
-    <StyledAccordion>
+    <StyledAccordion defaultExpanded>
       <AccordionSummary
         sx={{ padding: '0' }}
         id="payment-info"

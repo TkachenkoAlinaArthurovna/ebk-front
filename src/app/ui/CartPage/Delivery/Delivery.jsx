@@ -19,7 +19,7 @@ const Delivery = ({ setDataForOrder }) => {
   );
 
   return (
-    <StyledAccordion>
+    <StyledAccordion defaultExpanded>
       <AccordionSummary
         sx={{ padding: '0' }}
         id="delivery-info"
