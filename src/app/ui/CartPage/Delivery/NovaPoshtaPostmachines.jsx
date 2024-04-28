@@ -10,6 +10,9 @@ import useDebounce from '@/app/lib/useDebounce';
 
 const NovaPoshtaPostmachines = ({ setDataForOrder }) => {
   const dispatch = useDispatch();
+  const userCartProducts = useSelector(
+    (state) => state.userCart.userCartProducts,
+  );
   const selectedDelivery = useSelector(
     (state) => state.delivery.selectedDelivery,
   );
@@ -111,6 +114,22 @@ const NovaPoshtaPostmachines = ({ setDataForOrder }) => {
     }
   };
 
+  function checkCategory(objects) {
+    for (let i = 0; i < objects.length; i++) {
+      const categoryId = objects[i].product.categoryId;
+      if (
+        categoryId === '116118803' ||
+        categoryId === '116127700' ||
+        categoryId === '117151657' ||
+        categoryId === '116238096'
+      ) {
+        return false;
+      }
+    }
+    return true;
+  }
+  console.log(checkCategory(userCartProducts));
+
   useEffect(() => {
     if (debouncedSelectedSettlement.length >= 2) {
       getSettlements(debouncedSelectedSettlement);
@@ -140,56 +159,62 @@ const NovaPoshtaPostmachines = ({ setDataForOrder }) => {
 
   return (
     <>
-      <FormControlLabel
-        control={
-          <Field
-            sx={{ padding: '14px 16px 24px 0' }}
-            as={Radio}
-            value="До поштомату Нової Пошти"
-            name="delivery"
+      {checkCategory(userCartProducts) && (
+        <>
+          <FormControlLabel
+            control={
+              <Field
+                sx={{ padding: '14px 16px 24px 0' }}
+                as={Radio}
+                value="До поштомату Нової Пошти"
+                name="delivery"
+              />
+            }
+            disableTypography
+            label={
+              <DeliveryItem
+                icon={'/images/delivery/NovaPoshta.png'}
+                text={'До поштомату Нова Пошта'}
+              />
+            }
           />
-        }
-        disableTypography
-        label={
-          <DeliveryItem
-            icon={'/images/delivery/NovaPoshta.png'}
-            text={'До поштомату Нова Пошта'}
-          />
-        }
-      />
-      {selectedDelivery === 'До поштомату Нової Пошти' && (
-        <Autocomplete
-          sx={{ marginBottom: '24px' }}
-          options={settlements}
-          freeSolo
-          renderInput={(params) => <TextField {...params} label="Ваше місто" />}
-          onInputChange={(event, newValue) => {
-            setSelectedSettlement(newValue);
-          }}
-        />
-      )}
-      {selectedDelivery === 'До поштомату Нової Пошти' &&
-        arrAddresses.find((obj) => obj.Present == selectedSettlement) &&
-        postmachines.length > 0 && (
-          <Autocomplete
-            options={postmachines}
-            renderInput={(params) => (
-              <TextField {...params} label="Виберіть поштомат" />
+          {selectedDelivery === 'До поштомату Нової Пошти' && (
+            <Autocomplete
+              sx={{ marginBottom: '24px' }}
+              options={settlements}
+              freeSolo
+              renderInput={(params) => (
+                <TextField {...params} label="Ваше місто" />
+              )}
+              onInputChange={(event, newValue) => {
+                setSelectedSettlement(newValue);
+              }}
+            />
+          )}
+          {selectedDelivery === 'До поштомату Нової Пошти' &&
+            arrAddresses.find((obj) => obj.Present == selectedSettlement) &&
+            postmachines.length > 0 && (
+              <Autocomplete
+                options={postmachines}
+                renderInput={(params) => (
+                  <TextField {...params} label="Виберіть поштомат" />
+                )}
+                onChange={(event, newValue) => {
+                  // setDataForOrder((prev) => {
+                  //   return { ...prev, department: newValue };
+                  // });
+                  dispatch(
+                    setDataForOrder({
+                      valueName: 'department',
+                      value: newValue,
+                    }),
+                  );
+                  setSelectedPostmachines(newValue);
+                }}
+              />
             )}
-            onChange={(event, newValue) => {
-              // setDataForOrder((prev) => {
-              //   return { ...prev, department: newValue };
-              // });
-              dispatch(
-                setDataForOrder({
-                  valueName: 'department',
-                  value: newValue,
-                }),
-              );
-              setSelectedPostmachines(newValue);
-            }}
-          />
-        )}
+        </>
+      )}
     </>
   );
 };
