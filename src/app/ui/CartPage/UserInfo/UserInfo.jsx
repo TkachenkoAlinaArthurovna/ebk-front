@@ -10,7 +10,7 @@ import CartContactInfo from '@/app/ui/CartPage/CartContactInfo/CartContactInfo';
 
 const UserInfo = ({}) => {
   return (
-    <StyledAccordion>
+    <StyledAccordion defaultExpanded>
       <AccordionSummary
         sx={{ padding: '0' }}
         id="contact-info"
