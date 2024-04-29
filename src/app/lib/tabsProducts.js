@@ -36,7 +36,7 @@ export const newProducts = [
     categoryName: 'miski-elektrovelosypedy',
     name: 'Електровелосипед Electric Cubic 26" 500W 7.8Ah Алюмінієвий',
     picture: [
-      'https://images.prom.ua/5605345768_elektrovelosiped-electric-cubic.jpg',
+      'https://www.dropbox.com/scl/fi/fa84rq8ej57v5r4ixk55q/28.04.2024-07-32-36-9-1.jpg?rlkey=d3krsq0gw8jcrjz5ovdj04bar&st=ejlkyu11&raw=1',
     ],
     price: 757,
     params: [],

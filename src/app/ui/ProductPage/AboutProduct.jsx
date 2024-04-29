@@ -61,6 +61,7 @@ const AboutProduct = ({
               slidesPerView={1}
               pagination={false}
               slidesProductPage={picture}
+              loop={false}
             />
           </WrapperSlider>
         )}
