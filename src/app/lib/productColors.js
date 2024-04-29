@@ -23,7 +23,7 @@ const productColors = [
   { name: 'Beige', value: '#F5F5DC' },
   { name: 'Maroon', value: '#800000' },
   { name: 'Chocolate', value: '#D2691E' },
-  { name: 'Khaki', value: '#F0E68C' },
+  { name: 'Hacks', value: '#556B2F' },
   { name: 'Olive', value: '#808000' },
   { name: 'Salmon', value: '#FA8072' },
   { name: 'Tan', value: '#D2B48C' },
