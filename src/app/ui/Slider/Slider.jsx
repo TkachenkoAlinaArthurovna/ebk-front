@@ -33,6 +33,7 @@ const Slider = ({
   prevtype,
   nexttype,
   heart,
+  loop,
 }) => {
   const [swiper, setSwiper] = useState();
   let listProducts;
@@ -79,7 +80,7 @@ const Slider = ({
           <Link href={slide.link}>
             <WrapperSlide>
               <Image
-                priority={index == 0 ? true : false}
+                priority={true}
                 alt={'bike'}
                 src={slide.picture}
                 sizes="100vw"
@@ -177,7 +178,7 @@ const Slider = ({
         speed={speed}
         spaceBetween={spaceBetween}
         loopAddBlankSlides={true}
-        loop={true}
+        loop={loop}
         pagination={pagination}
         modules={[Autoplay, Navigation, Pagination]}
         navigation

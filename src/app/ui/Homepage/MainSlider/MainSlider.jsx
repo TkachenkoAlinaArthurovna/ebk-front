@@ -19,6 +19,7 @@ const MainSlider = () => {
           slidesPerView={1}
           pagination={true}
           slides={slides}
+          loop={true}
         />
       </Content>
     </StyledSection>
