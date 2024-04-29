@@ -61,12 +61,12 @@ const TabsProductPage = ({ currentProduct }) => {
             {currentProduct.params && currentProduct.params.length > 0 && (
               <StyledTab label="Характеристики" {...a11yProps(1)} />
             )}
-            {currentProduct.params && currentProduct.params.length > 0 && (
+            {/* {currentProduct.params && currentProduct.params.length > 0 && (
               <StyledTab label="Опис" {...a11yProps(2)} />
             )}
             {currentProduct.params && currentProduct.params.length == 0 && (
               <StyledTab label="Опис" {...a11yProps(1)} />
-            )}
+            )} */}
           </StyledTabs>
         </Box>
         <CustomTabPanel value={value} index={0}>
@@ -87,7 +87,7 @@ const TabsProductPage = ({ currentProduct }) => {
             />
           </CustomTabPanel>
         )}
-        {mainProduct.params && mainProduct.params.length > 0 && (
+        {/* {mainProduct.params && mainProduct.params.length > 0 && (
           <CustomTabPanel value={value} index={2}>
             <DescriptionProduct
               mainProduct={mainProduct}
@@ -104,7 +104,7 @@ const TabsProductPage = ({ currentProduct }) => {
               setFavoritesFlag={setFavoritesFlag}
             />
           </CustomTabPanel>
-        )}
+        )} */}
       </Content>
     </StyledSection>
   );
