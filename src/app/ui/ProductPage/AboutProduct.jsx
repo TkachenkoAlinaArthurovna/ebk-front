@@ -10,6 +10,7 @@ import {
   WrapperSlider,
   WrapperContent,
   StyledIconFavoriteButton,
+  StyledTypography,
 } from '@/app/ui/ProductPage/ProductPageStyles';
 import Colors from '@/app/ui/ProductCard/Colors';
 import Slider from '@/app/ui/Slider';
@@ -42,169 +43,181 @@ const AboutProduct = ({
   const token = authorized ? localStorage.getItem('token') : null;
 
   return (
-    <WrapperAboutProduct>
-      <Box
-        sx={{
-          width: '50%',
-          display: 'flex',
-          alignItems: 'flex-start',
-          '@media (max-width: 700px)': {
-            width: '100%',
-            marginBottom: '16px',
-          },
-        }}
-      >
-        {Array.isArray(picture) && picture.length > 1 && (
-          <WrapperSlider>
-            <Slider
-              spaceBetween={0}
-              slidesPerView={1}
-              pagination={false}
-              slidesProductPage={picture}
-              loop={false}
-            />
-          </WrapperSlider>
-        )}
-        {Array.isArray(picture) && picture.length == 1 && (
-          <WrapperSlider>
-            <Box
-              component="img"
-              alt={`${name}`}
-              src={picture[0]}
-              sx={{
-                width: 'auto',
-                maxHeight: '500px',
-                borderRadius: '28px',
-              }}
-            />
-          </WrapperSlider>
-        )}
-        {!Array.isArray(picture) && (
-          <WrapperSlider>
-            <Box
-              component="img"
-              alt={`${name}`}
-              src={picture ? picture : '/images/noimageavailable.png'}
-              sx={{
-                width: 'auto',
-                maxHeight: '500px',
-                borderRadius: '28px',
-              }}
-            />
-          </WrapperSlider>
-        )}
-      </Box>
-      <WrapperContent>
-        <PageTitle>{name}</PageTitle>
+    <>
+      <WrapperAboutProduct>
         <Box
           sx={{
+            width: '50%',
             display: 'flex',
-            justifyContent: 'end',
-            marginTop: '16px',
-            '@media (max-width: 900px)': {
-              justifyContent: 'start',
+            alignItems: 'flex-start',
+            '@media (max-width: 700px)': {
+              width: '100%',
+              marginBottom: '16px',
             },
           }}
         >
-          <Typography sx={{ width: '200px', color: '#6a6a6a' }}>
-            Артикул: {crmId}
-          </Typography>
+          {Array.isArray(picture) && picture.length > 1 && (
+            <WrapperSlider>
+              <Slider
+                spaceBetween={0}
+                slidesPerView={1}
+                pagination={false}
+                slidesProductPage={picture}
+                loop={false}
+              />
+            </WrapperSlider>
+          )}
+          {Array.isArray(picture) && picture.length == 1 && (
+            <WrapperSlider>
+              <Box
+                component="img"
+                alt={`${name}`}
+                src={picture[0]}
+                sx={{
+                  width: 'auto',
+                  maxHeight: '500px',
+                  borderRadius: '28px',
+                }}
+              />
+            </WrapperSlider>
+          )}
+          {!Array.isArray(picture) && (
+            <WrapperSlider>
+              <Box
+                component="img"
+                alt={`${name}`}
+                src={picture ? picture : '/images/noimageavailable.png'}
+                sx={{
+                  width: 'auto',
+                  maxHeight: '500px',
+                  borderRadius: '28px',
+                }}
+              />
+            </WrapperSlider>
+          )}
         </Box>
-        {vendor && (
+        <WrapperContent>
+          <PageTitle>{name}</PageTitle>
           <Box
             sx={{
               display: 'flex',
               justifyContent: 'end',
-              margin: '16px 0',
+              marginTop: '16px',
               '@media (max-width: 900px)': {
                 justifyContent: 'start',
               },
             }}
           >
             <Typography sx={{ width: '200px', color: '#6a6a6a' }}>
-              Виробник: {vendor}
+              Артикул: {crmId}
             </Typography>
           </Box>
-        )}
-        <Colors
-          arrProducts={arrProducts}
-          mainProduct={mainProduct}
-          setMainProduct={setMainProduct}
-        />
-        <Box sx={{ marginBottom: '32px' }}>
-          <Price
-            price={price}
-            oldprice={oldprice}
-            fontSize={28}
-            productPage={true}
-            type={'productCard'}
-          />
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'nowrap',
-            marginBottom: '32px',
-          }}
-        >
-          <ButtonMain
-            width={'100%'}
-            startIcon={<ShoppingCartIcon />}
-            onClick={() => {
-              dispatch(toggleCartModal());
-              dispatch(setCurrentCard(mainProduct));
-            }}
-          >
-            Купити
-          </ButtonMain>
-          {authorized && (
-            <StyledIconFavoriteButton
-              onClick={async () => {
-                setFavoritesFlag(!favoritesFlag);
-                try {
-                  const isProductInFavorites = checkProductIdInArray(
-                    mainProduct.crmId,
-                    favorites,
-                  );
-                  if (isProductInFavorites) {
-                    await deleteFavorites(user.id, mainProduct._id, token);
-                  } else {
-                    await addFavorites(user.id, mainProduct._id, token);
-                  }
-                  await getAllFavorites(
-                    user.id,
-                    token,
-                    setFavorites,
-                    setFavoritesMeta,
-                    dispatch,
-                  );
-                } catch (error) {
-                  console.error(
-                    'Помилка під час виконання операції з улюбленими елементами:',
-                    error,
-                  );
-                }
+          {vendor && (
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'end',
+                margin: '16px 0',
+                '@media (max-width: 900px)': {
+                  justifyContent: 'start',
+                },
               }}
             >
-              {favoritesFlag ? (
-                <FavoriteIcon
-                  color="primary"
-                  sx={{ width: '24px', height: '24px' }}
-                />
-              ) : (
-                <FavoriteBorderIcon
-                  color="primary"
-                  sx={{ width: '24px', height: '24px' }}
-                />
-              )}
-            </StyledIconFavoriteButton>
+              <Typography sx={{ width: '200px', color: '#6a6a6a' }}>
+                Виробник: {vendor}
+              </Typography>
+            </Box>
           )}
+          <Colors
+            arrProducts={arrProducts}
+            mainProduct={mainProduct}
+            setMainProduct={setMainProduct}
+          />
+          <Box sx={{ marginBottom: '32px' }}>
+            <Price
+              price={price}
+              oldprice={oldprice}
+              fontSize={28}
+              productPage={true}
+              type={'productCard'}
+            />
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              flexWrap: 'nowrap',
+              marginBottom: '32px',
+            }}
+          >
+            <ButtonMain
+              width={'100%'}
+              startIcon={<ShoppingCartIcon />}
+              onClick={() => {
+                dispatch(toggleCartModal());
+                dispatch(setCurrentCard(mainProduct));
+              }}
+            >
+              Купити
+            </ButtonMain>
+            {authorized && (
+              <StyledIconFavoriteButton
+                onClick={async () => {
+                  setFavoritesFlag(!favoritesFlag);
+                  try {
+                    const isProductInFavorites = checkProductIdInArray(
+                      mainProduct.crmId,
+                      favorites,
+                    );
+                    if (isProductInFavorites) {
+                      await deleteFavorites(user.id, mainProduct._id, token);
+                    } else {
+                      await addFavorites(user.id, mainProduct._id, token);
+                    }
+                    await getAllFavorites(
+                      user.id,
+                      token,
+                      setFavorites,
+                      setFavoritesMeta,
+                      dispatch,
+                    );
+                  } catch (error) {
+                    console.error(
+                      'Помилка під час виконання операції з улюбленими елементами:',
+                      error,
+                    );
+                  }
+                }}
+              >
+                {favoritesFlag ? (
+                  <FavoriteIcon
+                    color="primary"
+                    sx={{ width: '24px', height: '24px' }}
+                  />
+                ) : (
+                  <FavoriteBorderIcon
+                    color="primary"
+                    sx={{ width: '24px', height: '24px' }}
+                  />
+                )}
+              </StyledIconFavoriteButton>
+            )}
+          </Box>
+          <Delivery bike={true} />
+          <Pay></Pay>
+        </WrapperContent>
+      </WrapperAboutProduct>
+      <Box>
+        <Box sx={{ margin: '20px 0' }}>
+          <PageTitle>Опис</PageTitle>
         </Box>
-        <Delivery bike={true} />
-        <Pay></Pay>
-      </WrapperContent>
-    </WrapperAboutProduct>
+        <Typography
+          className="description"
+          dangerouslySetInnerHTML={{ __html: mainProduct.description }}
+          sx={{ lineHeight: '24px' }}
+        />
+      </Box>
+    </>
   );
 };
 export default AboutProduct;

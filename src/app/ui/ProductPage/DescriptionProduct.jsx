@@ -12,7 +12,6 @@ import {
   StyledLeft,
   StyledRight,
   StyleTypographyName,
-  StyledTypography,
 } from '@/app/ui/ProductPage/CaracteristicsProductStyles';
 import { StyledIconFavoriteButton } from '@/app/ui/ProductPage/ProductPageStyles';
 import Price from '@/app/ui/ProductCard/Price';
