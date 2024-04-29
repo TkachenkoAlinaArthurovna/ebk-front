@@ -36,10 +36,12 @@ const Colors = ({ arrProducts, mainProduct, setMainProduct }) => {
               onClick={() => {
                 setMainProduct(arrProducts[getIndexOfMainProduct(color[0])]);
               }}
-              sx={{
-                backgroundColor: `${color[1].value}`,
-                scale: `${mainColor && mainColor[0] && color[0] == mainColor[0] ? '1' : '0.6'}`,
-              }}
+              sx={
+                color[1] && {
+                  backgroundColor: `${color[1].value}`,
+                  scale: `${mainColor && mainColor[0] && color[0] == mainColor[0] ? '1' : '0.6'}`,
+                }
+              }
             />
           );
         }
