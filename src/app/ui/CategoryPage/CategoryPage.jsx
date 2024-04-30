@@ -51,7 +51,7 @@ export default function CategoryPage({
   const [width] = useResize();
   const pathname = usePathname();
   const pathnames = pathname.split('/').filter((path) => path);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (products) {

@@ -67,7 +67,11 @@ export default async function Category({ params }) {
   const partsOfCategory = category.includes('%26')
     ? category.split('%26')
     : [category];
-  const sort = category.includes('sort%3Ddesc') ? 'desc' : 'asc';
+  const sort = category.includes('sort%3Ddesc')
+    ? 'desc'
+    : category.includes('sort%3Dasc')
+      ? 'asc'
+      : 'popularity';
   const page = category.includes('page') ? getPageParams(category) : 1;
   const categoryId = await getCategoryIdProducts(partsOfCategory[0]);
   const categoryName = await getCategoryName(partsOfCategory[0]);
