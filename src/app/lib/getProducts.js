@@ -17,7 +17,8 @@ export const getProducts = async (
     setLoading(true);
     const limit = width > 700 ? 9 : 8;
     let res;
-    const sort = sortParam ? `sort=${sortParam}&` : '';
+    const sort =
+      sortParam && sortParam !== 'popularity' ? `sort=${sortParam}&` : '';
     res = await fetch(
       `https://stage.eco-bike.com.ua/api/catalog/${categoryId}?${sort}page=${page}&limit=${limit}`,
       { next: { revalidate: 3600 } },

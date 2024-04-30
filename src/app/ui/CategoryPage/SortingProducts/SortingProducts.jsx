@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import { MenuItem, FormControl } from '@mui/material';
@@ -11,15 +11,33 @@ const SortingProducts = () => {
   const router = useRouter();
   const pathname = usePathname();
   const pathnames = pathname.split('/').filter((path) => path);
-  const sort = () => {
+
+  useEffect(() => {
     if (pathnames.length == 1) {
-      return pathnames[0].includes('sort=desc') ? 'desc' : 'asc';
+      if (pathnames[0].includes('sort=desc')) {
+        setView('desc');
+      }
+      if (pathnames[0].includes('sort=asc')) {
+        setView('asc');
+      }
+      if (pathnames[0].includes('sort=popularity')) {
+        setView('popularity');
+      }
     }
-    if (pathnames.length > 2) {
-      return pathnames[2].includes('sort=desc') ? 'desc' : 'asc';
+    if (pathnames.length == 3) {
+      if (pathnames[2].includes('sort=desc')) {
+        setView('desc');
+      }
+      if (pathnames[2].includes('sort=asc')) {
+        setView('asc');
+      }
+      if (pathnames[2].includes('sort=popularity')) {
+        setView('popularity');
+      }
     }
-  };
-  const [view, setView] = useState(sort);
+  }, [pathnames]);
+
+  const [view, setView] = useState('popularity');
 
   const removeAfterAmpersand = (str) => {
     const ampersandIndex = str.indexOf('&');
@@ -70,6 +88,7 @@ const SortingProducts = () => {
         label="View"
         onChange={handleChange}
       >
+        <MenuItem value="popularity">За популярністю</MenuItem>
         <MenuItem value="desc">Від дорогих до дешевих</MenuItem>
         <MenuItem value="asc">Від дешевих до дорогих</MenuItem>
       </StyledSelect>

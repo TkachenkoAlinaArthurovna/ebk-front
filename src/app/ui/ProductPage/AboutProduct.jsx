@@ -74,9 +74,18 @@ const AboutProduct = ({
                 alt={`${name}`}
                 src={picture[0]}
                 sx={{
-                  width: 'auto',
+                  maxWidth: '100%',
                   maxHeight: '500px',
                   borderRadius: '28px',
+                  '@media (max-width: 1024px)': {
+                    maxHeight: '380px',
+                  },
+                  '@media (max-width: 500px)': {
+                    maxHeight: '300px',
+                  },
+                  '@media (max-width: 400px)': {
+                    maxHeight: '260px',
+                  },
                 }}
               />
             </WrapperSlider>
