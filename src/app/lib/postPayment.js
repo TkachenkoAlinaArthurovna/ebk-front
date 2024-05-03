@@ -4,7 +4,6 @@ export const postPayment = async (
   dispatch,
   setDataForPaymentModal,
 ) => {
-  console.log(obj);
   try {
     const url = `https://stage.eco-bike.com.ua/api/payments/create`;
     const requestBody = {
