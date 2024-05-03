@@ -128,7 +128,6 @@ const NovaPoshtaPostmachines = ({ setDataForOrder }) => {
     }
     return true;
   }
-  console.log(checkCategory(userCartProducts));
 
   useEffect(() => {
     if (debouncedSelectedSettlement.length >= 2) {
