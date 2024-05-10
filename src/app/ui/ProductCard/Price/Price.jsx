@@ -8,10 +8,10 @@ import {
 import { Typography } from '@mui/material';
 import { dollar } from '@/app/lib/dollar';
 
-const Price = ({ price, oldprice, fontSize, productPage, type }) => {
+const Price = ({ price, oldprice, fontSize, productPage, type, sum = 1 }) => {
   const currencyRate = dollar;
-  const priceUa = Math.ceil(price * currencyRate);
-  const oldPriceUa = Math.ceil(oldprice * currencyRate);
+  const priceUa = Math.ceil(price * currencyRate) * sum;
+  const oldPriceUa = Math.ceil(oldprice * currencyRate) * sum;
 
   const formatNumberWithSpaces = (number) => {
     const numString = String(number);

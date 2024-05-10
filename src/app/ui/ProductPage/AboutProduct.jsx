@@ -41,6 +41,12 @@ const AboutProduct = ({
   const authorized = isAuthorized();
   const user = authorized ? getUser() : null;
   const token = authorized ? localStorage.getItem('token') : null;
+  const bike =
+    mainProduct.category.id === '116118803' ||
+    mainProduct.category.id === '116127700' ||
+    mainProduct.category.id === '117151657' ||
+    mainProduct.category.id === '116238096' ||
+    mainProduct.category.id === '116319462';
 
   return (
     <>
@@ -212,7 +218,7 @@ const AboutProduct = ({
               </StyledIconFavoriteButton>
             )}
           </Box>
-          <Delivery bike={true} />
+          <Delivery bike={bike} />
           <Pay></Pay>
         </WrapperContent>
       </WrapperAboutProduct>

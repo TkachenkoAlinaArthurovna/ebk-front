@@ -152,7 +152,12 @@ const CartItem = ({
               </StyledButton>
             </StyledButtonGroup>
           )}
-          <Price price={price} oldprice={oldprice} fontSize={22} />
+          <Price
+            price={price}
+            oldprice={oldprice}
+            fontSize={22}
+            sum={quantity ? quantity : count}
+          />
         </WrapperPlusMinusPrice>
       </CartItemWrapper>
       {modal ? null : (
