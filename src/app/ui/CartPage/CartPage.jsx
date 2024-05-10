@@ -50,6 +50,7 @@ import { makeAnOrder } from '@/app/lib/makeAnOrder';
 import { getUserObj } from '@/app/lib/getUserObj';
 import { getCart } from '@/app/lib/getCart';
 import { createObjForPostPayment } from '@/app/lib/createObjForPostPayment';
+import { border } from '@mui/system';
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -280,7 +281,9 @@ const CartPage = () => {
                         }}
                       >
                         <FormControlLabel
-                          sx={{ marginBottom: '14px' }}
+                          sx={{
+                            marginBottom: '14px',
+                          }}
                           control={
                             <Field
                               type="checkbox"

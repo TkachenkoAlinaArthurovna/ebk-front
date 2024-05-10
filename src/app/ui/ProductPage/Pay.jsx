@@ -29,7 +29,7 @@ const Pay = () => {
       </Box>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <Typography variant="body1" sx={{ width: '100%', fontSize: '12px' }}>
-          - Оплата на сайті, через платіжну систему Liqpay, після оформлення
+          - Оплата через платіжну систему WayForPay, після оформлення
           замовлення.
         </Typography>
         <Typography variant="body1" sx={{ width: '100%', fontSize: '12px' }}>

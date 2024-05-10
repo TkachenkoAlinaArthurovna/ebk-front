@@ -22,24 +22,16 @@ const AboutPage = () => {
       <Box sx={{ mb: 3 }}>
         <PageTitle>Про нас</PageTitle>
       </Box>
-      <PageText>
-        Eco-bike – це магазин, який спеціалізується на електровелосипедах та
-        комплектуючих до них. Наша команда підібрала максимально сумісні та
-        якісні комплектуючі, з якими не буде жодних проблем.
-      </PageText>
-      {/* <WrapperImg>
-        <Image
-          src={'/images/about-us-img.png'}
-          alt={'about-us-img'}
-          fill={true}
-          sizes="70vw"
-          priority={true}
-          style={{ borderRadius: '28px', objectFit: 'cover' }}
-        />
-      </WrapperImg> */}
+      <Box sx={{ mb: 3 }}>
+        <PageText>
+          Eco-bike – це магазин, який спеціалізується на електровелосипедах та
+          комплектуючих до них. Наша команда підібрала максимально сумісні та
+          якісні комплектуючі, з якими не буде жодних проблем.
+        </PageText>
+      </Box>
       <PageTitle>Наші переваги</PageTitle>
       <WrapperGrid>
-        <ShadowBox $padding="30px">
+        <ShadowBox $padding="30px" $justifyContent="start">
           <Box
             sx={{
               borderRadius: '28px',
@@ -68,7 +60,7 @@ const AboutPage = () => {
             </PageText>
           </Box>
         </ShadowBox>
-        <ShadowBox $padding="30px">
+        <ShadowBox $padding="30px" $justifyContent="start">
           <Box
             sx={{
               borderRadius: '28px',
@@ -102,7 +94,7 @@ const AboutPage = () => {
             </PageText>
           </Box>
         </ShadowBox>
-        <ShadowBox $padding="30px">
+        <ShadowBox $padding="30px" $justifyContent="start">
           <Box
             sx={{
               borderRadius: '28px',
@@ -135,7 +127,7 @@ const AboutPage = () => {
             </PageText>
           </Box>
         </ShadowBox>
-        <ShadowBox $padding="30px">
+        <ShadowBox $padding="30px" $justifyContent="start">
           <Box
             sx={{
               borderRadius: '28px',
