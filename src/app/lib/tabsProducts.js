@@ -81,7 +81,7 @@ export const topProducts = [
   },
   {
     categoryName: 'elektrokomplekty',
-    name: 'Комплект для електровелосипеда 1000w 13A/h заднє під касету',
+    name: 'Комплект для електровелосипеда 1000w 13A/h, задній, під касету',
     picture: [
       'https://images.prom.ua/4421360353_komplekt-dlya-elektrovelosipeda.jpg',
     ],
@@ -132,12 +132,14 @@ export const exclusiveProducts = [
   },
   {
     categoryName: 'fatbike',
-    name: 'Електровелосипед 26-4.0 FAT BIKE AVALON 1200W 13Ah 48V',
+    name: 'Електровелосипед Fatbike "Avanti" 26" 750W 10 Ah',
     picture: [
-      'https://images.prom.ua/4655286062_elektrovelosiped-26-40-fat.jpg',
+      'https://www.dropbox.com/scl/fi/1aeegblv0sbd7tyt992b7/photo_2024-05-08_20-47-09.jpg?rlkey=jguohj6gxn6d3k41sfatx2wpc&st=4z78qqxb&raw=1',
     ],
-    price: 1080,
-    params: [],
-    crmId: '1884750986',
+    price: 990,
+    params: [
+      { name: ['Color', 'Колір'], value: ['Black/Blue', 'Чорний/Синій'] },
+    ],
+    crmId: '253',
   },
 ];

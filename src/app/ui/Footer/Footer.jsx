@@ -119,9 +119,9 @@ const Footer = () => {
               },
             }}
           >
-            <Box sx={{ margin: '20px', textAlign: 'center' }}>
+            {/* <Box sx={{ margin: '20px', textAlign: 'center' }}>
               <Link href="/privacy-policy">Політика конфіденційності</Link>
-            </Box>
+            </Box> */}
             <Box sx={{ textAlign: 'center' }}>
               eco-bike copyright <span onClick={handleOpenDevModal}>©</span>{' '}
               {currentYear} all rights reserved
