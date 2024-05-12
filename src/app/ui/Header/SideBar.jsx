@@ -23,6 +23,8 @@ const navigationMain = [
   { id: 11, title: 'Підтримка', path: '/support' },
   { id: 8, title: 'Обмін та повернення', path: '/return' },
   { id: 9, title: 'Доставка і оплата', path: '/payment-delivery' },
+  { id: 4, title: 'Договір публічної оферти', path: '/offer' },
+  { id: 7, title: 'Політика конфіденційності', path: '/privacy-policy' },
   { id: 6, title: 'Контакти', path: '/contacts' },
   // { id: 7, title: 'Відгуки', path: '/reviews' },
 ];
