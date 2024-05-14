@@ -15,6 +15,7 @@ import {
   StyledButton,
 } from '@/app/ui/Cabinet/OrdersPage/OrdersPageStyles';
 import { getUserObj } from '@/app/lib/getUserObj';
+
 import EmptyOrders from '@/app/ui/Cabinet/OrdersPage/EmptyOrders/EmptyOrders';
 
 const OrdersPage = () => {

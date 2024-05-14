@@ -61,7 +61,9 @@ const Toolbar = () => {
   );
   const cartProducts = useSelector((state) => state.cart.cartProducts);
   const favorites = useSelector((state) => state.favorites.favorites);
-  const userPhone = useSelector((state) => state.user.phone);
+  // const userPhone = useSelector((state) => state.user.phone);
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const userPhone = userInfo.phone;
   const [openDrawer, setOpenDrawer] = useState(false);
   const toggleDrawer = () => {
     setOpenDrawer(!openDrawer);
