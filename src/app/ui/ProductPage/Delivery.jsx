@@ -1,12 +1,29 @@
 import { Box } from '@mui/material';
 import { Typography } from '@mui/material';
 import { DeliveryIcon } from '@/app/ui/ProductPage/ProductPageStyles';
+import Link from 'next/link';
 
 const Delivery = ({ bike }) => {
   return (
     <Box
       sx={{ display: 'flex', flexDirection: 'column', marginBottom: '16px' }}
     >
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
+          marginBottom: '16px',
+          fontSize: '14px',
+          textDecoration: 'underline',
+          color: '#42ADA7',
+        }}
+      >
+        <Link href="https://eco-bike.com.ua/payment-delivery">
+          Доставка і оплата
+        </Link>
+        <Link href="https://eco-bike.com.ua/return">Обмін та повернення</Link>
+      </Box>
       {bike && (
         <Box
           sx={{

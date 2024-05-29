@@ -17,6 +17,7 @@ export const WrapperConditions = styled(Box)`
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 1fr;
   gap: 24px;
+  margin-bottom: 32px;
   @media (max-width: 1024px) {
     gap: 14px;
   }
