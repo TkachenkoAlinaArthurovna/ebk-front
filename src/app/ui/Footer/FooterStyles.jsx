@@ -4,6 +4,7 @@ import { Box, List, ListItem, styled } from '@mui/material';
 import Link from 'next/link';
 
 export const StyledContainer = styled(Box)`
+  position: relative;
   background-color: #4d4d4d;
   padding: 48px;
   color: #ffffff;
@@ -106,5 +107,29 @@ export const StyledLogoBox = styled(Box)`
   }
   @media (max-width: 700px) {
     height: 56px;
+  }
+`;
+
+export const Payment = styled(Box)`
+  position: absolute;
+  bottom: 0px;
+  left: 48px;
+  display: flex;
+  flex-direction: column;
+  img {
+    width: 80px;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 10px;
+  }
+  @media (max-width: 900px) {
+    position: relative;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    left: 0;
+    img {
+      margin: 10px 0;
+    }
   }
 `;

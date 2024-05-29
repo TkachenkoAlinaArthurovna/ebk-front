@@ -11,6 +11,7 @@ import {
   StyledListItem,
   WrapperItemBox,
   StyledLogoBox,
+  Payment,
 } from '@/app/ui/Footer/FooterStyles';
 import Link from 'next/link';
 import { Box, Typography } from '@mui/material';
@@ -119,9 +120,9 @@ const Footer = () => {
               },
             }}
           >
-            {/* <Box sx={{ margin: '20px', textAlign: 'center' }}>
+            <Box sx={{ margin: '20px', textAlign: 'center' }}>
               <Link href="/privacy-policy">Політика конфіденційності</Link>
-            </Box> */}
+            </Box>
             <Box sx={{ textAlign: 'center' }}>
               eco-bike copyright <span onClick={handleOpenDevModal}>©</span>{' '}
               {currentYear} all rights reserved
@@ -132,6 +133,11 @@ const Footer = () => {
               <Logo color={'#ffff'} width={'120px'} height={'64px'} />
             </Link>
           </LogoContainerBottom>
+          <Payment>
+            <img src="/images/visa.png" alt="payment" />
+            <img src="/images/mastercard.png" alt="payment" />
+            <img src="/images/Google-Pay.png" alt="payment" />
+          </Payment>
         </Content>
       </StyledContainer>
       <DevModal />

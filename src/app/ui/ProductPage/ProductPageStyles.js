@@ -72,3 +72,12 @@ export const DeliveryIcon = styled(Box)`
   justify-content: center;
   margin-right: 10px;
 `;
+
+export const Payment = styled(Box)`
+  img {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+    border-radius: 6px;
+  }
+`;

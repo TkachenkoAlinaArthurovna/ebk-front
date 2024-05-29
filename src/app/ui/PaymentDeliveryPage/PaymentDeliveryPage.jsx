@@ -31,12 +31,12 @@ const PaymentDeliveryPage = () => {
           <Typography variant="body1" sx={{ margin: '16px 0' }}>
             - Оплата замовлення, при отриманні, у відділеннях Нова Пошта.
           </Typography>
+          <Typography variant="h6">Оплата за реквізитами</Typography>
           <Typography variant="body1" sx={{ margin: '16px 0' }}>
-            - ВАЖЛИВО: при даному способі оплати, компанією Нова Пошта,
-            утримується додаткова комісія 20 грн + 2% від суми замовлення
-            (комісія оплачується покупцем). Якщо Ви бажаєте оплатити замовлення
-            без додаткових переплат та комісій, ми рекомендуємо оплату онлайн
-            Visa/Mastercard • Google Pay • Apple Pay.
+            IBAN UA853515330000026004052186782 РНОКПП/ЄДРПОУ 3026018634
+          </Typography>
+          <Typography variant="body1" sx={{ margin: '16px 0' }}>
+            Отримувач: Волков Юрій Юрійович
           </Typography>
         </Box>
         <Box sx={{ marginBottom: '32px', color: '#49BEB7' }}>
