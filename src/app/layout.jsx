@@ -12,22 +12,31 @@ import { Box } from '@mui/material';
 import ModalCart from '@/app/ui/ModalCart';
 import Authorization from '@/app/ui/AuthModal/Authorization';
 import React from 'react';
-import GoogleTag from '@/app/ui/GoogleTag/GoogleTag';
 
 export const metadata = {
   title: 'Eco-bike Інтернет магазин електровелосипедів',
   description:
     'Електровелосипеди, запчастини для електровелосипедів, запчастини для велосипедів, комплекти для електровелосипедів, акумулятори, мотори, мотор-колеса',
-  link: ' href="./output.css" rel="stylesheet"',
+  link: { href: './output.css', rel: 'stylesheet' },
   icons: {
     icon: ['/logo.svg'],
   },
+  meta: [
+    {
+      name: 'google-site-verification',
+      content: '2LR5wL71gyJKjjdf9DX3McPUcCF8uvxNJQsxyENEnL8',
+    },
+  ],
 };
 
 export default async function RootLayout({ children }) {
   return (
     <html lang="en">
-      <GoogleTag></GoogleTag>
+      <head>
+        {metadata.meta.map((metaTag, index) => (
+          <meta key={index} name={metaTag.name} content={metaTag.content} />
+        ))}
+      </head>
       <AppTheme>
         <body>
           <Providers>
