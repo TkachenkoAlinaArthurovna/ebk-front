@@ -156,6 +156,7 @@ export const navigation = [
   { id: 10, title: 'Мої замовлення', path: 'orders' },
   { id: 11, title: 'Обране', path: 'favorites' },
   { id: 12, title: 'Договір публічної оферти', path: 'offer' },
+  { id: 13, title: 'Обмін та повернення', path: 'return' },
 ];
 
 export const cartProducts = [

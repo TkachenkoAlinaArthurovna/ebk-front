@@ -3,6 +3,7 @@ import {
   setFirstname,
   setSurname,
   setEmail,
+  setPhone,
 } from '@/redux/slices/UserInfoSlice';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
@@ -54,9 +55,9 @@ const CartContactInfo = ({}) => {
         <Field
           as={TextField}
           type="text"
-          readOnly="readOnly"
           label="Телефон"
           value={userInfo.phone}
+          onChange={(e) => dispatch(setPhone(e.target.value))}
           placeholder="+38"
           fullWidth
           InputLabelProps={{ shrink: true }}
