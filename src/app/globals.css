@@ -163,3 +163,11 @@ pre {
     width: 100%;
   }
 }
+
+.css-gacj-MuiButtonBase-root-MuiTab-root {
+  width: 50%;
+}
+.css-1wq2hos {
+  max-height: 80vh;
+  overflow: auto;
+}

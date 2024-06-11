@@ -20,13 +20,13 @@ export const getCart = async (
         dispatch(setUserCartProducts(data.items));
         setLoading && dispatch(setLoading(false));
       } else {
-        if (res.status === 404) {
-          dispatch(setUserCartProducts([]));
-        }
+        dispatch(setUserCartProducts([]));
+        setLoading && dispatch(setLoading(false));
       }
     }
   } catch (error) {
     console.log(error);
     setLoading && dispatch(setLoading(false));
   }
+  setLoading && dispatch(setLoading(false));
 };
