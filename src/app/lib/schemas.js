@@ -17,6 +17,10 @@ export const basicContactSchema = yup.object({
     .string()
     .email('Невірний формат ел. пошти')
     .required('Обовʼязкове поле'),
+  phone: yup
+    .string()
+    .matches(/^\+380\d{9}$/, 'Невірний формат номеру')
+    .required('Обовʼязкове поле'),
 });
 
 export const contactDataSchema = yup.object({

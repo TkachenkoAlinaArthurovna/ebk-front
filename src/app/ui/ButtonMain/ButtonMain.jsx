@@ -7,6 +7,7 @@ const ButtonMain = ({
   endIcon,
   startIcon,
   width,
+  disabled,
 }) => {
   return (
     <StyledButton
@@ -14,7 +15,11 @@ const ButtonMain = ({
       variant={variant}
       endIcon={endIcon}
       startIcon={startIcon}
-      style={{ width: `${width}` }}
+      style={{
+        width: `${width}`,
+        cursor: `${disabled ? 'not-allowed' : 'pointer'}`,
+        backgroundColor: `${disabled ? '#E5E5E5' : '#49BEB7'}`,
+      }}
     >
       {children}
     </StyledButton>

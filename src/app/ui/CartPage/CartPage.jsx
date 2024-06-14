@@ -80,6 +80,10 @@ const CartPage = () => {
 
   const [activeObjForPostPayment, setActiveObjForPostPayment] = useState('');
 
+  const [inactively, setInactively] = useState(true);
+
+  const [errors, setErrors] = useState(false);
+
   const initialValues = {
     firstname: userInfo.firstname,
     surname: userInfo.surname,
@@ -218,7 +222,7 @@ const CartPage = () => {
                         <PageTitle>Кошик</PageTitle>
                       </Box>
                       {loading && <LoadingCartItem />}
-                      {!authorized && <Entry />}
+                      {/* {!authorized && <Entry />} */}
                       {loading == false &&
                         userCartProducts.map((product, index) => (
                           <CartItem
@@ -247,9 +251,17 @@ const CartPage = () => {
                       authorized={authorized}
                     />
                   </StyledOrderWrapper>
-                  {authorized ? (
-                    <Wrapper>
-                      <UserInfo />
+                  {/* {authorized ? ( */}
+                  <Wrapper>
+                    <UserInfo
+                      setErrors={setErrors}
+                      cart={true}
+                      isValid={isValid}
+                      setInactively={setInactively}
+                    />
+                    <Box
+                      sx={{ display: inactively || errors ? 'none' : 'block' }}
+                    >
                       <Delivery setDataForOrder={setDataForOrder} />
                       <Payment />
                       <Comment
@@ -270,42 +282,43 @@ const CartPage = () => {
                           )
                         }
                       />
-                      <Box
+                    </Box>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        margin: '0 0 24px 3px',
+                        '@media (min-width: 1025px)': {
+                          display: 'none',
+                        },
+                      }}
+                    >
+                      <FormControlLabel
                         sx={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          margin: '0 0 24px 3px',
-                          '@media (min-width: 1025px)': {
-                            display: 'none',
-                          },
+                          marginBottom: '14px',
                         }}
-                      >
-                        <FormControlLabel
-                          sx={{
-                            marginBottom: '14px',
-                          }}
-                          control={
-                            <Field
-                              type="checkbox"
-                              name="termsAgreement"
-                              as={Checkbox}
-                            />
-                          }
-                          label="З умовами ознайомлений та погоджуюсь*"
-                        />
-                        <StyledTermsTitle>
-                          Підтверджуючи замовлення, я приймаю умови:{' '}
-                        </StyledTermsTitle>
-                        <StyledList>
-                          <StyledListItem>
-                            <Link href="/privacy-policy">
-                              • політики конфіденційності
-                            </Link>
-                          </StyledListItem>
-                        </StyledList>
-                      </Box>
-                    </Wrapper>
-                  ) : null}
+                        control={
+                          <Field
+                            type="checkbox"
+                            name="termsAgreement"
+                            as={Checkbox}
+                          />
+                        }
+                        label="З умовами ознайомлений та погоджуюсь*"
+                      />
+                      <StyledTermsTitle>
+                        Підтверджуючи замовлення, я приймаю умови:{' '}
+                      </StyledTermsTitle>
+                      <StyledList>
+                        <StyledListItem>
+                          <Link href="/privacy-policy">
+                            • політики конфіденційності
+                          </Link>
+                        </StyledListItem>
+                      </StyledList>
+                    </Box>
+                  </Wrapper>
+                  {/* ) : null} */}
                   <StyledCheckoutButton
                     sx={{
                       '@media (min-width: 1025px)': {
