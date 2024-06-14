@@ -26,7 +26,7 @@ const CartContactInfo = ({ setErrors, setInactively }) => {
   // useEffect(() => {
   //   Object.keys(errors).length == 1 ? setErrors(false) : setErrors(true);
   // }, [errors]);
-  console.log(Object.keys(errors).length == 1);
+  console.log(errors);
 
   return (
     <>
