@@ -23,18 +23,20 @@ const CartContactInfo = ({ setErrors, setInactively }) => {
   const { errors } = useFormikContext();
   const { login } = useAuth();
 
-  // useEffect(() => {
-  //   Object.keys(errors).length == 1 ? setErrors(false) : setErrors(true);
-  // }, [errors]);
+  useEffect(() => {
+    checkObjectKeysAllAbsent(errors, requiredKeys)
+      ? setErrors(false)
+      : setErrors(true);
+  }, [errors]);
 
   const requiredKeys = ['email', 'phone', 'firstname', 'surname'];
   function checkObjectKeysAllAbsent(obj, keys) {
     for (let key of keys) {
       if (key in obj) {
-        return false; // Повертаємо false, якщо хоча б один ключ присутній
+        return false;
       }
     }
-    return true; // Повертаємо true, якщо всі ключі відсутні
+    return true;
   }
   return (
     <>
