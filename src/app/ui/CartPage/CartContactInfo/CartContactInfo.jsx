@@ -26,8 +26,16 @@ const CartContactInfo = ({ setErrors, setInactively }) => {
   // useEffect(() => {
   //   Object.keys(errors).length == 1 ? setErrors(false) : setErrors(true);
   // }, [errors]);
-  console.log(errors);
 
+  const requiredKeys = ['email', 'phone', 'firstname', 'surname'];
+  function checkObjectKeysAllAbsent(obj, keys) {
+    for (let key of keys) {
+      if (key in obj) {
+        return false; // Повертаємо false, якщо хоча б один ключ присутній
+      }
+    }
+    return true; // Повертаємо true, якщо всі ключі відсутні
+  }
   return (
     <>
       <Grid container spacing={3}>
@@ -108,7 +116,9 @@ const CartContactInfo = ({ setErrors, setInactively }) => {
       <Box sx={{ marginTop: '20px' }}>
         <ButtonMain
           width={'138px'}
-          disabled={Object.keys(errors).length == 1 ? false : true}
+          disabled={
+            checkObjectKeysAllAbsent(errors, requiredKeys) ? false : true
+          }
           endIcon={<ArrowDownwardIcon />}
           onClick={
             authorized
