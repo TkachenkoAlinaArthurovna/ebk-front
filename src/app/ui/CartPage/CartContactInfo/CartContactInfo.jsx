@@ -23,9 +23,10 @@ const CartContactInfo = ({ setErrors, setInactively }) => {
   const { errors } = useFormikContext();
   const { login } = useAuth();
 
-  useEffect(() => {
-    Object.keys(errors).length == 1 ? setErrors(false) : setErrors(true);
-  }, [errors]);
+  // useEffect(() => {
+  //   Object.keys(errors).length == 1 ? setErrors(false) : setErrors(true);
+  // }, [errors]);
+  console.log(Object.keys(errors).length == 1);
 
   return (
     <>
