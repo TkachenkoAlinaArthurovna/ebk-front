@@ -259,7 +259,9 @@ const CartPage = () => {
                       isValid={isValid}
                       setInactively={setInactively}
                     />
-                    <Box sx={{ display: inactively ? 'none' : 'block' }}>
+                    <Box
+                      sx={{ display: inactively && errors ? 'none' : 'block' }}
+                    >
                       <Delivery setDataForOrder={setDataForOrder} />
                       <Payment />
                       <Comment
