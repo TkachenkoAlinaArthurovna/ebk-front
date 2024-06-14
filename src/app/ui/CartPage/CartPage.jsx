@@ -82,7 +82,7 @@ const CartPage = () => {
 
   const [inactively, setInactively] = useState(true);
 
-  const [errors, setErrors] = useState(false);
+  const [errors, setErrors] = useState(true);
 
   const initialValues = {
     firstname: userInfo.firstname,
