@@ -8,7 +8,7 @@ import {
 } from '@/app/ui/CartPage/CartPageStyles';
 import CartContactInfo from '@/app/ui/CartPage/CartContactInfo/CartContactInfo';
 
-const UserInfo = ({}) => {
+const UserInfo = ({ setErrors, cart, isValid, setInactively }) => {
   return (
     <StyledAccordion defaultExpanded>
       <AccordionSummary
@@ -20,7 +20,7 @@ const UserInfo = ({}) => {
         <CartPageTitle>Контактна інформація</CartPageTitle>
       </AccordionSummary>
       <AccordionDetails sx={{ padding: 0 }}>
-        <CartContactInfo />
+        <CartContactInfo setErrors={setErrors} setInactively={setInactively} />
       </AccordionDetails>
     </StyledAccordion>
   );

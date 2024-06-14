@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { setUserCartProducts } from '@/redux/slices/UserCartSlice';
 
 const AuthContext = createContext();
 
@@ -10,7 +12,7 @@ export function useAuth() {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState('');
-
+  const dispatch = useDispatch();
   const router = useRouter();
 
   function parseJwt(token) {
@@ -51,6 +53,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
+    dispatch(setUserCartProducts([]));
     setUser(null);
     setToken('');
     localStorage.removeItem('token');
