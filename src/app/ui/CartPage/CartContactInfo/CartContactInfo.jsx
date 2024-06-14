@@ -111,8 +111,8 @@ const CartContactInfo = ({ setErrors, setInactively }) => {
           endIcon={<ArrowDownwardIcon />}
           onClick={
             authorized
-              ? () => (authorized ? setInactively(false) : null)
-              : () => {
+              ? () => setInactively(false)
+              : () =>
                   postContacts(
                     login,
                     setInactively,
@@ -120,8 +120,7 @@ const CartContactInfo = ({ setErrors, setInactively }) => {
                     userInfo.firstname,
                     userInfo.phone,
                     userInfo.email,
-                  );
-                }
+                  )
           }
         >
           Далі
