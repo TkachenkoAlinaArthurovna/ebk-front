@@ -81,7 +81,6 @@ const CartPage = () => {
   const [activeObjForPostPayment, setActiveObjForPostPayment] = useState('');
 
   const [inactively, setInactively] = useState(true);
-  console.log(inactively);
 
   const [errors, setErrors] = useState(true);
 
