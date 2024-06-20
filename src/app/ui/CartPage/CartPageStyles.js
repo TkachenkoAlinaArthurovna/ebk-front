@@ -7,6 +7,12 @@ import {
   Button,
 } from '@mui/material';
 
+export const WrapperAdress = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+`;
+
 export const StyledCartLayout = styled(Box)`
   display: flex;
   flex-direction: column;

@@ -80,10 +80,10 @@ const Total = ({ dirty, isValid, cartProducts, dataForOrder, authorized }) => {
         type="submit"
         variant="contained"
         disabled={
-          !dirty ||
-          !isValid ||
-          dataForOrder.settlement == '' ||
-          dataForOrder.department == ''
+          !dirty || !isValid
+          // ||
+          // dataForOrder.settlement == '' ||
+          // dataForOrder.department == ''
         }
       >
         Замовлення підтверджую
