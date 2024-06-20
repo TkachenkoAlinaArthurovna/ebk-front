@@ -11,6 +11,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import NovaPoshtaDepartment from '@/app/ui/CartPage/Delivery/NovaPoshtaDepartment';
 import NovaPoshtaPostmachines from '@/app/ui/CartPage/Delivery/NovaPoshtaPostmachines';
 import Ukrposhta from '@/app/ui/CartPage/Delivery/Ukrposhta';
+import NovaPoshtaCourier from '@/app/ui/CartPage/Delivery/NovaPoshtaCourier';
 
 const Delivery = ({ setDataForOrder }) => {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const Delivery = ({ setDataForOrder }) => {
           value={selectedDelivery}
           onChange={(e) => dispatch(setSelectedDelivery(e.target.value))}
         >
+          <NovaPoshtaCourier setDataForOrder={setDataForOrder} />
           <NovaPoshtaDepartment setDataForOrder={setDataForOrder} />
           <NovaPoshtaPostmachines setDataForOrder={setDataForOrder} />
           {/* <Ukrposhta /> */}

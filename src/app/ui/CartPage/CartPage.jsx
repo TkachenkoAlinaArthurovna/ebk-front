@@ -99,6 +99,8 @@ const CartPage = () => {
   const objForPostPayment = createObjForPostPayment(userCartProducts, user);
 
   const handleSubmit = () => {
+    console.log(dataForOrder);
+    console.log(initialValues.delivery);
     putUser(
       userInfo.firstname,
       userInfo.surname,
@@ -106,40 +108,101 @@ const CartPage = () => {
       userInfo.phone,
       user,
     );
-    const cityRefAndRef = findCityRefAndRefByDescription(
-      dataForOrder.department,
-      dataForOrder.filteredDepartments,
-    );
+    if (
+      initialValues.delivery == 'До відділення Нової Пошти' ||
+      initialValues.delivery == 'До поштомату Нової Пошти'
+    ) {
+    }
+
     const products = transformObjectsArray(userCartProducts);
 
     if (initialValues.payment == 'Накладений платіж Нова Пошта') {
-      makeAnOrder(
-        token,
-        userInfo.firstname,
-        userInfo.surname,
-        userInfo.phone,
-        userInfo.email,
-        initialValues.delivery,
-        initialValues.payment,
-        dataForOrder.settlement.Present,
-        dataForOrder.department,
-        cityRefAndRef,
-        products,
-        dataForOrder.comment,
-        dataForOrder.doNotCall,
-      );
-      dispatch(removeCartProducts());
-      deleteAllCart(token);
-      setSuccess(true);
+      if (
+        initialValues.delivery == 'До відділення Нової Пошти' ||
+        initialValues.delivery == 'До поштомату Нової Пошти'
+      ) {
+        const cityRefAndRef = findCityRefAndRefByDescription(
+          dataForOrder.department,
+          dataForOrder.filteredDepartments,
+        );
+        makeAnOrder(
+          token,
+          userInfo.firstname,
+          userInfo.surname,
+          userInfo.phone,
+          userInfo.email,
+          initialValues.delivery,
+          initialValues.payment,
+          dataForOrder.settlement.Present,
+          dataForOrder.department,
+          cityRefAndRef,
+          products,
+          dataForOrder.comment,
+          dataForOrder.doNotCall,
+        );
+        dispatch(removeCartProducts());
+        deleteAllCart(token);
+        setSuccess(true);
+      }
+      if (initialValues.delivery == "Кур'єр на вашу адресу") {
+        const cityRefAndRef = false;
+        makeAnOrder(
+          token,
+          userInfo.firstname,
+          userInfo.surname,
+          userInfo.phone,
+          userInfo.email,
+          initialValues.delivery,
+          initialValues.payment,
+          dataForOrder.settlement.Present,
+          dataForOrder.department,
+          dataForOrder.settlement.Ref,
+          dataForOrder.street.Present,
+          dataForOrder.house,
+          dataForOrder.flat,
+          cityRefAndRef,
+          products,
+          dataForOrder.comment,
+          dataForOrder.doNotCall,
+        );
+        dispatch(removeCartProducts());
+        deleteAllCart(token);
+        setSuccess(true);
+      }
     }
     if (initialValues.payment == 'Visa/Mastercard • Google Pay • Apple Pay') {
-      dispatch(
-        setDataForOrder({ valueName: 'cityRefAndRef', value: cityRefAndRef }),
-      );
-      dispatch(setDataForOrder({ valueName: 'products', value: products }));
-      setLoadingPostPayment(true);
-      setActiveObjForPostPayment(objForPostPayment);
-      postPayment(token, objForPostPayment, dispatch, setDataForPaymentModal);
+      if (
+        initialValues.delivery == 'До відділення Нової Пошти' ||
+        initialValues.delivery == 'До поштомату Нової Пошти'
+      ) {
+        const cityRefAndRef = findCityRefAndRefByDescription(
+          dataForOrder.department,
+          dataForOrder.filteredDepartments,
+        );
+        dispatch(
+          setDataForOrder({
+            valueName: 'cityRefAndRef',
+            value: cityRefAndRef,
+          }),
+        );
+        dispatch(setDataForOrder({ valueName: 'products', value: products }));
+        setLoadingPostPayment(true);
+        setActiveObjForPostPayment(objForPostPayment);
+        postPayment(token, objForPostPayment, dispatch, setDataForPaymentModal);
+      }
+      if (initialValues.delivery == "Кур'єр на вашу адресу") {
+        const cityRefAndRef = false;
+        dispatch(
+          setDataForOrder({
+            valueName: 'cityRefAndRef',
+            value: cityRefAndRef,
+          }),
+        );
+        dispatch(setDataForOrder({ valueName: 'products', value: products }));
+        setLoadingPostPayment(true);
+        setActiveObjForPostPayment(objForPostPayment);
+        postPayment(token, objForPostPayment, dispatch, setDataForPaymentModal);
+      }
     }
   };
 
@@ -326,10 +389,10 @@ const CartPage = () => {
                     type="submit"
                     variant="contained"
                     disabled={
-                      !dirty ||
-                      !isValid ||
-                      dataForOrder.settlement == '' ||
-                      dataForOrder.department == ''
+                      !dirty || !isValid
+                      // ||
+                      //   dataForOrder.settlement == '' ||
+                      //   dataForOrder.department == ''
                     }
                   >
                     Замовлення підтверджую
