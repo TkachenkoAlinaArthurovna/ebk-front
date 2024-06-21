@@ -137,7 +137,6 @@ const NovaPoshtaPostmachines = ({ setDataForOrder }) => {
       const settlement = arrAddresses.find(
         (obj) => obj.Present == selectedSettlement,
       );
-      console.log(settlement.DeliveryCity);
       // setDataForOrder((prev) => {
       //   return { ...prev, settlement: settlement, department: '' };
       // });
