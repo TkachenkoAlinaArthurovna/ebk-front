@@ -11,6 +11,7 @@ import { removeUserCartProducts } from '@/redux/slices/UserCartSlice';
 import { setUserCartProducts } from '@/redux/slices/UserCartSlice';
 import { setDataForPaymentModal } from '@/redux/slices/DataForPaymentModalSlice';
 import { setDataForOrder } from '@/redux/slices/DataForOrderSlice';
+import { resetDataForOrder } from '@/redux/slices/DataForOrderSlice';
 
 import BreadCrumbs from '@/app/ui/BreadCrumbs/BreadCrumbs';
 import CartItem from '@/app/ui/CartPage/CartItem/CartItem';
@@ -140,6 +141,7 @@ const CartPage = () => {
         dispatch(removeCartProducts());
         deleteAllCart(token);
         setSuccess(true);
+        dispatch(resetDataForOrder());
       }
       if (initialValues.delivery == "Кур'єр на вашу адресу") {
         const cityRefAndRef = false;
@@ -165,6 +167,7 @@ const CartPage = () => {
         dispatch(removeCartProducts());
         deleteAllCart(token);
         setSuccess(true);
+        dispatch(resetDataForOrder());
       }
     }
     if (initialValues.payment == 'Visa/Mastercard • Google Pay • Apple Pay') {
@@ -250,6 +253,31 @@ const CartPage = () => {
       );
     }
   }, [dataForPaymentModal]);
+
+  useEffect(() => {
+    if (
+      dataForOrder ==
+      {
+        comment: '',
+        doNotCall: false,
+        settlement: '',
+        department: '',
+        street: '',
+        house: '',
+        flat: '',
+        filteredDepartments: '',
+        isOpenModalPayment: false,
+        cityRefAndRef: {},
+        products: [],
+      }
+    )
+      dispatch(
+        setDataForPaymentModal({
+          valueName: 'dataForPaymentModal',
+          value: '',
+        }),
+      );
+  }, []);
 
   return (
     <>
