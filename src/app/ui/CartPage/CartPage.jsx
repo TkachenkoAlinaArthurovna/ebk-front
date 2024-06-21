@@ -252,6 +252,8 @@ const CartPage = () => {
     }
   }, [dataForPaymentModal]);
 
+  console.log(dataForPaymentModal);
+
   return (
     <>
       {loadingPostPayment && (
