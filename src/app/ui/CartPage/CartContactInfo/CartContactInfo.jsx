@@ -15,7 +15,7 @@ import ButtonMain from '@/app/ui/ButtonMain';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { postContacts } from '@/app/lib/postContacts';
 
-const CartContactInfo = ({ setErrors, setInactively }) => {
+const CartContactInfo = ({ setErrors, setInactively, cabinet }) => {
   const { isAuthorized, getUser } = useAuth();
   const authorized = isAuthorized();
   const userInfo = useSelector((state) => state.user.userInfo);
@@ -24,9 +24,11 @@ const CartContactInfo = ({ setErrors, setInactively }) => {
   const { login } = useAuth();
 
   useEffect(() => {
-    checkObjectKeysAllAbsent(errors, requiredKeys)
-      ? setErrors(false)
-      : setErrors(true);
+    if (!cabinet) {
+      checkObjectKeysAllAbsent(errors, requiredKeys)
+        ? setErrors(false)
+        : setErrors(true);
+    }
   }, [errors]);
 
   const requiredKeys = ['email', 'phone', 'firstname', 'surname'];
@@ -116,28 +118,30 @@ const CartContactInfo = ({ setErrors, setInactively }) => {
         </Grid>
       </Grid>
       <Box sx={{ marginTop: '20px' }}>
-        <ButtonMain
-          width={'138px'}
-          disabled={
-            checkObjectKeysAllAbsent(errors, requiredKeys) ? false : true
-          }
-          endIcon={<ArrowDownwardIcon />}
-          onClick={
-            authorized
-              ? () => setInactively(false)
-              : () =>
-                  postContacts(
-                    login,
-                    setInactively,
-                    userInfo.surname,
-                    userInfo.firstname,
-                    userInfo.phone,
-                    userInfo.email,
-                  )
-          }
-        >
-          Далі
-        </ButtonMain>
+        {!cabinet && (
+          <ButtonMain
+            width={'138px'}
+            disabled={
+              checkObjectKeysAllAbsent(errors, requiredKeys) ? false : true
+            }
+            endIcon={<ArrowDownwardIcon />}
+            onClick={
+              authorized
+                ? () => setInactively(false)
+                : () =>
+                    postContacts(
+                      login,
+                      setInactively,
+                      userInfo.surname,
+                      userInfo.firstname,
+                      userInfo.phone,
+                      userInfo.email,
+                    )
+            }
+          >
+            Далі
+          </ButtonMain>
+        )}
       </Box>
     </>
   );
