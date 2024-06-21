@@ -240,6 +240,7 @@ const CartPage = () => {
 
   useEffect(() => {
     if (dataForPaymentModal !== '') {
+      console.log('test');
       setLoadingPostPayment(false);
       dispatch(
         setDataForOrder({ valueName: 'isOpenModalPayment', value: true }),
