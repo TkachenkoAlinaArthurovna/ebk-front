@@ -24,7 +24,6 @@ const DataForOrderSlice = createSlice({
       state.dataForOrder[action.payload.valueName] = action.payload.value;
     },
     resetDataForOrder: (state) => {
-      console.log('test');
       state.dataForOrder = {
         comment: '',
         doNotCall: false,
