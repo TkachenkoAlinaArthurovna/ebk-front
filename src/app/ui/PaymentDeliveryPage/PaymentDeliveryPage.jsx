@@ -14,32 +14,6 @@ const PaymentDeliveryPage = () => {
           <PageTitle>Доставка і оплата</PageTitle>
         </Box>
         <Box sx={{ marginBottom: '32px', color: '#49BEB7' }}>
-          <PageTitle>Оплата</PageTitle>
-        </Box>
-        <Box>
-          <Typography variant="h6">
-            Visa/Mastercard • Google Pay • Apple Pay
-          </Typography>
-          <Typography variant="body1">
-            БЕЗ КОМІСІЙ ТА ПЕРЕПЛАТ. ШВИДКА ТА ЗРУЧНА ОПЛАТА ОНЛАЙН.
-          </Typography>
-          <Typography variant="body1" sx={{ margin: '16px 0' }}>
-            - Оплата через платіжну систему WayForPay, після оформлення
-            замовлення.
-          </Typography>
-          <Typography variant="h6">Накладений платіж Нова Пошта</Typography>
-          <Typography variant="body1" sx={{ margin: '16px 0' }}>
-            - Оплата замовлення, при отриманні, у відділеннях Нова Пошта.
-          </Typography>
-          <Typography variant="h6">Оплата за реквізитами</Typography>
-          <Typography variant="body1" sx={{ margin: '16px 0' }}>
-            IBAN UA853515330000026004052186782 РНОКПП/ЄДРПОУ 3026018634
-          </Typography>
-          <Typography variant="body1" sx={{ margin: '16px 0' }}>
-            Отримувач: Волков Юрій Юрійович
-          </Typography>
-        </Box>
-        <Box sx={{ marginBottom: '32px', color: '#49BEB7' }}>
           <PageTitle>Доставка</PageTitle>
         </Box>
         <Box>
@@ -191,6 +165,33 @@ const PaymentDeliveryPage = () => {
             кермо, педалі, корзинка) Для збирання вам знадобляться: набір
             шестигранників і ключ (на 15) для педалей (інструмент не йде в
             комплекті з велосипедом).
+          </Typography>
+        </Box>
+
+        <Box sx={{ marginBottom: '32px', color: '#49BEB7' }}>
+          <PageTitle>Оплата</PageTitle>
+        </Box>
+        <Box>
+          <Typography variant="h6">
+            Visa/Mastercard • Google Pay • Apple Pay
+          </Typography>
+          <Typography variant="body1">
+            БЕЗ КОМІСІЙ ТА ПЕРЕПЛАТ. ШВИДКА ТА ЗРУЧНА ОПЛАТА ОНЛАЙН.
+          </Typography>
+          <Typography variant="body1" sx={{ margin: '16px 0' }}>
+            - Оплата через платіжну систему WayForPay, після оформлення
+            замовлення.
+          </Typography>
+          <Typography variant="h6">Накладений платіж Нова Пошта</Typography>
+          <Typography variant="body1" sx={{ margin: '16px 0' }}>
+            - Оплата замовлення, при отриманні, у відділеннях Нова Пошта.
+          </Typography>
+          <Typography variant="h6">Оплата за реквізитами</Typography>
+          <Typography variant="body1" sx={{ margin: '16px 0' }}>
+            IBAN UA853515330000026004052186782 РНОКПП/ЄДРПОУ 3026018634
+          </Typography>
+          <Typography variant="body1" sx={{ margin: '16px 0' }}>
+            Отримувач: Волков Юрій Юрійович
           </Typography>
         </Box>
       </WrapperPaymentDelivery>

@@ -53,7 +53,7 @@ const UserInfo = () => {
         >
           {({}) => (
             <Form>
-              <CartContactInfo />
+              <CartContactInfo cabinet={true} />
               <ButtonBox>
                 <StyledButton type="submit" onClick={handleSubmit}>
                   Зберегти зміни
