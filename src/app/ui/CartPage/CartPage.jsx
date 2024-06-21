@@ -244,6 +244,10 @@ const CartPage = () => {
       dispatch(
         setDataForOrder({ valueName: 'isOpenModalPayment', value: true }),
       );
+    } else {
+      dispatch(
+        setDataForOrder({ valueName: 'isOpenModalPayment', value: false }),
+      );
     }
   }, [dataForPaymentModal]);
 
