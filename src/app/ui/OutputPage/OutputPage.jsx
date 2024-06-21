@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { removeCartProducts } from '@/redux/slices/CartSlice';
-import { setDataForOrder } from '@/redux/slices/DataForOrderSlice';
+import { resetDataForOrder } from '@/redux/slices/DataForOrderSlice';
 import { setUserCartProducts } from '@/redux/slices/UserCartSlice';
 import { setDataForPaymentModal } from '@/redux/slices/DataForPaymentModalSlice';
 
@@ -66,12 +66,7 @@ const OutputPage = () => {
         });
       dispatch(removeCartProducts());
       setSuccess(true);
-      dispatch(
-        setDataForOrder({
-          valueName: 'isOpenModalPayment',
-          value: false,
-        }),
-      );
+      dispatch(resetDataForOrder());
       dispatch(
         setDataForPaymentModal({
           valueName: 'dataForPaymentModal',
