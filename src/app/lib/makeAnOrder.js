@@ -32,7 +32,7 @@ export const makeAnOrder = async (
     payment_method: payment,
     shipping_address: '',
     novaposhta: {
-      ServiceType: street ? 'Doors' : 'Warehouse',
+      ServiceType: delivery == "Кур'єр на вашу адресу" ? 'Doors' : 'Warehouse',
       payer: '',
       area: '',
       region: '',

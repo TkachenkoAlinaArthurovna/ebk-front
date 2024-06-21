@@ -99,8 +99,6 @@ const CartPage = () => {
   const objForPostPayment = createObjForPostPayment(userCartProducts, user);
 
   const handleSubmit = () => {
-    console.log(dataForOrder);
-    console.log(initialValues.delivery);
     putUser(
       userInfo.firstname,
       userInfo.surname,
@@ -108,11 +106,6 @@ const CartPage = () => {
       userInfo.phone,
       user,
     );
-    if (
-      initialValues.delivery == 'До відділення Нової Пошти' ||
-      initialValues.delivery == 'До поштомату Нової Пошти'
-    ) {
-    }
 
     const products = transformObjectsArray(userCartProducts);
 
