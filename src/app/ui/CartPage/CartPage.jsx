@@ -99,6 +99,10 @@ const CartPage = () => {
 
   const objForPostPayment = createObjForPostPayment(userCartProducts, user);
 
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleSubmit = () => {
     putUser(
       userInfo.firstname,
@@ -204,6 +208,7 @@ const CartPage = () => {
         postPayment(token, objForPostPayment, dispatch, setDataForPaymentModal);
       }
     }
+    handleScrollToTop();
   };
 
   function findCityRefAndRefByDescription(description, objectsArray) {
