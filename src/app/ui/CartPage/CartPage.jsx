@@ -260,28 +260,12 @@ const CartPage = () => {
   }, [dataForPaymentModal]);
 
   useEffect(() => {
-    if (
-      dataForOrder ==
-      {
-        comment: '',
-        doNotCall: false,
-        settlement: '',
-        department: '',
-        street: '',
-        house: '',
-        flat: '',
-        filteredDepartments: '',
-        isOpenModalPayment: false,
-        cityRefAndRef: {},
-        products: [],
-      }
-    )
-      dispatch(
-        setDataForPaymentModal({
-          valueName: 'dataForPaymentModal',
-          value: '',
-        }),
-      );
+    dispatch(
+      setDataForPaymentModal({
+        valueName: 'dataForPaymentModal',
+        value: '',
+      }),
+    );
   }, []);
 
   return (
