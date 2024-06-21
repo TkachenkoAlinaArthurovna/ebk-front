@@ -94,13 +94,10 @@ const NovaPoshtaPostmachines = ({ setDataForOrder }) => {
               '95dc212d-479c-4ffb-a8ab-8c1b9073d0bc',
             ].includes(obj.TypeOfWarehouse),
           );
-          // setDataForOrder((prev) => {
-          //   return { ...prev, filteredDepartments: filteredPostmachines };
-          // });
           dispatch(
             setDataForOrder({
               valueName: 'filteredDepartments',
-              value: filteredDepartments,
+              value: filteredPostmachines,
             }),
           );
           const description = filteredPostmachines.map(
@@ -140,6 +137,7 @@ const NovaPoshtaPostmachines = ({ setDataForOrder }) => {
       const settlement = arrAddresses.find(
         (obj) => obj.Present == selectedSettlement,
       );
+      console.log(settlement.DeliveryCity);
       // setDataForOrder((prev) => {
       //   return { ...prev, settlement: settlement, department: '' };
       // });
