@@ -38,7 +38,7 @@ const ContactsPage = () => {
                   <Home width={'24px'} height={'24px'} />
                 </Box>
                 <PageText>
-                  вулиця Льва Толстого, 39А, Харків, Харківська область, 61000
+                  вулиця Льва Толстого, 39А, Харків, Харківська область, 61111
                 </PageText>
               </StyledContact>
             </Box>
