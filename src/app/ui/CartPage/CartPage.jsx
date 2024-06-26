@@ -347,7 +347,7 @@ const CartPage = () => {
                         dataForOrder={dataForOrder}
                         setDataForOrder={setDataForOrder}
                       />
-                      <FormControlLabel
+                      {/* <FormControlLabel
                         sx={{ margin: '24px 0 0 0' }}
                         control={<Checkbox sx={{ paddingLeft: 0 }} />}
                         name={'doNotCall'}
@@ -360,7 +360,7 @@ const CartPage = () => {
                             }),
                           )
                         }
-                      />
+                      /> */}
                     </Box>
                     <Box
                       sx={{
