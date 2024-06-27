@@ -36,6 +36,9 @@ const Pay = () => {
           <Typography variant="body1" sx={{ width: '100%', fontSize: '12px' }}>
             - Оплата замовлення, при отриманні, у відділеннях Нова Пошта.
           </Typography>
+          <Typography variant="body1" sx={{ width: '100%', fontSize: '12px' }}>
+            - Оплата за реквізитами.
+          </Typography>
         </Box>
       </Box>
       <Payment>
