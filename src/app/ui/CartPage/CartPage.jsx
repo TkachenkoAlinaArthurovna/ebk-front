@@ -114,7 +114,10 @@ const CartPage = () => {
 
     const products = transformObjectsArray(userCartProducts);
 
-    if (initialValues.payment == 'Накладений платіж Нова Пошта') {
+    if (
+      initialValues.payment == 'Накладений платіж Нова Пошта' ||
+      initialValues.payment == 'Оплата за реквізитами'
+    ) {
       if (
         initialValues.delivery == 'До відділення Нової Пошти' ||
         initialValues.delivery == 'До поштомату Нової Пошти'
