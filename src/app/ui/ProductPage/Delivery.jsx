@@ -74,7 +74,7 @@ const Delivery = ({ bike }) => {
               flexDirection: 'row',
               flexWrap: 'nowrap',
               alignItems: 'center',
-              width: '40%',
+              // width: '40%',
             }}
           >
             <DeliveryIcon>
@@ -87,10 +87,10 @@ const Delivery = ({ bike }) => {
               variant="body1"
               sx={{ marginRight: '16px', fontSize: '12px' }}
             >
-              Адресна доставка Нова Пошта
+              Адресна доставка Нова Пошта - за тарифами Нова Пошта.
             </Typography>
           </Box>
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          {/* <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Typography
               variant="body1"
               sx={{ width: '100%', fontSize: '12px' }}
@@ -103,7 +103,7 @@ const Delivery = ({ bike }) => {
             >
               Замовлення до 3000 грн - за тарифами Нова Пошта.
             </Typography>
-          </Box>
+          </Box> */}
         </Box>
       )}
       {!bike && (
@@ -122,7 +122,7 @@ const Delivery = ({ bike }) => {
               flexDirection: 'row',
               flexWrap: 'nowrap',
               alignItems: 'center',
-              width: '40%',
+              // width: '40%',
             }}
           >
             <DeliveryIcon>
@@ -135,10 +135,10 @@ const Delivery = ({ bike }) => {
               variant="body1"
               sx={{ marginRight: '16px', fontSize: '12px' }}
             >
-              Нова Пошта (відділення)
+              Нова Пошта (відділення) - за тарифами Нова Пошта.
             </Typography>
           </Box>
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          {/* <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Typography
               variant="body1"
               sx={{ width: '100%', fontSize: '12px' }}
@@ -151,7 +151,7 @@ const Delivery = ({ bike }) => {
             >
               Замовлення до 3000 грн - за тарифами Нова Пошта.
             </Typography>
-          </Box>
+          </Box> */}
         </Box>
       )}
       {!bike && (
@@ -170,7 +170,7 @@ const Delivery = ({ bike }) => {
               flexDirection: 'row',
               flexWrap: 'nowrap',
               alignItems: 'center',
-              width: '40%',
+              // width: '40%',
             }}
           >
             <DeliveryIcon>
@@ -183,10 +183,10 @@ const Delivery = ({ bike }) => {
               variant="body1"
               sx={{ marginRight: '16px', fontSize: '12px' }}
             >
-              Нова Пошта (поштомат)
+              Нова Пошта (поштомат) - за тарифами Нова Пошта.
             </Typography>
           </Box>
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          {/* <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Typography
               variant="body1"
               sx={{ width: '100%', fontSize: '12px' }}
@@ -199,7 +199,7 @@ const Delivery = ({ bike }) => {
             >
               Замовлення до 3000 грн - за тарифами Нова Пошта.
             </Typography>
-          </Box>
+          </Box> */}
         </Box>
       )}
       {!bike && (
@@ -218,7 +218,7 @@ const Delivery = ({ bike }) => {
               flexDirection: 'row',
               flexWrap: 'nowrap',
               alignItems: 'center',
-              width: '40%',
+              // width: '40%',
             }}
           >
             <DeliveryIcon>
@@ -231,10 +231,10 @@ const Delivery = ({ bike }) => {
               variant="body1"
               sx={{ marginRight: '16px', fontSize: '12px' }}
             >
-              Адресна доставка Нова Пошта
+              Адресна доставка Нова Пошта - за тарифами Нова Пошта.
             </Typography>
           </Box>
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          {/* <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Typography
               variant="body1"
               sx={{ width: '100%', fontSize: '12px' }}
@@ -247,7 +247,7 @@ const Delivery = ({ bike }) => {
             >
               Замовлення до 3000 грн - за тарифами Нова Пошта.
             </Typography>
-          </Box>
+          </Box> */}
         </Box>
       )}
     </Box>

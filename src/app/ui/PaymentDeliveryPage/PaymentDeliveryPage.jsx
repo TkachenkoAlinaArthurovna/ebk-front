@@ -40,11 +40,15 @@ const PaymentDeliveryPage = () => {
             безкоштовна доставка.
           </Typography>
           <Typography variant="body1" sx={{ margin: '16px 0' }}>
+            - Замовлення будь яких товарів ( окрім електровелосипедів або
+            електрокомплектів) - за тарифами Нова Пошта.
+          </Typography>
+          {/* <Typography variant="body1" sx={{ margin: '16px 0' }}>
             - Замовлення від 3000 грн - БЕЗКОШТОВНО.
           </Typography>
           <Typography variant="body1" sx={{ margin: '16px 0' }}>
             - Замовлення до 3000 грн - за тарифами Нова Пошта.
-          </Typography>
+          </Typography> */}
           <Typography
             variant="body1"
             sx={{ margin: '16px 0', fontSize: '14px', fontWeight: '500' }}
@@ -67,11 +71,15 @@ const PaymentDeliveryPage = () => {
             Вартість доставки замовлення у поштомати Нова Пошта:
           </Typography>
           <Typography variant="body1" sx={{ margin: '16px 0' }}>
+            - Замовлення будь яких товарів ( доставка електровелосипедів або
+            електрокомплектів у поштомат неможлива ) - за тарифами Нова Пошта.
+          </Typography>
+          {/* <Typography variant="body1" sx={{ margin: '16px 0' }}>
             - Замовлення від 3000 грн - БЕЗКОШТОВНО.
           </Typography>
           <Typography variant="body1" sx={{ margin: '16px 0' }}>
             - Замовлення до 3000 грн - за тарифами Нова Пошта.
-          </Typography>
+          </Typography> */}
           <Typography variant="h6">
             Обмеження для посилок, які можуть бути відправлені у поштомати:
           </Typography>
@@ -144,17 +152,10 @@ const PaymentDeliveryPage = () => {
             при отриманні замовлення.
           </Typography>
           <Typography variant="h6">
-            Вартість доставки замовлення у відділення Нова Пошта:
+            Вартість доставки за адресою по Україні:
           </Typography>
           <Typography variant="body1" sx={{ margin: '16px 0' }}>
-            - Замовлення всіх електровелосипедів або електрокомплектів -
-            безкоштовна доставка.
-          </Typography>
-          <Typography variant="body1" sx={{ margin: '16px 0' }}>
-            - Замовлення від 3000 грн - БЕЗКОШТОВНО.
-          </Typography>
-          <Typography variant="body1" sx={{ margin: '16px 0' }}>
-            - Замовлення до 3000 грн - за тарифами Нова Пошта.
+            - Замовлення будь яких товарів - за тарифами Нова Пошта.
           </Typography>
           <Typography
             variant="body1"
