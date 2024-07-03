@@ -13,10 +13,16 @@ import DescriptionProduct from '@/app/ui/ProductPage/DescriptionProduct';
 import { StyledSection } from '@/app/ui/ProductPage/ProductPageStyles';
 import { checkProductIdInArray } from '@/app/lib/checkProductIdInArray';
 
-const TabsProductPage = ({ currentProduct }) => {
-  const { varieties } = currentProduct;
-  const arrProducts = [currentProduct, ...varieties];
-  const [mainProduct, setMainProduct] = useState(arrProducts[0]);
+const TabsProductPage = ({ currentProduct, colorsForProduct }) => {
+  const { varieties } = colorsForProduct;
+  const arrProducts = [colorsForProduct, ...varieties];
+
+  const indexOfMainProduct = arrProducts.findIndex(
+    (product) => product == currentProduct,
+  );
+  const [mainProduct, setMainProduct] = useState(
+    arrProducts[indexOfMainProduct],
+  );
   const [value, setValue] = useState(0);
   const favorites = useSelector((state) => state.favorites.favorites);
   const [favoritesFlag, setFavoritesFlag] = useState(

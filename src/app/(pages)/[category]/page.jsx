@@ -54,6 +54,19 @@ async function getCategoryName(category) {
   return categoryName;
 }
 
+async function getProducts(categoryId) {
+  const res = await fetch(
+    `https://stage.eco-bike.com.ua/api/catalog/${categoryId}`,
+    { next: { revalidate: 3600 } },
+  );
+  if (res.ok) {
+    const data = await res.json();
+    return data.params;
+  } else {
+    return null;
+  }
+}
+
 const getPageParams = (queryString) => {
   const index = queryString.indexOf('%26page%3D');
   if (index !== -1) {
@@ -75,8 +88,11 @@ export default async function Category({ params }) {
   const page = category.includes('page') ? getPageParams(category) : 1;
   const categoryId = await getCategoryIdProducts(partsOfCategory[0]);
   const categoryName = await getCategoryName(partsOfCategory[0]);
+  const productsParams = await getProducts(categoryId);
+
   return (
     <CategoryPage
+      productsParams={productsParams}
       partsOfCategory={partsOfCategory}
       categoryName={
         categoryName

@@ -75,11 +75,26 @@ async function getCategoryProducts(categoryId) {
 
 async function getProductId(category, product) {
   const products = await getCategoryIdProducts(category);
+  // const productCurrent = products
+  //   ? products.find(
+  //       (item) => createLinkProduct(item.name) == product.replace(/%2B/g, '+'),
+  //     )
+  //   : null;
   const productCurrent = products
-    ? products.find(
-        (item) => createLinkProduct(item.name) == product.replace(/%2B/g, '+'),
-      )
+    ? products.find((item) => {
+        if (createLinkProduct(item.name) == product.replace(/%2B/g, '+')) {
+          return item; // возвращаем item, если условие для item.name выполняется
+        } else if (item.varieties) {
+          const foundVariety = item.varieties.find(
+            (variety) =>
+              createLinkProduct(variety.name) == product.replace(/%2B/g, '+'),
+          );
+          return foundVariety || null; // возвращаем variety, если найден, иначе null
+        }
+        return null; // если ничего не нашли, возвращаем null
+      })
     : null;
+
   const productId = productCurrent ? productCurrent._id : null;
   return getProduct(productId);
 }
@@ -104,10 +119,12 @@ export default async function Product({ params }) {
     ? category.split('%26')
     : [category];
   const currentProduct = await getProductId(partsOfCategory[0], product);
+
   return (
     <ProductPage
       currentProduct={currentProduct}
       partsOfCategory={partsOfCategory}
+      productLink={product}
     />
   );
 }

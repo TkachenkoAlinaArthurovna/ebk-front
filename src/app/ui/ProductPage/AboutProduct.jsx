@@ -147,6 +147,8 @@ const AboutProduct = ({
             arrProducts={arrProducts}
             mainProduct={mainProduct}
             setMainProduct={setMainProduct}
+            aboutProduct={true}
+            name={name}
           />
           <Box sx={{ marginBottom: '32px' }}>
             <Price

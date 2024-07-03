@@ -15,7 +15,8 @@ export const getFilterProducts = async (
 ) => {
   try {
     setLoading(true);
-    const limit = width > 700 ? 9 : 8;
+    // const limit = width > 700 ? 9 : 8;
+    const limit = 30;
     let res;
     const sort =
       sortParam && sortParam !== 'popularity' ? `sort=${sortParam}&` : '';

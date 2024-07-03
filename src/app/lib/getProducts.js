@@ -11,11 +11,12 @@ export const getProducts = async (
   setVendors,
   setTotalPage,
   setPriceRange,
-  setParams,
+  // setParams,
 ) => {
   try {
     setLoading(true);
-    const limit = width > 700 ? 9 : 8;
+    // const limit = width > 700 ? 9 : 8;
+    const limit = 30;
     let res;
     const sort =
       sortParam && sortParam !== 'popularity' ? `sort=${sortParam}&` : '';
@@ -37,7 +38,7 @@ export const getProducts = async (
           setTotalPage(data.meta.totalPages);
         }
         setPriceRange(data.priceRange);
-        setParams(data.params);
+        // setParams(data.params);
       }
     } else {
       setLoading(false);
