@@ -4,13 +4,15 @@ export const getColorValue = (params, _id) => {
   if (params) {
     for (const param of params) {
       if (param.name.includes('Color')) {
+        const colorForLink = param.value[1].toLowerCase();
         const colorName = param.value[0].toLowerCase().split('/');
         const colorArr = colorName.map((item, index) => {
           return productColors.find(
             (color) => color.name.toLowerCase() === colorName[index],
           );
         });
-        const colorIdArr = [_id, ...colorArr];
+
+        const colorIdArr = [_id, ...colorArr, colorForLink];
         return colorArr ? colorIdArr : null;
       }
     }

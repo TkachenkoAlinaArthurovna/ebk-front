@@ -6,13 +6,23 @@ import Content from '@/app/ui/Content';
 import BreadCrumbsDynamic from '@/app/ui/BreadCrumbsDynamic';
 import ProductsList from '@/app/ui/CategoryPage/CategoryItems/ProductsList';
 import { StyledSection } from '@/app/ui/ProductPage/ProductPageStyles';
-import { Box } from '@mui/material';
 import PageTitle from '@/app/ui/PageTitle';
 import ViewedList from '@/app/ui/ProductPage/ViewedList';
-import { useResize } from '@/app/lib/helpers';
 import NotFound from '@/app/not-found';
 
-const ProductPage = ({ currentProduct, partsOfCategory }) => {
+import { useResize } from '@/app/lib/helpers';
+import { createLinkProduct } from '@/app/lib/createLinkProduct';
+
+import { Box } from '@mui/material';
+
+const ProductPage = ({ currentProduct, partsOfCategory, productLink }) => {
+  const mainProductForPage =
+    createLinkProduct(currentProduct.name) == productLink
+      ? currentProduct
+      : currentProduct.varieties.find(
+          (variety) => createLinkProduct(variety.name) == productLink,
+        );
+
   const [filteredArr, setFilteredArray] = useState([]);
   const [width, height] = useResize();
 
@@ -31,16 +41,19 @@ const ProductPage = ({ currentProduct, partsOfCategory }) => {
   }, []);
   return (
     <>
-      {!currentProduct && <NotFound />}
-      {currentProduct && (
+      {!mainProductForPage && <NotFound />}
+      {mainProductForPage && (
         <>
           <Content>
             <BreadCrumbsDynamic
-              currentProduct={currentProduct}
+              currentProduct={mainProductForPage}
               partsOfCategory={partsOfCategory}
             />
           </Content>
-          <TabsProductPage currentProduct={currentProduct} />
+          <TabsProductPage
+            currentProduct={mainProductForPage}
+            colorsForProduct={currentProduct}
+          />
 
           {width >= 1024 &&
             filteredArr.length <= 4 &&

@@ -34,6 +34,7 @@ import SkeletonProductFilter from '@/app/ui/Skeletons/SkeletonProductFilter';
 import NotFound from '@/app/not-found';
 
 export default function CategoryPage({
+  productsParams,
   partsOfCategory,
   categoryName,
   categoryId,
@@ -45,7 +46,7 @@ export default function CategoryPage({
 }) {
   const [products, setProducts] = useState(null);
   const [priceRange, setPriceRange] = useState([]);
-  const [params, setParams] = useState([]);
+  const [params, setParams] = useState(productsParams);
   const [vendors, setVendors] = useState({});
   const [totalPage, setTotalPage] = useState(1);
   const [width] = useResize();
@@ -71,7 +72,7 @@ export default function CategoryPage({
       setVendors,
       setTotalPage,
       setPriceRange,
-      setParams,
+      // setParams,
     );
     if (price || filterParams) {
       getFilterProducts(
