@@ -63,7 +63,12 @@ const Payment = ({}) => {
               }}
             />
             <FormControlLabel
-              sx={{ padding: '0 0 50px 0' }}
+              sx={{
+                padding: '0 0 50px 0',
+                '@media (max-width: 620px)': {
+                  padding: '0 0 70px 0',
+                },
+              }}
               value="Оплата за реквізитами"
               control={<Field as={Radio} sx={{ padding: '0 16px 0 0' }} />}
               label="Оплата за реквізитами"
@@ -78,14 +83,43 @@ const Payment = ({}) => {
                 sx={{
                   position: 'absolute',
                   left: '30px',
-                  bottom: '10px',
+                  bottom: '-12px',
                   fontSize: '16px',
                   lineHeight: '20px',
-                  fontWeight: '500',
-                  color: '#49BEB7',
+                  '@media (max-width: 620px)': {
+                    bottom: '-26px',
+                  },
+                  '@media (max-width: 380px)': {
+                    left: '0',
+                    bottom: '-28px',
+                    fontSize: '14px',
+                  },
                 }}
               >
-                Після оформлення замовлення наш менеджер з вами звʼяжеться.
+                <Box>
+                  IBAN UA853515330000026004052186782 РНОКПП/ЄДРПОУ 3026018634
+                </Box>
+                <Box>
+                  <Box
+                    component="span"
+                    sx={{ fontWeight: '500', color: '#49BEB7' }}
+                  >
+                    Отримувач:
+                  </Box>{' '}
+                  ВОЛКОВ ЮРІЙ ЮРІЙОВИЧ
+                </Box>
+                <Box>
+                  <Box
+                    component="span"
+                    sx={{
+                      fontWeight: '500',
+                      color: '#49BEB7',
+                    }}
+                  >
+                    Призначення платежу:
+                  </Box>{' '}
+                  Оплата за товар
+                </Box>
               </Box>
             )}
           </RadioGroup>
