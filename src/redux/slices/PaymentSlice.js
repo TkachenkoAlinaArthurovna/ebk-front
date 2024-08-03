@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  selectedPayment: '',
+  selectedPayment: 'Visa/Mastercard • Google Pay • Apple Pay',
 };
 
 const PaymentSlice = createSlice({

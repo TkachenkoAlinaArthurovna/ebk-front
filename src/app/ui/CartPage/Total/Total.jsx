@@ -25,7 +25,14 @@ import {
   getUserProductsQuantity,
 } from '@/app/lib/getTotalForCart';
 
-const Total = ({ dirty, isValid, cartProducts, dataForOrder, authorized }) => {
+const Total = ({
+  dirty,
+  isValid,
+  cartProducts,
+  dataForOrder,
+  authorized,
+  selectedDelivery,
+}) => {
   const quantity = authorized
     ? getUserProductsQuantity(cartProducts)
     : getProductsQuantity(cartProducts);
@@ -80,10 +87,14 @@ const Total = ({ dirty, isValid, cartProducts, dataForOrder, authorized }) => {
         type="submit"
         variant="contained"
         disabled={
-          !dirty || !isValid
-          // ||
-          // dataForOrder.settlement == '' ||
-          // dataForOrder.department == ''
+          !dirty ||
+          !isValid ||
+          (selectedDelivery === "Кур'єр на вашу адресу"
+            ? dataForOrder.settlement === '' ||
+              dataForOrder.street === '' ||
+              dataForOrder.house === '' ||
+              dataForOrder.flat === ''
+            : dataForOrder.settlement === '' || dataForOrder.department === '')
         }
       >
         Замовлення підтверджую

@@ -32,13 +32,13 @@ const Delivery = ({ setDataForOrder }) => {
       <AccordionDetails sx={{ padding: 0 }}>
         <RadioGroup
           name="delivery"
-          // value={selectedDelivery}
+          value={selectedDelivery}
           onChange={(e) => dispatch(setSelectedDelivery(e.target.value))}
-          defaultValue="До відділення Нової Пошти"
+          // defaultValue="До відділення Нової Пошти"
         >
-          <NovaPoshtaCourier setDataForOrder={setDataForOrder} />
           <NovaPoshtaDepartment setDataForOrder={setDataForOrder} />
           <NovaPoshtaPostmachines setDataForOrder={setDataForOrder} />
+          <NovaPoshtaCourier setDataForOrder={setDataForOrder} />
           {/* <Ukrposhta /> */}
         </RadioGroup>
       </AccordionDetails>

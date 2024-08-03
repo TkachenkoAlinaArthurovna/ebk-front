@@ -8,7 +8,7 @@ import {
 } from '@/app/ui/CartPage/CartPageStyles';
 import CartContactInfo from '@/app/ui/CartPage/CartContactInfo/CartContactInfo';
 
-const UserInfo = ({ setErrors, cart, isValid, setInactively }) => {
+const UserInfo = ({ setErrors, cart, setInactively }) => {
   return (
     <StyledAccordion defaultExpanded>
       <AccordionSummary
