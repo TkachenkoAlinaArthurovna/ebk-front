@@ -128,7 +128,7 @@ const CartContactInfo = ({ setErrors, setInactively, cabinet }) => {
             onClick={
               authorized
                 ? () => setInactively(false)
-                : () =>
+                : () => {
                     postContacts(
                       login,
                       setInactively,
@@ -136,7 +136,9 @@ const CartContactInfo = ({ setErrors, setInactively, cabinet }) => {
                       userInfo.firstname,
                       userInfo.phone,
                       userInfo.email,
-                    )
+                    );
+                    window.location.reload();
+                  }
             }
           >
             Далі

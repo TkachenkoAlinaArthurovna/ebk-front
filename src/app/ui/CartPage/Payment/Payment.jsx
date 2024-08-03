@@ -36,9 +36,9 @@ const Payment = ({}) => {
         <AccordionDetails sx={{ padding: 0 }}>
           <RadioGroup
             name="payment"
-            // value={selectedPayment}
+            value={selectedPayment}
             onChange={(e) => dispatch(setSelectedPayment(e.target.value))}
-            defaultValue="Visa/Mastercard • Google Pay • Apple Pay"
+            // defaultValue="Visa/Mastercard • Google Pay • Apple Pay"
           >
             <FormControlLabel
               sx={{ padding: '0 0 24px 0' }}
@@ -66,7 +66,7 @@ const Payment = ({}) => {
               sx={{
                 padding: '0 0 50px 0',
                 '@media (max-width: 620px)': {
-                  padding: '0 0 70px 0',
+                  padding: '0 0 80px 0',
                 },
               }}
               value="Оплата за реквізитами"
@@ -86,12 +86,9 @@ const Payment = ({}) => {
                   bottom: '-12px',
                   fontSize: '16px',
                   lineHeight: '20px',
-                  '@media (max-width: 620px)': {
-                    bottom: '-26px',
-                  },
                   '@media (max-width: 380px)': {
                     left: '0',
-                    bottom: '-28px',
+                    bottom: '-18px',
                     fontSize: '14px',
                   },
                 }}

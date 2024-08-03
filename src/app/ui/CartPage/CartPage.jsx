@@ -12,6 +12,8 @@ import { setUserCartProducts } from '@/redux/slices/UserCartSlice';
 import { setDataForPaymentModal } from '@/redux/slices/DataForPaymentModalSlice';
 import { setDataForOrder } from '@/redux/slices/DataForOrderSlice';
 import { resetDataForOrder } from '@/redux/slices/DataForOrderSlice';
+import { setSelectedPayment } from '@/redux/slices/PaymentSlice';
+import { setSelectedDelivery } from '@/redux/slices/DeliverySlice';
 
 import BreadCrumbs from '@/app/ui/BreadCrumbs/BreadCrumbs';
 import CartItem from '@/app/ui/CartPage/CartItem/CartItem';
@@ -269,6 +271,13 @@ const CartPage = () => {
         value: '',
       }),
     );
+    dispatch(setSelectedDelivery('До відділення Нової Пошти'));
+    dispatch(setSelectedPayment('Visa/Mastercard • Google Pay • Apple Pay'));
+    dispatch(setDataForOrder({ valueName: 'settlement', value: '' }));
+    dispatch(setDataForOrder({ valueName: 'department', value: '' }));
+    dispatch(setDataForOrder({ valueName: 'street', value: '' }));
+    dispatch(setDataForOrder({ valueName: 'house', value: '' }));
+    dispatch(setDataForOrder({ valueName: 'flat', value: '' }));
   }, []);
 
   return (
@@ -296,61 +305,78 @@ const CartPage = () => {
             validationSchema={contactDataSchema}
             validateOnMount
             enableReinitialize
+            validateOnChange={true}
+            validateOnBlur={true}
           >
-            {({ dirty, isValid }) => (
-              <Form>
-                <StyledCartLayout>
-                  <StyledOrderWrapper>
-                    <WrapperCartProducts>
-                      <Box sx={{ marginBottom: '20px' }}>
-                        <PageTitle>Кошик</PageTitle>
-                      </Box>
-                      {loading && <LoadingCartItem />}
-                      {/* {!authorized && <Entry />} */}
-                      {loading == false &&
-                        userCartProducts.map((product, index) => (
-                          <CartItem
-                            product={product}
-                            key={index}
-                            type="cart"
-                            userCartProducts={true}
-                          />
-                        ))}
-                      {loading == false &&
-                        cartProducts.map((product) => (
-                          <CartItem
-                            product={product}
-                            key={product._id}
-                            type="cart"
-                          />
-                        ))}
-                    </WrapperCartProducts>
-                    <Total
-                      dirty={dirty}
-                      isValid={isValid}
-                      cartProducts={
-                        authorized ? userCartProducts : cartProducts
-                      }
-                      dataForOrder={dataForOrder}
-                      authorized={authorized}
-                    />
-                  </StyledOrderWrapper>
-                  {/* {authorized ? ( */}
-                  <Wrapper>
-                    <UserInfo
-                      setErrors={setErrors}
-                      cart={true}
-                      isValid={isValid}
-                      setInactively={setInactively}
-                    />
-                    <Box sx={{ display: inactively ? 'none' : 'block' }}>
-                      <Delivery setDataForOrder={setDataForOrder} />
-                      <Payment />
-                      <Comment
+            {({
+              validateForm,
+              dirty,
+              errors,
+              touched,
+              isValid,
+              handleChange,
+              handleBlur,
+              values,
+            }) => {
+              useEffect(() => {
+                validateForm().then((errors) => {
+                  // console.log('Errors:', errors); Это позволит увидеть, какие ошибки возвращает validateForm
+                });
+              }, [validateForm]);
+              return (
+                <Form>
+                  <StyledCartLayout>
+                    <StyledOrderWrapper>
+                      <WrapperCartProducts>
+                        <Box sx={{ marginBottom: '20px' }}>
+                          <PageTitle>Кошик</PageTitle>
+                        </Box>
+                        {loading && <LoadingCartItem />}
+                        {/* {!authorized && <Entry />} */}
+                        {loading == false &&
+                          userCartProducts.map((product, index) => (
+                            <CartItem
+                              product={product}
+                              key={index}
+                              type="cart"
+                              userCartProducts={true}
+                            />
+                          ))}
+                        {loading == false &&
+                          cartProducts.map((product) => (
+                            <CartItem
+                              product={product}
+                              key={product._id}
+                              type="cart"
+                            />
+                          ))}
+                      </WrapperCartProducts>
+                      <Total
+                        selectedDelivery={selectedDelivery}
+                        dirty={dirty}
+                        isValid={isValid}
+                        cartProducts={
+                          authorized ? userCartProducts : cartProducts
+                        }
                         dataForOrder={dataForOrder}
-                        setDataForOrder={setDataForOrder}
+                        authorized={authorized}
                       />
-                      {/* <FormControlLabel
+                    </StyledOrderWrapper>
+                    {/* {authorized ? ( */}
+                    <Wrapper>
+                      <UserInfo
+                        setErrors={setErrors}
+                        cart={true}
+                        setInactively={setInactively}
+                      />
+                      <Box sx={{ display: inactively ? 'none' : 'block' }}>
+                        <Delivery setDataForOrder={setDataForOrder} />
+                        <Payment />
+                        <Comment
+                          dataForOrder={dataForOrder}
+                          setDataForOrder={setDataForOrder}
+                        />
+                        {/* <FormControlLabel
                         sx={{ margin: '24px 0 0 0' }}
                         control={<Checkbox sx={{ paddingLeft: 0 }} />}
                         name={'doNotCall'}
@@ -364,63 +390,69 @@ const CartPage = () => {
                           )
                         }
                       /> */}
-                    </Box>
-                    <Box
+                      </Box>
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          margin: '0 0 24px 3px',
+                          '@media (min-width: 1025px)': {
+                            display: 'none',
+                          },
+                        }}
+                      >
+                        <FormControlLabel
+                          sx={{
+                            marginBottom: '14px',
+                          }}
+                          control={
+                            <Field
+                              type="checkbox"
+                              name="termsAgreement"
+                              as={Checkbox}
+                            />
+                          }
+                          label="З умовами ознайомлений та погоджуюсь*"
+                        />
+                        <StyledTermsTitle>
+                          Підтверджуючи замовлення, я приймаю умови:{' '}
+                        </StyledTermsTitle>
+                        <StyledList>
+                          <StyledListItem>
+                            <Link href="/privacy-policy">
+                              • політики конфіденційності
+                            </Link>
+                          </StyledListItem>
+                        </StyledList>
+                      </Box>
+                    </Wrapper>
+                    {/* ) : null} */}
+                    <StyledCheckoutButton
                       sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        margin: '0 0 24px 3px',
                         '@media (min-width: 1025px)': {
                           display: 'none',
                         },
                       }}
+                      type="submit"
+                      variant="contained"
+                      disabled={
+                        !dirty ||
+                        !isValid ||
+                        (selectedDelivery === "Кур'єр на вашу адресу"
+                          ? dataForOrder.settlement === '' ||
+                            dataForOrder.street === '' ||
+                            dataForOrder.house === '' ||
+                            dataForOrder.flat === ''
+                          : dataForOrder.settlement === '' ||
+                            dataForOrder.department === '')
+                      }
                     >
-                      <FormControlLabel
-                        sx={{
-                          marginBottom: '14px',
-                        }}
-                        control={
-                          <Field
-                            type="checkbox"
-                            name="termsAgreement"
-                            as={Checkbox}
-                          />
-                        }
-                        label="З умовами ознайомлений та погоджуюсь*"
-                      />
-                      <StyledTermsTitle>
-                        Підтверджуючи замовлення, я приймаю умови:{' '}
-                      </StyledTermsTitle>
-                      <StyledList>
-                        <StyledListItem>
-                          <Link href="/privacy-policy">
-                            • політики конфіденційності
-                          </Link>
-                        </StyledListItem>
-                      </StyledList>
-                    </Box>
-                  </Wrapper>
-                  {/* ) : null} */}
-                  <StyledCheckoutButton
-                    sx={{
-                      '@media (min-width: 1025px)': {
-                        display: 'none',
-                      },
-                    }}
-                    type="submit"
-                    variant="contained"
-                    disabled={
-                      !dirty || !isValid
-                      // ||
-                      //   dataForOrder.settlement == '' ||
-                      //   dataForOrder.department == ''
-                    }
-                  >
-                    Замовлення підтверджую
-                  </StyledCheckoutButton>
-                </StyledCartLayout>
-              </Form>
-            )}
+                      Замовлення підтверджую
+                    </StyledCheckoutButton>
+                  </StyledCartLayout>
+                </Form>
+              );
+            }}
           </Formik>
         )}
       </Content>
