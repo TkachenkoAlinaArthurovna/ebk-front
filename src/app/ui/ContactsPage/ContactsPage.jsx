@@ -64,14 +64,6 @@ const ContactsPage = () => {
               <StyledContact>
                 <PhoneIcon width={'24px'} height={'24px'} />
                 <PageText>
-                  <Link href="tel:+380508044737">+38 050 804 47 37</Link>
-                </PageText>
-              </StyledContact>
-            </Box>
-            <Box>
-              <StyledContact>
-                <PhoneIcon width={'24px'} height={'24px'} />
-                <PageText>
                   <Link href="tel:+380965471606">+38 096 547 16 06</Link>
                 </PageText>
               </StyledContact>
