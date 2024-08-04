@@ -89,9 +89,6 @@ const Footer = () => {
                   <Link href="tel:+380505621868">+38 050 562 18 68</Link>
                 </StyledListItem>
                 <StyledListItem>
-                  <Link href="tel:+380508044737">+38 050 804 47 37</Link>
-                </StyledListItem>
-                <StyledListItem>
                   <Link href="tel:+380965471606">+38 096 547 16 06</Link>
                 </StyledListItem>
               </StyledList>
