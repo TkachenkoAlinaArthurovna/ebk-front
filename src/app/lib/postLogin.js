@@ -1,4 +1,4 @@
-export const postLogin = async (login, email, password) => {
+export const postLogin = async (login, email, password, setError) => {
   try {
     const url = `https://stage.eco-bike.com.ua/api/auth/login`;
     const requestBody = {
@@ -16,7 +16,12 @@ export const postLogin = async (login, email, password) => {
       const data = await res.json();
       if (data) {
         login(data.token);
+        setError(false);
       }
+    } else {
+      const errorText = await res.text();
+      console.error('Ошибка:', errorText);
+      setError(true);
     }
   } catch (error) {}
 };
