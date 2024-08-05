@@ -12,6 +12,7 @@ import { Box } from '@mui/material';
 import ModalCart from '@/app/ui/ModalCart';
 import Authorization from '@/app/ui/AuthModal/Authorization';
 import React from 'react';
+import Script from 'next/script';
 
 export const metadata = {
   title: 'Eco-bike Інтернет магазин електровелосипедів',
@@ -36,6 +37,19 @@ export default async function RootLayout({ children }) {
         {metadata.meta.map((metaTag, index) => (
           <meta key={index} name={metaTag.name} content={metaTag.content} />
         ))}
+
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-K2V60VER2N"
+          strategy="afterInteractive"
+        />
+        <Script id="google-gtag" strategy="afterInteractive">
+          {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-K2V60VER2N');
+        `}
+        </Script>
       </head>
       <AppTheme>
         <body>

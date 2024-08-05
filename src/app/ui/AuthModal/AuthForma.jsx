@@ -22,6 +22,7 @@ const AuthForma = ({ registration, handleCloseAuthModal }) => {
   const { isAuthorized, getUser } = useAuth();
   const authorized = isAuthorized();
   const { login } = useAuth();
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (authorized) {
@@ -64,7 +65,7 @@ const AuthForma = ({ registration, handleCloseAuthModal }) => {
         onSubmit={(values, { setSubmitting }) => {
           registration
             ? postRegistration(login, values.email, values.password)
-            : postLogin(login, values.email, values.password);
+            : postLogin(login, values.email, values.password, setError);
         }}
       >
         {({
@@ -140,10 +141,21 @@ const AuthForma = ({ registration, handleCloseAuthModal }) => {
                 />
               </Grid>
             )}
+            {error ? (
+              <Box
+                sx={{
+                  margin: '0 0 20px 0',
+                  color: 'rgb(220, 54, 46)',
+                  fontSize: '12px',
+                }}
+              >
+                Електронну пошту або пароль було введено невірно.
+              </Box>
+            ) : null}
             <ButtonBox>
               <StyledButton
                 type="submit"
-                disabled={isSubmitting}
+                // disabled={isSubmitting}
                 sx={{ width: '100%', margin: '0' }}
               >
                 {registration ? 'Реєстрація' : 'Вхід'}
