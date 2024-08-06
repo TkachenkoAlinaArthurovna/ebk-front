@@ -37,7 +37,10 @@ export default async function RootLayout({ children }) {
         {metadata.meta.map((metaTag, index) => (
           <meta key={index} name={metaTag.name} content={metaTag.content} />
         ))}
-
+        <meta
+          name="google-site-verification"
+          content="hTfGShUkpZKjucY-59FvZp375bldG98fgfXdRtNQjOo"
+        />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-K2V60VER2N"
           strategy="afterInteractive"
